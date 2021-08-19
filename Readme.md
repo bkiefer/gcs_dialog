@@ -14,8 +14,8 @@
     # make sure bin/vondac is in PATH
     
     cd..
-    git clone git@mlt-gitlab.sb.dfki.de:willms/vonda_base.git
-    cd VondaBase
+    git clone git@mlt-gitlab.sb.dfki.de:willms/drz_sign_of_life_module.git
+    cd drz_sign_of_life_module
     git submodule init
     git submodule update
     ./install_submodules.sh
