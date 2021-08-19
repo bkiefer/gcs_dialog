@@ -6,7 +6,11 @@ import de.dfki.mlt.rosBridge.utils.geometry.Point;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class TaskStatusMessage extends Message {
+/**
+ * Example from Intuitiv Project.
+ * TODO adapt to work with Luebeck msgs
+ */
+public class StatusMessage extends Message {
 
   public static final String FIELD_HEADER = "header";
   public static final String START = "start";
@@ -19,11 +23,11 @@ public class TaskStatusMessage extends Message {
   private final boolean withPatient; //e.g. /Confirm(Instruction)
   private final Point nextElevator;
 
-  public TaskStatusMessage() {
+  public StatusMessage() {
     this( null, null,false, null);
   }
 
-  public TaskStatusMessage( Point start, Point destination, boolean withPatient, Point nextElevator) {
+  public StatusMessage( Point start, Point destination, boolean withPatient, Point nextElevator) {
     super(Json.createObjectBuilder()
             .add(START, start.toJsonObject())
             .add(DESTINATION, destination.toJsonObject())
@@ -52,20 +56,20 @@ public class TaskStatusMessage extends Message {
     return nextElevator;
   }
 
-  public static TaskStatusMessage fromJsonString(String jsonString) {
+  public static StatusMessage fromJsonString(String jsonString) {
     return fromMessage(new Message(jsonString));
   }
 
-  public static TaskStatusMessage fromMessage(Message m) {
+  public static StatusMessage fromMessage(Message m) {
     return fromJsonObject(m.toJsonObject());
   }
 
-  public static TaskStatusMessage fromJsonObject(JsonObject jsonObject) {
+  public static StatusMessage fromJsonObject(JsonObject jsonObject) {
     Point start = jsonObject.containsKey(START) ? Point.fromJsonObject(jsonObject.getJsonObject(START)) : null;
     Point destination = jsonObject.containsKey(DESTINATION) ? Point.fromJsonObject(jsonObject.getJsonObject(DESTINATION)) : null;
     Point nextElevator = jsonObject.containsKey(NEXTELEVATOR) ? Point.fromJsonObject(jsonObject.getJsonObject(NEXTELEVATOR)) : null;
     boolean withPatient = jsonObject.containsKey(WITHPATIENT) ? jsonObject.getBoolean("color_index") : false;
-    return new TaskStatusMessage( start, destination, withPatient, nextElevator);
+    return new StatusMessage( start, destination, withPatient, nextElevator);
   }
 
 }

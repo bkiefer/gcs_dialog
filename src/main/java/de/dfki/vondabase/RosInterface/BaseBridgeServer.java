@@ -15,15 +15,8 @@ public class BaseBridgeServer extends BridgeServer {
     public BaseBridgeServer(BaseCommunicationHub baseCommunicationHub, Map config, int poolSize) throws IOException {
         super((Integer)config.get("serversocket"), poolSize);
         _stub = baseCommunicationHub;
-        _stub.registerCommandListener(new ROSClientCommand(config));
-        _stub.registerAvatarListener(new ROSClientAvatar(config));
         _stub.registerTTSListener(new ROSClientTTS(config));
-        _stub.registerDialogueListener(new ROSClientDialogue(config));
-        _stub.registerStatusListener(new ROSClientTaskStatus(config));
-        _stub.registerEwalkerGoalListener(new ROSClientEwalkerGoal(config));
-        _stub.registerInteractiveListener(new ROSClientIsInteractive(config));
-        _stub.registerEwalkerUseElevator(new ROSClientEwalkerUseElevator(config));
-
+        _stub.registerStatusListener(new ROSClientStatus(config));
     }
 
 

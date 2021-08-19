@@ -23,21 +23,6 @@ public class MessageFactory {
 
   private final static Logger logger = LoggerFactory.getLogger(MessageFactory.class);
 
-
-  public static GoalsMessage getGoalsMessage(List<GoalMessage> goals){
-    JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-    for (GoalMessage g : goals) {
-      JsonObject jso = g.toJsonObject();
-      jsonArrayBuilder.add(jso);
-    }
-    JsonArray jsonArray = jsonArrayBuilder.build();
-    return new GoalsMessage(jsonArray);
-  }
-
-  public static GoalMessage getGoalMessage(double x, double y, int z, List<Double> quat, boolean isElevator){
-    return new GoalMessage(getPoseStamped(x,y, z, quat), isElevator);
-  }
-
   private static PoseStamped getPoseStamped(double x, double y, int z, List<Double> quat) {
     Header header = new Header(aSeq++,new Time(System.currentTimeMillis()),"map");
     Quaternion quaternion = DEFAULTQUATERNION;

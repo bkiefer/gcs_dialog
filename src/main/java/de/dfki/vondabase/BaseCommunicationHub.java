@@ -1,9 +1,6 @@
 package de.dfki.vondabase;
 
-import de.dfki.vondabase.RosInterface.ROSClientEwalkerGoal;
-import de.dfki.vondabase.RosInterface.ROSClientEwalkerUseElevator;
-import de.dfki.vondabase.RosInterface.ROSClientIsInteractive;
-import de.dfki.vondabase.RosInterface.ROSClientTaskStatus;
+import de.dfki.vondabase.RosInterface.ROSClientStatus;
 import de.dfki.vondabase.RosInterface.msgs.*;
 import de.dfki.vondabase.restapi.caller.RESTCaller;
 import de.dfki.vondabase.utils.Listener;
@@ -34,15 +31,10 @@ public class BaseCommunicationHub implements CommunicationHub {
   private final Deque<Object> pendingEvents = new ArrayDeque<>();
   // Define a set of EventListener -> these are used to trigger audio output, update the avatar and so on
   private final List<Listener<Behaviour>> _listeners = new ArrayList<>();
-  private final List<Listener<CommandMessage>> _cListeners = new ArrayList<>();
-  private final List<Listener<DialogueMessage>> _dListeners = new ArrayList<>();
-  private final List<Listener<Boolean>> _iListeners = new ArrayList<>();
-  private final List<Listener<AvatarMessage>> _aListeners = new ArrayList<>();
   private final List<Listener<TTSMessage>> _ttsListeners = new ArrayList<>();
-  private final List<Listener<TaskStatusMessage>> _taStListeners = new ArrayList<>();
+  private final List<Listener<StatusMessage>> _statusListeners = new ArrayList<>();
   private RESTCaller _restListener;
-  private final List<Listener<GoalsMessage>> _egListener = new ArrayList<>();
-  private final List<Listener<Integer>> _eeListener = new ArrayList<>();
+
 
 
   private final Random r = new Random();
@@ -54,7 +46,7 @@ public class BaseCommunicationHub implements CommunicationHub {
           throws IOException, WrongFormatException, TException {
     String robot = (String) configs.get("wrapperClass");
     if (robot.equals("de.dfki.vondabase.BaseAgent")) {
-      _agent = new Example();
+      _agent = new DialogAgent();
       _agent.init(configDir, "de", configs);
     //} else if(robot.equals("de.dfki.intuitiv.ArmAgent")) {
     //  _agent = new Arm();
@@ -89,36 +81,16 @@ public class BaseCommunicationHub implements CommunicationHub {
     _listeners.add(listener);
   }
 
-  public void registerCommandListener(Listener<CommandMessage> listener) {
-    _cListeners.add(listener);
-  }
-
-  public void registerAvatarListener(Listener<AvatarMessage> listener) {
-    _aListeners.add(listener);
-  }
-
-  public void registerDialogueListener(Listener<DialogueMessage> listener) {
-    _dListeners.add(listener);
-  }
-
   public void registerTTSListener(Listener<TTSMessage> listener) {
     _ttsListeners.add(listener);
   }
 
-  public void registerStatusListener(ROSClientTaskStatus rosClientTaskStatus) {
-    _taStListeners.add(rosClientTaskStatus);
+  public void registerStatusListener(ROSClientStatus rosClientTaskStatus) {
+    _statusListeners.add(rosClientTaskStatus);
   }
 
   public void registerRESTListener(RESTCaller restCaller) { _restListener = restCaller;}
-  public void registerInteractiveListener(ROSClientIsInteractive rosClientIsInteractive) { _iListeners.add(rosClientIsInteractive);}
 
-  public void registerEwalkerGoalListener(ROSClientEwalkerGoal rosClientEwalkerGoal) {
-    _egListener.add(rosClientEwalkerGoal);
-  }
-
-  public void registerEwalkerUseElevator(ROSClientEwalkerUseElevator rosClientEwalkerUseElevator){
-    _eeListener.add(rosClientEwalkerUseElevator);
-  }
   // ------------ process incoming transcription -------------------------------------
   public DialogueAct analyse(String in) {
     return _agent.analyse(in);
@@ -197,26 +169,8 @@ public class BaseCommunicationHub implements CommunicationHub {
     //sendTTS(MessageFactory.translateBehavior2TTSMessage((ExtendedBehaviour) b));
   }
 
-  public void sendClearAvatar( DialogueMessage dialogueMessage){
-    _dListeners.parallelStream().forEach((l) ->l.listen(dialogueMessage) );
-  }
-
-  public void sendAvatarUpdate(AvatarMessage avatarMessage){
-    _aListeners.parallelStream().forEach((l) -> l.listen(avatarMessage));
-  }
-
-  public void sendTaskStatusUpdate(TaskStatusMessage taskStatus){
-    _taStListeners.parallelStream().forEach((l) -> l.listen(taskStatus));
-  }
-
-
-
-  public void sendEwalkerGoal(GoalsMessage msg){
-    _egListener.parallelStream().forEach((l) -> l.listen(msg));
-  }
-
-  public void sendUseElevator(Integer floorNumber) {
-    _eeListener.parallelStream().forEach((l)-> l.listen(floorNumber));
+  public void sendStatusUpdate(StatusMessage statusMessage){
+    _statusListeners.parallelStream().forEach((l) -> l.listen(statusMessage));
   }
 
   public void sendTTS(TTSMessage msg){
@@ -242,21 +196,10 @@ public class BaseCommunicationHub implements CommunicationHub {
   private void sendThis(Object e) {
     if (e instanceof Behaviour)
       sendBehaviour((Behaviour) e);
-    else if (e instanceof CommandMessage)
-      sendCommand((CommandMessage) e);
     else
       logger.warn("Unknown Object to send: {}", e);
   }
 
-  public void sendCommand(CommandMessage c) {
-    _cListeners.parallelStream().forEach((l) -> {
-      l.listen(c);
-    });
-  }
-
-  public void sendIsInteractive(boolean isInteractive) {
-    _iListeners.parallelStream().forEach((l) -> l.listen(isInteractive));
-  }
 
   /**
    * TODO redundant can also be done by calling sendEvent(asr);
@@ -278,20 +221,6 @@ public class BaseCommunicationHub implements CommunicationHub {
   private boolean isRunning() {
     return isRunning;
   }
-
-
-  /**
-   * This method frees the log on the behaviour listener, dialog listener and tts listener, so that new messages can be send.
-   * This is important to synchronize the displaying of speech bubbles and tts output.
-   *
-   * This method is called whenever the @RosHandler class processes a <code>tts_done</code> message.
-   */
-  public void freeSpeechListener() {
-    _listeners.parallelStream().forEach(Listener::free);
-    _dListeners.parallelStream().forEach(Listener::free);
-    _ttsListeners.parallelStream().forEach(Listener::free);
-  }
-
 
 
 }

@@ -15,8 +15,7 @@ public class IntuitivBridgeServer extends BridgeServer {
     public IntuitivBridgeServer(BaseCommunicationHub baseCommunicationHub, Map config, int poolSize) throws IOException {
         super((Integer)config.get("serversocket"), poolSize);
         _stub = baseCommunicationHub;
-        _stub.registerEwalkerGoalListener(new ROSClientEwalkerGoal(config));
-
+        _stub.registerStatusListener(new ROSClientStatus(config));
     }
 
 

@@ -1,7 +1,5 @@
 package de.dfki.vondabase;
 
-import de.dfki.vondabase.RosInterface.msgs.GoalMessage;
-import de.dfki.vondabase.RosInterface.msgs.GoalsMessage;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
 import de.dfki.vondabase.utils.*;
 import de.dfki.lt.hfc.WrongFormatException;
@@ -109,27 +107,6 @@ public abstract class AbstractAgent extends Agent implements Constants {
     return new ExtendedBehaviour(this.generateId(), (String) toSay.second, (String) toSay.first, delay, da);
   }
 
-
-
-
-
-  /**
-   * used by the rudi rules to emit ROS API calls
-   * TODO adapt to own project
-   * @param goals - a list of goals for the robot
-   */
-  public void emitEG(List<GoalMessage> goals){
-    GoalsMessage poseStamped = MessageFactory.getGoalsMessage(goals);
-    ((BaseCommunicationHub)_hub).sendEwalkerGoal(poseStamped);
-  }
-
-  public void emitUseElevator(int floorNumber){
-    ((BaseCommunicationHub)_hub).sendUseElevator(floorNumber);
-  }
-
-  public void emitInterActive(boolean isInteractive){
-    ((BaseCommunicationHub)_hub).sendIsInteractive(isInteractive);
-  }
 
   protected Rdf internalize(String endPOI){
     Rdf poi =  _proxy.getRdf("<"+DOMAIN_NS+""+endPOI+">");

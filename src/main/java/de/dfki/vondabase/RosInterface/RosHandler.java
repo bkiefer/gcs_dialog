@@ -2,7 +2,6 @@ package de.dfki.vondabase.RosInterface;
 
 import com.google.gson.GsonBuilder;
 
-import de.dfki.vondabase.RosInterface.msgs.PoiMessage;
 import de.dfki.vondabase.RosInterface.msgs.AsrMessage;
 import de.dfki.mlt.rudimant.agent.DialogueAct;
 import de.dfki.vondabase.BaseCommunicationHub;
@@ -45,11 +44,14 @@ class RosHandler implements Runnable {
             JSONObject jsonObject = new JSONObject(message);
             String type = jsonObject.getString("type");
             switch (type){
+                // ToDo something like this might be useful in the signs of life project
+                /**
                 case ("move_base_status"):
                     _stub.sendEvent(new PoiMessage());
                     break;
+                 **/
                 case ("tts_done"):
-                    _stub.freeSpeechListener();
+                    //_stub.freeSpeechListener();
                     break;
                 case ("SpeechRecognitionCandidates"):
                     AsrMessage asrMessage = builder.create().fromJson(message, AsrMessage.class);

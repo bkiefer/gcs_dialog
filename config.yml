@@ -1,4 +1,4 @@
-inputFile:          src/main/rudi/Example.rudi
+inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
 wrapperClass:       de.dfki.vondabase.BaseAgent
 ontologyFile:       data/ini/example.ini
@@ -22,7 +22,7 @@ RestAPI:
   R10:            "/workflow/follow_memorized_person" #tested
   R11:            "/workflow/go_home" #tested
 ROSBridge:
-  EwalkerGoal:    11116
+  StatusPort:    11116
 
 nameToURI:
   Agent : <dom:Actor>

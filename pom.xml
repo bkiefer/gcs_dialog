@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.dfki</groupId>
-    <artifactId>Vonda_Base</artifactId>
+    <artifactId>drz_signs_of_life</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

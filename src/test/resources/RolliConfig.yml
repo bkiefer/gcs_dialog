@@ -1,4 +1,4 @@
-inputFile:          src/main/rudi/Example.rudi
+inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
 wrapperClass:       de.dfki.intuitiv.RolliAgent
 ontologyFile:       data/ini/example.ini #change to koffi when you want to use the luggage transport
