@@ -1,0 +1,1 @@
+rm ~/.chat-history.yml 

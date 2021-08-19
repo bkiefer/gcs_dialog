@@ -1,0 +1,86 @@
+//not used
+
+//propably for obstruction.rudi, but empty
+raw:Inform ^ Obstruction ^ (<size>small | ! <size>)
+->
+# =  :canned ^ <string>"Da ist etwas auf unserem Weg sodass wir fallen könnten".
+
+raw:Inform ^ Obstruction ^ <size>big
+->
+# =  :canned ^ <string>"Da ist etwas auf unserem Weg, lass uns eine anderen Weg nehmen".
+
+//unknown
+raw:Inform ^ Failure
+->
+# =  :canned ^ <string>"Da muss ein Fehler sein".
+
+raw:Inform ^ ContinueRoute ^ <how>G
+->
+# =  :canned ^ <string>random("Einfach geradeaus", "Weiter geradeaus").
+
+raw:Inform ^ ContinueRoute ^ <how>L
+->
+# =  :canned ^ <string>"Hier links abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>R
+->
+# =  :canned ^ <string>"Hier rechts abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>RL
+->
+# =  :canned ^ <string>"Hier scharf links abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>RR
+->
+# =  :canned ^ <string>"Hier scharf rechts abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>HL
+->
+# =  :canned ^ <string>"Hier halb links abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>HR
+->
+# =  :canned ^ <string>"Hier halb rechts abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <info>(#i: ^ !<dir1>)
+{
+^ <andthen>HR -> #i ^ <dir1>"halb rechts".
+^ <andthen>HL -> #i ^ <dir1>"halb links".
+^ <andthen>L -> #i ^ <dir1>"links".
+^ <andthen>R -> #i ^ <dir1>"rechts".
+^ <andthen>RL -> #i ^ <dir1>"scharf links".
+^ <andthen>RR -> #i ^ <dir1>"scharf rechts".
+^ !<andthen> -> #i ^ <dir1>"".
+}
+
+raw:Inform ^ ContinueRoute ^ <info>(#i: ^ !<dir>)
+{
+^ <how>HR -> #i ^ <dir>"halb rechts".
+^ <how>HL -> #i ^ <dir>"halb links".
+^ <how>L -> #i ^ <dir>"links".
+^ <how>R -> #i ^ <dir>"rechts".
+^ <how>RL -> #i ^ <dir>"scharf links".
+^ <how>RR -> #i ^ <dir>"scharf rechts".
+^ !<how> -> #i ^ <dir>"".
+}
+
+
+
+
+raw:Inform ^ NoExecute
+->
+# = :canned ^ <string>"Ich kann ihre Anfrage leider nicht ausführen.".
+
+raw:Inform ^ NotParse
+->
+# = :canned ^ <string>"Ich konnte sie leider nicht verstehen.".
+
+raw:Inform ^ Compare
+->
+# =  :canned ^ <string>"".
+
+
+raw:Inform ^ Test
+->
+# = :canned ^ <string>"test phase, Robot near destination".
+

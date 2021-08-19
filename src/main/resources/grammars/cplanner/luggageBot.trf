@@ -1,0 +1,57 @@
+raw:Inform ^ Instructions
+{
+    ^<isKoffi>true
+    ->
+    # =  :canned ^ <string>random("Ich bin Koffi ein autonomer Koffertransporter. Ich werde sie zu ihrem Ziel begleiten. ",
+                                    "Ich bin ihr autonomer Koffertraeger. Mein Name ist Koffi und ich werde sie zu ihrem Ziel begleiten.",
+                                    "Mein Name ist Koffi. Ich bin ihr autonomer Kofferträger und Fuehrer für dieses Haus."
+    ).
+}
+
+
+raw:Inform ^ LoadLuggage
+    ->
+    # =  :canned ^ <string>random("Stellen Sie ihr Gepäck auf mir ab. ",
+                                    "Einfach das Gepaeck auf mir abstellen. "
+    ).
+
+raw:Request ^ GuideMeHome
+    ->
+    # = :canned ^ <string>random("Ich kann hier nicht weiter. Fuehren Sie mich bitte zurueck zu meiner Parkposition . Dazu eine Bitte. ",
+                                "Ich komme hier alleine nicht weiter. Am besten Sie fueheren mich zu meiner Parkposition. Dazu habe ich eine kleine Bitte."
+    ).
+
+raw:Inform ^ Follow
+    ->
+    # = :canned ^ <string>"Ich werde ihnen jetzt folgen." .
+// Dann machen wir uns gemeinsam zum Ziel auf .
+//
+// Ich fahre darauf hin los und führe Sie .
+
+/******************************************************************************/
+raw:Suggest ^ UnloadLuggage
+->
+# =  :canned ^ <string>random("Bitte nehmen Sie ihr Gepäck.",
+                               "Bitte stellen Sie ihr Gepäck von mir runter.",
+                               "Bitte entladen Sie ihr Gepäck."
+                               ).
+/******************************************************************************/
+raw:YNQuestion ^ didUnloadLuggage{
+    ^ !<luggageQuestion>
+    ->
+        # ^ <luggageQuestion>random("Haben Sie schon ihr Gepäck entladen?",
+                                      "Ist ihr Gepäck von mir entladen?",
+                                       "Konnten Sie ihr Gepäck von mir runternehmen?"
+        ).
+    ^ <luggageQuestion>#lQ
+    {
+        ^!<lastName>
+        ->
+        # =  :canned ^ <string>random(#lQ).
+        ^<lastName>#n ^<anrede>#a
+        ->
+        # =  :canned ^ <string>concatenate(#a,#n,#lQ).
+    }
+}
+
+

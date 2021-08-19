@@ -1,0 +1,121 @@
+// Patienten werden hier immer gesiezt.
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Begrüßung mit Vorstellung
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// TODO: Maybe the robot can explain what it actually is?
+
+raw:Greeting
+{
+^ <info>(#i: ^ <timeOfDay>) ^ ! <info><greet>
+{
+^ <info><timeOfDay> -> #i ^ <greet>"Guten Tag". // default case
+^ <info><timeOfDay>morning -> #i ^ <greet>"Guten Morgen".
+^ <info><timeOfDay>(midday|afternoon) -> #i ^ <greet>"Guten Tag".
+^ <info><timeOfDay>(evening|night) -> #i ^ <greet>"Guten Abend".
+}
+
+^ !<info>(#i: ^ <timeOfDay>) -> #i ^ <greet>"Guten Tag".
+
+^ <info><greet>#gr
+{
+^ ! <info><lastName>
+->
+# = :canned ^ <string>random(#gr, "Hallo").
+
+^ <info>(<lastName>#n ^ <anrede>#a)
+->
+# = :canned ^ <string>concatenate(random(#gr, "Hallo"), ", ", #a, " ", #n ," .").
+}
+}
+
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Auftragszuweisung
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+raw:AcceptRequest ^ Bringing ^ <theme>luggage ^ <goal>room ^ <room_number>#rn
+->
+# = :canned ^ <string>concatenate("Alles klar. Zimmer ", #rn, ". Bitte laden Sie mir das Gepäck auf.").
+
+raw:Request ^ Following ^ <theme>client ^ <goal>room
+            ^ <info>(<lastName>#n ^ <anrede>#a)
+->
+# = :canned ^ <string>concatenate(#a, " ", #n, ", bitte folgen Sie mir zu Ihrem Zimmer.").
+
+raw:Inform ^ Bringing ^ <theme>luggage
+{
+^<goal>room
+->
+# = :canned ^ <string>"Ich transportiere Ihr Gepäck zu Ihrem Zimmer.".
+
+^ !<goal>
+->
+# = :canned ^ <string>"Ich transportiere Ihr Gepäck.".
+}
+
+raw:ReturnGoodbye ^ Goodbye
+->
+# = :canned ^ <string>"Auf Wiedersehen.".
+
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Am Ziel ankommen
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+raw:Inform ^ Arriving ^ <goal>room ^ <number>pl ^ <person>1st
+->
+# = :canned ^ <string>"Wir sind an Ihrem Zimmer angekommen.".
+
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Gepäckabgabe
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+raw:AcceptThanking
+->
+# = :canned ^ <string>"Gerne. Ich bin hier, um Sie zu unterstützen.".
+
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Verabschiedung
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+raw:Inform ^ Motion ^ <theme>robot ^ <goal>home
+->
+# = :canned ^ <string>"Ich fahre jetzt zurück.".
+
+raw:InitialGoodbye ^ Goodbye ^ <info>(<anrede>#a ^ <lastName>#n)
+->
+# = :canned ^ <string>concatenate("Auf Wiedersehen, ", #a, " ", #n, " .").
+
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Abreise / Zurück zum Empfang
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+raw:Inform ^ Motion ^ <goal>reception
+->
+# = :canned ^ <string>"Perfekt, es geht zum Empfang.".
+
+raw:Request ^ Placing ^ <agent>staff ^ <theme>luggage ^ <goal>robot
+->
+# = :canned ^ <string>"Laden Sie bitte das Gepäck auf.".
+
+raw:YNQuestion ^ Ready ^ <activity>going
+->
+# = :canned ^ <string>"Sind Sie bereit loszugehen?".
+
+raw:Request ^ Following ^ <goal>reception
+->
+# = :canned ^ <string>"Folgen Sie mir bitte zur Rezeption.".
+
+raw:Request ^ Attention ^ <perceiver>client ^ <figure>luggage
+->
+# = :canned ^ <string>"Können Sie bitte auch aufpassen, dass ich nichts von den Sachen auf dem Weg verliere? Das wäre sehr nett!".
+// TODO: somehow some kind of "Thanking" ("Das wäre sehr nett") seems to be missing here.
+
+raw:Thanking
+->
+# = :canned ^ <string>"Danke! Okay, los geht's.".
+// TODO: something indicating the motion seems to be missing here.

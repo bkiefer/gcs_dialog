@@ -1,0 +1,41 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{tgpagella} % Palatino-clone as main font
+\usepackage[a4paper,margin=3cm]{geometry}
+\author{Bernd Kiefer}
+\date{\today}
+\title{}
+%\tableofcontents
+\pagestyle{empty}
+\begin{document}
+{\LARGE\bf{}Map Modeling Guidelines}\\
+\begin{enumerate}
+\item set \texttt{level} attribute for \textbf{every} node (obligatory! test in map loading code!)
+\item According to Simple Indoor Tagging
+\begin{itemize}
+\item \texttt{indoor=room/area/corridor} marks an \textbf{area}
+\item \texttt{indoor=wall} marks a \textbf{way}, in most places part of the above
+\item stairs/elevators are \texttt{indoor=room} \textbf{and} \texttt{stairs=yes} resp.~\texttt{highway=elevator}
+\end{itemize}
+\item Doors: \texttt{node} with \texttt{door=yes}
+\item For navigation purposes:
+\begin{itemize}
+\item way(s) with \texttt{indoor=highway} and \texttt{highway=(corridor|stair|elevator|ramp)}
+\item connect those highways to the doors nearby
+\item when adding this for a stair or an elevator, you may have nodes at the
+  same location, but with different \texttt{level} values if the staircase
+  stretches over more than two levels.
+\item for large areas, such as lobbies, add multiple highways to avoid to guide
+  the person to middle of the room, and then back
+\end{itemize}
+\item Add a relation, containing all nodes and ways, with
+
+  \texttt{
+  \begin{tabular}{|c@{ = }c|}\hline
+    type&building\\\hline
+    name&$\langle name\rangle$\\\hline
+    latitude&$\langle lat \rangle$\\\hline
+    longitude&$\langle lon \rangle$\\\hline
+  \end{tabular}}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,206 @@
+/******************************************************************************/
+// arrived at door
+raw:Inform ^ WPisDoor
+->
+# = :canned ^ <string> random("Wir müssen durch diese Tür .",
+                              "Lassen Sie uns durch diese Tür gehen .",
+                              "Wir passieren diese Tür .").
+
+/******************************************************************************/
+// arrived at elevator
+raw:Inform ^ WPisLift
+->
+# = :canned ^ <string> random("Wir nehmen jetzt den Fahrstuhl .",
+                              "Sind Sie bereit den Fahrstuhl zu nehmen ?",
+                              "Es ist Zeit den Fahrstuhl zu verwenden .").
+
+/******************************************************************************/
+// at beginning of route
+raw:Inform ^ WPatStart
+->
+# = :canned ^ <string> random("Nun denn, machen wir uns auf .",
+                              "Gut, beginnen wir die Navigation .",
+                              "Es geht los .").
+
+/******************************************************************************/
+// at end of route
+raw:Inform ^ WPatFinish
+->
+# = :canned ^ <string> random("Wir sind bei unserem Ziel angekommen.",
+                              "Wir haben unser Ziel erreicht .",
+                              "Wir sind da .",
+                              "Wir sind angekommen .",
+                              "Wir sind am Ziel .").
+
+/******************************************************************************/
+// hard turn
+// HOW TO DO RANDOM CONCATENATED STRINGS??
+raw:Inform ^ WPturn ^ <dir>#n
+->
+# = :canned ^ <string> random(concatenate("Wir müssen jetzt scharf ", #n, " abbiegen ."),
+                              concatenate("Jetzt scharf ", #n, " abbiegen ."),
+                              concatenate("Hier scharf nach ", #n, " abbiegen .")).
+
+
+
+/******************************************************************************/
+// destination near
+// HOW TO DO RANDOM CONCATENATED STRINGS??
+raw:Inform ^ WPDisDoor ^ <dir>#n
+->
+# = :canned ^ <string> random(concatenate("Das Ziel ist die Tuer ", #n, " von uns ."),
+                            concatenate("Unser Ziel ist die Tuer da vorne ", #n, " .")).
+
+/******************************************************************************/
+// umdrehen
+raw:Inform ^ WPturnAround
+->
+# = :canned ^ <string> "Jetzt drehen wir uns ersteinmal um. Wir muessen in die andere Richtung ." .
+
+// dem Gang folgem
+raw:Inform ^ WPfollowCorridor
+->
+# = :canned ^ <string> "Ok, jetzt folgen wir dem Gang ." .
+
+/*
+raw:Inform ^ ContinueRoute ^ <info>(#i: ^ !<dir1>)
+{
+^ <andthen>HR -> #i ^ <dir1>"halb rechts".
+^ <andthen>HL -> #i ^ <dir1>"halb links".
+^ <andthen>L -> #i ^ <dir1>"links".
+^ <andthen>R -> #i ^ <dir1>"rechts".
+^ <andthen>RL -> #i ^ <dir1>"scharf links".
+^ <andthen>RR -> #i ^ <dir1>"scharf rechts".
+^ !<andthen> -> #i ^ <dir1>"".
+}
+
+*/
+/******************************************************************************/
+// soft turn
+raw:Inform ^ ContinueRoute ^ <how>#n
+->
+# = :canned ^ <string>concatenate("Als nächstes biegen wir nach ", #n, " ab .",
+                                  "Die nächste Abzweigung bitte nach ", #n, " .").
+
+/******************************************************************************/
+// passing reception
+raw:Inform ^ WPinReception
+->
+# = :canned ^ <string> random("Wir passieren den Empfangsbereich .",
+                              "Hier ist der Empfang .",
+                              "Hier ist das nette Personal des Empfangs .").
+
+/******************************************************************************/
+// entering hallway
+raw:Inform ^ WPinHall
+{
+^ ! <dir>
+->
+# = :canned ^ <string> random("Wir durchqueren diesen Flur .",
+                              "Als nächstes passieren wir den Flur .",
+                              "Wir gehen durch den Flur .").
+^ <dir>left
+->
+# = :canned ^ <string>"Wir gehen in den Gang und dann weiter nach links.".
+
+^ <dir>right
+->
+# = :canned ^ <string>"Wir gehen in den Gang und dann weiter nach rechts.".
+
+}
+
+// SOME EXAMPLE USAGES FOR FUTURE REFERENCE
+/******************************************************************************
+raw:Inform ^ ContinueRoute ^ <info>(#i: ^ !<dir1>)
+{
+^ <andthen>HR -> #i ^ <dir1>"halb rechts".
+^ <andthen>HL -> #i ^ <dir1>"halb links".
+^ <andthen>L -> #i ^ <dir1>"links".
+^ <andthen>R -> #i ^ <dir1>"rechts".
+^ <andthen>RL -> #i ^ <dir1>"scharf links".
+^ <andthen>RR -> #i ^ <dir1>"scharf rechts".
+^ !<andthen> -> #i ^ <dir1>"".
+}
+
+/******************************************************************************
+//direction links
+raw:Instruct ^ Direction ^ <Move>#n ^ <Actor>#l
+->
+# = :canned ^ <string> concatenate(#l, " nach ", #n).
+/******************************************************************************
+/*
+raw:ReturnGreeting ^ Greet
+    {
+    ^ ! <name>
+    ->
+    # =  :canned ^ <string>"Hallo, schön sie zu sehen. (hello, nice to see you)".
+
+    ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Gut Sie wiederzusehen, (good to see you again)", #n).
+    }
+*/
+/******************************************************************************
+/*
+raw:YNQuestion ^ IsCloseBy
+{
+    ^ ! <lastname>
+    ->
+    # =  :canned ^ <string>"Hallo, sind sie hier? (hello, are you here?)".
+
+    ^ <lastname>#n
+    ->
+    # = :canned ^ <string>concatenate("Hallo, sind sie hier ", #n, "?").  // hier should be variable if there is a title
+}
+*/
+/******************************************************************************
+/*
+raw:Inform ^ Accompany
+{
+    ^ ! <event>
+    ->
+    # = :canned ^ <string>"Ich begleite Sie zu ihrem Ziel. (I will accompany you to your destination)".
+
+    ^ <event>#n
+    ->
+    # = :canned ^ <string>concatenate("Ich begleite Sie zu ihrem Ziel. Dort wird, (I will accompany you to your destination, there will be)", #n, "für Sie gemacht.(made for you)").
+}
+*/
+// #n event = Blutabnahmefür (Blood Draw)
+
+/******************************************************************************
+/*
+raw:YNQuestion ^ IsPersonnelHere
+{
+    ^ ! <name>
+    ->
+    # =  :canned ^ <string>"Hallo, ist ein Pfleger da, um sich um meinen Patienten zu kümmern?".
+
+    ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Hallo, ist (hello, is)", #n, "hier? (here?)").
+}
+*/
+/******************************************************************************
+/*
+raw:Inform ^ PatinetName
+    ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Dies ist (this is)", #n, ".").
+*/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/

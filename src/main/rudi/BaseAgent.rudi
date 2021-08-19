@@ -1,0 +1,4 @@
+Animate user;
+Robot robot;
+String state;
+

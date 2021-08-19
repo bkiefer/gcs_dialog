@@ -1,0 +1,94 @@
+// autonomous.rudi
+//arrivedAtStart:
+raw:YNQuestion ^ IsCloseBy
+{
+    ^ !<lastName>#n
+    ->
+    # = :canned ^ <string>"Hallo , sind Sie hier ?".
+
+    ^ <anrede>#a ^ <foreName>#f ^ <lastName>#n
+    ->
+    # = :canned ^ <string>random(
+                concatenate("Ist hier jemand mit dem Namen ", #f," ", #n, " ?"),
+                concatenate("Befindet sich ",#a," ", #n, " hier ?"),
+                concatenate(#a," ", #n, " , sind Sie hier ?")
+            ).
+}
+
+//memorize Person
+raw:Inform ^ Memorize
+    ->
+    # = :canned ^ <string>"Stellen sie sich bitte vor mich, damit ich mir merken kann, wie sie aussehen. Ich sage ihnen Bescheid, wenn ich fertig bin ." .
+
+
+// (continued)
+raw:Inform ^ Accompany
+{
+^ !<eventName>
+    {
+        ^ !<event>
+        ->
+        # ^ <eventName>"ihrem Ziel".// default case
+
+        ^ <event>treatment
+        ->
+        # ^ <eventName>"ihrer Behandlung".
+
+        ^ <event>reception
+        ->
+        # ^ <eventName>"der Rezeption".
+
+        ^ <event>room
+        ->
+        # ^ <eventName>"ihrem Zimmer".
+
+        ^ <event>#n
+        ->
+        # = :canned ^ <string>concatenate("Ich begleite Sie zur ", #n, " .").
+    }
+
+^ <eventName>#e
+->
+# = :canned ^ <string>random(
+                concatenate("Ich begleite Sie zu ", #e, "."),
+                concatenate("Wir machen uns auf dem Weg zu ", #e, " ."),
+                concatenate("Es geht zu ", #e, " .")
+                ).
+}
+
+//(continued)
+raw:Inform ^ Instructions
+{
+^<isKoffi>"false"
+->
+# =  :canned ^ <string>random("Verwenden Sie mich wie einen üblichen Rollator und wir machen uns gemeinsam zum Ziel auf .",
+                                "Bitte halten Sie meine Griffe und verwenden Sie mich wie einen normalen Rollator .",
+                                "Wir machen uns auf den Weg , sobald Sie die Griffe von mir anfassen ."
+                                ).
+
+}
+
+
+//(continued)
+raw:YNQuestion ^ Need
+{
+    ^ !<what>
+    ->
+    # =  :canned ^ <string>random("Soll ich Ihnen erklären was getan werden muss ?",
+                                  "Sollen Ihnen etwas erklärt ?",
+                                  "Soll ich helfen wie es weitergeht ?").
+
+    ^ <what>instructions
+    ->
+    # =  :canned ^ <string>random("Soll ich Ihnen erklären wie man mich verwendet ?",
+                                  "Ist Ihnen unklar wie man mich benutzt ?",
+                                  "Sind Sie sich meiner Benutzung unsicher ?").
+}
+
+
+raw:Inform ^ Starting
+->
+# =  :canned ^ <string>random("Es geht los mit der Navigation .",
+                                "Machen wir uns auf den Weg.",
+                                "Die Navigation beginnt .").
+

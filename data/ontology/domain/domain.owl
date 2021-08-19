@@ -1,0 +1,2611 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.dfki.de/lt/onto/intuitiv/domain.owl#"
+     xml:base="http://www.dfki.de/lt/onto/intuitiv/domain.owl"
+     xmlns:dom="http://www.dfki.de/lt/onto/intuitiv/domain.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:obda="https://w3id.org/obda/vocabulary#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:time="http://www.dfki.de/lt/onto/common/time.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:indoor_navigation="http://www.semanticweb.org/chwi02/ontologies/2019/4/indoor_navigation#">
+    <owl:Ontology rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">author(s): Christian, Anna</rdfs:comment>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">v0.9.7</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#cal -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#cal"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#cm -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#cm"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#gm -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#gm"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#kg -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#kg"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#affected -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#affected">
+        <owl:inverseOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isInvolvedIn"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#atLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#atLocation">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#color -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#color">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Inanimate"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasActivities -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasActivities">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Session"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasActivity -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasActivity">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBasePoi -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBasePoi">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBrother -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBrother">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasColor -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasColor">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDaughter -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDaughter">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDestination -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDestination">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort"/>
+                    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEmotionalState -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEmotionalState">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmotionalState"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEscortType -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEscortType">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEvent -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEvent">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFather -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFather">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFriend -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFriend">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Gender"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasHobby -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasHobby">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLanguage -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLanguage">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMood -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMood">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmotionalState"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMother -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMother">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPreference -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPreference">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPresets -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPresets">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#RobotPreference"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasResponsiblePerson -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasResponsiblePerson">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Professional"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRoom -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRoom">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSentiment -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSentiment">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmotionalState"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSister -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSister">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSon -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSon">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSport -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSport">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStartLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStartLocation">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepBrother -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepBrother">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepFather -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepFather">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepMother -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepMother">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepSister -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepSister">
+        <rdfs:subPropertyOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasRelative"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasTask -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasTask">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Inanimate"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasVelocity -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasVelocity">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isInvolvedIn">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLocatedAt -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLocatedAt">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isTreatedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isTreatedBy">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Professional"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#language -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#language">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#running_external_process -->
+
+    <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#running_external_process">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#ExternalProcess"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#address -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#address">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#age -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#age">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#arrivalDistance -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#arrivalDistance">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#RobotPreference"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#birthdate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#birthdate">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#cancelWorkflow -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#cancelWorkflow">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#description -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#description">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#destinationLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#destinationLevel">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#firstTriggerTime -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#firstTriggerTime">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#forename -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#forename">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDirection -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDirection">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasInternalState -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasInternalState">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasIntimacyLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasIntimacyLevel">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLatitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLatitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLocationType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLocationType">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLongitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasLongitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasNewTask -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasNewTask">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSpeedPref -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSpeedPref">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasTitle">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasType">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Encounter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#image -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#image">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLuggageLoaded -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLuggageLoaded">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#link -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#link">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#name">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#reachedDestination -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#reachedDestination">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#remark -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#remark">
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#returned -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#returned">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#ExternalProcess"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This property is used to represent whether the process was successful. If this property is not set, the process is still running.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#secondTriggerTime -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#secondTriggerTime">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#source -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#source">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#speedStopped -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#speedStopped">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#RobotPreference"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#status -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#status">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#surname -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#surname">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#username -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#username">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      username to login to palInform. must be unique.
+    &lt;/p&gt;</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#withPatient -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#withPatient">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      dom:Activity both subsumes playing a dom:Game and creating a dom:Medium;
+    &lt;/p&gt;
+    &lt;p style=&quot;margin-top: 0&quot;&gt;
+      dom:Activity might involve other participant, but this is addressed in
+      the upp:Happening class of the upper ontology
+    &lt;/p&gt;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+        <rdfs:comment xml:lang="en">(prefferd) language of an actor, used for e.g. interface</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Arm -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Arm">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Avatar -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Avatar">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Inanimate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Baggagecar -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Baggagecar">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Caregiver -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Caregiver">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Professional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Disease -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Disease">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      note: starting and ending time of a dom:Disease as well as a
+      dom:Treatment is not specified here (and would need to reduplicate the
+      two properties in two different classes), but instead is given through
+      the axioms as a side effect, when interfacing this domain ontology with
+      the upper ontology, by making dom:Disease and dom:Treatment subclasses
+      of upp:Happening
+    &lt;/p&gt;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Doctor -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Doctor">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Professional"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmotionalState -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmotionalState">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Encounter -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Encounter">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Equipment -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Equipment">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#EscortType -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EscortType">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Event">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#ExternalProcess -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#ExternalProcess"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Female -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Female">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Gender"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Gender -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Gender">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#GoodBy -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#GoodBy">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Idle -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Idle">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Inanimate -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Inanimate">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Actor"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Introduction -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Introduction">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      the most general class which covers the concepts of the Intuitiv domain
+      without any particular epistemological backround; used to define a
+      &amp;quot;naming&amp;quot; property dom:name and a general &amp;quot;free-text&amp;quot; property dom:remark
+      from which potential useful information can be extracted through
+      external processes
+    &lt;/p&gt;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+        <rdfs:comment xml:lang="en">the language of an actor</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Location">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Male -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Male">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Gender"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      various kinds of mood are represented as instances at the moment; is
+      there a widely accepted specialization hierarchy out there? if so, we
+      would then translate it into a subclass hierarchy!
+    &lt;/p&gt;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Patient">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      note: the properties defined on class dom:Child can in principle be
+      relocated to the superclass dom:Actor, but I think it is not interesting
+      to know, say, who the father or brother of a treating physician is here
+      in PAL :*); and of course to make a distinction between animated and
+      inanimated actors, as the properties probably only make sense for
+      animated actors
+    &lt;/p&gt;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Preference bundles Sport, Hobby, and Color</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Professional -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Professional">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Recovery -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Recovery">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Inanimate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#RobotPreference -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#RobotPreference">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Rollator -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Rollator">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Robot"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Session -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Session">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#SocialTalk -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#SocialTalk">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Transit -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Transit">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#UserPreference -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#UserPreference">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Preference"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Visitor -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Visitor">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Animate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#WithPatient -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#WithPatient">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#DoctorAppointment -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#DoctorAppointment">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#EN -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EN">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language"/>
+        <name xml:lang="nl">Engels</name>
+        <name xml:lang="en">English</name>
+        <name xml:lang="it">Inglese</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Enter -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Enter">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Enter_failure -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Enter_failure">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Enter_success -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Enter_success">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Exit -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Exit">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Exit_failure -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Exit_failure">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Exit_success -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator_Exit_success">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Elevator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmptyDevice -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmptyDevice">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      Used for the relation &apos;reqDevice&apos;. If the entity does not require a
+      device, this instance is being used.
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmptyLanguage -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#EmptyLanguage">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      Used for the relation &apos;reqLanguage&apos;. If the entity does not require a
+      language, this instance is being used.
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#IT -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IT">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language"/>
+        <name xml:lang="nl">Italiaans</name>
+        <name xml:lang="en">Italian</name>
+        <name xml:lang="it">Italiano</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#NL -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#NL">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Language"/>
+        <name xml:lang="en">Dutch</name>
+        <name xml:lang="nl">Nederlands</name>
+        <name xml:lang="it">Olandese</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Navigating -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Navigating">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Escort"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#PickUp -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#PickUp">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Rezeption -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Rezeption">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Room -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Room">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#IntuitivDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck0_koffi -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck0_koffi">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckIII_ewalker -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckIII_ewalker">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckIII_koffi -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckIII_koffi">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckII_ewalker -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckII_ewalker">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckII_koffi -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckII_koffi">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckIV_ewalker -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckIV_ewalker">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckI_ewalker -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckI_ewalker">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckI_koffi -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckI_koffi">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckVI_koffi -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#StuckVI_koffi">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Stuck"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#act -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#act">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Act</name>
+        <name xml:lang="nl">Acteren</name>
+        <name xml:lang="it">Recitare</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#address -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#address"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#age -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#age"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#aggressive -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#aggressive">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#angry -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#angry">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#anxious -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#anxious">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#apathetic -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#apathetic">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#aquamarine -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#aquamarine">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="it">Acquamarina</name>
+        <name xml:lang="nl">Aquamarijn</name>
+        <name xml:lang="en">Aquamarine</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#artgym -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#artgym">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Artistic gymnastics</name>
+        <name xml:lang="it">Ginnastica artistica</name>
+        <name xml:lang="nl">Turnen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#arts -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#arts">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Arts/craft</name>
+        <name xml:lang="it">Fai da te</name>
+        <name xml:lang="nl">Tekenen/Knutselen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#baking -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#baking">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Baking</name>
+        <name xml:lang="it">Cucinare</name>
+        <name xml:lang="nl">Koken/bakken</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#baseball -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#baseball">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Baseball</name>
+        <name xml:lang="it">Baseball</name>
+        <name xml:lang="nl">Honkbal</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#basket -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#basket">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Basket</name>
+        <name xml:lang="it">Basket</name>
+        <name xml:lang="nl">Basketbal</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#bike -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#bike">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Bike</name>
+        <name xml:lang="it">Ciclismo</name>
+        <name xml:lang="nl">Fietsen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#birthdate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#birthdate"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#black -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#black">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="en">Black</name>
+        <name xml:lang="it">Nero</name>
+        <name xml:lang="nl">Zwart</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#blue -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#blue">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="nl">Blauw</name>
+        <name xml:lang="it">Blu</name>
+        <name xml:lang="en">Blue</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#bmi -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#bmi">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      body mass index
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#bocce -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#bocce">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Bocce</name>
+        <name xml:lang="it">Bocce</name>
+        <name xml:lang="nl">Jeu de boules</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#bowl -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#bowl">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="nl">Bowlen</name>
+        <name xml:lang="en">Bowling</name>
+        <name xml:lang="it">Bowling</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#box -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#box">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Box</name>
+        <name xml:lang="it">Box</name>
+        <name xml:lang="nl">Boxen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#brown -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#brown">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="en">Brown</name>
+        <name xml:lang="nl">Bruin</name>
+        <name xml:lang="it">Marrone</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#bsl -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#bsl">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      blood sugar level, measured either in mmol/L or mg/dL
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#chess -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#chess">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Chess</name>
+        <name xml:lang="it">Scacchi</name>
+        <name xml:lang="nl">Schaken</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#chill -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#chill">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Chill</name>
+        <name xml:lang="nl">Chillen</name>
+        <name xml:lang="it">Uscire con gli amici</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#cho -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#cho">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      carbohydrate intake
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#client_lost -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#client_lost">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#cyan -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#cyan">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="it">Ciano</name>
+        <name xml:lang="en">Cyan</name>
+        <name xml:lang="nl">Lichtblauw</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#dance -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#dance">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Dance</name>
+        <name xml:lang="nl">Dansen</name>
+        <name xml:lang="it">Danza</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#dbp -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#dbp">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">diastolic blood pressure</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#depressive -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#depressive">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#dosage -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#dosage">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      assign the right XSD datatype to dosage for subtypes of dom:Medication;
+    &lt;/p&gt;
+    &lt;p style=&quot;margin-top: 0&quot;&gt;
+      e.g., xsd:iu (international unit) for dom:InsulinTaking
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#euphoric -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#euphoric">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#female -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#female">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Female"/>
+        <name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F</name>
+        <name xml:lang="en">Female</name>
+        <name xml:lang="it">Femmina</name>
+        <name xml:lang="nl">Meisje</name>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">always use this singleton instance</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#football -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#football">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Calcio</name>
+        <name xml:lang="en">Soccer</name>
+        <name xml:lang="nl">Voetbal</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#forename -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#forename"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#game -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#game">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Game</name>
+        <name xml:lang="nl">Gamen</name>
+        <name xml:lang="it">Giocare</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#golf -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#golf">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Golf</name>
+        <name xml:lang="it">Golf</name>
+        <name xml:lang="nl">Golf</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#green -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#green">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="en">Green</name>
+        <name xml:lang="nl">Groen</name>
+        <name xml:lang="it">Verde</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#grey -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#grey">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="en">Grey</name>
+        <name xml:lang="it">Grigio</name>
+        <name xml:lang="nl">Grijs</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#gymnastics -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#gymnastics">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="nl">Gym</name>
+        <name xml:lang="en">Gymnastics</name>
+        <name xml:lang="it">Palestra</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#handball -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#handball">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="nl">Handbal</name>
+        <name xml:lang="en">Handball</name>
+        <name xml:lang="it">Pallamano</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#happy -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#happy">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBrother -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBrother"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasColor -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasColor"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDoctor -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasDoctor"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEducation -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEducation"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEmotionalState -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasEmotionalState"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFather -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFather"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFriend -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFriend"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGoal -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGoal"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasHobby -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasHobby"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasIngested -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasIngested"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasIssue -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasIssue"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMood -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMood"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMother -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMother"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasOutput -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasOutput"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasParticipant -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasParticipant">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      other participants involved in the activity
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPhysicalState -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPhysicalState"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPreference -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasPreference"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSentiment -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSentiment"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSession -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSession"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSister -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSister"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSport -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSport"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepBrother -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepBrother"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepFather -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepFather"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepMother -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepMother"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepSister -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepSister"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasTreatment -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasTreatment"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#height -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#height"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hockey -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hockey">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Hockey</name>
+        <name xml:lang="it">Hockey</name>
+        <name xml:lang="nl">Hockey</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hr -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hr">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      heart rate
+    &lt;/p&gt;</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#iceskate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#iceskate">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Ice skate</name>
+        <name xml:lang="it">Pattinaggio sul ghiaccio</name>
+        <name xml:lang="nl">Schaatsen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#image -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#image"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLocatedAt -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLocatedAt"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isTreatedBy -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isTreatedBy"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#karate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#karate">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Karate</name>
+        <name xml:lang="it">Karate</name>
+        <name xml:lang="nl">Karate</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#link -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#link"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#luggage_lost -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#luggage_lost">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#magenta -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#magenta">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="nl">Fuchsia</name>
+        <name xml:lang="en">Magenta</name>
+        <name xml:lang="it">Magenta</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#makemusic -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#makemusic">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Make to music</name>
+        <name xml:lang="nl">Muziek maken</name>
+        <name xml:lang="it">Produrre musica</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#male -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#male">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Male"/>
+        <name xml:lang="nl">Jongen</name>
+        <name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">M</name>
+        <name xml:lang="en">Male</name>
+        <name xml:lang="it">Maschio</name>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">always use this singleton instance</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#memorize_person -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#memorize_person">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#minecraft -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#minecraft">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="en">Minecraft</name>
+        <name xml:lang="it">Minecraft</name>
+        <name xml:lang="nl">Minecraft</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#music -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#music">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="it">Ascoltare musica</name>
+        <name xml:lang="en">Listen to music</name>
+        <name xml:lang="nl">Muziek luisteren</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#name -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#name"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#navy -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#navy">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="it">Blu scuro</name>
+        <name xml:lang="nl">Donkerblauw</name>
+        <name xml:lang="en">Navy</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#negative -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#negative">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#neutral -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#neutral">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#numberOfSeriousIssues -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#numberOfSeriousIssues"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#other -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#other">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Altri</name>
+        <name xml:lang="nl">Anders</name>
+        <name xml:lang="en">Other</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#pets -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#pets">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="nl">(huis)dieren verzorgen</name>
+        <name xml:lang="en">Care of pets</name>
+        <name xml:lang="it">Prendersi cura degli animali</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#photography -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#photography">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="nl">Fotograferen</name>
+        <name xml:lang="it">Fotografia</name>
+        <name xml:lang="en">Photograph</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#ping -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#ping">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Ping Pong</name>
+        <name xml:lang="it">Ping Pong</name>
+        <name xml:lang="nl">Tafeltennis</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#positive -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#positive">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sentiment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#purple -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#purple">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="nl">Paars</name>
+        <name xml:lang="en">Purple</name>
+        <name xml:lang="it">Viola</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#read -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#read">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="it">Leggere</name>
+        <name xml:lang="nl">Lezen</name>
+        <name xml:lang="en">Read</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#red -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#red">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="en">Red</name>
+        <name xml:lang="nl">Rood</name>
+        <name xml:lang="it">Rosso</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#remark -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#remark"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#riding -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#riding">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Equitation</name>
+        <name xml:lang="it">Equitazione</name>
+        <name xml:lang="nl">Paardrijden</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#roller -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#roller">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Pattinaggio</name>
+        <name xml:lang="en">Roller</name>
+        <name xml:lang="nl">Rolschaatsen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#rugby -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#rugby">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Rugby</name>
+        <name xml:lang="it">Rugby</name>
+        <name xml:lang="nl">Rugby</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#sbp -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#sbp">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">systolic blood pressure</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#sing -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#sing">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="it">Cantare</name>
+        <name xml:lang="en">Sing</name>
+        <name xml:lang="nl">Zingen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#skate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#skate">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Skate</name>
+        <name xml:lang="nl">Skateboarden</name>
+        <name xml:lang="en">Skateboarding</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#ski -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#ski">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Sci</name>
+        <name xml:lang="en">Skiing</name>
+        <name xml:lang="nl">Skiën</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#source -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#source"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#stickfight -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#stickfight">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Scherma</name>
+        <name xml:lang="nl">Schermen</name>
+        <name xml:lang="en">Stick fighting</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#surname -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#surname"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#swim -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#swim">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="it">Nuoto</name>
+        <name xml:lang="en">Swimming</name>
+        <name xml:lang="nl">Zwemmen</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#tennis -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#tennis">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Tennis</name>
+        <name xml:lang="it">Tennis</name>
+        <name xml:lang="nl">Tennis</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#traumatic -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#traumatic">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Mood"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#trekking -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#trekking">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="nl">Hiken</name>
+        <name xml:lang="en">Trekking</name>
+        <name xml:lang="it">Trekking</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#turquoise -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#turquoise">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="it">Turchese</name>
+        <name xml:lang="en">Turquoise</name>
+        <name xml:lang="nl">Turquoise</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#useDevice -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#useDevice"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#violet -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#violet">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="en">Violet</name>
+        <name xml:lang="nl">Violet</name>
+        <name xml:lang="it">Violetto</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#volly -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#volly">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Volley</name>
+        <name xml:lang="it">Volley</name>
+        <name xml:lang="nl">Volleybal</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#white -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#white">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="it">Bianco</name>
+        <name xml:lang="en">White</name>
+        <name xml:lang="nl">Wit</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#write -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#write">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="nl">Schrijven</name>
+        <name xml:lang="it">Scrivere</name>
+        <name xml:lang="en">Write</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#yellow -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#yellow">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Color"/>
+        <name xml:lang="nl">Geel</name>
+        <name xml:lang="it">Giallo</name>
+        <name xml:lang="en">Yellow</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#yoga -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#yoga">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Sport"/>
+        <name xml:lang="en">Yoga</name>
+        <name xml:lang="it">Yoga</name>
+        <name xml:lang="nl">Yoga</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#youtube -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#youtube">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Hobby"/>
+        <name xml:lang="nl">YouTube kijken</name>
+        <name xml:lang="it">Youtube</name>
+        <name xml:lang="en">watching YouTube</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#age">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">needs to be associated with the transaction time stamp</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasBrother">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      biological brother
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasFather">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      biological father
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMother">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      biological mother
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasSister">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      biological sister
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasStepSister">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      the super-property that relates a child to all its relatives
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#image">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a link to a picture</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isLocatedAt">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      dom:locatedAt is only defined on dom:Child, but not on other classes,
+      such as dom:Treatment or dom:Activity, as the child and a treatment or
+      activity in which it is involved in are &amp;quot;connected&amp;quot; through the time
+      stamp of the corresponding quadruple
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#remark">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      a &amp;quot;free-text&amp;quot; field which can be filled with anything and from which
+      potential useful information can be extracted
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#source">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+      the source from which the sentiment was retrieved (e.g., filename, http
+      address); currently a datatype property
+    &lt;/p&gt;</rdfs:comment>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

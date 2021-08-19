@@ -1,0 +1,20 @@
+version: "3"
+# Docker compose file used to load the dialogue_manager
+services:
+  dialog_manager:
+    build:
+      context: .
+    image: vonda_base:latest
+    container_name: vonda_base
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - ./config.yml:/config.yml
+      - /dev:/dev
+      - $HOME/.Xauthority:/root/.Xauthority:rw
+    privileged: true
+    network_mode: host
+    restart: ${RESTART_POLICY}
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    

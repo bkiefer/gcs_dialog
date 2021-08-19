@@ -1,0 +1,10 @@
+test:
+    if(state == "test_dia"){
+    emitDA(#Inform(WPatStart));
+    emitDA(#Inform(WPinHall, dir=left));
+    emitDA(#Inform(WPfollowCorridor));
+    emitDA(#Inform(WPturn, dir=rechts));
+    emitDA(#Inform(WPturn, dir=links));
+    emitDA(#Inform(WPDisDoor, dir=links));
+    state = "initial";
+    }

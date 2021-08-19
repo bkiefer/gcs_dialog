@@ -1,0 +1,248 @@
+// test grammar to check if working with grammar works
+// should greet back:
+
+// Rolli.rudi
+//ask_for_name:
+raw:WHQuestion ^ Name
+->
+# =  :canned ^ <string>"Wie heißen Sie?".
+//ask_for_age: (unused)
+raw:WHQuestion ^ Age
+->
+# =  :canned ^ <string>"Wie alt sind Sie?".
+//remember_age: (unused)
+raw:Inform ^ Age
+->
+# =  :canned ^ <string>"Und ich bin 21 Jahre alt.".
+
+//remember_name, greet_back
+raw:ReturnGreeting ^ Greet
+    {
+    ^ ! <anrede> ^ ! <name>
+    ->
+    # =  :canned ^ <string>"Hallo, schön Sie zu sehen. Ich bin Rolli.".
+
+    ^ ! <anrede> ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Gut Sie wiederzusehen ", #n).
+
+    ^ <anrede>#a ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Gut Sie wiederzusehen, ",#a, " ", #n).
+    }
+
+// autonomous.rudi
+//arrivedAtStart:
+raw:YNQuestion ^ IsCloseBy
+{
+    ^ ! <anrede> ^ ! <lastname>
+    ->
+    # =  :canned ^ <string>"Hallo, sind sie hier?".
+
+    ^ ! <anrede> ^ <lastname>#n
+    ->
+    # = :canned ^ <string>concatenate("Hallo, sind sie hier", #n, "?").
+
+    ^ <anrede>#a ^ <lastname>#n
+    ->
+    # =  :canned ^ <string>concatenate("Ist hier jemand mit dem Namen ", #a ," ", #n, " ?").
+}
+
+// (continued)
+raw:Inform ^ Accompany
+{
+    ^ ! <event>
+    ->
+    # =  :canned ^ <string>"Ich begleite Sie zu ihrem Ziel.". //TODO, better to say "führe"?
+
+    ^ <event>#n
+    ->
+    # = :canned ^ <string>concatenate("Ich begleite Sie zu ihrem Ziel. Dort wird, ", #n, "für Sie gemacht."). //TODO formulate better
+}
+raw:Inform ^ Instructions
+->
+# =  :canned ^ <string>"Fassen Sie die Griffe an und dann kann es schon losgehen".
+//# =  :canned ^ <string>"Bitte folgen Sie den Anweisungen ihres nächsten Pflegers.".
+
+raw:YNQuestion ^ Need ^ <what>instructions
+->
+# =  :canned ^ <string>"Wollen Sie wissen, was ich mache oder mehr über mich erfahren?".
+
+
+
+// navigation.rudi
+//triggerIsDoor:
+raw:Inform ^ WPisDoor
+->
+# =  :canned ^ <string>"Wir gehen gleich durch eine Tür.".
+
+// (continued)
+raw:Inform ^ GoalClose
+->
+# =  :canned ^ <string>"Wir sind bald am Ziel".
+
+// (continued), corner goal
+raw:Inform ^ GoalAroundCorner ^ <how>#n
+->
+# = :canned ^ <string>concatenate("Wir erreichen unser Ziel um die, ", #n, "Ecke.").//TODO
+
+// (continued), corner continue road
+raw:Inform ^ ContinueRoute ^ <how>#n
+->
+# = :canned ^ <string>concatenate("Wir müssen um die", #n, "Ecke."). //TODO integrate the code from line 192, else no correct response can be produced.
+
+
+raw:InformFact ^ PathBlocked ^ <from> ^ <to>#n
+->
+# = :canned ^ <
+
+// goal_waypoints.rudi
+//arrivedAtDestination:
+raw:Inform ^ HaveArrived
+->
+# =  :canned ^ <string>"Wir haben unser Ziel erreicht.".
+//has_responsible_personal:
+raw:YNQuestion ^ IsPersonalHere
+{
+    ^ ! <name>
+    ->
+    # =  :canned ^ <string>"Hallo, ist ein Pfleger da, um sich um meinen Patienten zu kümmern?".
+
+    ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Hallo, ist Herr ", #n, " hier?").
+}
+//(continued) patientName
+raw:Inform ^ PatientName
+{
+    ^ !<anrede> ^ ! <name>
+    ->
+    # = :canned ^ <string>concatenate("Hier ist ein Patient für Sie." ).
+
+    ^ !<anrede> ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Dies ist ", #n, ".").
+
+    ^ <anrede>#a ^ <name>#n
+    ->
+    # = :canned ^ <string>concatenate("Dies ist ", #a ," ", #n, ".").
+}
+//(continued) please wait
+//raw:Suggestion ^ Wait
+//    ->
+//    # = :canned ^ <string>concatenate("Bitte warten Sie auf den nächsten Pfleger.").
+
+//people_obstruction.rudi
+//people_obstruction:
+raw:Proposal ^ PleaseMove
+    ->
+    # = :canned ^ <string>concatenate("Bitte machen Sie mir Platz. Ich werde dringend gebraucht.").
+
+//(continued)
+raw:Proposal ^ Move
+    ->
+    //# = :canned ^ <string>concatenate("Ich muss schnell weiter. Ich darf nicht auf mich warten lassen.").
+    # = :canned ^ <string>concatenate("Jetzt machen sie hier doch endlich mal Platz. Ich muss schnell weiter. Ich habe wichtigeres zu tun als auf sie zu warten.").
+
+//Lift.rudi
+// triggerIsLift:
+raw:Inform ^ ArrivedAtLiftWP
+    ->
+    # = :canned ^ <string>concatenate("Wir haben einen Aufzug erreicht.").
+//(continued)
+raw:Suggest ^ PressLiftCaller
+    ->
+    # = :canned ^ <string>concatenate("Bitte drücken Sie den Knopf um den Aufzug zu rufen.").
+//(continued)
+raw:Inform ^ LiftSpaceRequirements
+    ->
+    # = :canned ^ <string>concatenate("Bitte betreten Sie nur dann den Aufzug, wenn genug Platz für uns beide vorhanden ist.").
+//(continued)
+raw:Suggest ^ InformWhenLiftArrived
+    ->
+    # = :canned ^ <string>concatenate("Bitte informieren Sie mich sobald der Aufzug da ist.").
+//hasLiftArrived:
+raw:YNQuestion ^ HasLiftArrived
+    ->
+    # = :canned ^ <string>concatenate("Ist unser Aufzug da?").
+//inLift:
+raw:Suggest ^ InformWhenArrivedAtLevel
+    ->
+    # = :canned ^ <string>concatenate("Bitte informieren Sie mich, sobald wir unsere Ziel-Etage erreicht haben.").
+
+
+//not used
+
+//propably for obstruction.rudi, but empty
+raw:Inform ^ Obstruction ^ (<size>small | ! <size>)
+->
+# =  :canned ^ <string>"Da ist etwas auf unserem Weg sodass wir fallen könnten".
+
+raw:Inform ^ Obstruction ^ <size>big
+->
+# =  :canned ^ <string>"Da ist etwas auf unserem Weg, lass uns eine anderen Weg nehmen".
+
+//unknown
+raw:Inform ^ Failure
+->
+# =  :canned ^ <string>"Da muss ein Fehler sein".
+
+raw:Inform ^ ContinueRoute ^ <how>G
+->
+# =  :canned ^ <string>random("Einfach geradeaus", "Weiter geradeaus").
+
+raw:Inform ^ ContinueRoute ^ <how>L
+->
+# =  :canned ^ <string>"Hier links abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>R
+->
+# =  :canned ^ <string>"Hier rechts abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>RL
+->
+# =  :canned ^ <string>"Hier scharf links abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>RR
+->
+# =  :canned ^ <string>"Hier scharf rechts abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>HL
+->
+# =  :canned ^ <string>"Hier halb links abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <how>HR
+->
+# =  :canned ^ <string>"Hier halb rechts abbiegen".
+
+raw:Inform ^ ContinueRoute ^ <info>(#i: ^ !<dir1>)
+{
+^ <andthen>HR -> #i ^ <dir1>"halb rechts".
+^ <andthen>HL -> #i ^ <dir1>"halb links".
+^ <andthen>L -> #i ^ <dir1>"links".
+^ <andthen>R -> #i ^ <dir1>"rechts".
+^ <andthen>RL -> #i ^ <dir1>"scharf links".
+^ <andthen>RR -> #i ^ <dir1>"scharf rechts".
+^ !<andthen> -> #i ^ <dir1>"".
+}
+
+raw:Inform ^ ContinueRoute ^ <info>(#i: ^ !<dir>)
+{
+^ <how>HR -> #i ^ <dir>"halb rechts".
+^ <how>HL -> #i ^ <dir>"halb links".
+^ <how>L -> #i ^ <dir>"links".
+^ <how>R -> #i ^ <dir>"rechts".
+^ <how>RL -> #i ^ <dir>"scharf links".
+^ <how>RR -> #i ^ <dir>"scharf rechts".
+^ !<how> -> #i ^ <dir>"".
+}
+
+raw:Inform ^ Starting
+->
+# =  :canned ^ <string>"Es geht los.".
+
+raw:Inform ^ Compare
+->
+# =  :canned ^ <string>"".
+
+

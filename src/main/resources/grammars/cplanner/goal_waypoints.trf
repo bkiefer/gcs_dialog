@@ -1,0 +1,52 @@
+// goal_waypoints.rudi
+/******************************************************************************/
+//has_responsible_personal: //Todo, @LB, declutter and apply structure like in raw:ReturnGreeting ^ Greet
+raw:YNQuestion ^ IsPersonalHere 
+{
+    ^ !<caretaker>#ctn ^ !<lastName>#n //^ <info>(#i: ^ <timeOfDay>) ^ ! <info><greet>
+    ->
+    # =  :canned ^ <string>random("Ist ein Pfleger da, um sich um meinen Patienten zu kümmern ?",
+                                "Hallo, ich habe einen Patienten für seine Behandlung gebracht .",
+                                "Hier ist ein Patient für seine Behandlung ."
+                            ).
+
+    ^ !<caretaker>#ctn ^ <anrede>#a ^ <lastName>#n
+    ->
+    # = :canned ^ <string>random(concatenate("Ist ein Pfleger da, um sich um ", #a, #n, " zu kümmern ?"),
+                                concatenate("Ich habe ", #a, " ", #n, " für seine Behandlung gebracht ."),
+                                concatenate("Hier ist ", #a, " ", #n, " für seine Behandlung .")
+                            ).
+
+    ^ <ctAnrede>#cta ^ <caretaker>#ctn ^ <anrede>#a ^ <lastName>#n
+    ->
+    # = :canned ^ <string>random(concatenate("Hallo, ist ", #cta, " ", #ctn, " da, um sich um ", #a, " ", #n, " zu kümmern ?"),
+                                concatenate("Ich habe ", #a, " ", #n, " für seine Behandlung bei ", #cta, " ", #ctn, " gebracht ."),
+                                concatenate("Hier ist ", #a, " ", #n, " für seine Behandlung bei ", #cta, " ", #ctn, " .")
+                            ).
+}
+
+/******************************************************************************/
+raw:Suggestion ^ Wait
+    ->
+    # = :canned ^ <string>random("Bitte warten Sie auf den nächsten Pfleger .",
+                                "Es sollte sich gleich jemand um Sie kümmern .",
+                                "Wir warten kurz auf Pfleger ."
+    ). 
+
+/******************************************************************************/
+raw:Inform ^ WPArrivedAtStayRoom
+    ->
+    # = :canned ^ <string>random("Hier ist ihr Zimmer.",
+                                 "Dies ist ihr Zimmer.",
+                                 "Hier, Ihr Zimmer.").
+/******************************************************************************/
+raw:Suggest ^ StayHealthy
+    ->
+    # = :canned ^ <string>random("Bleiben Sie Gesund.",
+                                "Ich wünsche Ihnen Beste Gesundheit.",
+                                "Erholen Sie sich bitte.").
+/******************************************************************************/
+
+raw:InitialGoodbye ^ Goodbye ^ <anrede>#a ^ <lastName>#n
+->
+# = :canned ^ <string>concatenate("Auf Wiedersehen, ", #a, " ", #n, " .").

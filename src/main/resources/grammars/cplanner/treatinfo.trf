@@ -1,0 +1,8 @@
+<info>(#i: ^ !<anrede>)
+{
+^ <info><gender>m -> #i ^ <anrede>Herr.
+
+^ <info><gender>f -> #i ^ <anrede>Frau.
+
+^ <info>(! <gender> | <gender>x) -> #i ^ <anrede>"".
+}

@@ -1,0 +1,34 @@
+/*@
+import de.dfki.vondabase.utils.Triple;
+@*/
+
+TRIGGER_CHECK_TIMEOUT = 1000; // time to check trigger approach in milliseconds
+
+prefs = robot.hasPresets;
+
+Triple<String, String, Integer> CONFIRM = new Triple("Ja.", "Confirm(Confirm)",2);
+Triple<String, String, Integer> DONE = new Triple("Fertig.", "Confirm(Confirm)",2);
+Triple<String, String, Integer> NEED_HELP = new Triple("Ich brauche Hilfe.", "Request(Help)",2);
+Triple<String, String, Integer> CONFIRM_INFORM = new Triple("Ja. Erzähl mir mehr.", "Confirm(Need, what=instructions)",2);
+Triple<String, String, Integer> DISCONFIRM = new Triple("Nein, danke.", "Disconfirm(Disconfirm)",3);
+
+import test;
+
+greet_back: //TODO: add time when greeting back
+if (lastDA() >= #InitialGreeting(Greet)) {
+  System.err.println("greet back");
+  propose("greet back") {
+    emitDA(#ReturnGreeting(Greet, timeOfDay={getDayTime().toString()}));
+  }
+  lastDAprocessed();
+  timeout("clear", 30000){
+     // do something here
+  }
+}
+
+
+
+
+
+
+

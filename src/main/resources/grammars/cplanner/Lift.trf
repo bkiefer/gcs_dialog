@@ -1,0 +1,129 @@
+//Lift.rudi
+
+//siehe people_obstruction.trf
+//raw:Proposal ^ AskForHelp
+
+/******************************************************************************/
+// triggerIsLift: 
+raw:Inform ^ ArrivedAtLiftWP
+    ->
+    # = :canned ^ <string>random("Wir haben einen Aufzug erreicht .",
+                                "Wir sind vor einem Aufzug angekommen .",
+                                "Zwischenziel , Aufzug erreicht ."
+    ).
+
+/******************************************************************************/
+//(continued) 
+raw:Suggest ^ PressLiftCaller
+    ->
+    # = :canned ^ <string>random("Bitte drücken Sie den Knopf zum Rufen des Aufzugs .",
+                                "Bitte rufen Sie den Aufzug .",
+                                "Bitte drücken Sie den Aufzugknopf ."
+    ).
+
+/******************************************************************************/
+//(continued) 
+raw:Inform ^ LiftSpaceRequirements
+    ->
+    # = :canned ^ <string>random("Bitte betreten Sie nur dann den Aufzug, wenn genug Platz für uns beide vorhanden ist .",
+                                "Sofern für uns beide Platz ist , betreten Sie den Aufzug .",
+                                "Der Aufzug muss Platz für uns beide haben , damit wir weiter zu unserem Ziel können ."
+    ).
+
+/******************************************************************************/
+//(continued)
+raw:Inform ^ HoldTheDoor
+    ->
+    # = :canned ^ <string>random("Bitte halten Sie die Tür vom Aufzug auf .",
+                                 "Vom ankommenden Lift bitte die Tür offen halten .",
+                                "Bitte halten Sie die Tür auf , während wir in den Aufzug fahren ."
+     ).
+
+/******************************************************************************/
+//(continued)   
+raw:Suggest ^ InformWhenLiftArrived
+    ->
+    # = :canned ^ <string>random("Bitte sagen Sie mir , sobald der Aufzug da ist .",
+                                "Sobald der Aufzug angekommen ist , sagen Sie mir Bescheid .",
+                                "Bitte informieren Sie mich über die Ankunft des Aufzugs ."
+    ).                                 
+
+/******************************************************************************/
+//(continued)   
+raw:Suggest ^ InformWhenInLift
+    ->
+    # = :canned ^ <string>random("Bitte sagen Sie mir , sobald wir im Aufzug sind .",
+                                "Sobald  wir im Aufzug sind , sagen Sie mir bitte Bescheid .",
+                                "Bitte informieren Sie mich wenn wir den Aufzugs betreten haben."
+    ).
+
+/******************************************************************************/
+raw:Instruct ^ EnterLift
+    ->
+    # = :canned ^ <string>random("Bitte betreteten Sie mit mir den Aufzug .", 
+                                "Bitte gehen Sie mit mir zusammen in den Aufzug rein .", 
+                                "Wir betreten zusammen den Fahrstuhl ."
+    ).
+
+/******************************************************************************/
+//hasLiftArrived:   
+raw:YNQuestion ^ HasLiftArrived
+    ->
+    # = :canned ^ <string>random("Ist unser Aufzug da ?",
+                                "Ist ein passender Aufzug gekommen ?",
+                                "Können wir unseren Weg fortsetzen ?"
+    ).
+
+/******************************************************************************/
+raw:YNQuestion ^ RepeatLiftInstructions
+    ->
+    # = :canned ^ <string>random("Soll ich die Lift Anweisungen wiederholen ?",
+                                "Soll ich wiederholen, was zu tun ist ?",
+                                "Brauchen Sie die Lift Anweisungen nochmal ?"
+    ).
+
+/******************************************************************************/
+//inLift:  
+raw:Suggest ^ PressLevel  ^ <level>#l
+    ->
+    # = :canned ^ <string>random(concatenate("Bitte drücken Sie die Taste zur Etage ", #l, " ."),
+                                concatenate("Wir müssen zu Etage ", #l, " ."),
+                                concatenate("Unser Ziel befindet sich auf Etage ", #l, " .")
+    ).
+
+/******************************************************************************/
+//(continued)
+raw:Suggest ^ InformWhenArrivedAtLevel ^ <level>#l
+    ->
+    # = :canned ^ <string>random(concatenate("Bitte informieren Sie mich, sobald wir unsere Ziel-Etage ", #l, " erreicht haben."),
+                                concatenate("Sagen Sie mir bitte Bescheid, sobald wir bei Etage ", #l, " sind ."),
+                                concatenate("Wenn wir bei Etage ", #l, " informieren Sie mich bitte .")
+    ).
+
+/******************************************************************************/
+//(continued) //TODO
+raw:YNQuestion ^ InformWhenArrivedAtLevel ^ <level>#l
+    ->
+    # = :canned ^ <string>random(concatenate("Haben wir unsere Ziel-Etage ", #l, " erreicht ?"),
+                                concatenate("Sind wir bei Etage ", #l, " angekommen ?"),
+                                concatenate("Sind wir schon bei Etage ", #l, " ?")
+    ).
+
+
+/******************************************************************************/
+//whichLevel
+raw:Inform ^ CurrentLevel ^ <level>#l
+    ->
+    # = :canned ^ <string>random(concatenate("Unser Ziel ist Etage ", #l, " ."),
+                                concatenate("Wir müssen zu Etage ", #l, " ."),
+                                concatenate("Es ist Etage ", #l, " .")
+    ).
+
+/******************************************************************************/
+//leaveLift
+raw:Inform ^ LeaveElevator
+    ->
+    # = :canned ^ <string>random("Wir verlassen zusammen den Aufzug .",
+                                "Wir gehen auf dieser Etage weiter zu unserem Ziel .",
+                                "Wir steigen aus und gehen zusammen weiter zur Behandlung ."
+    ).

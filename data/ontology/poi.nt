@@ -1,0 +1,26 @@
+#init a set of basic locations
+<dom:POI_1> <rdf:type> <ind:Location> .
+<dom:POI_1> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#x> "12.0"^^<xsd:double> .
+<dom:POI_1> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#y> "33.0"^^<xsd:double> .
+<dom:POI_1> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#z> "0"^^<xsd:int> .
+<dom:POI_1> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#quat> "0,0,0,1"^^<xsd:string> .
+
+<dom:POI_2> <rdf:type> <ind:Location> .
+<dom:POI_2> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#x> "17.0"^^<xsd:double> .
+<dom:POI_2> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#y> "3.0"^^<xsd:double> .
+<dom:POI_2> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#z> "0"^^<xsd:int> .
+<dom:POI_2> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#quat> "0,0,0,1"^^<xsd:string> .
+<dom:POI_2> <dom:hasLocationType> "room"^^<xsd:string> .
+
+<dom:POI_3> <rdf:type> <ind:Location> .
+<dom:POI_3> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#x> "17.0"^^<xsd:double> .
+<dom:POI_3> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#y> "3.0"^^<xsd:double> .
+<dom:POI_3> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#z> "1"^^<xsd:int> .
+<dom:POI_3> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#quat> "0,0,0,1"^^<xsd:string> .
+<dom:POI_3> <dom:hasLocationType> "reception"^^<xsd:string> .
+
+<dom:POI_4> <rdf:type> <ind:Location> .
+<dom:POI_4> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#x> "42.0"^^<xsd:double> .
+<dom:POI_4> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#y> "-1.0"^^<xsd:double> .
+<dom:POI_4> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#z> "1"^^<xsd:int> .
+<dom:POI_4> <http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#quat> "0,0,0,1"^^<xsd:string> .

@@ -1,0 +1,36 @@
+#ABNF 1.0 UTF-8;
+
+language en-EN;
+root $root;
+mode voice;
+tag-format "semantics/1.0";
+
+/* $day = "$$[0-9]" *; */
+
+$greet = ( Hallo [Rolli|Koffi| "$$.*"] | Hi  [Rolli|Koffi| "$$.*"] | Guten Tag  [Rolli|Koffi| "$$.*"] | Guten Abend  [Rolli|Koffi| "$$.*"] | Guten Morgen  [Rolli|Koffi| "$$.*"] | Moin [Rolli|Koffi| "$$.*"]| Mahlzeit  [Rolli|Koffi| "$$.*"] )
+         { out.da="InitialGreeting" ; out.prop="Greet"; };
+$confirm = ( Ja ("$$.*")<0-> | Jap ["$$.*"] | Das ist richtig | Ok | Das stimmt)
+        { out.da="Confirm" ; out.prop="Confirm" ;};
+$confirm_close_by = ( Ich bin hier | Hier bin ich )
+        { out.da="Confirm" ; out.prop="IsCloseBy" ;};
+$disconfirm = ( Nein ("$$.*")<0->  | Nope ["$$.*"] | Das ist falsch | Das is so nicht richtig | Noe | Das stimmt nicht | Kein Interesse | [das] brauche ich nicht | nicht nötig )
+                { out.da="Disconfirm" ; out.prop="Confirm" ;};
+$confirm_level = ( Wir sind angekommen | Wir sind im ["$$.*"] Stock[werk] ["$$.*"] | Wir sind im richtigen Stockwerk | Wir koennen aussteigen | Wir sind im zweiten Stock angekommen )
+        { out.da="Confirm" ; out.prop="ArrivedAtLevel" ;};
+$disconfirm_level = (Wir sind hier falsch | Falsches Stockwerk )
+        { out.da="Disconfirm" ; out.prop="ArrivedAtLevel" ;};
+$confirm_door_open = ( Die Tür ist jetzt offen  | Du kannst [jetzt] ["$$.*"] fahren )
+        { out.da="Confirm" ; out.prop="DoorOpen" ;};
+$confirm_lift_arrived = ( Der Fahrstuhl ist da | Wir koennen ["$$.*"] einsteigen | Der Fahrstuhl ist angekommen   )
+        { out.da="Confirm" ; out.prop="LiftArrived" ;};
+$disconfirm_lift_arrived = ( Der Fahrstuhl ist [noch] nicht da | Wir koennen ["$$.*"] nicht einsteigen | Wir warten noch | Wir muessen noch etwas warten )
+        { out.da="Disconfirm" ; out.prop="LiftArrived" ;};
+$confirm_done = ( ["$$.*"] ich bin fertig |  ["$$.*"] habe fertig  | Das wäre es  | Wir sind fertig. | [Rolli|Koffi| "$$.*"]  ich bin [hier] fertig )
+        { out.da="Confirm" ; out.prop="Done" ;};
+$name = My name is ("$$.*" { out.forename="$$1"; }
+	| "$$.*" "$$.*" { out.forename="$$2", out.lastname="$$1"; })
+        { out.da="Inform" ; out.prop="Name" ; };
+$age = I am "$$.*" { out.what = "$$1"; } [years [old]]
+       { out.da="Inform" ; out.prop="Age" ; };
+
+public $root = ($greet | $name | $age | $confirm | $confirm_close_by | $disconfirm | $confirm_level | $disconfirm_level  | $confirm_door_open | $confirm_lift_arrived | $disconfirm_lift_arrived | $confirm_done ) { out = $%1; };
