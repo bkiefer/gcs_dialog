@@ -235,4 +235,11 @@ public class BaseCommunicationHub implements CommunicationHub {
   }
 
 
+  public void peopleSkeleton(SkeletonMessage skeleton) {
+    throw new IllegalStateException("Please implement me!");
+  }
+
+  public void updateTracks(BodyTrackerMessage[] tracks) {
+    throw new IllegalStateException("Please implement me!");
+  }
 }
