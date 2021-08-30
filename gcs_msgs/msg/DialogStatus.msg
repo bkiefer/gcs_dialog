@@ -1,0 +1,7 @@
+Header header 
+uint8 STATUS_INTRIDUCTION = 0
+uint8 STATUS_EYES = 1
+uint8 STATUS_AWARENESS = 2
+uint8 STATUS_MOTORICS = 3
+uint8 STATUS_DONE = 4
+uint8 satus
