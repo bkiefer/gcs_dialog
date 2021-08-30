@@ -1,0 +1,24 @@
+version: "3"
+# Docker compose file used to load the TTS Modules
+services:
+  ros_respeaker:
+    build:
+      context: .
+      dockerfile: Dockerfile.respeaker
+    image: git.hb.dfki.de:5050/intuitiv/gestalt_modules/respeaker:latest
+    container_name: intuitiv_respeaker
+    environment:
+      - ROS_MASTER_URI=${ROS_MASTER_URI}
+      - ROS_IP=${ROS_IP}
+      - MARY_IP=${MARY_IP}
+    volumes:
+      - /dev:/dev
+      - ./respeaker_ros/launch:/catkin_ws/src/respeaker_ros/launch
+      - ./respeaker_ros/scripts:/catkin_ws/src/respeaker_ros/scripts
+      #- ./launch/speech_processing.launch:~/catkin_ws/src/speech_processing/launch/speech_processing.launch
+    privileged: true
+    network_mode: host
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    command: bash -c 'sh ./initAudio.sh && source /catkin_ws/devel/setup.bash &&
+      roslaunch --wait respeaker_ros sample_respeaker.launch'

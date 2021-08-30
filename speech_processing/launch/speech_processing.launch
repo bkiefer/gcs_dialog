@@ -1,0 +1,34 @@
+<launch>
+
+  <!-- input speech topic of speech_to_text.py -->
+  <arg name="audio" default="speech_audio" />
+  <!-- output text topic of speech_to_text.py -->
+  <arg name="speech_to_text" default="speech_to_text" />
+  <!-- language used in speech_to_text.py -->
+  <arg name="language" default="de-DE" />
+  <!-- model -->
+  <arg name="model" default="/de-DE/release_v0.9.0/output_graph.pbmm" />
+  <!-- deepspeech scrorer -->
+  <arg name="scorer" default="/de-DE/release_v0.9.0/kenlm.scorer" />
+  <!-- tflight -->
+  <arg name="tflite" default="/de-DE/release_v0.9.0/output_graph_from_koh-osug.tflite" />
+
+    <!-- communication with Luebeck component -->
+    <node name="skeleton_listener" pkg="speech_processing" type="skeleton_listener.py"/>
+    <node name="dialogue_status_publisher" pkg="speech_processing" type="dialogue_status_publisher.py"/>
+    <node name="gcs_publisher" pkg="speech_processing" type="gcs_publisher.py"/>
+    <!-- speech_inputs -->
+    <node name="asr_listener" pkg="speech_processing" type="asr_listener.py" />
+
+    <node name="speech_to_text" pkg="speech_processing" type="my_speech_to_text.py"
+          output="screen">
+      <remap from="audio" to="$(arg audio)"/>
+      <remap from="speech_to_text" to="$(arg speech_to_text)"/>
+      <rosparam subst_value="true">
+        language: $(arg language)
+        self_cancellation: true
+        tts_tolerance: 0.5
+        store_wav: false
+      </rosparam>
+    </node>
+</launch>

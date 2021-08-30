@@ -1,0 +1,4 @@
+deepspeech==0.7.4
+pyusb==1.0.2
+PyAudio==0.2.8
+numpy==1.16.2
