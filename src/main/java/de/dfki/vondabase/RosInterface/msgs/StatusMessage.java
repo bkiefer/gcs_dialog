@@ -2,6 +2,7 @@ package de.dfki.vondabase.RosInterface.msgs;
 
 import de.dfki.mlt.rosBridge.utils.Message;
 import de.dfki.mlt.rosBridge.utils.geometry.Point;
+import de.dfki.mlt.rosBridge.utils.std.Header;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -13,47 +14,26 @@ import javax.json.JsonObject;
 public class StatusMessage extends Message {
 
   public static final String FIELD_HEADER = "header";
-  public static final String START = "start";
-  public static final String DESTINATION = "destination";
-  public static final String WITHPATIENT = "withClient";
-  public static final String NEXTELEVATOR = "nextElevator";
+  public static final String STATUS = "status";
+  public static final int STATUS_INTRODUCTION = 0;
+  public static final int STATUS_EYES = 1;
+  public static final int STATUS_AWARENESS = 2;
+  public static final int STATUS_MOTORICS = 3;
+  public static final int STATUS_DONE = 4;
 
-  private final Point start;
-  private final Point destination; //e.g. /speech_event
-  private final boolean withPatient; //e.g. /Confirm(Instruction)
-  private final Point nextElevator;
+  private final Header header;
+  private final int status;
 
   public StatusMessage() {
-    this( null, null,false, null);
+    this( new Header(), 0);
   }
 
-  public StatusMessage( Point start, Point destination, boolean withPatient, Point nextElevator) {
+  public StatusMessage( Header header, int status1) {
     super(Json.createObjectBuilder()
-            .add(START, start.toJsonObject())
-            .add(DESTINATION, destination.toJsonObject())
-            .add(WITHPATIENT, withPatient)
-            .add(NEXTELEVATOR, nextElevator.toJsonObject())
-            .build(), "intuitiv_msgs/TaskStatus");
-    this.start = start;
-    this.destination = destination;
-    this.withPatient = withPatient;
-    this.nextElevator = nextElevator;
-  }
-
-  public Point getStart() {
-    return start;
-  }
-
-  public Point getDestination() {
-    return destination;
-  }
-
-  public boolean isWithPatient() {
-    return withPatient;
-  }
-
-  public Point getNextElevator() {
-    return nextElevator;
+            .add(FIELD_HEADER, header.toJsonObject())
+            .add(STATUS, status1).build(), "intuitiv_msgs/TaskStatus");
+    this.header = header;
+    this.status = status1;
   }
 
   public static StatusMessage fromJsonString(String jsonString) {
@@ -65,11 +45,9 @@ public class StatusMessage extends Message {
   }
 
   public static StatusMessage fromJsonObject(JsonObject jsonObject) {
-    Point start = jsonObject.containsKey(START) ? Point.fromJsonObject(jsonObject.getJsonObject(START)) : null;
-    Point destination = jsonObject.containsKey(DESTINATION) ? Point.fromJsonObject(jsonObject.getJsonObject(DESTINATION)) : null;
-    Point nextElevator = jsonObject.containsKey(NEXTELEVATOR) ? Point.fromJsonObject(jsonObject.getJsonObject(NEXTELEVATOR)) : null;
-    boolean withPatient = jsonObject.containsKey(WITHPATIENT) ? jsonObject.getBoolean("color_index") : false;
-    return new StatusMessage( start, destination, withPatient, nextElevator);
+    Header header = jsonObject.containsKey(FIELD_HEADER) ? Header.fromJsonObject(jsonObject.getJsonObject(FIELD_HEADER)) : new Header();
+    int status = jsonObject.containsKey(STATUS) ? jsonObject.getInt(STATUS): 0;
+    return new StatusMessage( header, status);
   }
 
 }
