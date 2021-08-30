@@ -3,6 +3,8 @@ package de.dfki.vondabase.RosInterface;
 import com.google.gson.GsonBuilder;
 
 import de.dfki.vondabase.RosInterface.msgs.AsrMessage;
+import de.dfki.vondabase.RosInterface.msgs.BodyTrackerMessage;
+import de.dfki.vondabase.RosInterface.msgs.SkeletonMessage;
 import de.dfki.mlt.rudimant.agent.DialogueAct;
 import de.dfki.vondabase.BaseCommunicationHub;
 import org.json.JSONObject;
@@ -17,9 +19,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Simple handler implementation:
- * receives Position and Velocity information from ROS
- * and adds them to the Ontology using the RDFProxy.
+ * Simple handler implementation: receives Position and Velocity information
+ * from ROS and adds them to the Ontology using the RDFProxy.
  *
  */
 class RosHandler implements Runnable {
@@ -43,52 +44,48 @@ class RosHandler implements Runnable {
             String message = getMessage();
             JSONObject jsonObject = new JSONObject(message);
             String type = jsonObject.getString("type");
-            switch (type){
+            switch (type) {
                 // ToDo something like this might be useful in the signs of life project
                 /**
-                case ("move_base_status"):
-                    _stub.sendEvent(new PoiMessage());
-                    break;
+                 * case ("move_base_status"): _stub.sendEvent(new PoiMessage()); break;
                  **/
                 case ("tts_done"):
-                    //_stub.freeSpeechListener();
+                    // _stub.freeSpeechListener();
                     break;
                 case ("SpeechRecognitionCandidates"):
                     AsrMessage asrMessage = builder.create().fromJson(message, AsrMessage.class);
                     _stub.asrInput(asrMessage.getTranscript());
-                    //_stub.sendEvent(asrMessage.getTranscript());
+                    // _stub.sendEvent(asrMessage.getTranscript());
                     break;
                 case ("Utterance"):
                     _stub.asrInput(jsonObject.getString("text"));
                     break;
-                /* case ("Detection"):
-                    DetectionMessage detection = builder.create().fromJson(message, DetectionMessage.class);
-                    _stub.peopleDetected(detection);
-                    break; */
-                case("SpeechEvent"):
-                    String speech_event = jsonObject.getString("speech_event");
-                    DialogueAct speechEvent = SpeechEventFactory.translateEvent2Dia(speech_event);
-                    _stub.sendEvent(speechEvent);
+                case ("Skeleton"):
+                    SkeletonMessage skeleton = builder.create().fromJson(message, SkeletonMessage.class);
+                    _stub.peopleSkeleton(skeleton);
                     break;
-              default:
-                  throw new IllegalStateException("Unknown Message type " + type);
+                case ("BodyTrack"):
+                    BodyTrackerMessage[] tracks = builder.create().fromJson(message, BodyTrackerMessage[].class);
+                    _stub.updateTracks(tracks);
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown Message type " + type);
             }
-        } catch (IOException  e) {System.out.println("IOException, Handler-run");}
-        finally {
+        } catch (IOException e) {
+            System.out.println("IOException, Handler-run");
+        } finally {
             out.println(sb);
-            if ( !_client.isClosed() ) {
+            if (!_client.isClosed()) {
                 try {
                     _client.close();
-                } catch ( IOException e ) { }
+                } catch (IOException e) {
+                }
             }
         }
     }
 
     private String getMessage() throws IOException {
-        BufferedReader bufferedReader =
-                new BufferedReader(
-                        new InputStreamReader(
-                                _client.getInputStream()));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(_client.getInputStream()));
         char[] buffer = new char[512];
         int dataLength = bufferedReader.read(buffer, 0, 512); // blocking until a message was received
         return new String(buffer, 0, dataLength);
