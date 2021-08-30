@@ -1,5 +1,6 @@
 package de.dfki.vondabase;
 
+import de.dfki.vondabase.RosInterface.ROSClientGCS;
 import de.dfki.vondabase.RosInterface.ROSClientStatus;
 import de.dfki.vondabase.RosInterface.msgs.*;
 import de.dfki.vondabase.restapi.caller.RESTCaller;
@@ -33,6 +34,7 @@ public class BaseCommunicationHub implements CommunicationHub {
   private final List<Listener<Behaviour>> _listeners = new ArrayList<>();
   private final List<Listener<TTSMessage>> _ttsListeners = new ArrayList<>();
   private final List<Listener<StatusMessage>> _statusListeners = new ArrayList<>();
+  private final List<Listener<GCSMessage>> _gcsListeners = new ArrayList<>();
   private RESTCaller _restListener;
 
 
@@ -87,6 +89,10 @@ public class BaseCommunicationHub implements CommunicationHub {
 
   public void registerStatusListener(ROSClientStatus rosClientTaskStatus) {
     _statusListeners.add(rosClientTaskStatus);
+  }
+
+  public void registerGCSListener(ROSClientGCS rosClientGCS) {
+    _gcsListeners.add(rosClientGCS);
   }
 
   public void registerRESTListener(RESTCaller restCaller) { _restListener = restCaller;}
@@ -167,6 +173,12 @@ public class BaseCommunicationHub implements CommunicationHub {
     // TODO from old project - kept it as an example
     //_dListeners.parallelStream().forEach((l) ->l.listen(MessageFactory.translateBehavior2DialogueMessage((ExtendedBehaviour) b)) );
     //sendTTS(MessageFactory.translateBehavior2TTSMessage((ExtendedBehaviour) b));
+  }
+
+  public void sendStatus(StatusMessage message){
+    _statusListeners.parallelStream().forEach((l) -> {
+      l.listen(message);
+    });
   }
 
   public void sendStatusUpdate(StatusMessage statusMessage){

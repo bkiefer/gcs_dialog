@@ -22,7 +22,10 @@ RestAPI:
   R10:            "/workflow/follow_memorized_person" #tested
   R11:            "/workflow/go_home" #tested
 ROSBridge:
-  StatusPort:    11116
+  TTSPort:       11113
+  GSCPort:       11114
+  StatusPort:    11115
+
 
 nameToURI:
   Agent : <dom:Actor>

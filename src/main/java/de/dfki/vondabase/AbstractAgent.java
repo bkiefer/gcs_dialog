@@ -1,5 +1,7 @@
 package de.dfki.vondabase;
 
+import de.dfki.mlt.rosBridge.utils.std.Header;
+import de.dfki.vondabase.RosInterface.msgs.StatusMessage;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
 import de.dfki.vondabase.utils.*;
 import de.dfki.lt.hfc.WrongFormatException;
@@ -126,6 +128,15 @@ public abstract class AbstractAgent extends Agent implements Constants {
 
   public final DialogueAct emitDAWB(DialogueAct da, Triple ... choices) {
     return this.emitDAWB(Behaviour.DEFAULT_DELAY, da, choices);
+  }
+
+  public final void emitStatus(int status){
+    StatusMessage msg = new StatusMessage(new Header(), status);
+    emitStatus(msg);
+  }
+
+  public final void emitStatus(StatusMessage msg){
+    ((BaseCommunicationHub)_hub).sendStatus(msg);
   }
 
   public void storeState() {
