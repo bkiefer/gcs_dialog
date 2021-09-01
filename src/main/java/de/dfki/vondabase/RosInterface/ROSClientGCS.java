@@ -14,7 +14,7 @@ public class ROSClientGCS implements Listener<GCSMessage> {
 
   public ROSClientGCS(Map configs){
     _ip = System.getenv("DIA_IP");;
-    _port = (int)((Map<String, Object>) configs.get("ROSBridge")).get("GCS");
+    _port = (int)((Map<String, Object>) configs.get("ROSBridge")).get("GSCPort");
   }
 
   @Override

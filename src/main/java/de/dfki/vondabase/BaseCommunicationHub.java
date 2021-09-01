@@ -181,6 +181,10 @@ public class BaseCommunicationHub implements CommunicationHub {
     });
   }
 
+  public void sendGCS(GCSMessage message){
+    _gcsListeners.parallelStream().forEach((l) -> {l.listen(message);});
+  }
+
   public void sendStatusUpdate(StatusMessage statusMessage){
     _statusListeners.parallelStream().forEach((l) -> l.listen(statusMessage));
   }

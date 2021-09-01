@@ -4,8 +4,6 @@ import de.dfki.vondabase.utils.Triple;
 
 TRIGGER_CHECK_TIMEOUT = 1000; // time to check trigger approach in milliseconds
 
-prefs = robot.hasPresets;
-
 Triple<String, String, Integer> CONFIRM = new Triple("Ja.", "Confirm(Confirm)",2);
 Triple<String, String, Integer> DONE = new Triple("Fertig.", "Confirm(Confirm)",2);
 Triple<String, String, Integer> NEED_HELP = new Triple("Ich brauche Hilfe.", "Request(Help)",2);

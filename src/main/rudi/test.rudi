@@ -1,10 +1,26 @@
 test:
     if(state == "test_dia"){
-    emitDA(#Inform(WPatStart));
-    emitDA(#Inform(WPinHall, dir=left));
-    emitDA(#Inform(WPfollowCorridor));
-    emitDA(#Inform(WPturn, dir=rechts));
-    emitDA(#Inform(WPturn, dir=links));
-    emitDA(#Inform(WPDisDoor, dir=links));
-    state = "initial";
+        emitDA(#Inform(WPatStart));
+        emitDA(#Inform(WPinHall, dir=left));
+        emitDA(#Inform(WPfollowCorridor));
+        emitDA(#Inform(WPturn, dir=rechts));
+        emitDA(#Inform(WPturn, dir=links));
+        emitDA(#Inform(WPDisDoor, dir=links));
+        state = "initial";
+    }
+
+testStatus:
+    if(state == "test_dia_state"){
+        dialogAgent.emitStatus(0);
+        dialogAgent.emitStatus(1);
+        dialogAgent.emitStatus(2);
+        dialogAgent.emitStatus(3);
+        state = "initial";
+    }
+
+testScore:
+    if(state == "test_dia_score"){
+        dialogAgent.emitGCS(3,3,3);
+        dialogAgent.emitGCS(1,2,3);
+        state = "initial";
     }

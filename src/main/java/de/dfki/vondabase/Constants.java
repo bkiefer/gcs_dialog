@@ -21,9 +21,9 @@ public interface Constants {
 
   public static final String AGENT_URI = "<coli:agent>";
 
-  public static final String ROBOT_CLASS = "<dom:Robot>";
+  public static final String ROBOT_CLASS = "<dom:Inanimate>";
 
-  public static final String ROBOT_URI = "<rli:Rolli01>";
+  public static final String ROBOT_URI = "<init:Rolli01>";
 
   public static final String BUILDING_URI = "<osmdatadfki:Building-193565>";
 

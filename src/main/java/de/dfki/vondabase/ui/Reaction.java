@@ -114,4 +114,14 @@ public class Reaction implements Runnable, Listener<Behaviour> {
     ((AbstractAgent) _stub.getAgent()).state = "test_dia";
     ((AbstractAgent) _stub.getAgent()).newData();
   }
+
+  public void testDiaState() {
+    ((AbstractAgent) _stub.getAgent()).state = "test_dia_state";
+    ((AbstractAgent) _stub.getAgent()).newData();
+  }
+
+  public void testDiaScore() {
+    ((AbstractAgent) _stub.getAgent()).state = "test_dia_score";
+    ((AbstractAgent) _stub.getAgent()).newData();
+  }
 }

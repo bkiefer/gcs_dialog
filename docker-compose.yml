@@ -4,8 +4,8 @@ services:
   dialog_manager:
     build:
       context: .
-    image: vonda_base:latest
-    container_name: vonda_base
+    image:  drz/sign_of_life/dialog_manager:latest
+    container_name:  drz_dialog_manager
     environment:
       - DISPLAY=${DISPLAY}
     volumes:

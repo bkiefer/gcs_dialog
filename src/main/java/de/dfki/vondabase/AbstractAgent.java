@@ -1,6 +1,7 @@
 package de.dfki.vondabase;
 
 import de.dfki.mlt.rosBridge.utils.std.Header;
+import de.dfki.vondabase.RosInterface.msgs.GCSMessage;
 import de.dfki.vondabase.RosInterface.msgs.StatusMessage;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
 import de.dfki.vondabase.utils.*;
@@ -33,9 +34,6 @@ public abstract class AbstractAgent extends Agent implements Constants {
   public DayTime dTime = DayTime.day;
   private boolean verbose;
   private StateDump stateDump;
-
-
-
 
   /* ===== Core Workings =================================================== */
   private HfcDbHandler handler;
@@ -71,6 +69,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
     //TODO This is again project specific; needs to be adapted
     robot = _proxy.getRdf(ROBOT_URI);
     if (robot == null) {
+      System.err.println(_proxy.getClass(ROBOT_CLASS));
       robot = _proxy.getClass(ROBOT_CLASS).newRdf(ROBOT_URI);
     }
   }
@@ -133,6 +132,12 @@ public abstract class AbstractAgent extends Agent implements Constants {
   public final void emitStatus(int status){
     StatusMessage msg = new StatusMessage(new Header(), status);
     emitStatus(msg);
+  }
+
+  public final void emitGCS(int eyes, int awareness, int motions){
+    int sum = eyes + awareness + motions;
+    GCSMessage message = new GCSMessage(new Header(), eyes, awareness, motions, sum);
+    ((BaseCommunicationHub)_hub).sendGCS(message);
   }
 
   public final void emitStatus(StatusMessage msg){

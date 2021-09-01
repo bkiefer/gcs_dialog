@@ -20,7 +20,6 @@ import java.util.Map;
 
 
 public class GUI extends JFrame {
-  public static final String LANGUAGE = "en-US";
   private static final long serialVersionUID = 1L;
   final GUI mainFrame;
   private final List<Listener<String>> _listeners = new ArrayList<>();
@@ -111,6 +110,14 @@ public class GUI extends JFrame {
             _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("testDias()")) {
             _react.testDias();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("testDiaState()")) {
+            _react.testDiaState();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("testComaScore()")) {
+            _react.testDiaScore();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
           }  else if (input.contains("getState(")) {
