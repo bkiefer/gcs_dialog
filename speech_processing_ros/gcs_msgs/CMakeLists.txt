@@ -53,6 +53,7 @@ add_message_files(
  add_service_files(
    FILES
    TtsService.srv
+   DialogService.srv
  )
 
 ## Generate actions in the 'action' folder
