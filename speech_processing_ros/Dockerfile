@@ -56,12 +56,12 @@ RUN pip3 install deepspeech-tflite
 # INTUITIV SOFTWARE SETUP AND INSTALL ##################################################################################
 
 # clone drivers for respeaker
-RUN  mkdir -p /catkin_ws/src && cd /catkin_ws/src && git clone https://github.com/locusrobotics/catkin_virtualenv.git &&  git clone https://github.com/uos/rospy_message_converter.git
+RUN  mkdir -p /catkin_ws/src && cd /catkin_ws/src  && git clone https://github.com/jsk-ros-pkg/jsk_3rdparty.git && git clone https://github.com/locusrobotics/catkin_virtualenv.git &&  git clone https://github.com/uos/rospy_message_converter.git
 RUN cd /catkin_ws/src/rospy_message_converter/ && python ./setup.py install
 RUN  gdown  https://drive.google.com/uc?id=1xZ0IN4DyzQkoGaD5OqiJYr-V3QC2Mspz && unzip -q de-DE.zip && rm de-DE.zip
 
 # Clean up
-#RUN cd /catkin_ws/src && cp -r jsk_3rdparty/respeaker_ros . && rm -r ./jsk_3rdparty
+RUN cd /catkin_ws/src && cp -r jsk_3rdparty/respeaker_ros . && rm -r ./jsk_3rdparty
 COPY speech_processing speech_processing
 RUN mv speech_processing /catkin_ws/src
 COPY gcs_msgs gcs_msgs
@@ -69,7 +69,7 @@ RUN mv gcs_msgs /catkin_ws/src
 RUN mv /bin/sh /bin/sh_tmp && ln -s /bin/bash /bin/sh
 
 # Install Respeaker ROS
-RUN apt -q -qq update; source /opt/ros/${ROS_DISTRO}/setup.bash; cd /catkin_ws; rosdep install --from-paths /catkin_ws/src -i -r -n -y; catkin config --init; catkin build catkin_virtualenv speech_processing gcs_msgs
+RUN apt -q -qq update; source /opt/ros/${ROS_DISTRO}/setup.bash; cd /catkin_ws; rosdep install --from-paths /catkin_ws/src -i -r -n -y; catkin config --init; catkin build catkin_virtualenv respeaker_ros speech_processing gcs_msgs
 
 #SETUP
 RUN apt autoremove

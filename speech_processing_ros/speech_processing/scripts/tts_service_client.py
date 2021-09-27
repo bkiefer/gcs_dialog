@@ -3,7 +3,7 @@
 import rospy
 from rospy_message_converter import json_message_converter, message_converter
 import socket
-from intuitiv_msgs.srv import *
+from gcs_msgs.srv import TtsService
 import os
 import json
 from threading import Thread

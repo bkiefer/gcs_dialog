@@ -3,8 +3,8 @@
 
 import rospy
 from rospy_message_converter import message_converter
-from intuitiv_msgs.srv import TtsService, TtsServiceResponse
-from intuitiv_msgs.msg import TtsVolume
+from gcs_msgs.srv import TtsService, TtsServiceResponse
+from gcs_msgs.msg import TtsVolume
 import os
 import StringIO
 import wave

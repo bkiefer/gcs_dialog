@@ -2,6 +2,10 @@
 
   <!-- input speech topic of speech_to_text.py -->
   <arg name="audio" default="speech_audio" />
+  <!-- launch respeaker -->
+  <arg name="launch_respeaker" default="false" />
+  <!-- launch respeaker -->
+  <arg name="launch_asr" default="false" />
   <!-- output text topic of speech_to_text.py -->
   <arg name="speech_to_text" default="speech_to_text" />
   <!-- language used in speech_to_text.py -->
@@ -16,18 +20,18 @@
     <!-- communication with Luebeck component -->
     <node name="skeleton_listener" pkg="speech_processing" type="skeleton_listener.py"/>
 
-    <node name="dialogue_status_publisher" pkg="speech_processing" type="dialogue_status_publisher.py"/>
-
-    <node name="gcs_publisher" pkg="speech_processing" type="gcs_publisher.py"/>
+    <node name="gcs_service" pkg="speech_processing" type="dialog_service.py"/>
 
     <!-- speech_inputs -->
-    <node name="asr_listener" pkg="speech_processing" type="asr_listener.py" />
+    <node if="$(arg launch_asr)" name="asr_listener" pkg="speech_processing" type="asr_listener.py" />
 
     <node name="tts_service" pkg="speech_processing" type="tts_service.py" />
 
-    <node name="tts_service_client" pkg="speech_processing" type="tts_serviceClient.py" />
+    <node name="tts_service_client" pkg="speech_processing" type="tts_service_client.py" />
 
-    <node name="speech_to_text" pkg="speech_processing" type="my_speech_to_text.py"
+     <node if="$(arg launch_respeaker)" name="respeaker_node" pkg="respeaker_ros" type="respeaker_node.py" respawn="true" respawn_delay="10" />
+
+    <node if="$(arg launch_asr)" name="speech_to_text" pkg="speech_processing" type="my_speech_to_text.py"
           output="screen">
       <remap from="audio" to="$(arg audio)"/>
       <remap from="speech_to_text" to="$(arg speech_to_text)"/>
