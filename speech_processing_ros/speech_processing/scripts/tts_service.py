@@ -33,14 +33,15 @@ class ElevatorDialogueService:
             "/mlt/mic_toggle_service", Trigger)
 
     def callback(self, req):
+        rospy.loginfo("Callback on " + req.message)
         if (req.message != ""):
             message = req.message.replace("ae", u"ä").replace("Ae", u"Ä").replace(
                 "oe", u"ö").replace("Oe", u"Ö").replace("Ue", u"ü").replace("ue", u"ü")
             wavs = self.marytts.synth_wav(message)
             wf = wave.open(StringIO.StringIO(wavs))
-            self.mic_toggle_service()
+            #self.mic_toggle_service()
             self.playback(wf)
-            self.mic_toggle_service()
+            #self.mic_toggle_service()
         else:
             rospy.loginfo("ignoring empty input")
         rospy.loginfo("sending response")

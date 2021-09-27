@@ -55,7 +55,7 @@ class RosHandler implements Runnable {
                  * case ("move_base_status"): _stub.sendEvent(new PoiMessage()); break;
                  **/
                 case ("tts_done"):
-                    // _stub.freeSpeechListener();
+                    _stub.freeSpeechListener();
                     break;
                 case ("SpeechRecognitionCandidates"):
                     AsrMessage asrMessage = builder.create().fromJson(message, AsrMessage.class);

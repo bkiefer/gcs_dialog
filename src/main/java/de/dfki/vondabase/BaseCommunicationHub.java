@@ -4,10 +4,12 @@ import de.dfki.vondabase.RosInterface.ROSClientGCS;
 import de.dfki.vondabase.RosInterface.ROSClientStatus;
 import de.dfki.vondabase.RosInterface.msgs.*;
 import de.dfki.vondabase.restapi.caller.RESTCaller;
+import de.dfki.vondabase.utils.ExtendedBehaviour;
 import de.dfki.vondabase.utils.Listener;
 import de.dfki.lt.hfc.WrongFormatException;
 import de.dfki.mlt.rosBridge.utils.arm.CommandMessage;
 import de.dfki.mlt.rudimant.agent.*;
+import de.dfki.vondabase.utils.MessageFactory;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,7 +174,7 @@ public class BaseCommunicationHub implements CommunicationHub {
     });
     // TODO from old project - kept it as an example
     //_dListeners.parallelStream().forEach((l) ->l.listen(MessageFactory.translateBehavior2DialogueMessage((ExtendedBehaviour) b)) );
-    //sendTTS(MessageFactory.translateBehavior2TTSMessage((ExtendedBehaviour) b));
+    sendTTS(MessageFactory.translateBehavior2TTSMessage((ExtendedBehaviour) b));
   }
 
   public void sendStatus(StatusMessage message){
@@ -246,4 +248,19 @@ public class BaseCommunicationHub implements CommunicationHub {
   public void updateTracks(BodyTrackerMessage[] tracks) {
     throw new IllegalStateException("Please implement me!");
   }
+
+  /**
+   * This method frees the log on the behaviour listener, dialog listener and tts listener, so that new messages can be send.
+   * This is important to synchronize the displaying of speech bubbles and tts output.
+   *
+   * This method is called whenever the @RosHandler class processes a <code>tts_done</code> message.
+   */
+  public void freeSpeechListener() {
+    for (Listener<TTSMessage> l : _ttsListeners)
+      l.free();
+    //_listeners.parallelStream().forEach(Listener::free);
+    //_dListeners.parallelStream().forEach(Listener::free);
+    //_ttsListeners.parallelStream().forEach(Listener::free);
+  }
+
 }

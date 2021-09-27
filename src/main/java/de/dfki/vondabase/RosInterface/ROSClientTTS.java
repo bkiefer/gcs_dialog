@@ -26,6 +26,9 @@ public class ROSClientTTS implements Listener<TTSMessage> {
 
   @Override
   public void listen(TTSMessage q) {
+    System.err.println("Calling TTS Service with message " + q + " to " + _ip + ":" + _port);
+    System.err.println("locked =" + locked);
+    System.err.println("blocking =" + _blocking);
     if(!this.locked || !_blocking ){
       BridgeClient client = new MyBridgeClient(q.toString(), _ip, _port);
       try {

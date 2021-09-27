@@ -33,4 +33,14 @@ public class MessageFactory {
     return new PoseStamped(header, pose);
   }
 
+  public static TTSMessage translateBehavior2TTSMessage(ExtendedBehaviour behaviour){
+    Header header = new Header(0, new Time(System.currentTimeMillis()), "");
+    return new TTSMessage(header, behaviour.getText());
+  }
+
+  public static TTSMessage ttsMessageFromText(String text){
+    Header header = new Header(0, new Time(System.currentTimeMillis()), "");
+    return new TTSMessage(header, text);
+  }
+
 }
