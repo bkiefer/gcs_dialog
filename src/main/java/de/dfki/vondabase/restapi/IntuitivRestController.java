@@ -45,8 +45,8 @@ public class IntuitivRestController {
   public void initEndpoints(){
     logger.debug("Creating new Endpoints");
     _server.createContext("/dialog/api", new StaticFileHandler(_dataLoc));
-    ExampleHandler d3Handler = new ExampleHandler(hub);
-    _server.createContext("/dialog/example", d3Handler);
+    GCSHandler gcsHandler = new GCSHandler(hub);
+    _server.createContext("/dialog/gcs", gcsHandler);
   }
 
   /**

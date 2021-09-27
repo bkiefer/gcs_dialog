@@ -2,11 +2,14 @@ package de.dfki.vondabase.RosInterface;
 
 import com.google.gson.GsonBuilder;
 
+import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.RosInterface.msgs.AsrMessage;
 import de.dfki.vondabase.RosInterface.msgs.BodyTrackerMessage;
 import de.dfki.vondabase.RosInterface.msgs.SkeletonMessage;
 import de.dfki.mlt.rudimant.agent.DialogueAct;
 import de.dfki.vondabase.BaseCommunicationHub;
+import de.dfki.vondabase.RosInterface.services.GCS;
+import de.dfki.vondabase.RosInterface.services.GCSService;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -15,8 +18,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Simple handler implementation: receives Position and Velocity information
@@ -68,11 +73,25 @@ class RosHandler implements Runnable {
                     BodyTrackerMessage[] tracks = builder.create().fromJson(message, BodyTrackerMessage[].class);
                     _stub.updateTracks(tracks);
                     break;
+                case ("GCSService"):
+                    _client.setKeepAlive(true);
+                    // create corresponding service call and wait for result (how? add logic to rule (a method is called that changes a volatile field in this service instance? Or this service is monitoring the information state)
+                    // this starts a dialogue, which will hopefully resolve the given situation
+                    // result = ...
+                    GCSService service = new GCSService( (AbstractAgent) _stub.getAgent(), jsonObject.getInt("body_id"));
+                    Future<GCS> result = pool.submit(service);
+                    // send result back to the caller
+                    sb.append(result.get());
+                    break;
                 default:
                     throw new IllegalStateException("Unknown Message type " + type);
             }
         } catch (IOException e) {
             System.out.println("IOException, Handler-run");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             out.println(sb);
             if (!_client.isClosed()) {

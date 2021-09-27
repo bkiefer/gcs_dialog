@@ -4,6 +4,7 @@ import de.dfki.mlt.rosBridge.utils.std.Header;
 import de.dfki.vondabase.RosInterface.msgs.GCSMessage;
 import de.dfki.vondabase.RosInterface.msgs.StatusMessage;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
+import de.dfki.vondabase.RosInterface.services.GCSService;
 import de.dfki.vondabase.utils.*;
 import de.dfki.lt.hfc.WrongFormatException;
 import de.dfki.lt.hfc.db.rdfProxy.Rdf;
@@ -161,4 +162,26 @@ public abstract class AbstractAgent extends Agent implements Constants {
   }
 
 
+  public void setActiveServiceCall(AbstractService service){
+    _activeServiceCall = service;
+  }
+
+  public void triggerGCS(int bodyId){
+    if(user != null){
+      throw new IllegalStateException("Can't talk to two people at once");
+    } else {
+      user = initUser(bodyId);
+      state = "gcs_init";
+      newData();
+    }
+  }
+
+  /**
+   * TOOD extend with bodyId etc
+   * @param bodyId
+   * @return
+   */
+  public Rdf initUser(int bodyId){
+    return _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
+  }
 }

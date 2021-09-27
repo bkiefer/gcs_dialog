@@ -2,21 +2,20 @@ package de.dfki.vondabase.RosInterface.services;
 
 import java.util.concurrent.Callable;
 
-public abstract class AbstractService implements Callable<Integer> {
+public abstract class AbstractService implements Callable<GCS> {
 
-  protected int result;
+  protected GCS result;
   protected boolean resolved = false;
 
   /**
    * This method is called by the corresponding rudi rule when the situation is resolved
-   * @param resolved this boolean variable indicates whether the situation was resolved (true positive, false negative)
    */
-  public void situationResolved(int resolved) {
+  public void situationResolved(int eyes, int awareness, int motorics) {
     this.resolved = true;
-    this.result = resolved;
+    this.result = new GCS(eyes, awareness, motorics);
   }
 
-  public Integer getResult(){
+  public GCS getResult(){
     return this.result;
   }
 
@@ -32,7 +31,7 @@ public abstract class AbstractService implements Callable<Integer> {
 
 
   @Override
-  public Integer call(){
+  public GCS call(){
     updateIS();
     while (!isResolved()){
       try {

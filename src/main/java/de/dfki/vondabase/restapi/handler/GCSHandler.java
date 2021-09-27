@@ -3,7 +3,9 @@ package de.dfki.vondabase.restapi.handler;
 import com.sun.net.httpserver.HttpExchange;
 import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.BaseCommunicationHub;
-import de.dfki.vondabase.RosInterface.services.ExampleService;
+import de.dfki.vondabase.RosInterface.services.GCS;
+import de.dfki.vondabase.RosInterface.services.GCSService;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +19,12 @@ import java.util.concurrent.Future;
  *       operationId: askForHelp
  *       description: tbd
  */
-public class ExampleHandler extends AbstractHandler{
+public class GCSHandler extends AbstractHandler{
 
   private final AbstractAgent _agent;
-  private final static Logger logger = LoggerFactory.getLogger(ExampleHandler.class);
+  private final static Logger logger = LoggerFactory.getLogger(GCSHandler.class);
 
-  public ExampleHandler(BaseCommunicationHub hub){
+  public GCSHandler(BaseCommunicationHub hub){
     super();
     builder.excludeFieldsWithoutExposeAnnotation();
     _agent = (AbstractAgent) hub.getAgent();
@@ -30,13 +32,15 @@ public class ExampleHandler extends AbstractHandler{
 
   @Override
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
-    ExampleService service = new ExampleService(_agent);
-    Future<Integer> result = pool.submit(service);
+    String json = bodyToString(exchange.getRequestBody());
+    JSONObject jsonObject = new JSONObject(json);
+    GCSService service = new GCSService(_agent, jsonObject.getInt("body_id"));
+    Future<GCS> result = pool.submit(service);
     try {
-      if (result.get() == 1)
-        sendResponse(200, exchange, "Information added");
-      else {
-        sendResponse(500, exchange, "internal error");
+      if (result.get() != null) {
+        System.err.println(result.get().toJson());
+        sendResponse(200, exchange, result.get().toJson());
+      } else {
         sendResponse(500, exchange, "internal error");
       }
     } catch (InterruptedException e) {

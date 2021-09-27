@@ -77,7 +77,7 @@ raw:ReturnGreeting ^ Greet
     {
         ^ !<timeOfDay>
         ->
-        # ^ <greet>random("Guten Tag .", "Einen wunderschoenen guten Tag .").// default case
+        # ^ <greet>random("Guten Tag . ", "Einen wunderschoenen guten Tag .").// default case
 
         ^ <timeOfDay>morning
         ->
@@ -107,9 +107,22 @@ raw:ReturnGreeting ^ Greet
 
 /******************************************************************************/
 //memorize Person
-raw:Inform ^ Memorize
+raw:Inform ^ DRZGreet
     ->
-    # = :canned ^ <string>"Stellen sie sich bitte vor mich, damit ich mir merken kann, wie sie aussehen. Ich sage ihnen Bescheid, wenn ich fertig bin ." .
+    # = :canned ^ <string>"Hey Sie. Ich bin ein Roboter der Feuerwehr. Keine Sorge Hilfe ist unterwegs." .
+
+/******************************************************************************/
+//memorize Person
+raw:Inform ^ Demo
+    ->
+    # = :canned ^ <string>"Können Sie mich hören ?" .
+
+/******************************************************************************/
+//memorize Person
+raw:Inform ^ DemoII
+    ->
+    # = :canned ^ <string>"Können Sie mich hören ? Bewegen sie bitte den Kopf oder heben sie einen Arm wenn sie mich hören ." .
+
 /******************************************************************************/
 //luggage
 raw:Inform ^ InstructionsOld

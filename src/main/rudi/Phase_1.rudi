@@ -1,17 +1,11 @@
 
-initial:
-if(robot.hasNewUser == true){
-    // Todo create new user
-    state == "phase_1";
-}
 
 phase_one:
-if(state == "phase_1"){
-    emitDA(#Inform(DRZGreet));
-    if (user.areEyesOpen == false){
-        emitDA(#Request(OpenEyes));
-    }
-    // new internal state wait_open_eyes
-    // timeout wait open eyes
-
+if(state == "gcs_phase1"){
+    emitDA(#Inform(Demo));
+    state="wait";
+     timeout("wait", 15000){
+            emitDA(#Inform(DemoII));
+            state = "gcs_done";
+            }
 }
