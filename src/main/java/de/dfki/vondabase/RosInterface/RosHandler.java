@@ -81,7 +81,7 @@ class RosHandler implements Runnable {
                     GCSService service = new GCSService( (AbstractAgent) _stub.getAgent(), jsonObject.getInt("body_id"));
                     Future<GCS> result = pool.submit(service);
                     // send result back to the caller
-                    sb.append(result.get());
+                    sb.append(result.get().toRos().toString());
                     break;
                 default:
                     throw new IllegalStateException("Unknown Message type " + type);

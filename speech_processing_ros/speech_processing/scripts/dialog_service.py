@@ -3,6 +3,7 @@
 
 import rospy
 from rospy_message_converter import message_converter
+from rospy_message_converter import json_message_converter
 from gcs_msgs.srv import DialogService, DialogServiceResponse
 import os
 import json
@@ -31,7 +32,7 @@ class DialogueService:
         self.data = ""
         try:
             dictionary = message_converter.convert_ros_message_to_dictionary(req)
-            dictionary["type"] = "dialogue_service"
+            dictionary["type"] = "GCSService"
             sock.sendall(json.dumps(dictionary))
             #wait for answer
             while 1:
@@ -44,7 +45,8 @@ class DialogueService:
         finally:
             # send response
             sock.close()
-        response = DialogueServiceResponse(int(self.data))
+        response = json_message_converter.convert_json_to_ros_message(
+            'gcs_msgs/GCS', self.data)
         return response
 
 

@@ -1,6 +1,10 @@
 package de.dfki.vondabase.RosInterface.services;
 
 import com.google.gson.Gson;
+import de.dfki.mlt.rosBridge.utils.std.Header;
+import de.dfki.vondabase.RosInterface.msgs.GCSMessage;
+
+import java.util.HashMap;
 
 public class GCS {
 
@@ -31,5 +35,10 @@ public class GCS {
     Gson gson = new Gson();
     String json = gson.toJson(this);
     return json;
+  }
+
+  public GCSMessage toRos() {
+    Header header = new Header();
+    return new GCSMessage(header, eyes, awareness, motorics, sum);
   }
 }
