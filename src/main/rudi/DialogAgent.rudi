@@ -15,6 +15,10 @@ import Phase_0;
 import Phase_1;
 import Phase_5;
 
+int gcs_phase1 = 0;
+int gcs_phase2 = 0;
+int gcs_phase3 = 0;
+
 greet_back: //TODO: add time when greeting back
 if (lastDA() >= #InitialGreeting(Greet)) {
   System.err.println("greet back");
@@ -33,10 +37,3 @@ if (state == "gcs_init"){
     state = "gcs_greet";
     newData();
 }
-
-
-
-
-
-
-

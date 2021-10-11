@@ -3,7 +3,7 @@
 phase_done:
 if(state == "gcs_done"){
     System.err.println("I'm done here");
-    dialogAgent._activeServiceCall.situationResolved(1, 1, 1);
+    dialogAgent._activeServiceCall.situationResolved(dialogAgent.gcs_phase1, 1, 1);
     state= "initial";
     user = null;
 }
