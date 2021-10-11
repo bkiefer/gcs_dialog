@@ -182,6 +182,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
    * @return
    */
   public Rdf initUser(int bodyId){
+    // TODO use bodyId to initialize user rdf with corresponding values, e.g. areEyesOpen
     return _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
   }
 }
