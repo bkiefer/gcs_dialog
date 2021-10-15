@@ -1,7 +1,9 @@
 package de.dfki.vondabase;
 
 import de.dfki.mlt.rosBridge.utils.std.Header;
+import de.dfki.vondabase.RosInterface.msgs.BodyTrackerMessage;
 import de.dfki.vondabase.RosInterface.msgs.GCSMessage;
+import de.dfki.vondabase.RosInterface.msgs.SkeletonMessage;
 import de.dfki.vondabase.RosInterface.msgs.StatusMessage;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
 import de.dfki.vondabase.RosInterface.services.GCSService;
@@ -31,15 +33,16 @@ public abstract class AbstractAgent extends Agent implements Constants {
    */
   public Rdf robot;
   public Rdf user;
-  protected String DEFNS = "dom";
+  public SkeletonMessage _userSkeleton;
   public DayTime dTime = DayTime.day;
+  protected String DEFNS = "dom";
+  protected AbstractService _activeServiceCall;
+  private int userID = -1;
   private boolean verbose;
   private StateDump stateDump;
-
   /* ===== Core Workings =================================================== */
   private HfcDbHandler handler;
   private HfcDbServer server;
-  protected AbstractService _activeServiceCall;
 
   private RdfProxy startClient(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException {
@@ -81,20 +84,17 @@ public abstract class AbstractAgent extends Agent implements Constants {
     super.shutdown();
   }
 
-  public DayTime getDayTime(){
+  public DayTime getDayTime() {
     LocalDateTime date = LocalDateTime.now(); //https://www.w3schools.com/java/java_date.asp
     int hours = date.getHour();
 
-    if (hours > 5 && hours < 11){
+    if (hours > 5 && hours < 11) {
       return DayTime.morning;
-    }
-    else if (hours >= 11 && hours < 16){
+    } else if (hours >= 11 && hours < 16) {
       return DayTime.day;
-    }
-    else if (hours >= 16 && hours <= 22){
+    } else if (hours >= 16 && hours <= 22) {
       return DayTime.evening;
-    }
-    else {
+    } else {
       return DayTime.night;
     }
   }
@@ -104,73 +104,73 @@ public abstract class AbstractAgent extends Agent implements Constants {
     return createExtendedBehaviour(delay, da);
   }
 
-  private Behaviour createExtendedBehaviour(int delay, DialogueAct da){
+  private Behaviour createExtendedBehaviour(int delay, DialogueAct da) {
     Pair<String, String> toSay = this.asr.generate(da.getDag());
     return new ExtendedBehaviour(this.generateId(), (String) toSay.second, (String) toSay.first, delay, da);
   }
 
 
-  protected Rdf internalize(String endPOI){
-    Rdf poi =  _proxy.getRdf("<"+DOMAIN_NS+""+endPOI+">");
+  protected Rdf internalize(String endPOI) {
+    Rdf poi = _proxy.getRdf("<" + DOMAIN_NS + "" + endPOI + ">");
     if (poi != null)
       return poi;
     throw new IllegalArgumentException("Unknown POI");
   }
 
 
-  public final DialogueAct emitDAWB(int delay, DialogueAct da, Triple ... choices) {
-    logger.debug("Calling emitDAWB with choices: " +Arrays.toString(choices) );
+  public final DialogueAct emitDAWB(int delay, DialogueAct da, Triple... choices) {
+    logger.debug("Calling emitDAWB with choices: " + Arrays.toString(choices));
     ExtendedBehaviour extendedBehaviour = (ExtendedBehaviour) createExtendedBehaviour(delay, da);
     extendedBehaviour.setButtonChoices(choices);
     emitBehaviour(extendedBehaviour);
     return this.addToMyDA(da);
   }
 
-  public final DialogueAct emitDAWB(DialogueAct da, Triple ... choices) {
+  public final DialogueAct emitDAWB(DialogueAct da, Triple... choices) {
     return this.emitDAWB(Behaviour.DEFAULT_DELAY, da, choices);
   }
 
-  public final void emitStatus(int status){
+  public final void emitStatus(int status) {
     StatusMessage msg = new StatusMessage(new Header(), status);
     emitStatus(msg);
   }
 
-  public final void emitGCS(int eyes, int awareness, int motions){
+  public final void emitGCS(int eyes, int awareness, int motions) {
     int sum = eyes + awareness + motions;
     GCSMessage message = new GCSMessage(new Header(), eyes, awareness, motions, sum);
-    ((BaseCommunicationHub)_hub).sendGCS(message);
+    ((BaseCommunicationHub) _hub).sendGCS(message);
   }
 
-  public final void emitStatus(StatusMessage msg){
-    ((BaseCommunicationHub)_hub).sendStatus(msg);
+  public final void emitStatus(StatusMessage msg) {
+    ((BaseCommunicationHub) _hub).sendStatus(msg);
   }
 
   public void storeState() {
     this.stateDump = new StateDump(this);
   }
 
-  public void recoverState(){
+  public void recoverState() {
     this.state = stateDump.getState();
     robot.setValue("<dom:hasInternalState>", stateDump.getInternalState());
     this.stateDump = null;
   }
 
-  public void resetAgent(){
+  public void resetAgent() {
     this.reset();
     this.state = "initial";
     // TODO add more project specific details
   }
 
 
-  public void setActiveServiceCall(AbstractService service){
+  public void setActiveServiceCall(AbstractService service) {
     _activeServiceCall = service;
   }
 
-  public void triggerGCS(int bodyId){
-    if(user != null){
+  public void triggerGCS(int bodyId) {
+    if (user != null) {
       throw new IllegalStateException("Can't talk to two people at once");
     } else {
-      user = initUser(bodyId);
+      initUser(bodyId);
       state = "gcs_init";
       newData();
     }
@@ -178,11 +178,58 @@ public abstract class AbstractAgent extends Agent implements Constants {
 
   /**
    * TOOD extend with bodyId etc
+   *
    * @param bodyId
    * @return
    */
-  public Rdf initUser(int bodyId){
+  public void initUser(int bodyId) {
+    this.userID = bodyId;
+    user = _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
+  }
+
+  public void resetUser() {
+    this.userID = -1;
+    user = null;
+    _userSkeleton = null;
+  }
+
+  public void updateUserTrack(BodyTrackerMessage track) {
     // TODO use bodyId to initialize user rdf with corresponding values, e.g. areEyesOpen
-    return _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
+    boolean eyesOpen = Float.parseFloat(track.getHappy()) >= 75.0f;
+    user.setValue("<dom:areEyesOpen>", eyesOpen);
+    // add gesture
+    user.setValue("<dom:hasGender>", track.getHRGender());
+    user.setValue("<dom:hasAge>", track.getAge());
+  }
+
+  public void updateUserSkeleton(SkeletonMessage skeletonMessage) {
+    var hasMovedHead = false;
+    var hasMovedLeftHand = false;
+    var hasMovedRightHand = false;
+    var hasMovedLeftArm = false;
+    var hasMovedRightArm = false;
+    if (_userSkeleton == null) {
+      _userSkeleton = skeletonMessage;
+    } else {
+      if (skeletonMessage != _userSkeleton) {
+        hasMovedHead = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
+        hasMovedLeftHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_hand(), _userSkeleton.getJoint_position_left_hand()) >= 1;
+        hasMovedRightHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_hand(), _userSkeleton.getJoint_position_right_hand()) >= 1;
+        hasMovedLeftArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_elbow(), _userSkeleton.getJoint_position_left_elbow()) >= 1;
+        hasMovedRightArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_elbow(), _userSkeleton.getJoint_position_right_elbow()) >= 1;
+        //var hasMovedLeftLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position, _userSkeleton.getJoint_position_head()) >= 1;
+        //var hasMovedRightLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
+      }
+    }
+    user.setValue("<dom:hasMoved>", (hasMovedHead || hasMovedLeftHand || hasMovedRightHand || hasMovedLeftArm || hasMovedRightArm));
+    user.setValue("<dom:hasMovedHead>", hasMovedHead );
+    user.setValue("<dom:hasMovedLeftHand>", hasMovedLeftHand );
+    user.setValue("<dom:hasMovedLeftArm>", hasMovedLeftArm );
+    user.setValue("<dom:hasMovedRightArm>", hasMovedRightArm );
+    user.setValue("<dom:hasMovedRightHand>", hasMovedRightHand );
+  }
+
+  public int getUserID() {
+    return userID;
   }
 }

@@ -51,9 +51,4 @@ public abstract class BaseAgent extends AbstractAgent implements Constants {
     }
   }
 
-
-
-
-
-
 }

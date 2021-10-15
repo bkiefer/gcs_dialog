@@ -22,16 +22,17 @@
 
     <node name="gcs_service" pkg="speech_processing" type="dialog_service.py"/>
 
+    <node name="body_track_listener" pkg="speech_processing" type="BodyTrack_Listener.py"/>
     <!-- speech_inputs -->
-    <node if="$(arg launch_asr)" name="asr_listener" pkg="speech_processing" type="asr_listener.py" />
+    <node name="asr_listener" pkg="speech_processing" type="asr_listener.py" />
 
     <node name="tts_service" pkg="speech_processing" type="tts_service.py" />
 
     <node name="tts_service_client" pkg="speech_processing" type="tts_service_client.py" />
 
-     <node if="$(arg launch_respeaker)" name="respeaker_node" pkg="respeaker_ros" type="respeaker_node.py" respawn="true" respawn_delay="10" />
+    <node name="respeaker_node" pkg="respeaker_ros" type="respeaker_node.py" respawn="true" respawn_delay="10" />
 
-    <node if="$(arg launch_asr)" name="speech_to_text" pkg="speech_processing" type="my_speech_to_text.py"
+    <node name="speech_to_text" pkg="respeaker_ros" type="speech_to_text.py"
           output="screen">
       <remap from="audio" to="$(arg audio)"/>
       <remap from="speech_to_text" to="$(arg speech_to_text)"/>
@@ -41,5 +42,5 @@
         tts_tolerance: 0.5
         store_wav: false
       </rosparam>
-    </node>
+    </node> -->
 </launch>

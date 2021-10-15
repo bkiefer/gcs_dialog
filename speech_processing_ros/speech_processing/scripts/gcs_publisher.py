@@ -29,8 +29,7 @@ class GCSPublisher:
         threads = []
         while True:
             tcpServer.listen(4)
-            print(
-                "Multithreaded Python server : Waiting for connections from TCP clients...")
+            print("Multithreaded Python server : Waiting for connections from TCP clients...")
             (conn, (ip, port)) = tcpServer.accept()
             newthread = self.ClientThread(ip, port, conn, self.publisher)
             newthread.start()

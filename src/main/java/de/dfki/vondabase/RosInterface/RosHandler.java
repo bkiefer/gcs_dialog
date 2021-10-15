@@ -18,6 +18,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,12 +68,23 @@ class RosHandler implements Runnable {
                     _stub.asrInput(jsonObject.getString("text"));
                     break;
                 case ("Skeleton"):
-                    SkeletonMessage skeleton = builder.create().fromJson(message, SkeletonMessage.class);
-                    _stub.peopleSkeleton(skeleton);
+                    System.err.println("message: " + message);
+                    if(_stub.getAgent().getUserID() == jsonObject.getInt("body_id")) {
+                        SkeletonMessage skeleton = builder.create().fromJson(message, SkeletonMessage.class);
+                        _stub.updateSkeleton(skeleton);
+                    }
                     break;
                 case ("BodyTrack"):
-                    BodyTrackerMessage[] tracks = builder.create().fromJson(message, BodyTrackerMessage[].class);
-                    _stub.updateTracks(tracks);
+                    System.err.println("message: " + message);
+                    System.err.println("detected_list: " + jsonObject.getJSONArray("detected_list"));
+                    if(_stub.getAgent().user != null) {
+                        var jsonArray = jsonObject.getJSONArray("detected_list");
+                        List<BodyTrackerMessage> tracks = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            tracks.add(builder.create().fromJson(jsonArray.get(i).toString(), BodyTrackerMessage.class));
+                        }
+                        _stub.updateTracks(tracks);
+                    }
                     break;
                 case ("GCSService"):
                     _client.setKeepAlive(true);

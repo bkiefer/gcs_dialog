@@ -44,9 +44,6 @@ add_message_files(
   GCS.msg
   Tts.msg
   TtsVolume.msg
-  BodyTracker.msg
-  BodyTrackerArray.msg
-  Skeleton.msg
 )
 
 ## Generate services in the 'srv' folder

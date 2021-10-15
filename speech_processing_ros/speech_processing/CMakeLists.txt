@@ -9,13 +9,13 @@ project(speech_processing)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED  COMPONENTS
     rospy
-    catkin_virtualenv
+    #catkin_virtualenv
 )
 
-catkin_generate_virtualenv(
-  PYTHON_INTERPRETER python3.6
-  USE_SYSTEM_PACKAGES TRUE
-)
+#catkin_generate_virtualenv(
+#  PYTHON_INTERPRETER python3.6
+#  USE_SYSTEM_PACKAGES TRUE
+#)
 
 
 #install(FILES requirements.txt

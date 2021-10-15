@@ -3,6 +3,44 @@ package de.dfki.vondabase.RosInterface.msgs;
 import de.dfki.mlt.rosBridge.utils.Message;
 import de.dfki.mlt.rosBridge.utils.geometry.Point;
 
+/**
+ * std_msgs/Header header
+ *   uint32 seq
+ *   time stamp
+ *   string frame_id
+ * body_tracker_msgs/BodyTracker[] detected_list
+ *  + int32 body_id
+ *  +  int32 tracking_status
+ *  + int32 gesture
+ *  + bool face_found
+ *  + int32 face_left
+ *  + int32 face_top
+ *  + int32 face_width
+ *  + int32 face_height
+ *  + int32 age
+ *  + int32 gender
+ *  + string name
+ *  + string angry
+ *  + string surprise
+ *  + string happy
+ *  + string neutral
+ *   string left_eye_x
+ *   string left_eye_y
+ *   string right_eye_x
+ *   string right_eye_y
+ *  + geometry_msgs/Point32 position2d
+ *     float32 x
+ *     float32 y
+ *     float32 z
+ *  + geometry_msgs/Point32 position3d
+ *     float32 x
+ *     float32 y
+ *     float32 z
+ *  + geometry_msgs/Point32 face_center
+ *     float32 x
+ *     float32 y
+ *     float32 z
+ */
 public class BodyTrackerMessage extends Message {
 
     private int body_id;
@@ -16,6 +54,22 @@ public class BodyTrackerMessage extends Message {
     private int face_height;
     private int age;
     private int gender;
+
+    private String name;
+    private String angry;
+    private String surprise;
+    private String happy;
+    private String neutral;
+
+    private String left_eye_x;
+    private String left_eye_y;
+    private String right_eye_x;
+    private String right_eye_y;
+
+    private Point position2d;
+    private Point position3d;
+    private Point face_center;
+
 
     @Override
     public boolean equals(Object o) {
@@ -35,10 +89,18 @@ public class BodyTrackerMessage extends Message {
         if (face_height != that.face_height) return false;
         if (age != that.age) return false;
         if (gender != that.gender) return false;
-        if (!name.equals(that.name)) return false;
-        if (!position2d.equals(that.position2d)) return false;
-        if (!position3d.equals(that.position3d)) return false;
-        return face_center.equals(that.face_center);
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (angry != null ? !angry.equals(that.angry) : that.angry != null) return false;
+        if (surprise != null ? !surprise.equals(that.surprise) : that.surprise != null) return false;
+        if (happy != null ? !happy.equals(that.happy) : that.happy != null) return false;
+        if (neutral != null ? !neutral.equals(that.neutral) : that.neutral != null) return false;
+        if (left_eye_x != null ? !left_eye_x.equals(that.left_eye_x) : that.left_eye_x != null) return false;
+        if (left_eye_y != null ? !left_eye_y.equals(that.left_eye_y) : that.left_eye_y != null) return false;
+        if (right_eye_x != null ? !right_eye_x.equals(that.right_eye_x) : that.right_eye_x != null) return false;
+        if (right_eye_y != null ? !right_eye_y.equals(that.right_eye_y) : that.right_eye_y != null) return false;
+        if (position2d != null ? !position2d.equals(that.position2d) : that.position2d != null) return false;
+        if (position3d != null ? !position3d.equals(that.position3d) : that.position3d != null) return false;
+        return face_center != null ? face_center.equals(that.face_center) : that.face_center == null;
     }
 
     @Override
@@ -54,18 +116,20 @@ public class BodyTrackerMessage extends Message {
         result = 31 * result + face_height;
         result = 31 * result + age;
         result = 31 * result + gender;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + position2d.hashCode();
-        result = 31 * result + position3d.hashCode();
-        result = 31 * result + face_center.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (angry != null ? angry.hashCode() : 0);
+        result = 31 * result + (surprise != null ? surprise.hashCode() : 0);
+        result = 31 * result + (happy != null ? happy.hashCode() : 0);
+        result = 31 * result + (neutral != null ? neutral.hashCode() : 0);
+        result = 31 * result + (left_eye_x != null ? left_eye_x.hashCode() : 0);
+        result = 31 * result + (left_eye_y != null ? left_eye_y.hashCode() : 0);
+        result = 31 * result + (right_eye_x != null ? right_eye_x.hashCode() : 0);
+        result = 31 * result + (right_eye_y != null ? right_eye_y.hashCode() : 0);
+        result = 31 * result + (position2d != null ? position2d.hashCode() : 0);
+        result = 31 * result + (position3d != null ? position3d.hashCode() : 0);
+        result = 31 * result + (face_center != null ? face_center.hashCode() : 0);
         return result;
     }
-
-    private String name;
-
-    private Point position2d;
-    private Point position3d;
-    private Point face_center;
 
     public int getBody_id() {
         return body_id;
@@ -179,4 +243,18 @@ public class BodyTrackerMessage extends Message {
         this.body_id = body_id;
     }
 
+    public String getHappy() {
+        return happy;
+    }
+
+    public String getHRGender() {
+        // TODO validate these assignments
+        System.err.println("Gender Value: " + gender);
+        if (gender == -1)
+            return "unknown";
+        else if (gender == 0)
+            return "female";
+        else
+            return "male";
+    }
 }

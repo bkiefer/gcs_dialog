@@ -53,6 +53,6 @@ class DialogueService:
 
 
 if __name__ == "__main__":
-    rospy.init_node("dialogue_service")
+    rospy.init_node("gcs_service")
     service = DialogueService()
     rospy.spin()
