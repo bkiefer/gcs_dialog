@@ -195,11 +195,17 @@ public abstract class AbstractAgent extends Agent implements Constants {
 
   public void updateUserTrack(BodyTrackerMessage track) {
     // TODO use bodyId to initialize user rdf with corresponding values, e.g. areEyesOpen
-    boolean eyesOpen = Float.parseFloat(track.getHappy()) >= 75.0f;
+    // angry, surprise, happy, neutral
+    double[] emotions = track.getEmotions();
+    boolean eyesOpen = emotions[1] >= 0.75d;
+    boolean mouthOpen = emotions[0] >= 0.75d;
     user.setValue("<dom:areEyesOpen>", eyesOpen);
+    user.setValue("<dom:isMouthOpen>", mouthOpen);
     // add gesture
     user.setValue("<dom:hasGender>", track.getHRGender());
     user.setValue("<dom:hasAge>", track.getAge());
+    user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(track.getGesture()));
+
   }
 
   public void updateUserSkeleton(SkeletonMessage skeletonMessage) {
