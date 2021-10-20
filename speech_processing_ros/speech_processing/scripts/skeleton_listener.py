@@ -6,7 +6,7 @@ from rospy_message_converter import message_converter
 import socket
 import os
 import json
-from gcs_msgs.msg import Skeleton
+from body_tracker_msgs.msg import Skeleton
 
 
 class AsrListener:

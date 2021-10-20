@@ -6,7 +6,7 @@ from rospy_message_converter import message_converter
 import socket
 import os
 import json
-from gcs_msgs.msg import BodyTrackerArray
+from body_tracker_msgs.msg import BodyTrackerArray
 
 
 class AsrListener:
@@ -15,7 +15,7 @@ class AsrListener:
     BUFFER_SIZE = 20
 
     def callback(self, data):
-        if data.transcript[0] != "":
+        if len(data.detected_list) > 0:
             # open socket and send data
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect(self.server_address)
@@ -34,6 +34,6 @@ class AsrListener:
 
 if __name__ == '__main__':
     rospy.logdebug("starting bodyTracker listener")
-    rospy.init_node("skeleton_listener")
+    rospy.init_node("body_tracker_listener")
     bridge = AsrListener()
     rospy.spin()

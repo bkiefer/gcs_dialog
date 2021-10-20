@@ -43,7 +43,7 @@ public class BaseCommunicationHub implements CommunicationHub {
 
   private final Random r = new Random();
   private boolean isRunning = true;
-  private AbstractAgent _agent;
+  private BaseAgent _agent;
 
   // ------------------ init the Communication Hub -----------------------------------------
   public void init(File configDir, Map<String, Object> configs)
@@ -232,7 +232,7 @@ public class BaseCommunicationHub implements CommunicationHub {
   }
 
 
-  public Agent getAgent() {
+  public BaseAgent getAgent() {
     return _agent;
   }
 
@@ -241,11 +241,19 @@ public class BaseCommunicationHub implements CommunicationHub {
   }
 
 
-  public void peopleSkeleton(SkeletonMessage skeleton) {
-    throw new IllegalStateException("Please implement me!");
+  public void updateSkeleton(SkeletonMessage skeleton) {
+    _agent.updateUserSkeleton(skeleton);
   }
 
-  public void updateTracks(BodyTrackerMessage[] tracks) {
+  public void updateTracks(List<BodyTrackerMessage> tracks) {
+    if (_agent.getUserID() != -1){
+      for (BodyTrackerMessage track : tracks){
+        if (_agent.getUserID() == track.getBody_id()){
+          _agent.updateUserTrack(track);
+        }
+      }
+    }
+
     throw new IllegalStateException("Please implement me!");
   }
 

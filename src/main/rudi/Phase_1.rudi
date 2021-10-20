@@ -8,4 +8,5 @@ if(state == "gcs_phase1"){
             emitDA(#Inform(DemoII));
             state = "gcs_done";
             }
+     dialogAgent.gcs_phase1 = 1;
 }

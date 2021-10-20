@@ -6,6 +6,8 @@ import de.dfki.mlt.rosBridge.utils.Message;
 import javax.json.Json;
 import javax.json.JsonObject;
 
+import static java.lang.Math.abs;
+
 public class SkeletonMessage extends Message {
 
     private int body_id;
@@ -123,6 +125,13 @@ public class SkeletonMessage extends Message {
 
     public int getBody_id() {
         return body_id;
+    }
+
+    public static double delta(Point oldPoint, Point newPoint){
+        var difX = abs(oldPoint.getX() - newPoint.getX());
+        var difY = abs(oldPoint.getY() - newPoint.getY());
+        var difZ = abs(oldPoint.getZ() - newPoint.getZ());
+      return difX + difY + difZ;
     }
 
 }
