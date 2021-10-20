@@ -6,7 +6,7 @@ floor:              1
 checkTypes:         true
 failOnError:        false
 verbose:            false
-GUI_enabled:        false
+GUI_enabled:        true
 REST_enabled:       true
 tts_blocking:       true  # set to false if you don't want that the tts output and speech bubbles on the avatar are synchronized
 rootPackage:        de.dfki.vondabase

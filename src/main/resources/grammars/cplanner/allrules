@@ -1,18 +1,4 @@
 [Settings]
 
 [Rules Stage 1]
-treatinfo.trf
-
-[Rules Stage 1]
-
-autonomous.trf
 generation_de.trf
-goal_waypoints.trf
-Lift.trf
-luggageBot.trf
-navigation.trf
-people_obstruction.trf
-unused.trf
-
-[Rules Stage 2]
-uc_transport_luggage.trf
