@@ -17,7 +17,7 @@ import audioop
 class ElevatorDialogueService:
 
     # Connect the socket to the port where the server is listening
-    marytts = MaryTTS(os.environ.get("MARY_IP"))
+    marytts = MaryTTS(os.environ.get("ROS_IP"))
     marytts.locale = "de"
     marytts.voice = "dfki-pavoque-neutral-hsmm"
 
