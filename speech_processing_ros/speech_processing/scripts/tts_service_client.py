@@ -10,7 +10,7 @@ from threading import Thread
 
 
 class TtsPublisher:
-    local_address = (os.environ.get("DIA_IP"), 11113)
+    local_address = (os.environ.get("ROS_IP"), 11113)
     BUFFER_SIZE = 20  # Usually 1024, but we need quick response
 
     def __init__(self):

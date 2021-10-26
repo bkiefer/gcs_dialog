@@ -194,7 +194,36 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
+
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isMouthOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isMouthOpen">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
     
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isHandOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isHandOpen">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#performsGesture -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#performsGesture">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
 
 
     <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender -->

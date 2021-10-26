@@ -13,7 +13,7 @@ import socket
 class DialogueService:
 
     # Connect the socket to the port where the server is listening
-    server_address = (os.environ.get("DIA_IP"), 11666)
+    server_address = (os.environ.get("ROS_IP"), 11666)
     BUFFER_SIZE = 20
 
     def __init__(self):
