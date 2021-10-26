@@ -109,7 +109,43 @@ raw:ReturnGreeting ^ Greet
 //memorize Person
 raw:Inform ^ DRZGreet
     ->
-    # = :canned ^ <string>"Hey Sie. Ich bin ein Roboter der Feuerwehr. Keine Sorge Hilfe ist unterwegs." .
+    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+    //TODO: Formulierungen:
+    //die Ihre Rettung beschleunigen
+    //die den Einsatzkräften bei Ihrer Rettung helfen
+    //die die Rettungskräfte über Ihre Situation informieren.
+    //die der Behandlung / einer Einschätung ihrer Situation...
+    //die einer schnelleren Rettung / der Beschleunigung Ihrer Rettung dienen.
+    //Ich bin hier, um Ihre Rettung zu beschleunigen. 
+
+/******************************************************************************/
+//phase1: ask to open eyes
+raw:Inform ^ eyes
+    ->
+    # = :canned ^ <string>random("Können Sie Ihre Augen öffnen?",
+                                    "Öffnen Sie bitte Ihre Augen.",
+                                    "Wenn Sie mich hören können, öffnen Sie bitte Ihre Augen.") .
+
+/******************************************************************************/
+//clench fist
+//TODO: Links / rechts, beide?
+raw:Inform ^ clenchHand
+    ->
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihre Faust zu ballen." .
+
+//open fist
+raw:Inform ^ openHand
+    ->
+    # = :canned ^ <string>"Sehr gut. Bitte öffnen Sie die Faust wieder." .
+
+/******************************************************************************/
+//move arm
+//TODO: Bewegung spezifizieren?
+raw:Inform ^ moveArm
+    ->
+    # = :canned ^ <string>"Versuchen Sie, Ihren Arm zu bewegen." .
+
+
 
 /******************************************************************************/
 //memorize Person
