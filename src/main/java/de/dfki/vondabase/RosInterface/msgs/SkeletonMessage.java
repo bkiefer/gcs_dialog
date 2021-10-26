@@ -17,25 +17,18 @@ public class SkeletonMessage extends Message {
     private Point position2D;
     private Point centerOfMass;
 
-    private Point joint_position_head;
-    private Point joint_position_neck;
-    private Point joint_position_shoulder;
-    private Point joint_position_spine_top;
-    private Point joint_position_spine_mid;
-    private Point joint_position_spine_bottom;
+    private Point p_head;
 
-    private Point joint_position_left_shoulder;
-    private Point joint_position_left_elbow;
-    private Point joint_position_left_hand;
+    private Point p_l_s;
+    private Point p_l_e;
+    private Point p_l_h;
 
-    private Point joint_position_right_shoulder;
-    private Point joint_position_right_elbow;
-    private Point joint_position_right_hand;
+    private Point p_r_s;
+    private Point p_r_e;
+    private Point p_r_h;
 
     public SkeletonMessage(int body_id, int tracking_status, int gesture, Point position2D, Point centerOfMass,
-            Point joint_position_head, Point joint_position_neck, Point joint_position_shoulder,
-            Point joint_position_spine_top, Point joint_position_spine_bottom, Point joint_position_spine_mid,
-            Point joint_position_left_shoulder, Point joint_position_left_elbow, Point joint_position_left_hand,
+            Point joint_position_head, Point joint_position_left_shoulder, Point joint_position_left_elbow, Point joint_position_left_hand,
             Point joint_position_right_shoulder, Point joint_position_right_elbow, Point joint_position_right_hand) {
         super(Json.createObjectBuilder().add("body_id", body_id).add("tracking_status", tracking_status)
                 .add("gesture", gesture).add("position2D", position2D.toJsonObject())
@@ -45,66 +38,42 @@ public class SkeletonMessage extends Message {
         this.gesture = gesture;
         this.position2D = position2D;
         this.centerOfMass = centerOfMass;
-        this.joint_position_head = joint_position_head;
-        this.joint_position_neck = joint_position_neck;
-        this.joint_position_shoulder = joint_position_shoulder;
-        this.joint_position_spine_top = joint_position_spine_top;
-        this.joint_position_spine_bottom = joint_position_spine_bottom;
-        this.joint_position_spine_mid = joint_position_spine_mid;
-        this.joint_position_left_shoulder = joint_position_left_shoulder;
-        this.joint_position_left_elbow = joint_position_left_elbow;
-        this.joint_position_left_hand = joint_position_left_hand;
-        this.joint_position_right_shoulder = joint_position_right_shoulder;
-        this.joint_position_right_elbow = joint_position_right_elbow;
-        this.joint_position_right_hand = joint_position_right_hand;
+        this.p_head = joint_position_head;
+        this.p_l_s = joint_position_left_shoulder;
+        this.p_l_e = joint_position_left_elbow;
+        this.p_l_h = joint_position_left_hand;
+        this.p_r_s = joint_position_right_shoulder;
+        this.p_r_e = joint_position_right_elbow;
+        this.p_r_h = joint_position_right_hand;
     }
 
     public Point getJoint_position_right_hand() {
-        return joint_position_right_hand;
+        return p_r_h;
     }
 
     public Point getJoint_position_right_elbow() {
-        return joint_position_right_elbow;
+        return p_r_e;
     }
 
     public Point getJoint_position_right_shoulder() {
-        return joint_position_right_shoulder;
+        return p_r_s;
     }
 
     public Point getJoint_position_left_hand() {
-        return joint_position_left_hand;
+        return p_l_h;
     }
 
     public Point getJoint_position_left_elbow() {
-        return joint_position_left_elbow;
+        return p_l_e;
     }
 
     public Point getJoint_position_left_shoulder() {
-        return joint_position_left_shoulder;
+        return p_l_s;
     }
 
-    public Point getJoint_position_spine_bottom() {
-        return joint_position_spine_bottom;
-    }
-
-    public Point getJoint_position_spine_mid() {
-        return joint_position_spine_mid;
-    }
-
-    public Point getJoint_position_spine_top() {
-        return joint_position_spine_top;
-    }
-
-    public Point getJoint_position_shoulder() {
-        return joint_position_shoulder;
-    }
-
-    public Point getJoint_position_neck() {
-        return joint_position_neck;
-    }
 
     public Point getJoint_position_head() {
-        return joint_position_head;
+        return p_head;
     }
 
     public Point getCenterOfMass() {
