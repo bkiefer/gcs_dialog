@@ -1,0 +1,38 @@
+
+
+phase_one:
+if(state == "gcs_phase3"){
+    emit(#Inform(MoveHandArm))
+    state="wait";
+    timeout("wait", 15000){
+        state = "p3_3"
+    }
+}
+
+phase_three_wait_3:
+if (state == "p3_3"){
+    if (user.hasMovedLeftHand == true || user.hasMovedRightHand == true || user.hasMovedLeftArm == true || user.hasMovedRightArm == true){
+             emit(#Inform(Thanks));
+             emit(#Inform(MoveLegs));
+             state="wait";
+             timeout("wait", 15000){
+                 state = "p3_6"
+             }
+    } else {
+         dialogAgent.gcs_phase3 = 1;
+         state = "gcs_done";
+    }
+}
+
+phase_three_wait_6:
+if (state == "p3_6"){
+    if (user.hasMovedLeftLeg == true || user.hasMovedRightLeg == true){
+             emit(#Inform(Thanks));
+             dialogAgent.gcs_phase3 = 6;
+                      state = "gcs_done";
+
+    } else {
+         dialogAgent.gcs_phase3 = 3;
+         state = "gcs_done";
+    }
+}

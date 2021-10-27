@@ -3,5 +3,6 @@
 phase_greet:
 if(state == "gcs_greet"){
     emitDA(#Inform(DRZGreet));
+    emitDA(#Inform(DRZGreet_I));
     state= "gcs_phase1";
 }

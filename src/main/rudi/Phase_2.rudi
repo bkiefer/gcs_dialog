@@ -1,22 +1,13 @@
 
 
 phase_one:
-if(state == "gcs_phase1"){
-    if (user.areEyesOpen == false){
-         emit(#Inform(OpenEyes));
-         state="wait";
-         timeout("wait", 15000){
-             state = "p1_3"
-         }
-    } else {
-     emit(#Inform(Fragen));
-     dialogAgent.gcs_phase1 = 4;
-     state = "gcs_phase2";
-    }
+if(state == "gcs_phase2"){
+     state = "gcs_phase3";
+
 }
 
-phase_one_wait_3:
-if (state == "p1_3"){
+phase_two_wait_3:
+if (state == "p2_3"){
     if (user.areEyesOpen == false){
              emit(#Inform(HeyOpenEyes));
              state="wait";
@@ -30,8 +21,8 @@ if (state == "p1_3"){
         }
 }
 
-phase_one_wait_1:
-if (state == "p1_1"){
+phase_two_wait_1:
+if (state == "p2_1"){
     if (user.areEyesOpen == false){
             dialogAgent.gcs_phase1 = 1;
             state = "gcs_done";
