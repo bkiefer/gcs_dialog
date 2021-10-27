@@ -116,6 +116,22 @@ public class GUI extends JFrame {
             _react.testDiaState();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("createUser()")) {
+            _react.createUser();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("clearUser()")) {
+            _react.clearUser();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("eyesOpen()")) {
+            _react.eyesOpen();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("eyesClosed()")) {
+            _react.eyesClosed();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("testComaScore()")) {
             _react.testDiaScore();
             queryInput.setText("");
