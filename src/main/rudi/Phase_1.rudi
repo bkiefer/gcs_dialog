@@ -12,7 +12,6 @@ if(state == "gcs_phase1"){
            return 0;
     }
     emitDA(#Inform(eyes));
-    state="wait";
     timeout("wait", 10000){
        if (user.areEyesOpen == true){
            dialogAgent.gcs_phase1 = 3;
