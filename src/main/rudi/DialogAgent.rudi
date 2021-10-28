@@ -21,6 +21,7 @@ int gcs_phase1 = 0;
 int gcs_phase2 = 0;
 int gcs_phase3 = 0;
 
+
 greet_back: //TODO: add time when greeting back
 if (lastDA() >= #InitialGreeting(Greet)) {
   System.err.println("greet back");

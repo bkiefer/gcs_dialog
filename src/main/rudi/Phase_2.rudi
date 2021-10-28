@@ -1,0 +1,8 @@
+//TODO
+//verbal Phase
+
+phase_two:
+if(state == "gcs_phase2"){
+    state = "gcs_phase3";
+    dialogAgent.gcs_phase2 = 1;
+}

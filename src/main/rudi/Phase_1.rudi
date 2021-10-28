@@ -1,34 +1,29 @@
 
-//aufraeumen, dupl, state anfangs?
+//aufraeumen, elses statt returns?
 //Check eyes opening
 
-//TODO: Begrüßung nochmal wenn Augen zu lange geschlossen?
+//TODO: Repeat DRZGreet if eyes closed for too long
 phase_one:
 if(state == "gcs_phase1"){
+    System.err.println("Starting phase 1");
+    state = "gcs_phase2";
     if (user.areEyesOpen == true){
-           state= "gcs_phase2";
            dialogAgent.gcs_phase1 = 4;
            return 0;
-           //TODO: works? alternativ Aufruf?
     }
     emitDA(#Inform(eyes));
     state="wait";
     timeout("wait", 10000){
        if (user.areEyesOpen == true){
-           state= "gcs_phase2";
            dialogAgent.gcs_phase1 = 3;
            return;
-           //TODO: works?
        }
        emitDA(#Inform(DRZGreet));
        emitDA(#Inform(eyes));
        if (user.areEyesOpen == true){
-           state= "gcs_phase2";
            dialogAgent.gcs_phase1 = 2;
            return;
-           //TODO: works?
        }
-       state= "gcs_phase2";
        dialogAgent.gcs_phase1 = 1;
     }
 }

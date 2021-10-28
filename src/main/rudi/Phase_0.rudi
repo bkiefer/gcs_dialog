@@ -2,6 +2,8 @@
 
 phase_greet:
 if(state == "gcs_greet"){
+    System.err.println("Starting phase greet");
     emitDA(#Inform(DRZGreet));
-    state= "gcs_phase1";
+    lastDAprocessed();
+    state = "gcs_phase1";
 }

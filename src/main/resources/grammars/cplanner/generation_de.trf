@@ -1,115 +1,8 @@
-// Rolli.rudi and other general utterances
-
-raw:Request ^ Inform ^<what>Done
-->
-# = :canned ^ <string>random("Sagen Sie mir bitte Bescheid, wenn Sie fertig sind ." ,
-"Lasses sie mich wissen, wenn sie fertig sind." ,
-"Sag Bescheid, wenn du fertig bist."
-).
-
-raw:Inform ^ Done
-->
-# = :canned ^ <string>random("So, ich bin fertig .", "Das wäre erledigt .", "Habe fertig" ).
-
-raw: Request ^ Follow
-->
-# = :canned ^ <string>random("Folgen Sie mir bitte .", "Mir nach! " ).
-
-//ask_for_name:
-raw:WHQuestion ^ Name
-->
-# =  :canned ^ <string>random("Wie heißen Sie ?", 
-                                    "Wie ist ihr Name ?", 
-                                    "Wollen Sie sich mir vorstellen ?",
-                                    "Darf ich Ihren Namen erfahren ?").
-/******************************************************************************/
-//Thanking
-raw:Thanking ^ Generell
-->
-# =  :canned ^ <string>random("Danke für Ihre zusammenarbeit .",
-                                    "Ich bedanke mich vielmals .",
-                                    "Dankeschön .",
-                                    "Vielen Dank .").
-/******************************************************************************/
-//Confirm understanding
-raw:Confirm ^ Understood
-    ->
-    # = :canned ^ <string>random("Verstanden .", "In Ordnung .", "Ja , ich habe verstanden .").
-
-/******************************************************************************/
-raw:Inform ^ Farewell
-{
- ^ !<greet>
-    {
-        ^ !<timeOfDay>
-        ->
-        # ^ <greet>random("Einen schoenen Tag noch .", "Bis dann .").// default case
-
-        ^ <timeOfDay>morning
-        ->
-        # ^ <greet>random("Einen schoenen Resttag noch  .", "Einen guten Morgen noch ." ).
-
-        ^ <timeOfDay>day
-        ->
-        # ^ <greet>random("Guten Tag .", "Einen wunderschoenen guten Tag noch.").//# = :canned ^ <string>"Guten Tag".
-
-        ^ <timeOfDay>(evening|night)
-        ->
-        # ^ <greet>random("Eine gute Nacht wuensche ich .", "Einen schoenen Abend noch .").//#i ^ <greet>"Guten Abend".
-    }
-
-^ <greet>#gr
-    {
-        ^ !<lastName>
-        ->
-        # = :canned ^ <string>random(#gr, "Bis dann", "Auf wiedersehen .").
-
-        ^ <lastName>#n ^ <anrede>#a
-        ->
-        # = :canned ^ <string>concatenate(random(#gr, "Hallo"), ", ", #a, " ", #n ," .").
-    }
-}
-
-
-raw:ReturnGreeting ^ Greet
-{
- ^ !<greet>
-    {
-        ^ !<timeOfDay>
-        ->
-        # ^ <greet>random("Guten Tag . ", "Einen wunderschoenen guten Tag .").// default case
-
-        ^ <timeOfDay>morning
-        ->
-        # ^ <greet>random("Guten Morgen .", "Einen guten Morgen ." , "Einen wunderschoenen guten Morgen .", "Moin moin .").
-
-        ^ <timeOfDay>day
-        ->
-        # ^ <greet>random("Guten Tag .", "Einen wunderschoenen guten Tag .", "Mahlzeit.").//# = :canned ^ <string>"Guten Tag".
-
-        ^ <timeOfDay>(evening|night)
-        ->
-        # ^ <greet>random("Guten Abend .", "Einen guten Abend wuensche ich .", "N'abend .").//#i ^ <greet>"Guten Abend".
-    }
-
-^ <greet>#gr
-    {
-        ^ !<lastName>
-        ->
-        # = :canned ^ <string>random(#gr, "Hallo", "Hi").
-
-        ^ <lastName>#n ^ <anrede>#a
-        ->
-        # = :canned ^ <string>concatenate(random(#gr, "Hallo"), ", ", #a, " ", #n ," .").
-    }
-}
-
-
-/******************************************************************************/
-//memorize Person
+//Greet, introduce
 raw:Inform ^ DRZGreet
     ->
-    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. 
+    Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
     //TODO: Formulierungen:
     //die Ihre Rettung beschleunigen
     //die den Einsatzkräften bei Ihrer Rettung helfen
@@ -131,7 +24,7 @@ raw:Inform ^ eyes
 //TODO: Links / rechts, beide?
 raw:Inform ^ clenchHand
     ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihre Faust zu ballen." .
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zur Faust zu ballen." .
 
 //open fist
 raw:Inform ^ openHand
@@ -140,10 +33,35 @@ raw:Inform ^ openHand
 
 /******************************************************************************/
 //move arm
-//TODO: Bewegung spezifizieren?
+//TODO: Bewegung spezifizieren: beugen, heben?, links rechts?
 raw:Inform ^ moveArm
     ->
     # = :canned ^ <string>"Versuchen Sie, Ihren Arm zu bewegen." .
+
+
+/******************************************************************************/
+//move head
+//TODO: Bewegung spezifizieren, welche Bewegungen sind sicher (Gefahr einer Wirbelsäulenverletzung?)?
+
+raw:Inform ^ moveHead
+    ->
+    # = :canned ^ <string>"Versuchen Sie, Ihren Kopf zu bewegen." .
+
+/******************************************************************************/
+//open mouth
+raw:Inform ^ openMouth
+    ->
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihren Mund zu öffnen." .
+
+//close mouth
+raw:Inform ^ closeMouth
+    ->
+    # = :canned ^ <string>"Sehr gut. Bitte schließen Sie Ihren Mund wieder." .
+
+/******************************************************************************/
+//TODO: Gestures
+//"waving", "swipe_left", "swipe_right", "swipe_up", "swipe_down", "push"
+
 
 
 
@@ -153,19 +71,6 @@ raw:Inform ^ Demo
     ->
     # = :canned ^ <string>"Können Sie mich hören ?" .
 
-/******************************************************************************/
-//memorize Person
-raw:Inform ^ DemoII
-    ->
-    # = :canned ^ <string>"Können Sie mich hören ? Bewegen sie bitte den Kopf oder heben sie einen Arm wenn sie mich hören ." .
-
-/******************************************************************************/
-//luggage
-raw:Inform ^ InstructionsOld
-    ->
-    # = :canned ^ <string>random("Sie können ihre Tasche auf mir abstellen .",
-                                        "Ich kann Ihr Gepäck für Sie tragen .",
-                                        "Stellen Sie einfach Ihre Tasche auf mir ab .").
 /******************************************************************************/
 // error
 raw:Inform ^ Error //TODO @CW, necessary?
