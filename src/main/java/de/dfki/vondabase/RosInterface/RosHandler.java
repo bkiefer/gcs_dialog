@@ -76,13 +76,10 @@ class RosHandler implements Runnable {
                     break;
                 case ("BodyTrack"):
                     System.err.println("message: " + message);
-                    System.err.println("detected_list: " + jsonObject.getJSONArray("detected_list"));
+                    //System.err.println("detected_list: " + jsonObject.getJSONArray("detected_list"));
+                    List<BodyTrackerMessage> tracks = new ArrayList<>();
                     if(_stub.getAgent().user != null) {
-                        var jsonArray = jsonObject.getJSONArray("detected_list");
-                        List<BodyTrackerMessage> tracks = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            tracks.add(builder.create().fromJson(jsonArray.get(i).toString(), BodyTrackerMessage.class));
-                        }
+                            tracks.add(builder.create().fromJson(jsonObject.toString(), BodyTrackerMessage.class));
                         _stub.updateTracks(tracks);
                     }
                     break;

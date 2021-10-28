@@ -183,6 +183,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
    * @return
    */
   public void initUser(int bodyId) {
+    System.err.println("New user for body_id " + bodyId);
     this.userID = bodyId;
     user = _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
   }
@@ -237,5 +238,14 @@ public abstract class AbstractAgent extends Agent implements Constants {
 
   public int getUserID() {
     return userID;
+  }
+
+  public void eyesOpen(int bodyId, boolean eyesOpen) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:areEyesOpen>", eyesOpen);
+      System.err.println("User id " + bodyId + " areEyesOpen: " + eyesOpen );
+      newData();
+    }
   }
 }

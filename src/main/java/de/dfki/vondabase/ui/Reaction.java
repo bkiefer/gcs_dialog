@@ -124,4 +124,20 @@ public class Reaction implements Runnable, Listener<Behaviour> {
     ((AbstractAgent) _stub.getAgent()).state = "test_dia_score";
     ((AbstractAgent) _stub.getAgent()).newData();
   }
+
+    public void createUser() {
+      ((AbstractAgent) _stub.getAgent()).initUser(1);
+    }
+
+  public void clearUser() {
+    ((AbstractAgent) _stub.getAgent()).resetUser();
+  }
+
+  public void eyesOpen() {
+    ((AbstractAgent) _stub.getAgent()).eyesOpen(1, true);
+  }
+
+  public void eyesClosed() {
+    ((AbstractAgent) _stub.getAgent()).eyesOpen(1, false);
+  }
 }

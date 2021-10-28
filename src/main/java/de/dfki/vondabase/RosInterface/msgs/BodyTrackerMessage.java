@@ -21,10 +21,6 @@ public class BodyTrackerMessage extends Message {
     private int gesture;
     private boolean face_found;
 
-    private int face_left;
-    private int face_top;
-    private int face_width;
-    private int face_height;
     private int age;
     private int gender;
 
@@ -33,11 +29,6 @@ public class BodyTrackerMessage extends Message {
     private String surprise;
     private String happy;
     private String neutral;
-
-    private String left_eye_x;
-    private String left_eye_y;
-    private String right_eye_x;
-    private String right_eye_y;
 
     private Point position2d;
     private Point position3d;
@@ -92,14 +83,6 @@ public class BodyTrackerMessage extends Message {
             return false;
         if (face_found != that.face_found)
             return false;
-        if (face_left != that.face_left)
-            return false;
-        if (face_top != that.face_top)
-            return false;
-        if (face_width != that.face_width)
-            return false;
-        if (face_height != that.face_height)
-            return false;
         if (age != that.age)
             return false;
         if (gender != that.gender)
@@ -113,14 +96,6 @@ public class BodyTrackerMessage extends Message {
         if (happy != null ? !happy.equals(that.happy) : that.happy != null)
             return false;
         if (neutral != null ? !neutral.equals(that.neutral) : that.neutral != null)
-            return false;
-        if (left_eye_x != null ? !left_eye_x.equals(that.left_eye_x) : that.left_eye_x != null)
-            return false;
-        if (left_eye_y != null ? !left_eye_y.equals(that.left_eye_y) : that.left_eye_y != null)
-            return false;
-        if (right_eye_x != null ? !right_eye_x.equals(that.right_eye_x) : that.right_eye_x != null)
-            return false;
-        if (right_eye_y != null ? !right_eye_y.equals(that.right_eye_y) : that.right_eye_y != null)
             return false;
         if (position2d != null ? !position2d.equals(that.position2d) : that.position2d != null)
             return false;
@@ -136,10 +111,6 @@ public class BodyTrackerMessage extends Message {
         result = 31 * result + tracking_status;
         result = 31 * result + gesture;
         result = 31 * result + (face_found ? 1 : 0);
-        result = 31 * result + face_left;
-        result = 31 * result + face_top;
-        result = 31 * result + face_width;
-        result = 31 * result + face_height;
         result = 31 * result + age;
         result = 31 * result + gender;
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -147,10 +118,6 @@ public class BodyTrackerMessage extends Message {
         result = 31 * result + (surprise != null ? surprise.hashCode() : 0);
         result = 31 * result + (happy != null ? happy.hashCode() : 0);
         result = 31 * result + (neutral != null ? neutral.hashCode() : 0);
-        result = 31 * result + (left_eye_x != null ? left_eye_x.hashCode() : 0);
-        result = 31 * result + (left_eye_y != null ? left_eye_y.hashCode() : 0);
-        result = 31 * result + (right_eye_x != null ? right_eye_x.hashCode() : 0);
-        result = 31 * result + (right_eye_y != null ? right_eye_y.hashCode() : 0);
         result = 31 * result + (position2d != null ? position2d.hashCode() : 0);
         result = 31 * result + (position3d != null ? position3d.hashCode() : 0);
         result = 31 * result + (face_center != null ? face_center.hashCode() : 0);
@@ -207,38 +174,6 @@ public class BodyTrackerMessage extends Message {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public int getFace_height() {
-        return face_height;
-    }
-
-    public void setFace_height(int face_height) {
-        this.face_height = face_height;
-    }
-
-    public int getFace_width() {
-        return face_width;
-    }
-
-    public void setFace_width(int face_width) {
-        this.face_width = face_width;
-    }
-
-    public int getFace_top() {
-        return face_top;
-    }
-
-    public void setFace_top(int face_top) {
-        this.face_top = face_top;
-    }
-
-    public int getFace_left() {
-        return face_left;
-    }
-
-    public void setFace_left(int face_left) {
-        this.face_left = face_left;
     }
 
     public boolean isFace_found() {
