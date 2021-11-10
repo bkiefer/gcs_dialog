@@ -128,6 +128,10 @@ public class GUI extends JFrame {
             _react.eyesOpen();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("testEyesOpen()")) {
+            _react.testEyesOpen();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("eyesClosed()")) {
             _react.eyesClosed();
             queryInput.setText("");

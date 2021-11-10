@@ -125,6 +125,11 @@ public class Reaction implements Runnable, Listener<Behaviour> {
     ((AbstractAgent) _stub.getAgent()).newData();
   }
 
+  public void testEyesOpen() {
+    ((AbstractAgent) _stub.getAgent()).state = "test_eyes_open";
+    ((AbstractAgent) _stub.getAgent()).newData();
+  }
+
     public void createUser() {
       ((AbstractAgent) _stub.getAgent()).initUser(1);
     }
@@ -140,4 +145,6 @@ public class Reaction implements Runnable, Listener<Behaviour> {
   public void eyesClosed() {
     ((AbstractAgent) _stub.getAgent()).eyesOpen(1, false);
   }
+
+
 }
