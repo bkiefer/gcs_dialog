@@ -43,6 +43,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
   /* ===== Core Workings =================================================== */
   private HfcDbHandler handler;
   private HfcDbServer server;
+  private boolean _ignoreRos = false;
 
   private RdfProxy startClient(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException {
@@ -195,45 +196,48 @@ public abstract class AbstractAgent extends Agent implements Constants {
   }
 
   public void updateUserTrack(BodyTrackerMessage track) {
-    // TODO use bodyId to initialize user rdf with corresponding values, e.g. areEyesOpen
-    // angry, surprise, happy, neutral
-    double[] emotions = track.getEmotions();
-    boolean eyesOpen = emotions[1] >= 0.75d;
-    boolean mouthOpen = emotions[0] >= 0.75d;
-    user.setValue("<dom:areEyesOpen>", eyesOpen);
-    user.setValue("<dom:isMouthOpen>", mouthOpen);
-    // add gesture
-    user.setValue("<dom:hasGender>", track.getHRGender());
-    user.setValue("<dom:hasAge>", track.getAge());
-    user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(track.getGesture()));
-
+    if (!_ignoreRos) {
+      // TODO use bodyId to initialize user rdf with corresponding values, e.g. areEyesOpen
+      // angry, surprise, happy, neutral
+      double[] emotions = track.getEmotions();
+      boolean eyesOpen = emotions[1] >= 0.75d;
+      boolean mouthOpen = emotions[0] >= 0.75d;
+      user.setValue("<dom:areEyesOpen>", eyesOpen);
+      user.setValue("<dom:isMouthOpen>", mouthOpen);
+      // add gesture
+      user.setValue("<dom:hasGender>", track.getHRGender());
+      user.setValue("<dom:hasAge>", track.getAge());
+      user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(track.getGesture()));
+    }
   }
 
   public void updateUserSkeleton(SkeletonMessage skeletonMessage) {
-    var hasMovedHead = false;
-    var hasMovedLeftHand = false;
-    var hasMovedRightHand = false;
-    var hasMovedLeftArm = false;
-    var hasMovedRightArm = false;
-    if (_userSkeleton == null) {
-      _userSkeleton = skeletonMessage;
-    } else {
-      if (skeletonMessage != _userSkeleton) {
-        hasMovedHead = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
-        hasMovedLeftHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_hand(), _userSkeleton.getJoint_position_left_hand()) >= 1;
-        hasMovedRightHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_hand(), _userSkeleton.getJoint_position_right_hand()) >= 1;
-        hasMovedLeftArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_elbow(), _userSkeleton.getJoint_position_left_elbow()) >= 1;
-        hasMovedRightArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_elbow(), _userSkeleton.getJoint_position_right_elbow()) >= 1;
-        //var hasMovedLeftLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position, _userSkeleton.getJoint_position_head()) >= 1;
-        //var hasMovedRightLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
+    if (!_ignoreRos) {
+      var hasMovedHead = false;
+      var hasMovedLeftHand = false;
+      var hasMovedRightHand = false;
+      var hasMovedLeftArm = false;
+      var hasMovedRightArm = false;
+      if (_userSkeleton == null) {
+        _userSkeleton = skeletonMessage;
+      } else {
+        if (skeletonMessage != _userSkeleton) {
+          hasMovedHead = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
+          hasMovedLeftHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_hand(), _userSkeleton.getJoint_position_left_hand()) >= 1;
+          hasMovedRightHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_hand(), _userSkeleton.getJoint_position_right_hand()) >= 1;
+          hasMovedLeftArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_elbow(), _userSkeleton.getJoint_position_left_elbow()) >= 1;
+          hasMovedRightArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_elbow(), _userSkeleton.getJoint_position_right_elbow()) >= 1;
+          //var hasMovedLeftLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position, _userSkeleton.getJoint_position_head()) >= 1;
+          //var hasMovedRightLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
+        }
       }
+      user.setValue("<dom:hasMoved>", (hasMovedHead || hasMovedLeftHand || hasMovedRightHand || hasMovedLeftArm || hasMovedRightArm));
+      user.setValue("<dom:hasMovedHead>", hasMovedHead);
+      user.setValue("<dom:hasMovedLeftHand>", hasMovedLeftHand);
+      user.setValue("<dom:hasMovedLeftArm>", hasMovedLeftArm);
+      user.setValue("<dom:hasMovedRightArm>", hasMovedRightArm);
+      user.setValue("<dom:hasMovedRightHand>", hasMovedRightHand);
     }
-    user.setValue("<dom:hasMoved>", (hasMovedHead || hasMovedLeftHand || hasMovedRightHand || hasMovedLeftArm || hasMovedRightArm));
-    user.setValue("<dom:hasMovedHead>", hasMovedHead );
-    user.setValue("<dom:hasMovedLeftHand>", hasMovedLeftHand );
-    user.setValue("<dom:hasMovedLeftArm>", hasMovedLeftArm );
-    user.setValue("<dom:hasMovedRightArm>", hasMovedRightArm );
-    user.setValue("<dom:hasMovedRightHand>", hasMovedRightHand );
   }
 
   public int getUserID() {
@@ -246,6 +250,25 @@ public abstract class AbstractAgent extends Agent implements Constants {
       user.setValue("<dom:areEyesOpen>", eyesOpen);
       System.err.println("User id " + bodyId + " areEyesOpen: " + eyesOpen );
       newData();
+      if (eyesOpen)
+      emitStatus(21);
+      else
+        emitStatus(20);
     }
+  }
+
+  public void hasMoved(int bodyId, boolean hasMoved) {
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMoved>", hasMoved);
+      newData();
+      if (hasMoved)
+        emitStatus(11);
+      else
+        emitStatus(10);
+    }
+  }
+
+  public void ignoreRosInput(boolean isDemo) {
+    _ignoreRos = isDemo;
   }
 }

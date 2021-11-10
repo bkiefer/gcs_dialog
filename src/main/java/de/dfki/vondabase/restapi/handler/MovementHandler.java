@@ -3,15 +3,11 @@ package de.dfki.vondabase.restapi.handler;
 import com.sun.net.httpserver.HttpExchange;
 import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.BaseCommunicationHub;
-import de.dfki.vondabase.RosInterface.services.GCS;
-import de.dfki.vondabase.RosInterface.services.GCSService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 
 /**
@@ -19,12 +15,12 @@ import java.util.concurrent.Future;
  *       operationId: askForHelp
  *       description: tbd
  */
-public class EyesHandler extends AbstractHandler{
+public class MovementHandler extends AbstractHandler{
 
   private final AbstractAgent _agent;
-  private final static Logger logger = LoggerFactory.getLogger(EyesHandler.class);
+  private final static Logger logger = LoggerFactory.getLogger(MovementHandler.class);
 
-  public EyesHandler(BaseCommunicationHub hub){
+  public MovementHandler(BaseCommunicationHub hub){
     super();
     builder.excludeFieldsWithoutExposeAnnotation();
     _agent = (AbstractAgent) hub.getAgent();
@@ -34,10 +30,10 @@ public class EyesHandler extends AbstractHandler{
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
     String json = bodyToString(exchange.getRequestBody());
     JSONObject jsonObject = new JSONObject(json);
-    boolean isOpen =  jsonObject.getBoolean("isOpen");
+    boolean isOpen =  jsonObject.getBoolean("hasMoved");
     if (_agent.user != null){
-      _agent.eyesOpen(_agent.getUserID(),isOpen);
-      sendResponse(200, exchange, "changed eyes status");
+      _agent.hasMoved(_agent.getUserID(),isOpen);
+      sendResponse(200, exchange, "changed moved status");
 
     } else {
         sendResponse(500, exchange, "no user ");

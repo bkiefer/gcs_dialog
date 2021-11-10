@@ -114,21 +114,29 @@ raw:Inform ^ DRZGreet
 
 raw:Inform ^ DRZGreet_I
     ->
-    # = :canned ^ <string>"Keine Sorge. Hilfe ist unterwegs."
+    # = :canned ^ <string>"Keine Sorge. Hilfe ist unterwegs.".
 
 
 raw:Inform ^ Fragen
     ->
-    # = :canned ^ <string>"Ich werde Ihnen gleich ein paar Fragen stellen, um zu erfahren was Ihnen fehlt."
+    # = :canned ^ <string>"Ich werde Ihnen gleich ein paar Fragen stellen, um zu erfahren was Ihnen fehlt.".
 
 raw:Inform ^ OpenEyes
     ->
-    # = :canned ^ <string>"Oeffnen Sie bitte die Augen, wenn Sie mich hoeren koennen."
+    # = :canned ^ <string>"Oeffnen Sie bitte die Augen, wenn Sie mich hoeren koennen.".
 
 
 raw:Inform ^ HeyOpenEyes
     ->
-    # = :canned ^ <string>"Hey. Augen auf!"
+    # = :canned ^ <string>"Hey. Augen auf!".
+
+raw:Inform ^ MoveHandArm
+->
+# = :canned ^ <string>"Bewegen sie bitte einen Arm, wenn das moeglich ist.".
+
+raw:Inform ^ MoveHandArm
+->
+# = :canned ^ <string>"Bewegen sie bitte einen Arm, wenn das moeglich ist.".
 /******************************************************************************/
 //memorize Person
 raw:Inform ^ Demo

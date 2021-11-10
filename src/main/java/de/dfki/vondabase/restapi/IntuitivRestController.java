@@ -47,6 +47,13 @@ public class IntuitivRestController {
     _server.createContext("/dialog/api", new StaticFileHandler(_dataLoc));
     GCSHandler gcsHandler = new GCSHandler(hub);
     _server.createContext("/dialog/gcs", gcsHandler);
+    EyesHandler eyesOpen = new EyesHandler(hub);
+    _server.createContext("/dialog/eyes",eyesOpen);
+    MovementHandler movement = new MovementHandler(hub);
+    _server.createContext("/dialog/move",movement);
+    DemoHandler demoHandler = new DemoHandler(hub);
+    _server.createContext("/dialog/demo",demoHandler);
+
   }
 
   /**

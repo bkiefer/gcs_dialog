@@ -13,6 +13,8 @@ Triple<String, String, Integer> DISCONFIRM = new Triple("Nein, danke.", "Disconf
 import test;
 import Phase_0;
 import Phase_1;
+import Phase_2;
+import Phase_3;
 import Phase_5;
 
 int gcs_phase1 = 0;

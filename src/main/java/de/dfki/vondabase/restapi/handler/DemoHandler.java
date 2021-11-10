@@ -15,12 +15,12 @@ import java.io.IOException;
  *       operationId: askForHelp
  *       description: tbd
  */
-public class MovementHandler extends AbstractHandler{
+public class DemoHandler extends AbstractHandler{
 
   private final AbstractAgent _agent;
-  private final static Logger logger = LoggerFactory.getLogger(MovementHandler.class);
+  private final static Logger logger = LoggerFactory.getLogger(DemoHandler.class);
 
-  public MovementHandler(BaseCommunicationHub hub){
+  public DemoHandler(BaseCommunicationHub hub){
     super();
     builder.excludeFieldsWithoutExposeAnnotation();
     _agent = (AbstractAgent) hub.getAgent();
@@ -30,14 +30,11 @@ public class MovementHandler extends AbstractHandler{
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
     String json = bodyToString(exchange.getRequestBody());
     JSONObject jsonObject = new JSONObject(json);
-    boolean isOpen =  jsonObject.getBoolean("hasMoved");
-    if (_agent.user != null){
-      _agent.hasMoved(_agent.getUserID(),isOpen);
+    boolean isDemo =  jsonObject.getBoolean("isDemo");
+    _agent.ignoreRosInput(isDemo);
+
       sendResponse(200, exchange, "changed moved status");
 
-    } else {
-        sendResponse(500, exchange, "no user ");
-      }
   }
 
   @Override
