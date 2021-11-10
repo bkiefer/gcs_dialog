@@ -1,15 +1,7 @@
-<<<<<<< HEAD
-//TODO
-//verbal Phase
+
+
 
 phase_two:
-if(state == "gcs_phase2"){
-    state = "gcs_phase3";
-    dialogAgent.gcs_phase2 = 1;
-=======
-
-
-phase_one:
 if(state == "gcs_phase2"){
      dialogAgent.gcs_phase2 = 1;
      state = "gcs_phase3";
@@ -41,5 +33,4 @@ if (state == "p2_1"){
          dialogAgent.gcs_phase1 = 2;
          state = "gcs_phase2";
         }
->>>>>>> 8fde9a98e3e4d81a94c3f82aff4d75f9e68a82bf
 }
