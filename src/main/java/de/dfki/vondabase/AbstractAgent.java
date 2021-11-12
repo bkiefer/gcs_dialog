@@ -1,10 +1,7 @@
 package de.dfki.vondabase;
 
 import de.dfki.mlt.rosBridge.utils.std.Header;
-import de.dfki.vondabase.RosInterface.msgs.BodyTrackerMessage;
-import de.dfki.vondabase.RosInterface.msgs.GCSMessage;
-import de.dfki.vondabase.RosInterface.msgs.SkeletonMessage;
-import de.dfki.vondabase.RosInterface.msgs.StatusMessage;
+import de.dfki.vondabase.RosInterface.msgs.*;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
 import de.dfki.vondabase.RosInterface.services.GCSService;
 import de.dfki.vondabase.utils.*;
@@ -199,7 +196,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
     user = null;
     _userSkeleton = null;
   }
-
+/**
   public void updateUserTrack(BodyTrackerMessage track) {
     if (!_ignoreRos) {
       // TODO use bodyId to initialize user rdf with corresponding values, e.g. areEyesOpen
@@ -213,6 +210,26 @@ public abstract class AbstractAgent extends Agent implements Constants {
       user.setValue("<dom:hasGender>", track.getHRGender());
       user.setValue("<dom:hasAge>", track.getAge());
       user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(track.getGesture()));
+    }
+  }
+ */
+
+  public void updatePatientStatus(PatientStatusMessage status){
+    if (!_ignoreRos){
+      user.setValue("<dom:areEyesOpen>", status.isAre_eyes_open());
+      user.setValue("<dom:isMouthOpen>", status.isIs_mouth_open());
+      // add gesture
+      user.setValue("<dom:hasGender>", status.getHRGender());
+      user.setValue("<dom:hasAge>", status.getAge());
+      user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(status.getGesture()));
+      user.setValue("<dom:hasMoved>", status.isHas_moved());
+      user.setValue("<dom:hasMovedHead>", status.isHas_moved_head());
+      user.setValue("<dom:hasMovedLeftHand>", status.isHas_moved_left_hand());
+      user.setValue("<dom:hasMovedLeftArm>",  status.isHas_moved_left_arm());
+      user.setValue("<dom:hasMovedLeftLeg>",  status.isHas_moved_left_leg());
+      user.setValue("<dom:hasMovedRightArm>", status.isHas_moved_right_arm());
+      user.setValue("<dom:hasMovedRightHand>", status.isHas_moved_right_hand());
+      user.setValue("<dom:hasMovedRightLeg>", status.isHas_moved_right_leg());
     }
   }
 

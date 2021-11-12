@@ -14,4 +14,5 @@ boolean has_moved_left_leg
 boolean has_moved_right_arm
 boolean has_moved_right_hand
 boolean has_moved_right_leg
+boolean has_moved_head
 int32  gesture

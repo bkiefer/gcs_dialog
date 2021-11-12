@@ -240,7 +240,7 @@ public class BaseCommunicationHub implements CommunicationHub {
     return isRunning;
   }
 
-
+/**
   public void updateSkeleton(SkeletonMessage skeleton) {
     _agent.updateUserSkeleton(skeleton);
   }
@@ -255,6 +255,13 @@ public class BaseCommunicationHub implements CommunicationHub {
     }
 
     throw new IllegalStateException("Please implement me!");
+  }
+ */
+
+  public void updateStatus(PatientStatusMessage status){
+    if(_agent.getUserID() != -1){
+      _agent.updatePatientStatus(status);
+    }
   }
 
   /**
