@@ -92,6 +92,7 @@ class RosHandler implements Runnable {
                         PatientStatusMessage patientStatus = builder.create().fromJson(message, PatientStatusMessage.class);
                         _stub.updateStatus(patientStatus);
                     }
+                    break;
                 case ("GCSService"):
                     _client.setKeepAlive(true);
                     // create corresponding service call and wait for result (how? add logic to rule (a method is called that changes a volatile field in this service instance? Or this service is monitoring the information state)

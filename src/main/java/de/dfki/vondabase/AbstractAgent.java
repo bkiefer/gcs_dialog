@@ -249,8 +249,8 @@ public abstract class AbstractAgent extends Agent implements Constants {
           hasMovedRightHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_hand(), _userSkeleton.getJoint_position_right_hand()) >= 1;
           hasMovedLeftArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_elbow(), _userSkeleton.getJoint_position_left_elbow()) >= 1;
           hasMovedRightArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_elbow(), _userSkeleton.getJoint_position_right_elbow()) >= 1;
-          //var hasMovedLeftLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position, _userSkeleton.getJoint_position_head()) >= 1;
-          //var hasMovedRightLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
+          // var hasMovedLeftLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position, _userSkeleton.getJoint_position_head()) >= 1;
+          // var hasMovedRightLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
         }
       }
       user.setValue("<dom:hasMoved>", (hasMovedHead || hasMovedLeftHand || hasMovedRightHand || hasMovedLeftArm || hasMovedRightArm));
