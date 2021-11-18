@@ -21,9 +21,11 @@ public class GCSService extends AbstractService{
 
 
   @Override
-  public void updateIS() {
-    _agent.setActiveServiceCall(this);
-    _agent.triggerGCS(_bodyId);
+  public void updateIS() throws ServiceException {
+
+      _agent.setActiveServiceCall(this);
+      _agent.triggerGCS(_bodyId);
+
   }
 
 

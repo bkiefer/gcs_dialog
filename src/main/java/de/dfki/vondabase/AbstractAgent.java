@@ -186,6 +186,10 @@ public abstract class AbstractAgent extends Agent implements Constants {
     user = _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
     user.setValue("<dom:areEyesOpen>", false);
     user.setValue("<dom:isMouthOpen>", false);
+    user.setValue("<dom:isHandOpen>", false);
+    user.setValue("<dom:gcs_phase1>", 0);
+    user.setValue("<dom:gcs_phase2>", 0);
+    user.setValue("<dom:gcs_phase3>", 0);
     // add gesture
     user.setValue("<dom:hasGender>", "unknown");
     user.setValue("<dom:hasAge>", -1);
@@ -221,6 +225,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
       // add gesture
       user.setValue("<dom:hasGender>", status.getHRGender());
       user.setValue("<dom:hasAge>", status.getAge());
+      user.setValue("<dom:isHandOpen>", false);
       user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(status.getGesture()));
       user.setValue("<dom:hasMoved>", status.isHas_moved());
       user.setValue("<dom:hasMovedHead>", status.isHas_moved_head());

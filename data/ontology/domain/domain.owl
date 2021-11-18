@@ -286,9 +286,34 @@
     <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isHandOpen">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen -->

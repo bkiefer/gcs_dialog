@@ -3,7 +3,7 @@
 
 phase_two:
 if(state == "gcs_phase2"){
-     dialogAgent.gcs_phase2 = 1;
+     user.gcs_phase2 = user.gcs_phase2 + 1;
      state = "gcs_phase3";
 
 }
@@ -18,7 +18,7 @@ if (state == "p2_3"){
              }
         } else {
          emitDA(#Inform(Fragen));
-         dialogAgent.gcs_phase1 = 3;
+         user.gcs_phase1 = 3;
          state = "gcs_phase2";
         }
 }
@@ -26,11 +26,11 @@ if (state == "p2_3"){
 phase_two_wait_1:
 if (state == "p2_1"){
     if (user.areEyesOpen == false){
-            dialogAgent.gcs_phase1 = 1;
+            user.gcs_phase1 = 1;
             state = "gcs_done";
         } else {
          emitDA(#Inform(Fragen));
-         dialogAgent.gcs_phase1 = 2;
+         user.gcs_phase1 = 2;
          state = "gcs_phase2";
         }
 }

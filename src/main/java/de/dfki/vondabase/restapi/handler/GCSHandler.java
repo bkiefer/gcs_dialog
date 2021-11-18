@@ -5,6 +5,7 @@ import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.BaseCommunicationHub;
 import de.dfki.vondabase.RosInterface.services.GCS;
 import de.dfki.vondabase.RosInterface.services.GCSService;
+import de.dfki.vondabase.RosInterface.services.GCSServiceException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,18 +35,16 @@ public class GCSHandler extends AbstractHandler{
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
     String json = bodyToString(exchange.getRequestBody());
     JSONObject jsonObject = new JSONObject(json);
-    GCSService service = new GCSService(_agent, jsonObject.getInt("body_id"));
-    Future<GCS> result = pool.submit(service);
     try {
+      GCSService service = new GCSService(_agent, jsonObject.getInt("body_id"));
+      Future<GCS> result = pool.submit(service);
       if (result.get() != null) {
         System.err.println(result.get().toJson());
         sendResponse(200, exchange, result.get().toJson());
       } else {
         sendResponse(500, exchange, "internal error");
       }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } catch (ExecutionException e) {
+    } catch (InterruptedException | ExecutionException e) {
       e.printStackTrace();
     }
   }
