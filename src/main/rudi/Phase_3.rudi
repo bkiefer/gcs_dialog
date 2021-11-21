@@ -2,7 +2,6 @@
 
 //TODO: Bewegung spezifizieren, heben, beugen etc?
 //nur eine Seite oder beide? 
-//Punkteverteilung?
 
 phase_three:
 if(state == "gcs_phase3"){
@@ -10,7 +9,6 @@ if(state == "gcs_phase3"){
     state = "gcs_done";
     dialogAgent.gcs_phase3 = 1;
     //clench and open hand
-    //TODO: Welche Hand?
     emitDA(#Inform(clenchHand));
     timeout("wait", 5000){
       if (user.isHandOpen == false){
@@ -36,19 +34,16 @@ if(state == "gcs_phase3"){
 TODO: andere movements:
     //Head
     emitDA(#Inform(moveHead));
-    //TODO: check for x secs
     if (user.hasMovedHead == true){
-      //dialogAgent.gcs_phase3 = dialogAgent.gcs_phase3 + 1;
+      dialogAgent.gcs_phase3 = dialogAgent.gcs_phase3 + 1;
     } 
     //Mouth
     emitDA(#Inform(openMouth));
-    //TODO: check for x secs
     if (user.isMouthOpen == true){
-      //dialogAgent.gcs_phase3 = dialogAgent.gcs_phase3 + 1;
+      dialogAgent.gcs_phase3 = dialogAgent.gcs_phase3 + 1;
       emitDA(#Inform(closeMouth));
-      //wait x secs
       if (user.isMouthOpen == false){
-        //dialogAgent.gcs_phase3 = dialogAgent.gcs_phase3 + 1;
+        dialogAgent.gcs_phase3 = dialogAgent.gcs_phase3 + 1;
       }
     } 
     //TODO: Gestures
