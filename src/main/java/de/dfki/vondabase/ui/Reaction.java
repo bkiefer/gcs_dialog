@@ -131,9 +131,9 @@ public class Reaction implements Runnable, Listener<Behaviour> {
     ((AbstractAgent) _stub.getAgent()).newData();
   }
 
-    public void createUser() {
-      ((AbstractAgent) _stub.getAgent()).initUser(1);
-    }
+  public void createUser() {
+    ((AbstractAgent) _stub.getAgent()).initUser(1);
+  }
 
   public void clearUser() {
     ((AbstractAgent) _stub.getAgent()).resetUser();
@@ -145,6 +145,30 @@ public class Reaction implements Runnable, Listener<Behaviour> {
 
   public void eyesClosed() {
     ((AbstractAgent) _stub.getAgent()).eyesOpen(1, false);
+  }
+
+  public void rightArmMoved() {
+    ((AbstractAgent) _stub.getAgent()).moveRightArm(1, 1);
+  }
+
+  public void leftArmMoved() {
+    ((AbstractAgent) _stub.getAgent()).moveLeftArm(1, 1);
+  }
+
+  public void rightLegMoved() {
+    ((AbstractAgent) _stub.getAgent()).moveRightLeg(1, 1);
+  }
+
+  public void leftLegMoved() {
+    ((AbstractAgent) _stub.getAgent()).moveLeftLeg(1, 1);
+  }
+
+  public void handClenched() {
+    ((AbstractAgent) _stub.getAgent()).handOpen(1, false);
+  }
+
+  public void handOpened() {
+    ((AbstractAgent) _stub.getAgent()).handOpen(1, true);
   }
 
 

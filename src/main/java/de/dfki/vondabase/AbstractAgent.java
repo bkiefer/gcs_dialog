@@ -187,6 +187,12 @@ public abstract class AbstractAgent extends Agent implements Constants {
     user.setValue("<dom:areEyesOpen>", false);
     user.setValue("<dom:isMouthOpen>", false);
     user.setValue("<dom:isHandOpen>", false);
+
+    user.setValue("<dom:hasMovedLeftArm>", -1);
+    user.setValue("<dom:hasMovedRightArm>", -1);
+    user.setValue("<dom:hasMovedRightLeg>", -1);
+    user.setValue("<dom:hasMovedLeftLeg>", -1);
+
     user.setValue("<dom:gcs_phase1>", 0);
     user.setValue("<dom:gcs_phase2>", 0);
     user.setValue("<dom:gcs_phase3>", 0);
@@ -292,6 +298,51 @@ public abstract class AbstractAgent extends Agent implements Constants {
         emitStatus(11);
       else
         emitStatus(10);
+    }
+  }
+
+  public void moveRightArm(int bodyId, int armMoved) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMovedRightArm>", armMoved);
+      System.err.println("User id " + bodyId + " rightArmMoved: " + armMoved );
+      newData();
+    }
+  }
+
+  public void moveLeftArm(int bodyId, int armMoved) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMovedLeftArm>", armMoved);
+      System.err.println("User id " + bodyId + " leftArmMoved: " + armMoved );
+      newData();
+    }
+  }
+
+  public void moveLeftLeg(int bodyId, int legMoved) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMovedLeftLeg>", legMoved);
+      System.err.println("User id " + bodyId + " leftLegMoved: " + legMoved );
+      newData();
+    }
+  }
+
+  public void moveRightLeg(int bodyId, int legMoved) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMovedRightLeg>", legMoved);
+      System.err.println("User id " + bodyId + " rightlegMoved: " + legMoved );
+      newData();
+    }
+  }
+
+  public void handOpen(int bodyId, boolean handOpen) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:isHandOpen>", handOpen);
+      System.err.println("User id " + bodyId + " isHandOpen: " + handOpen );
+      newData();
     }
   }
 

@@ -4,12 +4,8 @@ raw:Inform ^ DRZGreet
     # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. 
     Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
     //TODO: Formulierungen:
-    //die Ihre Rettung beschleunigen
-    //die den Einsatzkräften bei Ihrer Rettung helfen
-    //die die Rettungskräfte über Ihre Situation informieren.
-    //die der Behandlung / einer Einschätung ihrer Situation...
+    //die der Behandlung / einer Einschätung ihrer Situation
     //die einer schnelleren Rettung / der Beschleunigung Ihrer Rettung dienen.
-    //Ich bin hier, um Ihre Rettung zu beschleunigen. 
 
 /******************************************************************************/
 //phase1: ask to open eyes
@@ -21,15 +17,22 @@ raw:Inform ^ eyes
 
 /******************************************************************************/
 //clench fist
-//TODO: Links / rechts, beide?
 raw:Inform ^ clenchHand
     ->
     # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zur Faust zu ballen." .
+
+//raw:Inform ^ clenchHandAgain
+  //  ->
+   // # = :canned ^ <string>"Sehr gut. Bitte ballen Sie die Hand wieder zur Faust." .
 
 //open fist
 raw:Inform ^ openHand
     ->
     # = :canned ^ <string>"Sehr gut. Bitte öffnen Sie die Faust wieder." .
+
+//raw:Inform ^ initialOpenHand
+  //  ->
+   // # = :canned ^ <string>"Können Sie Ihre Hand oeffnen und die Finger ausstrecken?" .
 
 /******************************************************************************/
 //move arm
@@ -40,6 +43,14 @@ raw:Inform ^ moveArm
 
 
 /******************************************************************************/
+//move leg
+raw:Inform ^ moveLeg
+    ->
+    # = :canned ^ <string>"Bitte bewegen Sie ein Bein, wenn das moeglich ist." .
+
+
+/******************************************************************************/
+
 //move head
 //TODO: Bewegung spezifizieren, welche Bewegungen sind sicher (Gefahr einer Wirbelsäulenverletzung?)?
 
@@ -56,6 +67,8 @@ raw:Inform ^ openMouth
 
 //close mouth
 raw:Inform ^ closeMouth
+    ->
+    # = :canned ^ <string>"Bitte schließen Sie Ihren Mund wieder." .
 
 
 raw:Inform ^ DRZGreet
@@ -88,6 +101,14 @@ raw:Inform ^ MoveHandArm
 raw:Inform ^ MoveHandArm
 ->
 # = :canned ^ <string>"Bewegen sie bitte einen Arm, wenn das moeglich ist.".
+
+raw:Inform ^ Thanks
+    ->
+    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden
+    in Kürze hier eintreffen.".
+//TODO: Formulierung: 
+
+
 /******************************************************************************/
 //memorize Person
 raw:Inform ^ Demo

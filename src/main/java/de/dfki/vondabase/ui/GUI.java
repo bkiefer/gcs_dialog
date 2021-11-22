@@ -136,6 +136,30 @@ public class GUI extends JFrame {
             _react.eyesClosed();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("rightArmMove()")) {
+            _react.rightArmMoved();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("leftArmMove()")) {
+            _react.leftArmMoved();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("rightLegMove()")) {
+            _react.rightLegMoved();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("leftLegMove()")) {
+            _react.leftLegMoved();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("handClench()")) {
+            _react.handClenched();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("handOpen()")) {
+            _react.handOpened();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("testComaScore()")) {
             _react.testDiaScore();
             queryInput.setText("");

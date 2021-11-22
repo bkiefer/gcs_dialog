@@ -1,8 +1,4 @@
 
-//aufraeumen, elses statt returns?
-//Check eyes opening
-
-//TODO: Repeat DRZGreet if eyes closed for too long
 phase_one:
 if(state == "gcs_phase1"){
     if (user.areEyesOpen == false){
@@ -37,7 +33,7 @@ phase_one_wait_1:
 if (state == "p1_1"){
     if (user.areEyesOpen == false){
             user.gcs_phase1 = 1;
-            state = "gcs_done";
+            state = "gcs_done"; 
         } else {
          emitDA(#Inform(Fragen));
          user.gcs_phase1 = 2;
