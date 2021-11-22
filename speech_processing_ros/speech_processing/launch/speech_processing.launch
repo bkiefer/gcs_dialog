@@ -18,11 +18,13 @@
   <arg name="tflite" default="/de-DE/release_v0.9.0/output_graph_from_koh-osug.tflite" />
 
     <!-- communication with Luebeck component -->
-    <node name="skeleton_listener" pkg="speech_processing" type="skeleton_listener.py"/>
+    <!--<node name="skeleton_listener" pkg="speech_processing" type="skeleton_listener.py"/> -->
+
+    <name name="patient_status_listener" pkg="speech_processing" type="patient_status_listener.py">
 
     <node name="gcs_service" pkg="speech_processing" type="dialog_service.py"/>
 
-    <node name="body_track_listener" pkg="speech_processing" type="BodyTrack_Listener.py"/>
+    <!-- <node name="body_track_listener" pkg="speech_processing" type="BodyTrack_Listener.py"/> -->
     <!-- speech_inputs -->
     <node name="asr_listener" pkg="speech_processing" type="asr_listener.py" />
 
@@ -42,5 +44,6 @@
         tts_tolerance: 0.5
         store_wav: false
       </rosparam>
-    </node> -->
+    </node>
+
 </launch>

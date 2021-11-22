@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.RosInterface.msgs.AsrMessage;
 import de.dfki.vondabase.RosInterface.msgs.BodyTrackerMessage;
+import de.dfki.vondabase.RosInterface.msgs.PatientStatusMessage;
 import de.dfki.vondabase.RosInterface.msgs.SkeletonMessage;
 import de.dfki.mlt.rudimant.agent.DialogueAct;
 import de.dfki.vondabase.BaseCommunicationHub;
@@ -67,6 +68,7 @@ class RosHandler implements Runnable {
                 case ("Utterance"):
                     _stub.asrInput(jsonObject.getString("text"));
                     break;
+                /**
                 case ("Skeleton"):
                     System.err.println("message: " + message);
                     if(_stub.getAgent().getUserID() == jsonObject.getInt("body_id")) {
@@ -81,6 +83,14 @@ class RosHandler implements Runnable {
                     if(_stub.getAgent().user != null) {
                             tracks.add(builder.create().fromJson(jsonObject.toString(), BodyTrackerMessage.class));
                         _stub.updateTracks(tracks);
+                    }
+                    break;
+                 **/
+                case ("PatientStatus"):
+                    System.err.println("message: " + message);
+                    if(_stub.getAgent().getUserID() == jsonObject.getInt("patient_id")) {
+                        PatientStatusMessage patientStatus = builder.create().fromJson(message, PatientStatusMessage.class);
+                        _stub.updateStatus(patientStatus);
                     }
                     break;
                 case ("GCSService"):

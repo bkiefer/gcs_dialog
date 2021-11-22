@@ -27,11 +27,12 @@ public abstract class AbstractService implements Callable<GCS> {
    * This method is called as part of the run() Method of the serviceCall.
    * It updates the information state (IS) with the initial changes introduced by the call.
    */
-  public abstract void updateIS();
+  public abstract void updateIS() throws  ServiceException;
 
 
   @Override
-  public GCS call(){
+  public GCS call() throws ServiceException{
+    try{
     updateIS();
     while (!isResolved()){
       try {
@@ -41,6 +42,9 @@ public abstract class AbstractService implements Callable<GCS> {
       }
     }
     return getResult();
+    } catch (IllegalStateException e){
+      return null;
+    }
   }
 
 }

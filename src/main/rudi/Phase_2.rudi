@@ -1,8 +1,36 @@
-//TODO
-//verbal Phase
+
+
 
 phase_two:
 if(state == "gcs_phase2"){
-    state = "gcs_phase3";
-    dialogAgent.gcs_phase2 = 1;
+     user.gcs_phase2 = user.gcs_phase2 + 1;
+     state = "gcs_phase3";
+
+}
+
+phase_two_wait_3:
+if (state == "p2_3"){
+    if (user.areEyesOpen == false){
+             emitDA(#Inform(HeyOpenEyes));
+             state="wait";
+             timeout("wait", 15000){
+                 state = "p1_1";
+             }
+        } else {
+         emitDA(#Inform(Fragen));
+         user.gcs_phase1 = 3;
+         state = "gcs_phase2";
+        }
+}
+
+phase_two_wait_1:
+if (state == "p2_1"){
+    if (user.areEyesOpen == false){
+            user.gcs_phase1 = 1;
+            state = "gcs_done";
+        } else {
+         emitDA(#Inform(Fragen));
+         user.gcs_phase1 = 2;
+         state = "gcs_phase2";
+        }
 }

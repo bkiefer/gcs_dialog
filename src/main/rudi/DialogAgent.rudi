@@ -17,9 +17,6 @@ import Phase_2;
 import Phase_3;
 import Phase_5;
 
-int gcs_phase1 = 0;
-int gcs_phase2 = 0;
-int gcs_phase3 = 0;
 
 
 greet_back: //TODO: add time when greeting back

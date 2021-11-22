@@ -1,42 +1,40 @@
 inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
-wrapperClass:       de.dfki.intuitiv.RolliAgent
-ontologyFile:       data/ini/koffi.ini #change to koffi when you want to use the luggage transport
-floor:              0
+wrapperClass:       de.dfki.vondabase.BaseAgent
+ontologyFile:       data/ini/example.ini
+floor:              1
 checkTypes:         true
 failOnError:        false
 verbose:            false
-rootPackage:        de.dfki.intuitiv
-serversocket:       11112
+GUI_enabled:        true
+REST_enabled:       true
+tts_blocking:       true  # set to false if you don't want that the tts output and speech bubbles on the avatar are synchronized
+rootPackage:        de.dfki.vondabase
+serversocket:       11666
 RestAPI:
-  #Port:          11110
   Port:          8086
-  DataLoc:       "resources/static"
-  R3:            "http://0.0.0.0:8089/workflow/cancel" #tested
-  R4:            "http://0.0.0.0:8089/workflow/goto" #tested
-  R5:            "http://0.0.0.0:8089/workflow/memorize_person" #tested
-  R10:            "http://0.0.0.0:8089/workflow/follow_memorized_person" #tested
-  R11:            "http://0.0.0.0:8089/workflow/go_home" #tested
+  DataLoc:       "src/main/resources/static" #tested
+  #KoffiURI:      "http://192.168.182.5:8888" #gestalt
+  KoffiURI:      "http://172.16.100.124:8089" #dfki
+  R3:            "/workflow/cancel" #teste
+  R4:            "/workflow/goto" #tested
+  R5:            "/workflow/memorize_person" #tested
+  R10:            "/workflow/follow_memorized_person" #tested
+  R11:            "/workflow/go_home" #tested
 ROSBridge:
-  # Not needed anymore
-  #Ip:        ${DIA_IP}
-  AvatarPort:     11111
-  CommandPort:    11114
-  TTSPort:        11113
-  dialogPort:     11113
-  TaskStatusPort: 11117
+  TTSPort:       11113
+  GSCPort:       11114
+  StatusPort:    11115
+
+
 nameToURI:
   Agent : <dom:Actor>
   Robot : <dom:Robot>
-nameToClass:
-  Vector : de.dfki.intuitiv.Vector
+
 defaultCompileCommand: compile
 customCompileCommands:
   Compile without maven: vondac -c config.yml
 debugPort : 9999
-# visualise : true
-ASR:
-
 TTS:
   voice: dfki-pavoque-neutral-hsmm
   backup: false
@@ -46,7 +44,7 @@ NLG:
     generationProject: src/main/resources/grammars/cplanner/allrules
 NLU:
   de:
-    class: de.dfki.intuitiv.nlu.CerenceNLU
+    class: de.dfki.vondabase.nlu.CombinedNLU
     grammar: src/main/resources/grammars/srgs/rolli.gram
     command: "NDSP_APP_CMD"
     languageCode: "deu-DEU"

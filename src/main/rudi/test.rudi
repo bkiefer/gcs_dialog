@@ -24,3 +24,9 @@ testScore:
         dialogAgent.emitGCS(1,2,3);
         state = "initial";
     }
+
+testEyesOpen:
+    if(state == "test_eyes_open"){
+        System.err.println("User:" + user);
+        System.err.println("eyesOpen:" + user.areEyesOpen);
+    }

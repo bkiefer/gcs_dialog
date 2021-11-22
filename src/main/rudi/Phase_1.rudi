@@ -5,24 +5,42 @@
 //TODO: Repeat DRZGreet if eyes closed for too long
 phase_one:
 if(state == "gcs_phase1"){
-    System.err.println("Starting phase 1");
-    state = "gcs_phase2";
-    if (user.areEyesOpen == true){
-           dialogAgent.gcs_phase1 = 4;
-           return 0;
+    if (user.areEyesOpen == false){
+         emitDA(#Inform(OpenEyes));
+         state="wait";
+         timeout("wait", 15000){
+             state = "p1_3";
+         }
+    } else {
+     emitDA(#Inform(Fragen));
+     user.gcs_phase1 = 4;
+     state = "gcs_phase2";
     }
-    emitDA(#Inform(eyes));
-    timeout("wait", 10000){
-       if (user.areEyesOpen == true){
-           dialogAgent.gcs_phase1 = 3;
-           return;
-       }
-       emitDA(#Inform(DRZGreet));
-       emitDA(#Inform(eyes));
-       if (user.areEyesOpen == true){
-           dialogAgent.gcs_phase1 = 2;
-           return;
-       }
-       dialogAgent.gcs_phase1 = 1;
-    }
+}
+
+phase_one_wait_3:
+if (state == "p1_3"){
+    if (user.areEyesOpen == false){
+             emitDA(#Inform(HeyOpenEyes));
+             state="wait";
+             timeout("wait", 15000){
+                 state = "p1_1";
+             }
+        } else {
+         emitDA(#Inform(Fragen));
+         user.gcs_phase1 = 3;
+         state = "gcs_phase2";
+        }
+}
+
+phase_one_wait_1:
+if (state == "p1_1"){
+    if (user.areEyesOpen == false){
+            user.gcs_phase1 = 1;
+            state = "gcs_done";
+        } else {
+         emitDA(#Inform(Fragen));
+         user.gcs_phase1 = 2;
+         state = "gcs_phase2";
+        }
 }

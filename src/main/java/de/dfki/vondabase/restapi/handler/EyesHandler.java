@@ -5,7 +5,6 @@ import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.BaseCommunicationHub;
 import de.dfki.vondabase.RosInterface.services.GCS;
 import de.dfki.vondabase.RosInterface.services.GCSService;
-import de.dfki.vondabase.RosInterface.services.GCSServiceException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +19,12 @@ import java.util.concurrent.Future;
  *       operationId: askForHelp
  *       description: tbd
  */
-public class GCSHandler extends AbstractHandler{
+public class EyesHandler extends AbstractHandler{
 
   private final AbstractAgent _agent;
-  private final static Logger logger = LoggerFactory.getLogger(GCSHandler.class);
+  private final static Logger logger = LoggerFactory.getLogger(EyesHandler.class);
 
-  public GCSHandler(BaseCommunicationHub hub){
+  public EyesHandler(BaseCommunicationHub hub){
     super();
     builder.excludeFieldsWithoutExposeAnnotation();
     _agent = (AbstractAgent) hub.getAgent();
@@ -35,18 +34,14 @@ public class GCSHandler extends AbstractHandler{
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
     String json = bodyToString(exchange.getRequestBody());
     JSONObject jsonObject = new JSONObject(json);
-    try {
-      GCSService service = new GCSService(_agent, jsonObject.getInt("body_id"));
-      Future<GCS> result = pool.submit(service);
-      if (result.get() != null) {
-        System.err.println(result.get().toJson());
-        sendResponse(200, exchange, result.get().toJson());
-      } else {
-        sendResponse(500, exchange, "internal error");
+    boolean isOpen =  jsonObject.getBoolean("isOpen");
+    if (_agent.user != null){
+      _agent.eyesOpen(_agent.getUserID(),isOpen);
+      sendResponse(200, exchange, "changed eyes status");
+
+    } else {
+        sendResponse(500, exchange, "no user ");
       }
-    } catch (InterruptedException | ExecutionException e) {
-      e.printStackTrace();
-    }
   }
 
   @Override

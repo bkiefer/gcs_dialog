@@ -3,16 +3,11 @@ package de.dfki.vondabase.restapi.handler;
 import com.sun.net.httpserver.HttpExchange;
 import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.BaseCommunicationHub;
-import de.dfki.vondabase.RosInterface.services.GCS;
-import de.dfki.vondabase.RosInterface.services.GCSService;
-import de.dfki.vondabase.RosInterface.services.GCSServiceException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 
 /**
@@ -20,12 +15,12 @@ import java.util.concurrent.Future;
  *       operationId: askForHelp
  *       description: tbd
  */
-public class GCSHandler extends AbstractHandler{
+public class DemoHandler extends AbstractHandler{
 
   private final AbstractAgent _agent;
-  private final static Logger logger = LoggerFactory.getLogger(GCSHandler.class);
+  private final static Logger logger = LoggerFactory.getLogger(DemoHandler.class);
 
-  public GCSHandler(BaseCommunicationHub hub){
+  public DemoHandler(BaseCommunicationHub hub){
     super();
     builder.excludeFieldsWithoutExposeAnnotation();
     _agent = (AbstractAgent) hub.getAgent();
@@ -35,18 +30,11 @@ public class GCSHandler extends AbstractHandler{
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
     String json = bodyToString(exchange.getRequestBody());
     JSONObject jsonObject = new JSONObject(json);
-    try {
-      GCSService service = new GCSService(_agent, jsonObject.getInt("body_id"));
-      Future<GCS> result = pool.submit(service);
-      if (result.get() != null) {
-        System.err.println(result.get().toJson());
-        sendResponse(200, exchange, result.get().toJson());
-      } else {
-        sendResponse(500, exchange, "internal error");
-      }
-    } catch (InterruptedException | ExecutionException e) {
-      e.printStackTrace();
-    }
+    boolean isDemo =  jsonObject.getBoolean("isDemo");
+    _agent.ignoreRosInput(isDemo);
+
+      sendResponse(200, exchange, "changed moved status");
+
   }
 
   @Override

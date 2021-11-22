@@ -14,7 +14,7 @@
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
      xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
      xmlns:indoor_navigation="http://www.semanticweb.org/chwi02/ontologies/2019/4/indoor_navigation#">
-    <owl:Ontology rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl">
+    <owl:Ontology rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain">
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">author(s): Christian Willms, Katharina Christian</rdfs:comment>
         <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">v0.9.7</owl:versionInfo>
     </owl:Ontology>
@@ -95,7 +95,7 @@
     <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasActivity">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
-        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+        <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Activity"/>
     </owl:ObjectProperty>
     
 
@@ -187,48 +187,19 @@
     
 
 
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#areEyesOpen -->
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#areEyesOpen -->
 
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#areEyesOpen">
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#areEyesOpen">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-
-
-
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isMouthOpen -->
-
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isMouthOpen">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#isHandOpen -->
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGender -->
 
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#isHandOpen">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-
-
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#performsGesture -->
-
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#performsGesture">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-
-
-
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender -->
-
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasGender">
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGender">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
@@ -236,9 +207,9 @@
     
 
 
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMoved -->
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMoved -->
 
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMoved">
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMoved">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
@@ -246,52 +217,121 @@
     
 
 
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedHead -->
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedHead -->
 
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedHead">
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedHead">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftArm -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftArm">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftHand -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftHand">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftLeg -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftLeg">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightArm -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightArm">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightHand -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightHand">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightLeg -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightLeg">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isHandOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isHandOpen">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedLeftArm -->
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#performsGesture -->
 
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedLeftArm">
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#performsGesture">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedLeftHand -->
-
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedLeftHand">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedRightArm -->
-
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedRightArm">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedRightHand -->
-
-    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#hasMovedRightHand">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
 
@@ -407,9 +447,9 @@
     
 
 
-    <!-- http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity -->
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Activity -->
 
-    <owl:Class rdf:about="http://www.dfki.de/lt/onto/intuitiv/domain.owl#Activity"/>
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Activity"/>
     
 
 
