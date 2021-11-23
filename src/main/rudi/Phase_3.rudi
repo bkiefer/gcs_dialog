@@ -7,11 +7,34 @@ if(state == "gcs_phase3"){
     state="wait";
     //clench and open hand
     //TODO: sollten wir vorher prüfen, ob die Hand evtl bereits geballt ist?
-    emitDA(#Inform(clenchHand));
-    timeout("wait", 5000){
-      state = "wait_clench_hand";
+    if (user.isHandOpen == true){
+        emitDA(#Inform(clenchHand));
+        timeout("wait", 5000){
+            state = "wait_clench_hand";
+        }
+    } else {
+        emitDA(#Inform(initialOpenHand));
+        timeout("wait", 5000){
+            state = "wait_initial_open";
+        }
     }
 }
+
+
+phase_three_initial_open:
+if (state == "wait_initial_open"){
+    if (user.isHandOpen == true){
+        emitDA(#Inform(clenchHandAgain));
+        state="wait";
+        timeout("wait", 5000){
+            state = "wait_clench_hand";
+        }
+    } else {
+        //TODO: Was tun, wenn Hand nicht öffnen kann?
+        state = "gcs_done";
+    }
+}
+
 
 phase_three_clench_hand:
 if (state == "wait_clench_hand"){
@@ -23,9 +46,9 @@ if (state == "wait_clench_hand"){
           state = "wait_open_hand";
        }
     } else {
-    // TODO @Katharina: was tun wir, wenn der Patient keine Faust machen konnte? Direkt zu den Armen oder noch einmal auffordern? Deine Entscheidung ;-)
-    // @Christian: Noch einmal auffordern fände ich prinzipiell ganz gut, aber müssten wir das dann nicht bei jedem Schritt so handhaben? Wäre das zeitlich noch im Rahmen oder würde Phase3 zu sehr ziehen?
-    state = "gcs_done"; // TODO: @Katharina: gcs done ist hier nur, damit die Regel terminieren kann.
+        // TODO @Katharina: was tun wir, wenn der Patient keine Faust machen konnte? Direkt zu den Armen oder noch einmal auffordern? Deine Entscheidung ;-)
+        // @Christian: Noch einmal auffordern fände ich prinzipiell ganz gut, aber müssten wir das dann nicht bei jedem Schritt so handhaben? Wäre das zeitlich noch im Rahmen oder würde Phase3 zu sehr ziehen?
+        state = "gcs_done"; // TODO: @Katharina: gcs done ist hier nur, damit die Regel terminieren kann.
     }
 }
 

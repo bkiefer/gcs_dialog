@@ -21,18 +21,18 @@ raw:Inform ^ clenchHand
     ->
     # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zur Faust zu ballen." .
 
-//raw:Inform ^ clenchHandAgain
-  //  ->
-   // # = :canned ^ <string>"Sehr gut. Bitte ballen Sie die Hand wieder zur Faust." .
+raw:Inform ^ clenchHandAgain
+    ->
+    # = :canned ^ <string>"Sehr gut. Bitte ballen Sie die Hand wieder zur Faust." .
 
 //open fist
 raw:Inform ^ openHand
     ->
     # = :canned ^ <string>"Sehr gut. Bitte öffnen Sie die Faust wieder." .
 
-//raw:Inform ^ initialOpenHand
-  //  ->
-   // # = :canned ^ <string>"Können Sie Ihre Hand oeffnen und die Finger ausstrecken?" .
+raw:Inform ^ initialOpenHand
+    ->
+    # = :canned ^ <string>"Können Sie Ihre Hand oeffnen und die Finger ausstrecken?" .
 
 /******************************************************************************/
 //move arm
