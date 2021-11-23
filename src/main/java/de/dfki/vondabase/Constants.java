@@ -21,33 +21,11 @@ public interface Constants {
 
   public static final String AGENT_URI = "<coli:agent>";
 
+  public static final String USER_CLASS = "<dom:Animate>";
+
   public static final String ROBOT_CLASS = "<dom:Inanimate>";
 
   public static final String ROBOT_URI = "<init:Rolli01>";
-
-  public static final String BUILDING_URI = "<osmdatadfki:Building-193565>";
-
-  public static final String DFKI_URI = "<osmdatadfki:Building-231669>";
-
-  public static final String PROP_IN_BUILDING = "<int:inBuilding>";
-
-  public static final String PROP_IS_LOCATED = "<dom:isLocatedAt>";
-
-  public static final String PROP_VELOCITY = "<int:hasVelocity>";
-
-  public static final String LOCATION_CLASS = "<dom:Location>";
-
-  public static final String PROCESS_CLASS = "<dom:ExternalProcess>";
-
-  public static final String VELOCITY_CLASS = "<http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#Vector>";
-
-  public static final String PROFESSIONAL_CLASS = "<dom:Professional>";
-
-  public static final String ACTIVITY_CLASS = "<dom:Activity>";
-
-  public static final String ESCORT_CLASS = "<dom:Escort>";
-
-  public static final String INTUITIV_NS = "int:";
 
   public static final String DOMAIN_NS = "dom:";
 

@@ -11,9 +11,9 @@ import java.util.concurrent.FutureTask;
 
 public class ROSClientTTS implements Listener<TTSMessage> {
 
-  private String _ip;
-  private int _port;
-  private LinkedList<TTSMessage> messagequeue = new LinkedList<>();
+  private final String _ip;
+  private final int _port;
+  private final LinkedList<TTSMessage> messagequeue = new LinkedList<>();
   private boolean locked = false;
   private final boolean _blocking;
 

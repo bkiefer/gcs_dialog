@@ -8,12 +8,15 @@ package de.dfki.vondabase.ui;
 import de.dfki.vondabase.AbstractAgent;
 import de.dfki.vondabase.BaseAgent;
 import de.dfki.vondabase.BaseCommunicationHub;
+import de.dfki.vondabase.RosInterface.services.GCSService;
+import de.dfki.vondabase.RosInterface.services.ServiceException;
 import de.dfki.vondabase.utils.Listener;
 import de.dfki.mlt.rudimant.agent.Behaviour;
 import de.dfki.mlt.rudimant.agent.DialogueAct;
 
 import javax.swing.*;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -132,6 +135,12 @@ public class Reaction implements Runnable, Listener<Behaviour> {
   }
 
   public void createUser() {
+    GCSService service = new GCSService((AbstractAgent) _stub.getAgent(), 1);
+    try {
+      service.updateIS();
+    } catch (ServiceException e) {
+      e.printStackTrace();
+    }
     ((AbstractAgent) _stub.getAgent()).initUser(1);
   }
 

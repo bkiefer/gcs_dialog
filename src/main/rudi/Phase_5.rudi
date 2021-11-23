@@ -6,4 +6,5 @@ if(state == "gcs_done"){
     dialogAgent._activeServiceCall.situationResolved(user.gcs_phase1, user.gcs_phase2, user.gcs_phase3);
     state= "initial";
     dialogAgent.resetUser();
+    System.err.println("State: " + state + " | " + dialogAgent.getUserID());
 }

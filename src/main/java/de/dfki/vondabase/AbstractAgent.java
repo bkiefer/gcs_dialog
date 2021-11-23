@@ -183,7 +183,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
   public void initUser(int bodyId) {
     System.err.println("New user for body_id " + bodyId);
     this.userID = bodyId;
-    user = _proxy.getClass(ROBOT_CLASS).getNewInstance(DOMAIN_NS);
+    user = _proxy.getClass(USER_CLASS).getNewInstance(DOMAIN_NS);
     user.setValue("<dom:areEyesOpen>", false);
     user.setValue("<dom:isMouthOpen>", false);
     user.setValue("<dom:isHandOpen>", false);

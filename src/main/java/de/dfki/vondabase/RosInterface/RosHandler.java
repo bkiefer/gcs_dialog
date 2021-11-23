@@ -36,7 +36,7 @@ class RosHandler implements Runnable {
     private final ServerSocket _serverSocket;
     protected final GsonBuilder builder = new GsonBuilder();
     private final BaseCommunicationHub _stub;
-    private ExecutorService pool = Executors.newFixedThreadPool(4);
+    private final ExecutorService pool = Executors.newFixedThreadPool(4);
 
     RosHandler(ServerSocket serverSocket, Socket client, BaseCommunicationHub baseCommunicationHub) {
         _client = client;
@@ -98,7 +98,7 @@ class RosHandler implements Runnable {
                     // create corresponding service call and wait for result (how? add logic to rule (a method is called that changes a volatile field in this service instance? Or this service is monitoring the information state)
                     // this starts a dialogue, which will hopefully resolve the given situation
                     // result = ...
-                    GCSService service = new GCSService( (AbstractAgent) _stub.getAgent(), jsonObject.getInt("body_id"));
+                    GCSService service = new GCSService( (AbstractAgent) _stub.getAgent(), jsonObject.getInt("patient_id"));
                     Future<GCS> result = pool.submit(service);
                     // send result back to the caller
                     sb.append(result.get().toRos().toString());
@@ -108,9 +108,7 @@ class RosHandler implements Runnable {
             }
         } catch (IOException e) {
             System.out.println("IOException, Handler-run");
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         } finally {
             out.println(sb);
@@ -118,6 +116,7 @@ class RosHandler implements Runnable {
                 try {
                     _client.close();
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
