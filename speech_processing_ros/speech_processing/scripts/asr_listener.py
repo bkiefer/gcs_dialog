@@ -10,7 +10,7 @@ from speech_recognition_msgs.msg import SpeechRecognitionCandidates
 
 class AsrListener:
     # Connect the socket to the port where the server is listening
-    server_address = (os.environ.get("DIA_IP"), 11666)
+    server_address = ((os.environ.get("ROS_IP"), 11666)
     BUFFER_SIZE = 10
 
     def callback(self, data):

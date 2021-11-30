@@ -47,7 +47,7 @@ if (state == "wait_clench_hand"){
        }
     } else {
         // TODO @Katharina: was tun wir, wenn der Patient keine Faust machen konnte? Direkt zu den Armen oder noch einmal auffordern? Deine Entscheidung ;-)
-        // @Christian: Noch einmal auffordern fände ich prinzipiell ganz gut, aber müssten wir das dann nicht bei jedem Schritt so handhaben? Wäre das zeitlich noch im Rahmen oder würde Phase3 zu sehr ziehen?
+        // TODO @Christian: Noch einmal auffordern fände ich prinzipiell ganz gut, aber müssten wir das dann nicht bei jedem Schritt so handhaben? Wäre das zeitlich noch im Rahmen oder würde Phase3 zu sehr ziehen?
         state = "gcs_done"; // TODO: @Katharina: gcs done ist hier nur, damit die Regel terminieren kann.
     }
 }

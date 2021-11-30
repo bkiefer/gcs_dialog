@@ -41,7 +41,7 @@ class AsrListener:
                 sock.close()
 
     def __init__(self):
-        rospy.Subscriber("body_tracker",
+        rospy.Subscriber("/D3/drz_vit/body_tracker_array/position",
                          BodyTrackerArray, self.callback)
 
 

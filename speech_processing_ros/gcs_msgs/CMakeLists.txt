@@ -44,6 +44,7 @@ add_message_files(
   GCS.msg
   Tts.msg
   TtsVolume.msg
+  PatientStatus.msg
 )
 
 ## Generate services in the 'srv' folder

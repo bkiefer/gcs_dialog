@@ -9,11 +9,14 @@ gdown https://drive.google.com/uc\?id\=1eZIN8uHyr8VBTkKZVEh6ssviZ0wSD9Wf
 unzip common_lib.zip
 rm common_lib.zip
 # install dependencies
-sh install.sh
+sh ./install.sh
 # .compile java module
-sh .compile
+sh ./compile
 # deploy ros_msgs and speech processing nodes
-cd cd /home/drz-projekt/catkin_ws/src/
+cd  /home/drz-projekt/catkin_ws/src/
+rm  -r gcs_msgs
+rm -r speech_processing
+rm -r respeaker_ros
 ln -s /home/drz-projekt/dfki/drz_sign_of_life_module/speech_processing_ros/gcs_msgs gcs_msgs
 ln -s /home/drz-projekt/dfki/drz_sign_of_life_module/speech_processing_ros/speech_processing speech_processing
-
+ln -s /home/drz-projekt/dfki/drz_sign_of_life_module/respeaker_ros respeaker_ros
