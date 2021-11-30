@@ -32,6 +32,13 @@ public class PatientStatusMessage extends Message {
     private int has_moved_right_hand;
     private int has_moved_right_leg;
     private int has_moved_head;
+    private double headConfidence;
+    private double leftHandConfidence;
+    private double leftArmConfidence;
+    private double leftLegConfidence;
+    private double rightArmConfidence;
+    private double rightHandConfidence;
+    private double rightLegConfidence;
 
     public PatientStatusMessage(int patient_id, int age, int gender, int gesture,boolean are_eyes_open,
         boolean is_mouth_open,
@@ -42,7 +49,8 @@ public class PatientStatusMessage extends Message {
         int has_moved_right_arm,
         int has_moved_right_hand,
         int has_moved_right_leg ,
-        int has_moved_head ) {
+        int has_moved_head,double headConfidence, double leftHandConfidence, double leftArmConfidence, double leftLegConfidence,
+                                double rightArmConfidence, double rightHandConfidence, double rightLegConfidence) {
         super(Json.createObjectBuilder().add("patient_id", patient_id).add("age", age).add("gender", gender)
                 .add("gesture", gesture).add("has_moved", has_moved).build());
         this.patient_id = patient_id;
@@ -59,6 +67,13 @@ public class PatientStatusMessage extends Message {
         this.has_moved_right_arm = has_moved_right_arm;
         this.has_moved_right_hand = has_moved_right_hand;
         this.has_moved_right_leg = has_moved_right_leg;
+        this.headConfidence = headConfidence;
+        this.leftHandConfidence =  leftHandConfidence;
+        this.leftArmConfidence = leftArmConfidence;
+        this.leftLegConfidence = leftLegConfidence;
+        this.rightArmConfidence = rightArmConfidence;
+        this.rightHandConfidence = rightHandConfidence;
+        this.rightLegConfidence = rightLegConfidence;
     }
 
     public PatientStatusMessage() {
@@ -68,12 +83,19 @@ public class PatientStatusMessage extends Message {
         this.gender = 0;
         this.gesture = -1;
         this.has_moved_head = -1;
+        this.headConfidence = 0.0;
         this.has_moved_left_arm = -1;
+        this.leftArmConfidence = 0.0;
         this.has_moved_left_hand = -1;
+        this.leftHandConfidence = 0.0;
         this.has_moved_left_leg = -1;
+        this.leftLegConfidence = 0.0;
         this.has_moved_right_arm = -1;
+        this.rightArmConfidence = 0.0;
         this.has_moved_right_hand = -1;
+        this.rightHandConfidence = 0.0;
         this.has_moved_right_leg = -1;
+        this.rightLegConfidence = 0.0;
     }
 
     public String getHRGender() {
@@ -141,5 +163,33 @@ public class PatientStatusMessage extends Message {
 
     public int isHas_moved_head() {
         return has_moved_head;
+    }
+
+    public double hasHeadConfidence() {
+        return headConfidence;
+    }
+
+    public double hasLeftHandConfidence() {
+        return leftHandConfidence;
+    }
+
+    public double hasLeftArmConfidence() {
+        return leftArmConfidence;
+    }
+
+    public double hasLeftLegConfidence(){
+        return leftLegConfidence;
+    }
+
+    public double hasRightHandConfidence() {
+        return rightHandConfidence;
+    }
+
+    public double hasRightArmConfidence() {
+        return rightArmConfidence;
+    }
+
+    public double hasRightLegConfidence(){
+        return rightLegConfidence;
     }
 }

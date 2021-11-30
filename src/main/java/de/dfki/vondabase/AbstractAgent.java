@@ -235,13 +235,13 @@ public abstract class AbstractAgent extends Agent implements Constants {
       user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(status.getGesture()));
       user.setValue("<dom:hasMoved>", status.isHas_moved());
       user.setValue("<dom:hasMovedHead>", status.isHas_moved_head());
-      user.setValue("<dom:headConfidence>", status.hasHeadCondidence());
+      user.setValue("<dom:headConfidence>", status.hasHeadConfidence());
       user.setValue("<dom:hasMovedLeftHand>", status.isHas_moved_left_hand());
-      user.setValue("<dom:leftHandConfidence>", status.hasLeftHandCondidence());
+      user.setValue("<dom:leftHandConfidence>", status.hasLeftHandConfidence());
       user.setValue("<dom:hasMovedLeftArm>",  status.isHas_moved_left_arm());
-      user.setValue("<dom:leftArmConfidence>", status.hasLeftArmCondidence());
+      user.setValue("<dom:leftArmConfidence>", status.hasLeftArmConfidence());
       user.setValue("<dom:hasMovedLeftLeg>",  status.isHas_moved_left_leg());
-      user.setValue("<dom:leftLegConfidence>", status.hasLeftLegCondidence());
+      user.setValue("<dom:leftLegConfidence>", status.hasLeftLegConfidence());
       user.setValue("<dom:hasMovedRightArm>", status.isHas_moved_right_arm());
       user.setValue("<dom:rightArmConfidence>", status.hasRightArmConfidence());
       user.setValue("<dom:hasMovedRightHand>", status.isHas_moved_right_hand());
