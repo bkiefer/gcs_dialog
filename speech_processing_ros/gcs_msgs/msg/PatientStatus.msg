@@ -17,3 +17,22 @@ int8 has_moved_left_leg     # default -1
 int8 has_moved_right_arm    # default -1
 int8 has_moved_right_hand   # default -1
 int8 has_moved_right_leg    # default -1
+
+float32 joint_position_head_confidence
+float32 joint_position_neck_confidence # -
+float32 joint_position_spine_top_confidence # -
+float32 joint_position_spine_mid_confidence # -
+float32 joint_position_left_shoulder_confidence # -
+float32 joint_position_left_elbow_confidence
+float32 joint_position_left_hand_confidence
+float32 joint_position_right_shoulder_confidence # -
+float32 joint_position_right_elbow_confidence
+float32 joint_position_right_hand_confidence
+float32 joint_position_right_wrist_confidence # -
+float32 joint_position_left_wrist_confidence # -
+float32 joint_position_left_hip_confidence # -
+float32 joint_position_left_knee_confidence
+float32 joint_position_left_ankle_confidence
+float32 joint_position_right_hip_confidence
+float32 joint_position_right_knee_confidence
+float32 joint_position_right_ankle_confidence
