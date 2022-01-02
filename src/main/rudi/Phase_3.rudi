@@ -1,26 +1,256 @@
 //motor skills
 
+//@Christian: Schauen wir nur, ob die Hand sich bewegt oder auch explizit, ob sie geschlossen bzw. geoeffnet wird?
+// Bei letzterem muesste ich naemlich zwischen isHandOpen fuer rechte und linke Hand unterscheiden, das geht momentan noch nicht soweit ich das sehe.
+
 phase_three:
 if(state == "gcs_phase3"){
     System.err.println("Starting phase 3");
     user.gcs_phase3 = 1;
     state="wait";
     //clench and open hand
-    //TODO: sollten wir vorher prüfen, ob die Hand evtl bereits geballt ist?
-    if (user.isHandOpen == true){
-        emitDA(#Inform(clenchHand));
-        timeout("wait", 5000){
-            state = "wait_clench_hand";
-        }
+    if (!(user.hasMovedLeftHand == -1 && user.hasMovedRightHand == -1 )){   //checke ob lesbare Hand vorhanden
+        //Checke ob beide sichtbar 
+        if (!(user.hasMovedLeftHand == -1) && !(user.hasMovedRightHand == -1)){
+            if (user.leftHandConfidence > user.rightHandConfidence){
+                emitDA(#Inform(clenchLeftHand));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_clench_left_hand";
+                }
+            } else {
+                emitDA(#Inform(clenchRightHand));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_clench_right_hand";
+                }
+            }
+        } else {    // nur eine Hand sichtbar
+            if (user.hasMovedLeftHand == -1){   //linke Hand nicht sichtbar
+                emitDA(#Inform(clenchRightHand));
+                state = "wait";
+                timeout("wait", 10000){
+                    state = "wait_clench_right_hand";
+                }
+            } 
+            //TODO else statt zweites if
+            if (user.hasMovedRightHand == -1){  //rechte Hand nicht sichtbar
+                emitDA(#Inform(clenchLeftHand));
+                state = "wait";
+                timeout("wait", 10000){
+                    state = "wait_clench_left_hand";
+                }
+            }
+        }    
+    }else{ 
+        //Kein Reading fuer die Haende: weiter mit Armen
+        //state = "wait";
+        //timeout("wait", 5000){
+        state = "wait_check_arm";
+        //}
+    }
+}
+
+
+phase_three_clench_right_hand:
+if (state == "wait_clench_right_hand"){
+    if (user.hasMovedRightHand == 1){
+       user.gcs_phase3 = user.gcs_phase3 + 1;
+       // TODO: Koennen rechte und linke Hand unterschieden werden?
+       emitDA(#Inform(openHand));
+       state="wait";
+       timeout("wait", 5000){
+          state = "wait_open_hand";
+       }
     } else {
-        emitDA(#Inform(initialOpenHand));
+        // TODO erneut auffordern?
+        // weiter mit Armen
+        state = "wait";
         timeout("wait", 5000){
-            state = "wait_initial_open";
+            state = "wait_check_arm";
+        }
+    }
+}
+
+phase_three_clench_left_hand:
+if (state == "wait_clench_left_hand"){
+    if (user.hasMovedLeftHand == 1){
+       user.gcs_phase3 = user.gcs_phase3 + 1;
+       // TODO: Koennen rechte und linke Hand unterschieden werden?
+       emitDA(#Inform(openHand));
+       state="wait";
+       timeout("wait", 5000){
+          state = "wait_open_hand";
+       }
+    } else {
+        // TODO erneut auffordern?
+        // weiter mit Armen
+        state = "wait";
+        timeout("wait", 5000){
+            state = "wait_check_arm";
         }
     }
 }
 
 
+phase_three_open_hand:
+if (state == "wait_open_hand"){
+    if (user.isHandOpen == true){
+       user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    //arm movement
+    //emitDA(#Inform(moveArm));
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_check_arm";
+    }
+}
+
+
+//**********************************************//
+// Arme
+
+phase_three_check_arm:
+if(state == "wait_check_arm"){
+    if (!(user.hasMovedLeftArm == -1 && user.hasMovedRightArm == -1 )){   //checke ob lesbarer Arm vorhanden
+        //Checke ob beide sichtbar 
+        if (!(user.hasMovedLeftArm == -1) && !(user.hasMovedRightArm == -1)){
+            //checke  Confidence
+            if (user.leftArmConfidence > user.rightArmConfidence){
+                emitDA(#Inform(moveLeftArm));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_left_arm";
+                }
+            } else {
+                emitDA(#Inform(moveRightArm));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_right_arm";
+                }
+            } 
+        } else {    // nur ein Arm sichtbar
+            if (user.hasMovedLeftArm == -1){   //linker Arm nicht sichtbar
+                emitDA(#Inform(moveRightArm));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_right_arm";
+                }
+            } 
+            //TODO else statt zweites if
+            if (user.hasMovedRightArm == -1){  //rechter Arm nicht sichtbar
+                emitDA(#Inform(moveLeftArm));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_left_arm";
+                }
+            }
+        }    
+    } else { 
+        //Kein Reading fuer die Arme: weiter mit Beinen
+        state = "wait";
+        timeout("wait", 5000){
+            state = "wait_check_leg";
+        }
+    }
+}
+
+phase_three_move_right_arm:
+if(state == "wait_move_right_arm"){
+    if (user.hasMovedRightArm == 1){
+        user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    // TODO nochmal auffordern wenn keine Bewegung?
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_check_leg";
+    }
+}
+
+phase_three_move_left_arm:
+if(state == "wait_move_left_arm"){
+    if (user.hasMovedLeftArm == 1){
+        user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    // TODO nochmal auffordern wenn keine Bewegung?
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_check_leg";
+    }
+}
+
+
+//**********************************************//
+// Beine
+
+phase_three_check_leg:
+if(state == "wait_check_leg"){
+    if (!(user.hasMovedLeftLeg == -1 && user.hasMovedRightLeg == -1 )){   //checke ob lesbares Bein vorhanden
+        //Checke ob beide sichtbar 
+        if (!(user.hasMovedLeftLeg == -1) && !(user.hasMovedRightLeg == -1)){
+            //checke  Confidence
+            if (user.leftLegConfidence > user.rightLegConfidence){
+                emitDA(#Inform(moveLeftLeg));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_left_leg";
+                }
+            } else {
+                emitDA(#Inform(moveRightLeg));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_right_leg";
+                }
+            } 
+        } else {    // nur ein Bein sichtbar
+            if (user.hasMovedLeftLeg == -1){   //linkes Bein nicht sichtbar
+                emitDA(#Inform(moveRightLeg));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_right_leg";
+                }
+            } 
+            //TODO else statt zweites if
+            if (user.hasMovedRightLeg == -1){  //rechtes Bein nicht sichtbar
+                emitDA(#Inform(moveLeftLeg));
+                state = "wait";
+                timeout("wait", 5000){
+                    state = "wait_move_left_leg";
+                }
+            }
+        }    
+    } else { 
+        //Kein Reading fuer die Beine: weiter zur naechsten Phase
+        state = "gcs_done";
+    }
+}
+
+phase_three_move_right_leg:
+if(state == "wait_move_right_leg"){
+    if (user.hasMovedRightLeg == 1){
+        user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    // TODO nochmal auffordern wenn keine Bewegung?
+    emitDA(#Inform(Thanks));
+    state = "gcs_done";
+}
+
+phase_three_move_left_leg:
+if(state == "wait_move_left_leg"){
+    if (user.hasMovedLeftLeg == 1){
+        user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    // TODO nochmal auffordern wenn keine Bewegung?
+    emitDA(#Inform(Thanks));
+    state = "gcs_done";
+}
+
+
+
+
+
+/*
+Checke ob Hand initial offen
 phase_three_initial_open:
 if (state == "wait_initial_open"){
     if (user.isHandOpen == true){
@@ -36,6 +266,7 @@ if (state == "wait_initial_open"){
 }
 
 
+TODO: checke nur ob hand open
 phase_three_clench_hand:
 if (state == "wait_clench_hand"){
     if (user.isHandOpen == false){
@@ -52,45 +283,6 @@ if (state == "wait_clench_hand"){
     }
 }
 
-
-phase_three_open_hand:
-if (state == "wait_open_hand"){
-    if (user.isHandOpen == true){
-       user.gcs_phase3 = user.gcs_phase3 + 1;
-    }
-    //arm movement
-    emitDA(#Inform(moveArm));
-    state="wait";
-    timeout("wait", 5000){
-        state = "wait_move_arm";
-    }
-}
-
-phase_three_move_arm:
-if(state == "wait_move_arm"){
-    if ((user.hasMovedLeftArm == 1) || (user.hasMovedRightArm == 1)){
-        user.gcs_phase3 = user.gcs_phase3 + 1;
-    }
-    emitDA(#Inform(moveLeg));
-    state="wait";
-    timeout("wait", 5000){
-        state = "wait_move_leg";
-    }
-}
-
-phase_three_move_leg:
-if (state == "wait_move_leg"){
-    if ( (user.hasMovedLeftLeg == 1) || (user.hasMovedRightLeg == 1)){
-        emitDA(#Inform(Thanks));
-        user.gcs_phase3 = user.gcs_phase3 + 1;
-        state = "gcs_done";
-    } else {
-        emitDA(#Inform(Thanks));
-        state = "gcs_done";
-    }
-}
-
-/*
 TODO: andere movements:
     //Head
     emitDA(#Inform(moveHead));

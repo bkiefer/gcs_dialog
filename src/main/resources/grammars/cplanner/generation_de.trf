@@ -16,10 +16,62 @@ raw:Inform ^ eyes
                                     "Wenn Sie mich hören können, öffnen Sie bitte Ihre Augen.") .
 
 /******************************************************************************/
+// Questions Phase 2: verbal Phase
+
+raw:Inform ^ checkResponse
+    ->
+    # = :canned ^ <string>"Können Sie mich hören?" .
+
+raw:Inform ^ askName
+    ->
+    # = :canned ^ <string>random("Wie heißen Sie?",
+                                    "Können Sie mir sagen, wie Sie heißen?") .
+
+raw:Inform ^ askDay
+    ->
+    # = :canned ^ <string>"Wissen Sie, welcher Wochentag heute ist?" .
+
+raw:Inform ^ askAdress
+    ->
+    # = :canned ^ <string>"Können Sie mir sagen, wo Sie wohnen?" .
+
+raw:Inform ^ askLocation
+    ->
+    # = :canned ^ <string>"Wissen Sie, wo Sie sind?" .
+
+raw:Inform ^ askBirthdate
+    ->
+    # = :canned ^ <string>"Wann sind Sie geboren?" .
+
+raw:Inform ^ askAge
+    ->
+    # = :canned ^ <string>"Wie alt sind Sie?" .
+
+raw:Inform ^ askDate
+    ->
+    # = :canned ^ <string>"Wissen Sie, welches Datum heute ist?" .
+
+// TODO
+raw:Inform ^ askPain
+    ->
+    # = :canned ^ <string>"Wo haben Sie Schmerzen?" .
+
+
+/******************************************************************************/
+// Questions Phase 3: motor skills
+
 //clench fist
 raw:Inform ^ clenchHand
     ->
     # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zur Faust zu ballen." .
+
+raw:Inform ^ clenchRightHand
+    ->
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihre rechte Hand zur Faust zu ballen." .
+
+raw:Inform ^ clenchLeftHand
+    ->
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihre linke Hand zur Faust zu ballen." .
 
 raw:Inform ^ clenchHandAgain
     ->
@@ -41,12 +93,31 @@ raw:Inform ^ moveArm
     ->
     # = :canned ^ <string>"Versuchen Sie, Ihren Arm zu bewegen." .
 
+raw:Inform ^ moveRightArm
+    ->
+    # = :canned ^ <string>"Versuchen Sie, Ihren rechten Arm zu bewegen." .
+
+
+raw:Inform ^ moveLeftArm
+    ->
+    # = :canned ^ <string>"Versuchen Sie, Ihren linken Arm zu bewegen." .
+
 
 /******************************************************************************/
 //move leg
 raw:Inform ^ moveLeg
     ->
     # = :canned ^ <string>"Bitte bewegen Sie ein Bein, wenn das moeglich ist." .
+
+//move leg
+raw:Inform ^ moveRightLeg
+    ->
+    # = :canned ^ <string>"Bitte bewegen Sie Ihr rechtes Bein, wenn das moeglich ist." .
+
+//move leg
+raw:Inform ^ moveLeftLeg
+    ->
+    # = :canned ^ <string>"Bitte bewegen Sie Ihr linkes Bein, wenn das moeglich ist." .
 
 
 /******************************************************************************/
@@ -73,7 +144,7 @@ raw:Inform ^ closeMouth
 
 raw:Inform ^ DRZGreet
     ->
-    # = :canned ^ <string>"Hey Sie. Ich bin ein Roboter der Feuerwehr." .
+    # = :canned ^ <string>"Hallo Sie. Ich bin ein Rettungsroboter der Feuerwehr." .
 
 
 raw:Inform ^ DRZGreet_I

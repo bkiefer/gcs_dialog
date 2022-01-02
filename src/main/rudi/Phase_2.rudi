@@ -1,37 +1,128 @@
 
+// TODO output von cerence NLU 
+// TODO Unterscheidung desorientiert / orientiert konversationsfähig
+// TODO Punkteverteilung? Pro Frage Punkte auf Antworten + Qualität der Antwort?
+//                        evtl: sub-score pro Frage/Topic und am Ende mitteln?
+//                      wenn nur in Lauten antwortet: früher abbrechen?
+// TODO Informationen speichern?
+/** GCS verbale Phase: 
+    konversationsfähig + orientiert: 5 Punkte
+    konversationsfähig + desorientiert: 4 Punkte  
+    einzelne, unzusammenhängende Worte: 3 Punkte
+    sinnlose Laute: 2 Punkte
+    keine verbale Antwort: 1 Punkte
+**/
+
+/** Ablauf Phase 2:
+gcs_score = 1
+if (patient nicht ansprechbar):         (max 2x?)
+    state == phase 3
+else:
+    for question in [Name, Alter, Wohnort, location, Wochentag, Datum....]:
+        ask question: 
+            if answer is not a word:     (antwortet nur in Lauten)
+                gcs_score += 1
+                continue
+            if answer in scope:            (konversationsfähig,)
+                gcs_score += 3
+                //TODO wie orientiert vs. desorientiert?
+                if answer is orientiert:
+                    gcs_score += 1
+            else:                       (antwortet in unzusammenhängenden Wörtern)
+                gcs_score += 2
+    final_score = gcs_score / #questions
+    state == phase 3
+    // TODO nach Schmerzen fragen + Informationen speichern?
+**/
 
 
+// um Phase 3 zu testen
 phase_two:
 if(state == "gcs_phase2"){
-     //user.gcs_phase2 = user.gcs_phase2 + 1;
-     user.gcs_phase2 = 1;
-     state = "gcs_phase3";
-
+    //user.gcs_phase2 = user.gcs_phase2 + 1;
+    user.gcs_phase2 = 1;
+    state = "gcs_phase3";
 }
 
-phase_two_wait_3:
-if (state == "p2_3"){
-    if (user.areEyesOpen == false){
-             emitDA(#Inform(HeyOpenEyes));
-             state="wait";
-             timeout("wait", 15000){
-                 state = "p1_1";
-             }
-        } else {
-         emitDA(#Inform(Fragen));
-         user.gcs_phase1 = 3;
-         state = "gcs_phase2";
+/**
+// check verbal response: none --> continue phase3, else: start asking
+
+phase_two_start:
+if(state == "gcs_phase2"){
+    user.gcs_phase2 = 1;
+    emitDA(#Inform(checkResponse));
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_response";
+    }
+}
+
+phase_two_wait_response:
+if(state == "wait_response"){
+    // TODO Antwort muss nur irgendeine verbale Reaktion sein
+    if (lastDA() >= #Disagreement(NotParse)){       // ??
+        state == "gcs_phase3";
+    } else {
+        user.gcs_phase2 = user.gcs_phase2 + 1;
+        state = "wait";
+        timeout("wait", 5000){
+            state = "ask_name";
         }
+        //??
+        //lastDAprocessed() 
+    }
 }
 
-phase_two_wait_1:
-if (state == "p2_1"){
-    if (user.areEyesOpen == false){
-            user.gcs_phase1 = 1;
-            state = "gcs_done";
-        } else {
-         emitDA(#Inform(Fragen));
-         user.gcs_phase1 = 2;
-         state = "gcs_phase2";
-        }
+
+phase_two_ask_name:
+if (state == "ask_name"){
+    emitDA(#Inform(askName));
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_name";
+    }
 }
+
+
+phase_two_wait_name:
+if(state == "wait_name"){
+    // TODO Qualität der Antwort prüfen:
+    // TODO checke ob Antwort nur Laute oder Wort ist
+    if (lastDA() >= TODO){                      // TODO
+        user.gcs_phase2 = user.gcs_phase2 + 1;
+        state = "wait";
+        timeout("wait", 5000){
+            state = "ask_age";
+        }
+    } else {
+        // TODO prüfe ob Antwort in scope
+        if answer in scope{
+            user.gcs_phase2 = user.gcs_phase2 + 3;
+            if answer is orientiert{
+                user.gcs_phase2 = user.gcs_phase2 + 1;
+            }
+        } else {
+            user.gcs_phase2 = user.gcs_phase2 + 2;
+        }
+        state = "wait";
+        timeout("wait", 5000){
+            state = "ask_age";
+        }
+    }
+}
+
+
+phase_two_ask_age:
+if (state == "ask_name"){
+    emitDA(#Inform(askAge));
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_age";
+    }
+}
+
+//TODO weitere Fragen
+
+
+
+**/

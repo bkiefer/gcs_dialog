@@ -192,6 +192,15 @@ public abstract class AbstractAgent extends Agent implements Constants {
     user.setValue("<dom:hasMovedRightArm>", -1);
     user.setValue("<dom:hasMovedRightLeg>", -1);
     user.setValue("<dom:hasMovedLeftLeg>", -1);
+    user.setValue("<dom:hasMovedRightHand>", -1);
+    user.setValue("<dom:hasMovedLeftHand>", -1);
+
+    user.setValue("<dom:rightHandConfidence>",1.0);
+    user.setValue("<dom:leftHandConfidence>",1.0);
+    user.setValue("<dom:rightArmConfidence>",1.0);
+    user.setValue("<dom:leftArmConfidence>",1.0);
+    user.setValue("<dom:rightLegConfidence>",1.0);
+    user.setValue("<dom:leftLegConfidence>",1.0);
 
     user.setValue("<dom:gcs_phase1>", 0);
     user.setValue("<dom:gcs_phase2>", 0);
@@ -340,6 +349,25 @@ public abstract class AbstractAgent extends Agent implements Constants {
     if (userID == bodyId) {
       user.setValue("<dom:hasMovedRightLeg>", legMoved);
       System.err.println("User id " + bodyId + " rightlegMoved: " + legMoved );
+      newData();
+    }
+  }
+
+
+  public void moveLeftHand(int bodyId, int handMoved) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMovedLeftHand>", handMoved);
+      System.err.println("User id " + bodyId + " leftHandMoved: " + handMoved );
+      newData();
+    }
+  }
+
+  public void moveRightHand(int bodyId, int handMoved) {
+
+    if (userID == bodyId) {
+      user.setValue("<dom:hasMovedRightHand>", handMoved);
+      System.err.println("User id " + bodyId + " rightHandMoved: " + handMoved );
       newData();
     }
   }

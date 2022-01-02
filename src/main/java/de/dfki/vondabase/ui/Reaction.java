@@ -172,6 +172,14 @@ public class Reaction implements Runnable, Listener<Behaviour> {
     ((AbstractAgent) _stub.getAgent()).moveLeftLeg(1, 1);
   }
 
+  public void rightHandMoved() {
+    ((AbstractAgent) _stub.getAgent()).moveRightHand(1, 1);
+  }
+
+  public void leftHandMoved() {
+    ((AbstractAgent) _stub.getAgent()).moveLeftHand(1, 1);
+  }
+
   public void handClenched() {
     ((AbstractAgent) _stub.getAgent()).handOpen(1, false);
   }

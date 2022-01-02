@@ -152,6 +152,14 @@ public class GUI extends JFrame {
             _react.leftLegMoved();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("rightHandMove()")) {
+            _react.rightHandMoved();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("leftHandMove()")) {
+            _react.leftHandMoved();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("handClench()")) {
             _react.handClenched();
             queryInput.setText("");
