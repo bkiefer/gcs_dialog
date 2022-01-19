@@ -20,6 +20,7 @@ public class MessageFactory {
 
   private static final Quaternion DEFAULTQUATERNION = new Quaternion();
   static int aSeq = 0;
+  static int sSeq = 0;
 
   private final static Logger logger = LoggerFactory.getLogger(MessageFactory.class);
 
@@ -41,6 +42,11 @@ public class MessageFactory {
   public static TTSMessage ttsMessageFromText(String text){
     Header header = new Header(0, new Time(System.currentTimeMillis()), "");
     return new TTSMessage(header, text);
+  }
+
+  public static SoundMessage soundMessageFromText(String sound){
+    Header header = new Header(sSeq++, new Time(System.currentTimeMillis()), "");
+    return new SoundMessage(header, sound);
   }
 
 }

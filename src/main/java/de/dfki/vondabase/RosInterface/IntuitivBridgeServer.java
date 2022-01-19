@@ -18,6 +18,7 @@ public class IntuitivBridgeServer extends BridgeServer {
         _stub.registerTTSListener(new ROSClientTTS(config));
         _stub.registerStatusListener(new ROSClientStatus(config));
         _stub.registerGCSListener(new ROSClientGCS(config));
+        _stub.registerSoundListener(new ROSClientSound(config));
     }
 
 

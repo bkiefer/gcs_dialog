@@ -6,23 +6,20 @@ import de.dfki.mlt.rosBridge.utils.std.Header;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class TTSMessage extends Message{
+public class SoundMessage extends Message{
 
-  public static final String FIELD_HEADER = "header";
-  public static final String COMMAND_ID = "status";
-  public static final String MOVEMENT_TYPE = "mood";
-  public static final String MOVEMENT_PARAMETER = "intent";
+
   private final Header header;
-  private final String message;
+  private final String sound;
 
-  public TTSMessage() {
+  public SoundMessage() {
     this(new Header(),"" );
   }
 
-  public TTSMessage(Header header, String message) {
-    super(Json.createObjectBuilder().add("header", header.toJsonObject()).add("message", message).build());
+  public SoundMessage(Header header, String message) {
+    super(Json.createObjectBuilder().add("header", header.toJsonObject()).add("sound", message).build());
     this.header = header;
-    this.message = message;
+    this.sound = message;
   }
 
   public Header getHeader() {
@@ -30,21 +27,21 @@ public class TTSMessage extends Message{
   }
 
   public String getMessage() {
-    return this.message;
+    return this.sound;
   }
 
 
-  public static TTSMessage fromJsonString(String jsonString) {
+  public static SoundMessage fromJsonString(String jsonString) {
     return fromMessage(new Message(jsonString));
   }
 
-  public static TTSMessage fromMessage(Message m) {
+  public static SoundMessage fromMessage(Message m) {
     return fromJsonObject(m.toJsonObject());
   }
 
-  public static TTSMessage fromJsonObject(JsonObject jsonObject) {
+  public static SoundMessage fromJsonObject(JsonObject jsonObject) {
     Header header = jsonObject.containsKey("header") ? Header.fromJsonObject(jsonObject.getJsonObject("header")) : new Header();
-    String status = jsonObject.containsKey("message") ? jsonObject.getString("message") : "";
-    return new TTSMessage(header, status);
+    String status = jsonObject.containsKey("sound") ? jsonObject.getString("sound") : "";
+    return new SoundMessage(header, status);
   }
 }

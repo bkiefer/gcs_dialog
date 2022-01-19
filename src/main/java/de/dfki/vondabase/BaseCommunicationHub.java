@@ -1,6 +1,7 @@
 package de.dfki.vondabase;
 
 import de.dfki.vondabase.RosInterface.ROSClientGCS;
+import de.dfki.vondabase.RosInterface.ROSClientSound;
 import de.dfki.vondabase.RosInterface.ROSClientStatus;
 import de.dfki.vondabase.RosInterface.msgs.*;
 import de.dfki.vondabase.restapi.caller.RESTCaller;
@@ -37,6 +38,7 @@ public class BaseCommunicationHub implements CommunicationHub {
   private final List<Listener<TTSMessage>> _ttsListeners = new ArrayList<>();
   private final List<Listener<StatusMessage>> _statusListeners = new ArrayList<>();
   private final List<Listener<GCSMessage>> _gcsListeners = new ArrayList<>();
+  private final List<Listener<SoundMessage>> _soundListeners = new ArrayList<>();
   private RESTCaller _restListener;
 
 
@@ -98,6 +100,10 @@ public class BaseCommunicationHub implements CommunicationHub {
   }
 
   public void registerRESTListener(RESTCaller restCaller) { _restListener = restCaller;}
+
+  public void registerSoundListener(ROSClientSound rosSoundClient) {
+    _soundListeners.add(rosSoundClient);
+  }
 
   // ------------ process incoming transcription -------------------------------------
   public DialogueAct analyse(String in) {
@@ -191,6 +197,11 @@ public class BaseCommunicationHub implements CommunicationHub {
     _statusListeners.parallelStream().forEach((l) -> l.listen(statusMessage));
   }
 
+  public void sendSound(SoundMessage sound){
+    System.err.println("Playing Sound: " + sound);
+    _soundListeners.parallelStream().forEach((l) -> l.listen(sound));
+  }
+
   public void sendTTS(TTSMessage msg){
     _ttsListeners.parallelStream().forEach((l) -> l.listen(msg));
   }
@@ -278,4 +289,7 @@ public class BaseCommunicationHub implements CommunicationHub {
     //_ttsListeners.parallelStream().forEach(Listener::free);
   }
 
+  public boolean hasSoundOutputListener() {
+   return !_soundListeners.isEmpty();
+  }
 }

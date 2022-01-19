@@ -98,7 +98,8 @@ class RosHandler implements Runnable {
                     // create corresponding service call and wait for result (how? add logic to rule (a method is called that changes a volatile field in this service instance? Or this service is monitoring the information state)
                     // this starts a dialogue, which will hopefully resolve the given situation
                     // result = ...
-                    GCSService service = new GCSService( (AbstractAgent) _stub.getAgent(), jsonObject.getInt("patient_id"));
+                    int phase = jsonObject.has("phase") ? jsonObject.getInt("phase"): 0;
+                    GCSService service = new GCSService( (AbstractAgent) _stub.getAgent(), jsonObject.getInt("patient_id"), phase);
                     Future<GCS> result = pool.submit(service);
                     // send result back to the caller
                     sb.append(result.get().toRos().toString());

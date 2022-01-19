@@ -25,6 +25,7 @@ ROSBridge:
   TTSPort:       11113
   GSCPort:       11114
   StatusPort:    11115
+  SoundPort:     11116
 
 
 nameToURI:
