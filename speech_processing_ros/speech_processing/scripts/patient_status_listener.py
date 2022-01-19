@@ -33,13 +33,13 @@ class PatientStatusListener:
                     rospy.loginfo(v)
                     rospy.loginfo(type(v))
                     if k in labels :
-                        if k isinstance(v, dict):
+                        if isinstance(v, dict):
                             v_dict = {}
                             for k1, v1 in v.items():
                                 v_dict[k1] = round(v1, 2)
                                 dict_2[k.replace("joint_position", "p").replace("left", "l").replace("right", "r").replace("ankle", "a").replace("elbow", "e").replace("hand", "h")] = v_dict
                         else:
-                             dict_2[k.replace("joint_position", "p").replace("left", "l").replace("right", "r").replace("ankle", "a").replace("elbow", "e").replace("hand", "h")]] = v
+                             dict_2[k.replace("joint_position", "p").replace("left", "l").replace("right", "r").replace("ankle", "a").replace("elbow", "e").replace("hand", "h")] = v
                 dict_2["type"] = "PatientStatus"
                 sock.sendall(json.dumps(dict_2))
             finally:

@@ -22,7 +22,7 @@
 
     <node name="patient_status_listener" pkg="speech_processing" type="patient_status_listener.py"/>
 
-    <node name="gcs_service" pkg="speech_processing" type="dialog_service.py"/>
+    <node name="gcs_service" pkg="speech_processing" type="gcs_service.py"/>
 
     <!-- <node name="body_track_listener" pkg="speech_processing" type="BodyTrack_Listener.py"/> -->
     <!-- speech_inputs -->
@@ -31,6 +31,10 @@
     <node name="tts_service" pkg="speech_processing" type="tts_service.py" />
 
     <node name="tts_service_client" pkg="speech_processing" type="tts_service_client.py" />
+
+    <node name="sound_client" pkg="speech_processing" type="sound_client.py"/>
+
+    <node name="sound_publisher" pkg="speech_processing" type="sound_publisher.py"/>
 
     <node name="respeaker_node" pkg="respeaker_ros" type="respeaker_node.py" respawn="true" respawn_delay="10" />
 
