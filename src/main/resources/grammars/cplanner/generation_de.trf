@@ -18,48 +18,49 @@ raw:Inform ^ eyes
 /******************************************************************************/
 // Questions Phase 2: verbal Phase
 
-raw:Inform ^ checkResponse
+raw:YNQuestion ^ checkResponse
     ->
     # = :canned ^ <string>"Können Sie mich hören?" .
 
-raw:Inform ^ askName
+raw:Question ^ askName
     ->
     # = :canned ^ <string>random("Wie heißen Sie?",
                                     "Können Sie mir sagen, wie Sie heißen?") .
 
-raw:Inform ^ askDay
+raw:Question ^ askDay
     ->
     # = :canned ^ <string>"Wissen Sie, welcher Wochentag heute ist?" .
 
-raw:Inform ^ askAdress
+raw:Question ^ askAdress
     ->
     # = :canned ^ <string>"Können Sie mir sagen, wo Sie wohnen?" .
 
-raw:Inform ^ askLocation
+raw:Question ^ askLocation
     ->
     # = :canned ^ <string>"Wissen Sie, wo Sie sind?" .
 
-raw:Inform ^ askBirthdate
+raw:Question ^ askBirthdate
     ->
     # = :canned ^ <string>random("Wann sind Sie geboren?",
                                     "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
-raw:Inform ^ askAge
+raw:Question ^ askAge
     ->
     # = :canned ^ <string>"Wie alt sind Sie?" .
 
-raw:Inform ^ askDate
+raw:Question ^ askDate
     ->
     # = :canned ^ <string>"Wissen Sie, welches Datum heute ist?" .
 
 // TODO
-raw:Inform ^ askPain
+raw:Question ^ askPain
     ->
     # = :canned ^ <string>"Haben Sie aktuell Schmerzen?" .
 
 
 /******************************************************************************/
 // Questions Phase 3: motor skills
+// TODO statt Inform Instruct o.ä.?
 
 //move hands
 raw:Inform ^ moveRightHand

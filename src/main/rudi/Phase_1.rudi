@@ -12,7 +12,11 @@ if(state == "gcs_phase1"){
     } else {
      emitDA(#Inform(Fragen));
      user.gcs_phase1 = 4;
-     state = "gcs_phase2";
+     if(isUZLTest == true){
+        state = "gcs_done";
+     } else {
+        state = "gcs_phase2";
+     }
     }
 }
 
@@ -27,7 +31,11 @@ if (state == "p1_3"){
         } else {
          emitDA(#Inform(Fragen));
          user.gcs_phase1 = 3;
-         state = "gcs_phase2";
+         if(isUZLTest == true){
+             state = "gcs_done";
+          } else {
+             state = "gcs_phase2";
+          }
         }
 }
 
@@ -39,6 +47,10 @@ if (state == "p1_1"){
         } else {
          emitDA(#Inform(Fragen));
          user.gcs_phase1 = 2;
-         state = "gcs_phase2";
+         if(isUZLTest == true){
+            state = "gcs_done";
+         } else {
+            state = "gcs_phase2";
+         }
         }
 }

@@ -13,6 +13,7 @@ import de.dfki.vondabase.RosInterface.services.ServiceException;
 import de.dfki.vondabase.utils.Listener;
 import de.dfki.mlt.rudimant.agent.Behaviour;
 import de.dfki.mlt.rudimant.agent.DialogueAct;
+import de.dfki.vondabase.utils.MessageFactory;
 
 import javax.swing.*;
 import java.util.concurrent.BlockingQueue;
@@ -134,8 +135,8 @@ public class Reaction implements Runnable, Listener<Behaviour> {
     ((AbstractAgent) _stub.getAgent()).newData();
   }
 
-  public void createUser() {
-    GCSService service = new GCSService((AbstractAgent) _stub.getAgent(), 1);
+  public void triggerGCS(int phase) {
+    GCSService service = new GCSService((AbstractAgent) _stub.getAgent(), 1, phase);
     try {
       service.updateIS();
     } catch (ServiceException e) {
@@ -187,6 +188,11 @@ public class Reaction implements Runnable, Listener<Behaviour> {
   public void handOpened() {
     ((AbstractAgent) _stub.getAgent()).handOpen(1, true);
   }
+
+
+    public void playSound() {
+      _stub.sendSound(MessageFactory.soundMessageFromText("pain.wav"));
+    }
 
 
 }

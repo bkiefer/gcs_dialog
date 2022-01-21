@@ -30,11 +30,16 @@ public class MovementHandler extends AbstractHandler{
   protected void handlePostRequest(HttpExchange exchange) throws IOException {
     String json = bodyToString(exchange.getRequestBody());
     JSONObject jsonObject = new JSONObject(json);
-    boolean isOpen =  jsonObject.getBoolean("hasMoved");
+    boolean moved =  jsonObject.getBoolean("hasMoved");
     if (_agent.user != null){
-      _agent.hasMoved(_agent.getUserID(),isOpen);
+      _agent.hasMoved(_agent.getUserID(),moved);
+      if (jsonObject.has("hasMovedRightHand")) _agent.moveRightHand(_agent.getUserID(), jsonObject.getInt("hasMovedRightHand"));
+      if (jsonObject.has("hasMovedLeftHand")) _agent.moveLeftHand(_agent.getUserID(), jsonObject.getInt("hasMovedLeftHand"));
+      if (jsonObject.has("hasMovedRightArm")) _agent.moveRightArm(_agent.getUserID(), jsonObject.getInt("hasMovedRightArm"));
+      if (jsonObject.has("hasMovedLeftArm")) _agent.moveLeftArm(_agent.getUserID(), jsonObject.getInt("hasMovedLeftArm"));
+      if (jsonObject.has("hasMovedRightLeg")) _agent.moveRightLeg(_agent.getUserID(), jsonObject.getInt("hasMovedRightLeg"));
+      if (jsonObject.has("hasMovedLeftLeg")) _agent.moveLeftLeg(_agent.getUserID(), jsonObject.getInt("hasMovedLeftLeg"));
       sendResponse(200, exchange, "changed moved status");
-
     } else {
         sendResponse(500, exchange, "no user ");
       }

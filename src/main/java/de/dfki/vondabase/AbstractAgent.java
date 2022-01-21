@@ -30,6 +30,7 @@ public abstract class AbstractAgent extends Agent implements Constants {
    */
   public Rdf robot;
   public Rdf user;
+  public boolean isUZLTest;
   public SkeletonMessage _userSkeleton;
   public DayTime dTime = DayTime.day;
   protected String DEFNS = "dom";
@@ -164,12 +165,29 @@ public abstract class AbstractAgent extends Agent implements Constants {
     _activeServiceCall = service;
   }
 
-  public void triggerGCS(int bodyId) {
+  public void triggerGCS(int bodyId, int phase) {
     if (user != null) {
       throw new IllegalStateException("Can't talk to two people at once");
     } else {
       initUser(bodyId);
-      state = "gcs_init";
+      // added trigger for specific phases to simplify testing by UZL
+      switch (phase){
+        case 1:
+          state = "gcs_phase1";
+          isUZLTest = true;
+          break;
+        case 2:
+          state = "gcs_phase2";
+          isUZLTest = true;
+          break;
+        case 3:
+          state = "gcs_phase3";
+          isUZLTest = true;
+          break;
+        default:
+          state = "gcs_init";
+          isUZLTest = false;
+      }
       newData();
     }
   }
@@ -188,12 +206,12 @@ public abstract class AbstractAgent extends Agent implements Constants {
     user.setValue("<dom:isMouthOpen>", false);
     user.setValue("<dom:isHandOpen>", false);
 
-    user.setValue("<dom:hasMovedLeftArm>", -1);
+    user.setValue("<dom:hasMovedLeftArm>", 0);
     user.setValue("<dom:hasMovedRightArm>", -1);
     user.setValue("<dom:hasMovedRightLeg>", -1);
     user.setValue("<dom:hasMovedLeftLeg>", -1);
     user.setValue("<dom:hasMovedRightHand>", -1);
-    user.setValue("<dom:hasMovedLeftHand>", -1);
+    user.setValue("<dom:hasMovedLeftHand>", 0);
 
     user.setValue("<dom:rightHandConfidence>",1.0);
     user.setValue("<dom:leftHandConfidence>",1.0);

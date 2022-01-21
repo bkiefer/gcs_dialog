@@ -65,20 +65,28 @@ if(state == "gcs_phase2"){
 **/
 
 
+/******** Phase 2 Start *********/
 
 phase_two_start:
 if(state == "gcs_phase2"){
     user.gcs_phase2 = 1;
     no_reaction = false;
-    emitDA(#YNquestion(checkResponse));
+    emitDA(#YNQuestion(checkResponse));
+    System.err.println("LA1: " + lastDA());
     state="wait";
     timeout("wait", 5000){
         state = "wait_response";
     }
 }
 
+
 phase_two_wait_response:
 if(state == "wait_response"){
+
+    // TODO: CW: ich bin mir nicht sicher, ob wir so darauf abpruefen koennen, ob es eine verbale reaktion gab. So sehen wir ja nur, ob es eine gab, 
+    // die wir nicht interpretieren konnten. imo waere es besser zu schauen, ob lastDa() unteschiedlich von unsere letzten Aussage ist, dann wissen wir zumindest dass irgendwas gesagt wurde.
+    System.err.println("LA2: " + lastDA());
+    
     // TODO bei fehlender Reaktion nochmal fragen? (Boolean um zu sehen ob schon mal in Schleife war)
     if (lastDA() >= #Bottom(Bottom)){       // wenn keine verbale Reaktion
         if (no_reaction == true){       // Patient hat bereits 1x nicht geantwortet
@@ -98,13 +106,13 @@ if(state == "wait_response"){
         // speichere Fragen als Quartet: (DA, intent, concept, bool ob Orientierungsfrage)
         questions = new LinkedList<Quartet<DialogueAct, String, String, Boolean>>();
         // TODO NER intent etc
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askName), "TODO", "Name", false));
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askAge), "AGE", "Age", false));
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askBirthdate), "Date", "nuance_CALENDARX", false));
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askAdress), "Location", "nuance_LOCATION", false));
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askLocation), "Location", "nuance_LOCATION", true));
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askDay), "Date", "Weekday", true));
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askDate), "Date", "nuance_CALENDARX", true));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askName), "TODO", "Name", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askAge), "AGE", "Age", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askBirthdate), "Date", "nuance_CALENDARX", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askAdress), "Location", "nuance_LOCATION", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askLocation), "Location", "nuance_LOCATION", true));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askDay), "Date", "Weekday", true));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askDate), "Date", "nuance_CALENDARX", true));
 
         sum_phase2 = 0;         // Summe ueber Scores aller Fragen
         sum_orientiert = 0;     // Anzahl korrekter Orientierungsfragen

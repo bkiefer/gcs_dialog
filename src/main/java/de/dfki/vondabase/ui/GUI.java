@@ -117,11 +117,23 @@ public class GUI extends JFrame {
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("createUser()")) {
-            _react.createUser();
+            _react.triggerGCS(0);
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("clearUser()")) {
             _react.clearUser();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("phase1()")) {
+            _react.triggerGCS(1);
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("phase2()")) {
+            _react.triggerGCS(2);
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.trim().equals("phase3()")) {
+            _react.triggerGCS(3);
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
           } else if (input.trim().equals("eyesOpen()")) {
@@ -172,7 +184,11 @@ public class GUI extends JFrame {
             _react.testDiaScore();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
-          }  else if (input.contains("getState(")) {
+          } else if (input.trim().equals("playSound()")) {
+            _react.playSound();
+            queryInput.setText("");
+            _chat.sendMessage(timestamp + " " + input);
+          } else if (input.contains("getState(")) {
           _chat.sendMessage(timestamp + " " + input);
           _statusbar.setText(_react.getState());
           queryInput.setText("");

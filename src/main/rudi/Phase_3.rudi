@@ -87,7 +87,7 @@ if (state == "wait_clench_right_hand"){
        emitDA(#Inform(openHand));
        state="wait";
        timeout("wait", 5000){
-          state = "wait_open_hand";
+          state = "wait_open_right_hand";
        }
     } else {
         // TODO erneut auffordern?
@@ -107,7 +107,7 @@ if (state == "wait_clench_left_hand"){
        emitDA(#Inform(openHand));
        state="wait";
        timeout("wait", 5000){
-          state = "wait_open_hand";
+          state = "wait_open_left_hand";
        }
     } else {
         // TODO erneut auffordern?
@@ -120,9 +120,22 @@ if (state == "wait_clench_left_hand"){
 }
 
 
-phase_three_open_hand:
-if (state == "wait_open_hand"){
-    if (user.isHandOpen == true){
+phase_three_open_left_hand:
+if (state == "wait_open_left_hand"){
+    if (user.hasMovedLeftHand == 1){
+       user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    //arm movement
+    //emitDA(#Inform(moveArm));
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_check_arm";
+    }
+}
+
+phase_three_open_right_hand:
+if (state == "wait_open_right_hand"){
+    if (user.hasMovedRightHand == 1){
        user.gcs_phase3 = user.gcs_phase3 + 1;
     }
     //arm movement

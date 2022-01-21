@@ -8,6 +8,8 @@ public class GCSService extends AbstractService{
 
   private final int _bodyId;
 
+  private final int _phase;
+
 
   /**
    * Called by the RosHandler whenever an GSCService.srv call was received
@@ -17,13 +19,19 @@ public class GCSService extends AbstractService{
   public GCSService(AbstractAgent agent, int bodyId){
     _agent = agent;
     _bodyId = bodyId;
+    _phase = 0;
   }
 
+  public GCSService(AbstractAgent agent, int bodyId, int phase){
+    _agent = agent;
+    _bodyId = bodyId;
+    _phase = phase;
+  }
 
   @Override
   public void updateIS() throws ServiceException {
       _agent.setActiveServiceCall(this);
-      _agent.triggerGCS(_bodyId);
+      _agent.triggerGCS(_bodyId, _phase);
 
   }
 

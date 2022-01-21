@@ -10,14 +10,14 @@ import json
 import socket
 
 
-class DialogueService:
+class GCSService:
 
     # Connect the socket to the port where the server is listening
     server_address = (os.environ.get("ROS_IP"), 11666)
     BUFFER_SIZE = 20
 
     def __init__(self):
-        rospy.logdebug("init tts_service")
+        rospy.logdebug("init gcs_service")
         self.service = rospy.Service(
             "/mlt/dialog_service", DialogService, self.callback)
 
@@ -39,7 +39,7 @@ class DialogueService:
                 self.data = sock.recv(1024)
                 if(len(self.data)>0):
                     rospy.logdebug("Server received data:", self.data)
-                    break;
+                    break
                 else:
                     self.sleep(100)
         finally:
