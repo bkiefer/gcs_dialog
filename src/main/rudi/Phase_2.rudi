@@ -1,10 +1,21 @@
+/*@
+import de.dfki.vondabase.utils.Triple;
+import de.dfki.vondabase.utils.Quartet;
+@*/
 
-// TODO output von cerence NLU 
-// TODO Unterscheidung desorientiert / orientiert konversationsfähig
+
+// TODO emitDA(#Inform(Fixpunkt)) nach checkResponse?
 // TODO Punkteverteilung? Pro Frage Punkte auf Antworten + Qualität der Antwort?
 //                        evtl: sub-score pro Frage/Topic und am Ende mitteln?
 //                      wenn nur in Lauten antwortet: früher abbrechen?
-// TODO Informationen speichern?
+// TODO Informationen speichern
+/**
+hasPain mit einem boolean Value
+answersBirthday mit einem String Value
+answersWeekday mit einem String Value
+answersDate mit einem StringValue
+**/
+
 /** GCS verbale Phase: 
     konversationsfähig + orientiert: 5 Punkte
     konversationsfähig + desorientiert: 4 Punkte  
@@ -14,28 +25,36 @@
 **/
 
 /** Ablauf Phase 2:
-gcs_score = 1
+//TODO Informationen in user speichern (über intent/slot information wo speichern?)
+tmp_score = 1
+sum_orientiert = 0
+num_orientiert = 0
 if (patient nicht ansprechbar):         (max 2x?)
     state == phase 3
 else:
-    for question in [Name, Alter, Wohnort, location, Wochentag, Datum....]:
+    for question in [Name, Alter, Birthdate, Adresse, location, Wochentag, Datum....]:
         ask question: 
             if answer is not a word:     (antwortet nur in Lauten)
-                gcs_score += 1
+                tmp_score += 1
                 continue
             if answer in scope:            (konversationsfähig,)
-                gcs_score += 3
-                //TODO wie orientiert vs. desorientiert?
-                if answer is orientiert:
-                    gcs_score += 1
+                tmp_score += 3
+                if question in [location, Wochentag, Datum]:
+                    if answer correct:
+                        sum_orientiert += 1
+                        num_orientiert += 1
             else:                       (antwortet in unzusammenhängenden Wörtern)
-                gcs_score += 2
-    final_score = gcs_score / #questions
+                tmp_score += 2
+    user.gcs_phase2 = tmp_score / #questions (oder: max?)   (TODO runden, oder maximum nehmen)
+    if sum_orientiert >= num_orientiert/2:   (wenn Hälfte der Orientierungsfragen korrekt --> orientiert)
+        user.gcs_phase2 += 1
+    ask pain:
+        user.pain = answer
     state == phase 3
-    // TODO nach Schmerzen fragen + Informationen speichern?
 **/
+/***************************************/
 
-
+/**
 // um Phase 3 zu testen
 phase_two:
 if(state == "gcs_phase2"){
@@ -43,14 +62,15 @@ if(state == "gcs_phase2"){
     user.gcs_phase2 = 1;
     state = "gcs_phase3";
 }
+**/
 
-/**
-// check verbal response: none --> continue phase3, else: start asking
+
 
 phase_two_start:
 if(state == "gcs_phase2"){
     user.gcs_phase2 = 1;
-    emitDA(#Inform(checkResponse));
+    no_reaction = false;
+    emitDA(#YNquestion(checkResponse));
     state="wait";
     timeout("wait", 5000){
         state = "wait_response";
@@ -59,70 +79,96 @@ if(state == "gcs_phase2"){
 
 phase_two_wait_response:
 if(state == "wait_response"){
-    // TODO Antwort muss nur irgendeine verbale Reaktion sein
-    if (lastDA() >= #Disagreement(NotParse)){       // ??
-        state == "gcs_phase3";
+    // TODO bei fehlender Reaktion nochmal fragen? (Boolean um zu sehen ob schon mal in Schleife war)
+    if (lastDA() >= #Bottom(Bottom)){       // wenn keine verbale Reaktion
+        if (no_reaction == true){       // Patient hat bereits 1x nicht geantwortet
+            state = "gcs_phase3";
+        } else {        // wiederhole Ansprache
+            no_reaction = true;
+            emitDA(#YNquestion(checkResponse));
+            state="wait";
+            timeout("wait", 5000){
+                state = "wait_response";
+            }
+        }
     } else {
         user.gcs_phase2 = user.gcs_phase2 + 1;
+        // fülle Fragenliste
+        // TODO erstelle randomisierte Liste (mind. Anzahl an Orientierungsfragen)?
+        // speichere Fragen als Quartet: (DA, intent, concept, bool ob Orientierungsfrage)
+        questions = new LinkedList<Quartet<DialogueAct, String, String, Boolean>>();
+        // TODO NER intent etc
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askName), "TODO", "Name", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askAge), "AGE", "Age", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askBirthdate), "Date", "nuance_CALENDARX", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askAdress), "Location", "nuance_LOCATION", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askLocation), "Location", "nuance_LOCATION", true));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askDay), "Date", "Weekday", true));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Inform(askDate), "Date", "nuance_CALENDARX", true));
+
+        sum_phase2 = 0;         // Summe ueber Scores aller Fragen
+        sum_orientiert = 0;     // Anzahl korrekter Orientierungsfragen
+        num_questions = questions.size();   // Anzahl Fragen
+        num_orientiert = 3; // TODO Anzahl orientierungsfragen
         state = "wait";
         timeout("wait", 5000){
-            state = "ask_name";
+            state = "ask_question";     // start asking questions
         }
-        //??
+        // ??
         //lastDAprocessed() 
     }
 }
 
 
-phase_two_ask_name:
-if (state == "ask_name"){
-    emitDA(#Inform(askName));
-    state="wait";
-    timeout("wait", 5000){
-        state = "wait_name";
+phase_two_ask_question:
+if(state == "ask_question"){
+    // check if question list is empty --> wenn ja: weiter mit Phase 3
+    if (questions.isEmpty() == true){
+        // TODO Score mitteln
+        user.gcs_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
+        // TODO orientierungsscore ermitteln
+        // if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
+            // user.gcs_phase2 = user.gcs_phase2 + 1;
+        // }
+        //TODO nach Schmerzen fragen --> Score berechnung auslagern
+        // weiter Phase 3
+        state = "gcs_phase3";
+    } else {    // ask first question in list
+        emitDA(questions.get(0).first);
+        state = "wait";
+        timeout("wait", 5000){
+            state = "wait_answer";  
+        }
     }
 }
 
 
-phase_two_wait_name:
-if(state == "wait_name"){
+phase_two_wait_answer:
+if (state == "wait_answer"){
     // TODO Qualität der Antwort prüfen:
-    // TODO checke ob Antwort nur Laute oder Wort ist
-    if (lastDA() >= TODO){                      // TODO
-        user.gcs_phase2 = user.gcs_phase2 + 1;
-        state = "wait";
-        timeout("wait", 5000){
-            state = "ask_age";
-        }
-    } else {
-        // TODO prüfe ob Antwort in scope
-        if answer in scope{
-            user.gcs_phase2 = user.gcs_phase2 + 3;
-            if answer is orientiert{
-                user.gcs_phase2 = user.gcs_phase2 + 1;
-            }
+    if (!(lastDA() >= #Bottom(Bottom))){    // prüfe ob Patient antwortet
+        // TODO: cerence auf Laute trainieren
+        if (lastDA() >= #Disagreement(NotParse)){           // TODO Prüfe ob Antwort nur Laute sind
+            sum_phase2 = sum_phase2 + 1;
         } else {
-            user.gcs_phase2 = user.gcs_phase2 + 2;
-        }
-        state = "wait";
-        timeout("wait", 5000){
-            state = "ask_age";
+            // TODO prüfe ob Antwort in scope
+            String tmp = questions.get(0).second;
+            if (lastDA() >= #Answer(tmp)){
+                sum_phase2 = sum_phase2 + 3;
+                // TODO checke ob Orientierungsfrage, wenn ja: korrekt? --> summieren
+                // if (questions.get(0).fourth == true){
+                    // prüfe ob Antwort korrekt --> welche Frage ueber intent?
+                    // wenn korrekt:
+                    //      sum_orientiert = sum_orientiert +1;
+                // }
+            } else {
+                sum_phase2 = sum_phase2 + 2;
+            }
         }
     }
+    // TODO: speicher information in user
+
+    // entferne Frage aus liste
+    questions.remove(0);
+    state = "ask_question"; //ask next question
 }
-
-
-phase_two_ask_age:
-if (state == "ask_name"){
-    emitDA(#Inform(askAge));
-    state="wait";
-    timeout("wait", 5000){
-        state = "wait_age";
-    }
-}
-
-//TODO weitere Fragen
-
-
-
-**/

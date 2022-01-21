@@ -8,37 +8,37 @@ if(state == "gcs_phase3"){
     System.err.println("Starting phase 3");
     user.gcs_phase3 = 1;
     state="wait";
-    //clench and open hand
+    //move hand
     if (!(user.hasMovedLeftHand == -1 && user.hasMovedRightHand == -1 )){   //checke ob lesbare Hand vorhanden
         //Checke ob beide sichtbar 
         if (!(user.hasMovedLeftHand == -1) && !(user.hasMovedRightHand == -1)){
             if (user.leftHandConfidence > user.rightHandConfidence){
-                emitDA(#Inform(clenchLeftHand));
+                emitDA(#Inform(moveLeftHand));
                 state = "wait";
                 timeout("wait", 5000){
-                    state = "wait_clench_left_hand";
+                    state = "wait_move_left_hand";
                 }
             } else {
-                emitDA(#Inform(clenchRightHand));
+                emitDA(#Inform(moveRightHand));
                 state = "wait";
                 timeout("wait", 5000){
-                    state = "wait_clench_right_hand";
+                    state = "wait_move_right_hand";
                 }
             }
         } else {    // nur eine Hand sichtbar
             if (user.hasMovedLeftHand == -1){   //linke Hand nicht sichtbar
-                emitDA(#Inform(clenchRightHand));
+                emitDA(#Inform(moveRightHand));
                 state = "wait";
-                timeout("wait", 10000){
-                    state = "wait_clench_right_hand";
+                timeout("wait", 5000){
+                    state = "wait_move_right_hand";
                 }
             } 
             //TODO else statt zweites if
             if (user.hasMovedRightHand == -1){  //rechte Hand nicht sichtbar
-                emitDA(#Inform(clenchLeftHand));
+                emitDA(#Inform(moveLeftHand));
                 state = "wait";
-                timeout("wait", 10000){
-                    state = "wait_clench_left_hand";
+                timeout("wait", 5000){
+                    state = "wait_move_left_hand";
                 }
             }
         }    
@@ -52,6 +52,33 @@ if(state == "gcs_phase3"){
 }
 
 
+phase_three_move_right_hand:
+if (state == "wait_move_right_hand"){
+    if (user.hasMovedRightHand == 1){
+       user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    //arm movement
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_check_arm";
+    }
+}
+
+phase_three_move_left_hand:
+if (state == "wait_move_left_hand"){
+    if (user.hasMovedLeftHand == 1){
+       user.gcs_phase3 = user.gcs_phase3 + 1;
+    }
+    //arm movement
+    state="wait";
+    timeout("wait", 5000){
+        state = "wait_check_arm";
+    }
+}
+
+
+/**
+// Check if patient can clench and open fist
 phase_three_clench_right_hand:
 if (state == "wait_clench_right_hand"){
     if (user.hasMovedRightHand == 1){
@@ -105,7 +132,7 @@ if (state == "wait_open_hand"){
         state = "wait_check_arm";
     }
 }
-
+**/
 
 //**********************************************//
 // Arme

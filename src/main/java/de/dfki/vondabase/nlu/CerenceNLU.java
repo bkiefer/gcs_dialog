@@ -81,18 +81,38 @@ public class CerenceNLU extends Interpreter {
       return parseBinaryAnswer(intent);
     if(json.getJSONObject(0).has("concepts")) {
       final JSONObject concepts = json.getJSONObject(0).getJSONObject("concepts");
-      values.add("Instruct");
+      values.add("Answer");
       values.add(intent);
       for (final String key : concepts.keySet()) {
         values.add(key);
         switch (key) {
-          case "Actor":
+          /**case "Actor":
           case "TargetPos": {
             values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("literal"));
             break;
           }
           case "Move": {
             values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("value"));
+            break;
+          }**/
+          case "nuance_LOCATION": {
+            values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("literal"));
+            break;
+          }
+          case "Age": {
+            values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("literal"));
+            break;
+          }
+          case "nuance_CALENDARX": {
+            values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("literal"));
+            break;
+          }
+          case "Weekday": {
+            values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("literal"));
+            break;
+          }
+          case "nuance_ADDRESS": {
+            values.add(((JSONObject) concepts.getJSONArray(key).get(0)).getString("literal"));
             break;
           }
           default:

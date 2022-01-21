@@ -1,5 +1,6 @@
 /*@
 import de.dfki.vondabase.utils.Triple;
+import de.dfki.vondabase.utils.Quartet;
 @*/
 
 TRIGGER_CHECK_TIMEOUT = 1000; // time to check trigger approach in milliseconds
@@ -10,6 +11,13 @@ Triple<String, String, Integer> NEED_HELP = new Triple("Ich brauche Hilfe.", "Re
 Triple<String, String, Integer> CONFIRM_INFORM = new Triple("Ja. Erzähl mir mehr.", "Confirm(Need, what=instructions)",2);
 Triple<String, String, Integer> DISCONFIRM = new Triple("Nein, danke.", "Disconfirm(Disconfirm)",3);
 
+List<Quartet<DialogueAct, String, String, Boolean>> questions;
+int num_questions;
+int sum_phase2;
+int num_orientiert;
+int sum_orientiert;
+boolean no_reaction;
+
 import test;
 import Phase_0;
 import Phase_1;
@@ -19,7 +27,7 @@ import Phase_5;
 
 
 
-greet_back: //TODO: add time when greeting back
+greet_back: 
 if (lastDA() >= #InitialGreeting(Greet)) {
   System.err.println("greet back");
   propose("greet back") {

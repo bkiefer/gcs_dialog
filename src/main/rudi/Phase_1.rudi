@@ -1,3 +1,5 @@
+//TODO emitDA(#Inform(Fixpunkt)) nach jedem emitDA(#Inform(Fragen)) oder erst in Phase2?
+//TODO pruefe, ob Patient Roboter ansieht?
 
 phase_one:
 if(state == "gcs_phase1"){

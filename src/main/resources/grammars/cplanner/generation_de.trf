@@ -41,7 +41,8 @@ raw:Inform ^ askLocation
 
 raw:Inform ^ askBirthdate
     ->
-    # = :canned ^ <string>"Wann sind Sie geboren?" .
+    # = :canned ^ <string>random("Wann sind Sie geboren?",
+                                    "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
 raw:Inform ^ askAge
     ->
@@ -54,11 +55,20 @@ raw:Inform ^ askDate
 // TODO
 raw:Inform ^ askPain
     ->
-    # = :canned ^ <string>"Wo haben Sie Schmerzen?" .
+    # = :canned ^ <string>"Haben Sie aktuell Schmerzen?" .
 
 
 /******************************************************************************/
 // Questions Phase 3: motor skills
+
+//move hands
+raw:Inform ^ moveRightHand
+    ->
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihre rechte Hand zu bewegen." .
+
+raw:Inform ^ moveLeftHand
+    ->
+    # = :canned ^ <string>"Bitte versuchen Sie, Ihre linke Hand zu bewegen." .
 
 //clench fist
 raw:Inform ^ clenchHand
@@ -155,6 +165,12 @@ raw:Inform ^ DRZGreet_I
 raw:Inform ^ Fragen
     ->
     # = :canned ^ <string>"Ich werde Ihnen gleich ein paar Fragen stellen, um zu erfahren was Ihnen fehlt.".
+
+// TODO genaue Angabe, wo sich Box befindet bzw. was fixiert werden soll
+raw:Inform ^ Fixpunkt
+    ->
+    # = :canned ^ <string>random("Fixieren Sie bitte die grüne Box.",
+                                    "Schauen Sie bitte auf die grüne Box.") .
 
 raw:Inform ^ OpenEyes
     ->
