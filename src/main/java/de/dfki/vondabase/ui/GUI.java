@@ -188,7 +188,7 @@ public class GUI extends JFrame {
             _react.playSound();
             queryInput.setText("");
             _chat.sendMessage(timestamp + " " + input);
-          }else if (input.contains("getState(")) {
+          } else if (input.contains("getState(")) {
           _chat.sendMessage(timestamp + " " + input);
           _statusbar.setText(_react.getState());
           queryInput.setText("");

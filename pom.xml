@@ -22,7 +22,8 @@
         </repository>
     </repositories>
 
-      <dependencies>
+    <dependencies>
+
           <dependency>
               <groupId>de.dfki.lt.hfc</groupId>
               <artifactId>hfc-thrift</artifactId>
@@ -66,6 +67,12 @@
               <groupId>de.dfki.mlt</groupId>
               <artifactId>RosBridge</artifactId>
               <version>1.0.3-SNAPSHOT</version>
+          </dependency>
+
+          <dependency>
+              <groupId>edu.stanford.nlp</groupId>
+              <artifactId>stanford-corenlp</artifactId>
+              <version>4.4.0</version>
           </dependency>
 
           <dependency>

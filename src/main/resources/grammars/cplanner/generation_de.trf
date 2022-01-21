@@ -18,11 +18,11 @@ raw:Inform ^ eyes
 /******************************************************************************/
 // Questions Phase 2: verbal Phase
 
-raw:Inform ^ checkResponse
+raw:YNQuestion ^ checkResponse
     ->
     # = :canned ^ <string>"Können Sie mich hören?" .
 
-raw:Inform ^ askName
+raw:Question ^ askName
     ->
     # = :canned ^ <string>random("Wie heißen Sie?",
                                     "Können Sie mir sagen, wie Sie heißen?") .

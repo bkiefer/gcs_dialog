@@ -35,7 +35,7 @@ else:
     // TODO nach Schmerzen fragen + Informationen speichern?
 **/
 
-
+/**
 // um Phase 3 zu testen
 phase_two:
 if(state == "gcs_phase2"){
@@ -43,31 +43,35 @@ if(state == "gcs_phase2"){
     user.gcs_phase2 = 1;
     state = "gcs_phase3";
 }
+**/
 
-/**
 // check verbal response: none --> continue phase3, else: start asking
 
 phase_two_start:
 if(state == "gcs_phase2"){
     user.gcs_phase2 = 1;
-    emitDA(#Inform(checkResponse));
+    emitDA(#YNQuestion(checkResponse));
+    System.err.println("LA1: " + lastDA());
     state="wait";
     timeout("wait", 5000){
         state = "wait_response";
     }
 }
 
+
 phase_two_wait_response:
 if(state == "wait_response"){
     // TODO Antwort muss nur irgendeine verbale Reaktion sein
-    if (lastDA() >= #Disagreement(NotParse)){       // ??
-        state == "gcs_phase3";
+    // TODO: CW: ich bin mir nicht sicher, ob wir so darauf abpruefen koennen, ob es eine verbale reaktion gab. So sehen wir ja nur, ob es eine gab, die wir nicht interpretieren konnten. imo waere es besser zu schauen, ob lastDa() unteschiedlich von unsere letzten Aussage ist, dann wissen wir zumindest dass irgendwas gesagt wurde.
+    System.err.println("LA2: " + lastDA());
+    if (lastDA() >= #Bottom(Bottom)){
+        state = "gcs_phase3";
     } else {
         user.gcs_phase2 = user.gcs_phase2 + 1;
-        state = "wait";
-        timeout("wait", 5000){
-            state = "ask_name";
-        }
+        state = "ask_name";
+        //timeout("wait", 5000){
+        //    state = "ask_name";
+        //}
         //??
         //lastDAprocessed() 
     }
@@ -76,14 +80,14 @@ if(state == "wait_response"){
 
 phase_two_ask_name:
 if (state == "ask_name"){
-    emitDA(#Inform(askName));
+    emitDA(#Question(askName));
     state="wait";
     timeout("wait", 5000){
         state = "wait_name";
     }
 }
 
-
+/**
 phase_two_wait_name:
 if(state == "wait_name"){
     // TODO Qualität der Antwort prüfen:
@@ -113,7 +117,7 @@ if(state == "wait_name"){
 
 
 phase_two_ask_age:
-if (state == "ask_name"){
+if (state == "ask_age"){
     emitDA(#Inform(askAge));
     state="wait";
     timeout("wait", 5000){

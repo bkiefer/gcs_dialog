@@ -206,12 +206,12 @@ public abstract class AbstractAgent extends Agent implements Constants {
     user.setValue("<dom:isMouthOpen>", false);
     user.setValue("<dom:isHandOpen>", false);
 
-    user.setValue("<dom:hasMovedLeftArm>", -1);
+    user.setValue("<dom:hasMovedLeftArm>", 0);
     user.setValue("<dom:hasMovedRightArm>", -1);
     user.setValue("<dom:hasMovedRightLeg>", -1);
     user.setValue("<dom:hasMovedLeftLeg>", -1);
     user.setValue("<dom:hasMovedRightHand>", -1);
-    user.setValue("<dom:hasMovedLeftHand>", -1);
+    user.setValue("<dom:hasMovedLeftHand>", 0);
 
     user.setValue("<dom:rightHandConfidence>",1.0);
     user.setValue("<dom:leftHandConfidence>",1.0);
