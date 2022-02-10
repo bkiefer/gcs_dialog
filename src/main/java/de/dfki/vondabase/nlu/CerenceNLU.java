@@ -28,7 +28,7 @@ public class CerenceNLU extends Interpreter {
   public boolean init(final File file, final String s, final Map map) {
     final Map<String, String> settings = (Map<String, String>) map;
     app = new NuanceWebSocketsJavaApp(settings.get("context_tag"), settings.get("codec"), settings.get("appKey"),
-        settings.get("hostname"), settings.get("languageCode"), settings.get("command"), settings.get("nmaid"));
+        settings.get("hostname"), settings.get("languageCode"), settings.get("nmaid"));
     app.requestType = RequestType.NLU_TEXT;
     app.setAutoReconnect(false);
     return true;
