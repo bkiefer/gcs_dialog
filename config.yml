@@ -47,7 +47,6 @@ NLU:
   de:
     class: de.dfki.vondabase.nlu.CombinedNLU
     grammar: src/main/resources/grammars/srgs/rolli.gram
-    command: "NDSP_APP_CMD"
     languageCode: "deu-DEU"
     codec: "audio/L16;rate=16000"
     context_tag: "A553_C5205"
