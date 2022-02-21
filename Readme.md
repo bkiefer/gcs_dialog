@@ -26,6 +26,8 @@
     sh ./compile
     ./run.sh
 
+**There is a configuration issue with vonda and its dependences at the time of writing this documentation (Feb 2022) causing a missmatch of the installed graff version 0.7.2 and the one needed by hfc-database 0.5. To fix this you need to manually update the dependency in hfc-database and rebuild using mvn clean install.**
+
 
 ## Flowchart
 https://docs.google.com/drawings/d/1mVwPb0KXReamQLZdHwgrzS1sQQsl77gXkGlzxrRdSRQ/edit?usp=sharing
