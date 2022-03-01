@@ -16,14 +16,18 @@ public class CombinedNLU extends Interpreter {
 
   private SrgsParser _srgsParser;
   private CerenceNLU _cerenceNLU;
+  private StanfordNER _stanfordNER;
 
   @Override
   public boolean init(File file, String s, Map map) {
     _srgsParser = new SrgsParser();
+    _stanfordNER = new StanfordNER();
     _cerenceNLU = new CerenceNLU();
     boolean srgsIsInit = _srgsParser.init(file, s, map);
     boolean cerenceIsInit = _cerenceNLU.init(file, s, map);
-    return srgsIsInit && cerenceIsInit;
+    boolean stanfordIsInit = _stanfordNER.init(file,s,map);
+    //return srgsIsInit && cerenceIsInit;
+    return srgsIsInit && stanfordIsInit && cerenceIsInit;
   }
 
   private DialogueAct getNotParseDia() {
@@ -37,8 +41,14 @@ public class CombinedNLU extends Interpreter {
     // first try srgsParser
     try {
       DialogueAct result = _srgsParser.analyse(s);
-      if (result == null)
-        result = _cerenceNLU.analyse(s);
+      //DialogueAct result = _stanfordNER.analyse(s);
+      if (result == null){
+        result = _cerenceNLU.analyse(s);  // cerence before stanfordNER as standford interprets Age, Weekdays,... as Name
+        if (result == null){
+            result = _stanfordNER.analyse(s);
+        }
+      }
+      // TODO if null: return getNotParse
       return result;
     } catch (Exception e){
       e.printStackTrace();

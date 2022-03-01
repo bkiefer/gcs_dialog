@@ -1,31 +1,23 @@
 /*@
 import de.dfki.vondabase.utils.Triple;
 import de.dfki.vondabase.utils.Quartet;
+import java.util.Calendar;
 @*/
 
-
 // TODO emitDA(#Inform(Fixpunkt)) nach checkResponse?
-// TODO Punkteverteilung? Pro Frage Punkte auf Antworten + Qualität der Antwort?
-//                        evtl: sub-score pro Frage/Topic und am Ende mitteln?
-//                      wenn nur in Lauten antwortet: früher abbrechen?
-// TODO Informationen speichern
-/**
-hasPain mit einem boolean Value
-answersBirthday mit einem String Value
-answersWeekday mit einem String Value
-answersDate mit einem StringValue
-**/
+// TODO Korrektheit Orientierungsfragen prüfen --> location erst mal hardcoding
+// TODO: Fragenliste randomisiert erstellen? (mindestanzahl Orientierungsfragen?) --> Anzahl Orientierungsfragen uebernehmen
+// TODO: No_intent Fälle abfangen
 
 /** GCS verbale Phase: 
     konversationsfähig + orientiert: 5 Punkte
     konversationsfähig + desorientiert: 4 Punkte  
     einzelne, unzusammenhängende Worte: 3 Punkte
-    sinnlose Laute: 2 Punkte
+    sinnlose Laute: 2 Punkte (können wir derzeit nicht unterscheiden von fehlendem Input)
     keine verbale Antwort: 1 Punkte
 **/
 
 /** Ablauf Phase 2:
-//TODO Informationen in user speichern (über intent/slot information wo speichern?)
 tmp_score = 1
 sum_orientiert = 0
 num_orientiert = 0
@@ -65,6 +57,22 @@ if(state == "gcs_phase2"){
 **/
 
 
+// array of weekdays for orientation question check
+List<String> weekdays = new ArrayList<String>(Arrays.asList("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"));
+/**List<String> weekdays = { "Sonntag",
+                      "Montag", 
+                      "Dienstag",
+                      "Mittwoch",
+                      "Donnerstag",
+                      "Freitag",
+                      "Samstag"
+                    };
+**/
+
+// array of locations for orientation question check (nur Demo zwecke)
+List<String> locations = new ArrayList<String>(Arrays.asList("Hauptstraße", "Saarbrücken", "Mannheim", "Stuhlsatzenhausweg", "Mainzer Straße"));
+
+
 /******** Phase 2 Start *********/
 
 phase_two_start:
@@ -74,7 +82,7 @@ if(state == "gcs_phase2"){
     emitDA(#YNQuestion(checkResponse));
     System.err.println("LA1: " + lastDA());
     state="wait";
-    timeout("wait", 5000){
+    timeout("wait", 10000){
         state = "wait_response";
     }
 }
@@ -82,18 +90,17 @@ if(state == "gcs_phase2"){
 
 phase_two_wait_response:
 if(state == "wait_response"){
-
-    // TODO: CW: ich bin mir nicht sicher, ob wir so darauf abpruefen koennen, ob es eine verbale reaktion gab. So sehen wir ja nur, ob es eine gab, 
-    // die wir nicht interpretieren konnten. imo waere es besser zu schauen, ob lastDa() unteschiedlich von unsere letzten Aussage ist, dann wissen wir zumindest dass irgendwas gesagt wurde.
     System.err.println("LA2: " + lastDA());
-    
+    //System.err.println("no_reaction_1: " + no_reaction);
     // TODO bei fehlender Reaktion nochmal fragen? (Boolean um zu sehen ob schon mal in Schleife war)
     if (lastDA() >= #Bottom(Bottom)){       // wenn keine verbale Reaktion
         if (no_reaction == true){       // Patient hat bereits 1x nicht geantwortet
-            state = "gcs_phase3";
+            // skippe Phase 3 --> direkt zu Phase 5
+            state = "gcs_done";
         } else {        // wiederhole Ansprache
             no_reaction = true;
-            emitDA(#YNquestion(checkResponse));
+            //System.err.println("no_reaction_2: " + no_reaction);
+            emitDA(#YNQuestion(checkResponseAgain));
             state="wait";
             timeout("wait", 5000){
                 state = "wait_response";
@@ -102,11 +109,9 @@ if(state == "wait_response"){
     } else {
         user.gcs_phase2 = user.gcs_phase2 + 1;
         // fülle Fragenliste
-        // TODO erstelle randomisierte Liste (mind. Anzahl an Orientierungsfragen)?
-        // speichere Fragen als Quartet: (DA, intent, concept, bool ob Orientierungsfrage)
+        // speichere Fragen als Quartet: (DA, intent, concept, bool (Orientierungsfrage ja/nein?))
         questions = new LinkedList<Quartet<DialogueAct, String, String, Boolean>>();
-        // TODO NER intent etc
-        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askName), "TODO", "Name", false));
+        questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askName), "NAME", "Name", false));
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askAge), "AGE", "Age", false));
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askBirthdate), "Date", "nuance_CALENDARX", false));
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askAdress), "Location", "nuance_LOCATION", false));
@@ -117,7 +122,7 @@ if(state == "wait_response"){
         sum_phase2 = 0;         // Summe ueber Scores aller Fragen
         sum_orientiert = 0;     // Anzahl korrekter Orientierungsfragen
         num_questions = questions.size();   // Anzahl Fragen
-        num_orientiert = 3; // TODO Anzahl orientierungsfragen
+        num_orientiert = 3; // Anzahl orientierungsfragen
         state = "wait";
         timeout("wait", 5000){
             state = "ask_question";     // start asking questions
@@ -130,21 +135,14 @@ if(state == "wait_response"){
 
 phase_two_ask_question:
 if(state == "ask_question"){
-    // check if question list is empty --> wenn ja: weiter mit Phase 3
+    // check if question list is empty --> wenn ja: weiter score calculation etc.
     if (questions.isEmpty() == true){
-        // TODO Score mitteln
-        user.gcs_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
-        // TODO orientierungsscore ermitteln
-        // if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
-            // user.gcs_phase2 = user.gcs_phase2 + 1;
-        // }
-        //TODO nach Schmerzen fragen --> Score berechnung auslagern
-        // weiter Phase 3
-        state = "gcs_phase3";
-    } else {    // ask first question in list
+        // proceed with score calculation
+        state = "calculate_score";
+    } else {        // ask first question in list
         emitDA(questions.get(0).first);
         state = "wait";
-        timeout("wait", 5000){
+        timeout("wait", 10000){
             state = "wait_answer";  
         }
     }
@@ -153,30 +151,99 @@ if(state == "ask_question"){
 
 phase_two_wait_answer:
 if (state == "wait_answer"){
-    // TODO Qualität der Antwort prüfen:
-    if (!(lastDA() >= #Bottom(Bottom))){    // prüfe ob Patient antwortet
-        // TODO: cerence auf Laute trainieren
-        if (lastDA() >= #Disagreement(NotParse)){           // TODO Prüfe ob Antwort nur Laute sind
+    // Qualität der Antwort prüfen:
+    if (!(lastDA() >= #Bottom(Bottom))){    // check if patient answered
+        if (lastDA() >= #Disagreement(NotParse)){           // check if answer can be interpreted
             sum_phase2 = sum_phase2 + 1;
         } else {
-            // TODO prüfe ob Antwort in scope
+            // check if answer in scope
             String tmp = questions.get(0).second;
             if (lastDA() >= #Answer(tmp)){
                 sum_phase2 = sum_phase2 + 3;
-                // TODO checke ob Orientierungsfrage, wenn ja: korrekt? --> summieren
-                // if (questions.get(0).fourth == true){
-                    // prüfe ob Antwort korrekt --> welche Frage ueber intent?
-                    // wenn korrekt:
-                    //      sum_orientiert = sum_orientiert +1;
-                // }
+                // check if orientation question; if yes: answer correct?
+                if (questions.get(0).fourth == true){
+                    if (tmp == "Location"){
+                        answer = lastDA().Location;
+                        // check if answer is in locations list; if yes: +1 to orientation score
+                        if (locations.contains(answer)){
+                            sum_orientiert = sum_orientiert + 1;
+                        }
+                    } else {    // andernfalls: Date
+                        Calendar calendar = Calendar.getInstance();
+                        // Current day of week
+                        if (questions.get(0).third == "Weekday"){
+                            answer = lastDA().Weekday;
+                            weekday = weekdays.get(calendar.get(Calendar.DAY_OF_WEEK) - 1);
+                            // check if answer is correct day; if yes, +1 to orientiert score
+                            if (answer == weekday){
+                                sum_orientiert = sum_orientiert + 1;
+                            }
+                            // safe answer in user
+                            user.answersWeekday = answer;
+                        }
+                        // Current Date
+                        if (questions.get(0).third == "nuance_CALENDARX"){
+                            answer = lastDA().getValue("nuance_CALENDARX");
+                            // TODO check Date format
+                            date = (calendar.get(Calendar.DAY_OF_MONTH)) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + (calendar.get(Calendar.YEAR));
+                            // check if answer is correct day; if yes, +1 to orientiert score
+                            if (answer == date){
+                                sum_orientiert = sum_orientiert + 1;
+                            }
+                            // safe answer in user
+                            user.answersDate = answer;
+                        }
+                    }
+                }
+                // if birtdate question: save answer in user
+                // TODO find better way to compare / check for question ( tmp == askBirthdate?)
+                if ((questions.get(0).second == "Date") && (questions.get(0).third == "nuance_CALENDARX") && (questions.get(0).fourth == false)){
+                    user.answersBirthday = lastDA().getValue("nuance_CALENDARX");
+                }
             } else {
                 sum_phase2 = sum_phase2 + 2;
             }
         }
     }
-    // TODO: speicher information in user
-
-    // entferne Frage aus liste
+    // remove question from list
     questions.remove(0);
     state = "ask_question"; //ask next question
+}
+
+
+phase_two_calculate_score:
+if(state == "calculate_score"){
+    user.gcs_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
+    // compute score for orientation questions
+    if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
+        user.gcs_phase2 = user.gcs_phase2 + 1;
+    }
+    // ask for pain
+    emitDA(#Question(askPain));
+    state = "wait";
+    timeout("wait", 10000){
+        state = "wait_pain";  
+    }
+}
+
+
+// TODO check Confirm, Disconfirm NLU
+phase_two_wait_pain:
+if(state == "wait_pain"){
+    // save answer in user
+    if (!(lastDA() >= #Bottom(Bottom))){    // prüfe ob Patient antwortet
+        if (lastDA() >= #Confirm(Confirm)){           
+            user.hasPain = true;
+        } else {
+            user.hasPain = false;   // TODO auch false wenn Reaktion nicht auf Frage passt?
+        }
+    }
+    // TODO prints zum testen
+    System.err.println("answersDate: " + user.answersDate);
+    System.err.println("answersWeekday: " + user.answersWeekday);
+    System.err.println("answersBirthday: " + user.answersBirthday);
+    System.err.println("pain: " + user.hasPain);
+    // TODO print score
+    // weiter Phase 3
+    state = "gcs_phase3";
 }

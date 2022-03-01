@@ -120,7 +120,8 @@ public class CerenceNLU extends Interpreter {
         }
       }
     }
-    if(values.isEmpty() || values.size() % 2 == 0)
+    //if(values.isEmpty() || values.size() % 2 == 0)
+    if(values.isEmpty() || values.size() % 2 != 0)
       return getNotParseDia();
     final DialogueAct dia = new DialogueAct(values.toArray(String[]::new));
     dia.setValue("Sender", "User");
@@ -144,7 +145,8 @@ public class CerenceNLU extends Interpreter {
   private DialogueAct getNotParseDia() {
     final DialogueAct dia = new DialogueAct("Disagreement", "NotParse");
     dia.setValue("Sender", "User");
-    return dia;
+    //return dia;
+    return null;
   }
 
   private class AnalyseCall implements Callable<JSONObject> {

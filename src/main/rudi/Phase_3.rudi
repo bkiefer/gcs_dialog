@@ -7,6 +7,7 @@ phase_three:
 if(state == "gcs_phase3"){
     System.err.println("Starting phase 3");
     user.gcs_phase3 = 1;
+    emitDA(#Inform(Phase3));
     state="wait";
     //move hand
     if (!(user.hasMovedLeftHand == -1 && user.hasMovedRightHand == -1 )){   //checke ob lesbare Hand vorhanden

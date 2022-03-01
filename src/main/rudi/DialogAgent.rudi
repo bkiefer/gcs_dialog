@@ -1,6 +1,7 @@
 /*@
 import de.dfki.vondabase.utils.Triple;
 import de.dfki.vondabase.utils.Quartet;
+import java.util.Calendar;
 @*/
 
 TRIGGER_CHECK_TIMEOUT = 1000; // time to check trigger approach in milliseconds

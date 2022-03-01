@@ -22,6 +22,10 @@ raw:YNQuestion ^ checkResponse
     ->
     # = :canned ^ <string>"Können Sie mich hören?" .
 
+raw:YNQuestion ^ checkResponseAgain
+    ->
+    # = :canned ^ <string>"Wenn Sie mich hören können, sagen Sie bitte etwas." .
+
 raw:Question ^ askName
     ->
     # = :canned ^ <string>random("Wie heißen Sie?",
@@ -61,6 +65,11 @@ raw:Question ^ askPain
 /******************************************************************************/
 // Questions Phase 3: motor skills
 // TODO statt Inform Instruct o.ä.?
+
+// Inform Starting Phase 3
+raw:Inform ^ Phase3
+    ->
+    # = :canned ^ <string>"Ich werde Sie jetzt bitten einige Bewegungen auszuführen. Das hilft den Rettungskräften, Ihren Zustand schneller einzuschätzen." .
 
 //move hands
 raw:Inform ^ moveRightHand
