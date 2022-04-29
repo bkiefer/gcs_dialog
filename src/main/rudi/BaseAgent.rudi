@@ -3,3 +3,7 @@ Robot robot;
 String state;
 Boolean isUZLTest;
 
+DayTime getDayTime();
+[DayTime]. String toString();
+
+[Calendar]. int get(Object o);
