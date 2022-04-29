@@ -187,10 +187,6 @@
             </goals>
             <configuration>
               <executable>./compile</executable>
-              <arguments>
-                <argument>-c</argument>
-                <argument>config.yml</argument>
-              </arguments>
             </configuration>
           </execution>
         </executions>
