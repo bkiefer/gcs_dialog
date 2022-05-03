@@ -108,6 +108,8 @@ if(state == "wait_response"){
         }
     } else {
         user.gcs_phase2 = user.gcs_phase2 + 1;
+        // TODO
+        System.err.println("Fülle Fragenliste");
         // fülle Fragenliste
         // speichere Fragen als Quartet: (DA, intent, concept, bool (Orientierungsfrage ja/nein?))
         questions = new LinkedList<Quartet<DialogueAct, String, String, Boolean>>();
@@ -122,11 +124,14 @@ if(state == "wait_response"){
         sum_phase2 = 0;         // Summe ueber Scores aller Fragen
         sum_orientiert = 0;     // Anzahl korrekter Orientierungsfragen
         num_questions = questions.size();   // Anzahl Fragen
+        // TODO
+        System.err.println("Anzahl Fragen: " + num_questions);
         num_orientiert = 3; // Anzahl orientierungsfragen
         state = "wait";
-        timeout("wait", 5000){
-            state = "ask_question";     // start asking questions
-        }
+        // TODO brauche timeout hier nicht?
+        //timeout("wait", 5000){
+        state = "ask_question";     // start asking questions
+        //}
         // ??
         //lastDAprocessed() 
     }
@@ -138,9 +143,13 @@ if(state == "ask_question"){
     // check if question list is empty --> wenn ja: weiter score calculation etc.
     if (questions.isEmpty() == true){
         // proceed with score calculation
+        // TODO
+        System.err.println("No questions left.");
         state = "calculate_score";
     } else {        // ask first question in list
-        emitDA(questions.get(0).first);
+        emitDA(questions.get(0).getFirst());
+        // TODO
+        System.err.println("Asked Question: " + questions.get(0).getFirst());
         state = "wait";
         timeout("wait", 10000){
             state = "wait_answer";  
@@ -153,15 +162,21 @@ phase_two_wait_answer:
 if (state == "wait_answer"){
     // Qualität der Antwort prüfen:
     if (!(lastDA() >= #Bottom(Bottom))){    // check if patient answered
-        if (lastDA() >= #Disagreement(NotParse)){           // check if answer can be interpreted
+        if (lastDA() >= #Disagreement(NotParse)){           // check if answer cannot be interpreted
             sum_phase2 = sum_phase2 + 1;
+            //TODO
+            System.err.println("Answer could not be parsed");
         } else {
             // check if answer in scope
-            String tmp = questions.get(0).second;
+            String tmp = questions.get(0).getSecond();
             if (lastDA() >= #Answer(tmp)){
                 sum_phase2 = sum_phase2 + 3;
+                // TODO
+                System.err.println("Answer is in scope: " + tmp);
                 // check if orientation question; if yes: answer correct?
-                if (questions.get(0).fourth == true){
+                if (questions.get(0).getFourth() == true){
+                    //TODO
+                    System.err.println("Orientierungsfrage: " + tmp);
                     if (tmp == "Location"){
                         answer = lastDA().Location;
                         // check if answer is in locations list; if yes: +1 to orientation score
@@ -171,7 +186,7 @@ if (state == "wait_answer"){
                     } else {    // andernfalls: Date
                         Calendar calendar = Calendar.getInstance();
                         // Current day of week
-                        if (questions.get(0).third == "Weekday"){
+                        if (questions.get(0).getThird() == "Weekday"){
                             answer = lastDA().Weekday;
                             weekday = weekdays.get(calendar.get(Calendar.DAY_OF_WEEK) - 1);
                             // check if answer is correct day; if yes, +1 to orientiert score
@@ -182,7 +197,7 @@ if (state == "wait_answer"){
                             user.answersWeekday = answer;
                         }
                         // Current Date
-                        if (questions.get(0).third == "nuance_CALENDARX"){
+                        if (questions.get(0).getThird() == "nuance_CALENDARX"){
                             answer = lastDA().getValue("nuance_CALENDARX");
                             // TODO check Date format
                             date = (calendar.get(Calendar.DAY_OF_MONTH)) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + (calendar.get(Calendar.YEAR));
@@ -194,11 +209,15 @@ if (state == "wait_answer"){
                             user.answersDate = answer;
                         }
                     }
+                    // TODO
+                    //System.err.println("Answer is: " + answer);
                 }
                 // if birtdate question: save answer in user
                 // TODO find better way to compare / check for question ( tmp == askBirthdate?)
-                if ((questions.get(0).second == "Date") && (questions.get(0).third == "nuance_CALENDARX") && (questions.get(0).fourth == false)){
+                if ((questions.get(0).getSecond() == "Date") && (questions.get(0).getThird() == "nuance_CALENDARX") && (questions.get(0).getFourth() == false)){
                     user.answersBirthday = lastDA().getValue("nuance_CALENDARX");
+                    // TODO
+                    System.err.println("Birtday saved");
                 }
             } else {
                 sum_phase2 = sum_phase2 + 2;
@@ -213,6 +232,8 @@ if (state == "wait_answer"){
 
 phase_two_calculate_score:
 if(state == "calculate_score"){
+    // TODO
+    System.err.println("Calculate Score.");
     user.gcs_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
     // compute score for orientation questions
     if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
@@ -230,6 +251,8 @@ if(state == "calculate_score"){
 // TODO check Confirm, Disconfirm NLU
 phase_two_wait_pain:
 if(state == "wait_pain"){
+    // TODO
+    System.err.println("Get Pain information.");
     // save answer in user
     if (!(lastDA() >= #Bottom(Bottom))){    // prüfe ob Patient antwortet
         if (lastDA() >= #Confirm(Confirm)){           

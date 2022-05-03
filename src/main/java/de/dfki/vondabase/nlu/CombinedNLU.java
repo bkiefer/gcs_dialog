@@ -45,10 +45,13 @@ public class CombinedNLU extends Interpreter {
       if (result == null){
         result = _cerenceNLU.analyse(s);  // cerence before stanfordNER as standford interprets Age, Weekdays,... as Name
         if (result == null){
-            result = _stanfordNER.analyse(s);
+          result = _stanfordNER.analyse(s);
         }
       }
       // TODO if null: return getNotParse
+      if (result == null){
+        return getNotParseDia();
+      }
       return result;
     } catch (Exception e){
       e.printStackTrace();

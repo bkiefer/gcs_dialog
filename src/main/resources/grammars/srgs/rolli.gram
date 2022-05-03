@@ -7,11 +7,11 @@ tag-format "semantics/1.0";
 
 /* $day = "$$[0-9]" *; */
 
-$greet = ( Hallo [Rolli|Koffi| "$$.*"] | Hi  [Rolli|Koffi| "$$.*"] | Guten Tag  [Rolli|Koffi| "$$.*"] | Guten Abend  [Rolli|Koffi| "$$.*"] | Guten Morgen  [Rolli|Koffi| "$$.*"] | Moin [Rolli|Koffi| "$$.*"]| Mahlzeit  [Rolli|Koffi| "$$.*"] )
+$greet = ( Hallo ("$$.*")<0->  | Hi [Rolli|Koffi| "$$.*"] | Guten Tag [Rolli|Koffi| "$$.*"] | Guten Abend [Rolli|Koffi| "$$.*"] | Guten Morgen [Rolli|Koffi| "$$.*"] | Moin [Rolli|Koffi| "$$.*"]| Mahlzeit  [Rolli|Koffi| "$$.*"] )
          { out.da="InitialGreeting" ; out.prop="Greet"; };
-$confirm = ( Ja ("$$.*")<0-> | Jap ["$$.*"] | Das ist richtig | Ok | Das stimmt)
+$confirm = ( Ja ("$$.*")<0-> | Jap ["$$.*"] | Das ist richtig | Ok | Das stimmt | Jo )
         { out.da="Confirm" ; out.prop="Confirm" ;};
 $disconfirm = ( Nein ("$$.*")<0->  | Nope ["$$.*"] | Das ist falsch | Das is so nicht richtig | Noe | Das stimmt nicht | Kein Interesse | [das] brauche ich nicht | nicht nötig )
                 { out.da="Disconfirm" ; out.prop="Confirm" ;};
 
-public $root = ($confirm | $disconfirm | $confirm ) { out = $%1; };
+public $root = ($confirm | $disconfirm | $confirm | $greet) { out = $%1; };
