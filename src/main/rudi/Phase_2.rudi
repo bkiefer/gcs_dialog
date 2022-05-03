@@ -9,9 +9,9 @@ import java.util.Calendar;
 // TODO: Fragenliste randomisiert erstellen? (mindestanzahl Orientierungsfragen?) --> Anzahl Orientierungsfragen uebernehmen
 // TODO: No_intent Fälle abfangen
 
-/** GCS verbale Phase: 
+/** GCS verbale Phase:
     konversationsfähig + orientiert: 5 Punkte
-    konversationsfähig + desorientiert: 4 Punkte  
+    konversationsfähig + desorientiert: 4 Punkte
     einzelne, unzusammenhängende Worte: 3 Punkte
     sinnlose Laute: 2 Punkte (können wir derzeit nicht unterscheiden von fehlendem Input)
     keine verbale Antwort: 1 Punkte
@@ -25,7 +25,7 @@ if (patient nicht ansprechbar):         (max 2x?)
     state == phase 3
 else:
     for question in [Name, Alter, Birthdate, Adresse, location, Wochentag, Datum....]:
-        ask question: 
+        ask question:
             if answer is not a word:     (antwortet nur in Lauten)
                 tmp_score += 1
                 continue
@@ -56,21 +56,13 @@ if(state == "gcs_phase2"){
 }
 **/
 
-
 // array of weekdays for orientation question check
-List<String> weekdays = new ArrayList<String>(Arrays.asList("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"));
-/**List<String> weekdays = { "Sonntag",
-                      "Montag", 
-                      "Dienstag",
-                      "Mittwoch",
-                      "Donnerstag",
-                      "Freitag",
-                      "Samstag"
-                    };
-**/
+List<String> weekdays = {
+  "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
+};
 
 // array of locations for orientation question check (nur Demo zwecke)
-List<String> locations = new ArrayList<String>(Arrays.asList("Hauptstraße", "Saarbrücken", "Mannheim", "Stuhlsatzenhausweg", "Mainzer Straße"));
+List<String> locations = { "Hauptstraße", "Saarbrücken", "Mannheim", "Stuhlsatzenhausweg", "Mainzer Straße" };
 
 
 /******** Phase 2 Start *********/
@@ -133,7 +125,7 @@ if(state == "wait_response"){
         state = "ask_question";     // start asking questions
         //}
         // ??
-        //lastDAprocessed() 
+        //lastDAprocessed()
     }
 }
 
@@ -152,7 +144,7 @@ if(state == "ask_question"){
         System.err.println("Asked Question: " + questions.get(0).getFirst());
         state = "wait";
         timeout("wait", 10000){
-            state = "wait_answer";  
+            state = "wait_answer";
         }
     }
 }
@@ -243,7 +235,7 @@ if(state == "calculate_score"){
     emitDA(#Question(askPain));
     state = "wait";
     timeout("wait", 10000){
-        state = "wait_pain";  
+        state = "wait_pain";
     }
 }
 
@@ -255,7 +247,7 @@ if(state == "wait_pain"){
     System.err.println("Get Pain information.");
     // save answer in user
     if (!(lastDA() >= #Bottom(Bottom))){    // prüfe ob Patient antwortet
-        if (lastDA() >= #Confirm(Confirm)){           
+        if (lastDA() >= #Confirm(Confirm)){
             user.hasPain = true;
         } else {
             user.hasPain = false;   // TODO auch false wenn Reaktion nicht auf Frage passt?

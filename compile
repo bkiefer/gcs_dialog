@@ -1,9 +1,1 @@
-#!/bin/sh
-script_dir=`dirname $0`
-
-echo "mvn clean ..."
-mvn clean
-echo "vonda compile ..."
-vondac "$@" -c "$script_dir/config.yml"
-echo "mvn install"
-mvn install
+vondac "$@" -c config.yml
