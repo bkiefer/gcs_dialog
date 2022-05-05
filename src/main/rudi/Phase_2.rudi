@@ -82,8 +82,14 @@ if(state == "gcs_phase2"){
 
 phase_two_wait_response:
 if(state == "wait_response"){
+    // TODO: CW: ich bin mir nicht sicher, ob wir so darauf abpruefen koennen,
+    // ob es eine verbale reaktion gab. So sehen wir ja nur, ob es eine gab,
+    // die wir nicht interpretieren konnten. imo waere es besser zu schauen, ob
+    // lastDa() unteschiedlich von unsere letzten Aussage ist, dann wissen wir
+    // zumindest dass irgendwas gesagt wurde.
     System.err.println("LA2: " + lastDA());
     //System.err.println("no_reaction_1: " + no_reaction);
+
     // TODO bei fehlender Reaktion nochmal fragen? (Boolean um zu sehen ob schon mal in Schleife war)
     if (lastDA() >= #Bottom(Bottom)){       // wenn keine verbale Reaktion
         if (no_reaction == true){       // Patient hat bereits 1x nicht geantwortet
@@ -158,7 +164,7 @@ if (state == "wait_answer"){
                         answer = lastDA().Location;
                         // check if answer is in locations list; if yes: +1 to orientation score
                         if (locations.contains(answer)){
-                            sum_orientiert = sum_orientiert + 1;
+                            sum_orientiert += 1;
                         }
                     } else {    // andernfalls: Date
                         Calendar calendar = Calendar.getInstance();
