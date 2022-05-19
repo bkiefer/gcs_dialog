@@ -1,5 +1,7 @@
 package de.dfki.vondabase;
 
+import static de.dfki.vondabase.Constants.*;
+
 import de.dfki.mlt.rosBridge.utils.std.Header;
 import de.dfki.vondabase.RosInterface.msgs.*;
 import de.dfki.vondabase.RosInterface.services.AbstractService;
@@ -22,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public abstract class AbstractAgent extends Agent implements Constants {
+public abstract class AbstractAgent extends Agent {
 
   public String state = "initial";
   /**
