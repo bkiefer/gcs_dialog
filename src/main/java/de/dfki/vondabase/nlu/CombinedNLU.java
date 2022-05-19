@@ -48,7 +48,7 @@ public class CombinedNLU extends Interpreter {
           result = _stanfordNER.analyse(s);
         }
       }
-      // TODO if null: return getNotParse
+      // if null: return getNotParse
       if (result == null){
         return getNotParseDia();
       }

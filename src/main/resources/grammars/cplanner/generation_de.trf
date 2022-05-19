@@ -29,15 +29,15 @@ raw:YNQuestion ^ checkResponseAgain
 raw:Question ^ askName
     ->
     # = :canned ^ <string>random("Wie heißen Sie?",
-                                    "Können Sie mir sagen, wie Sie heißen?") .
+                                    "Sagen Sie mir bitte, wie Sie heißen.") .
 
 raw:Question ^ askDay
     ->
-    # = :canned ^ <string>"Wissen Sie, welcher Wochentag heute ist?" .
+    # = :canned ^ <string>"Sagen Sie mir bitte, welcher Wochentag heute ist." .
 
 raw:Question ^ askAdress
     ->
-    # = :canned ^ <string>"Können Sie mir sagen, wo Sie wohnen?" .
+    # = :canned ^ <string>"Sagen Sie mir bitte, wo Sie wohnen." .
 
 raw:Question ^ askLocation
     ->

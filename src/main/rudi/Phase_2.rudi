@@ -50,7 +50,7 @@ else:
 // um Phase 3 zu testen
 phase_two:
 if(state == "gcs_phase2"){
-    //user.gcs_phase2 = user.gcs_phase2 + 1;
+    //user.gcs_phase2 += 1;
     user.gcs_phase2 = 1;
     state = "gcs_phase3";
 }
@@ -99,7 +99,7 @@ if(state == "wait_response"){
             }
         }
     } else {
-        user.gcs_phase2 = user.gcs_phase2 + 1;
+        user.gcs_phase2 += 1;
         // TODO
         System.err.println("Fülle Fragenliste");
         // fülle Fragenliste
@@ -141,7 +141,7 @@ if(state == "ask_question"){
     } else {        // ask first question in list
         emitDA(questions.get(0).getFirst());
         // TODO
-        System.err.println("Asked Question: " + questions.get(0).getFirst());
+        //System.err.println("Asked Question: " + questions.get(0).getFirst());
         state = "wait";
         timeout("wait", 10000){
             state = "wait_answer";
@@ -155,7 +155,7 @@ if (state == "wait_answer"){
     // Qualität der Antwort prüfen:
     if (!(lastDA() >= #Bottom(Bottom))){    // check if patient answered
         if (lastDA() >= #Disagreement(NotParse)){           // check if answer cannot be interpreted
-            sum_phase2 = sum_phase2 + 1;
+            sum_phase2 += 1;
             //TODO
             System.err.println("Answer could not be parsed");
         } else {
@@ -173,7 +173,7 @@ if (state == "wait_answer"){
                         answer = lastDA().Location;
                         // check if answer is in locations list; if yes: +1 to orientation score
                         if (locations.contains(answer)){
-                            sum_orientiert = sum_orientiert + 1;
+                            sum_orientiert += 1;
                         }
                     } else {    // andernfalls: Date
                         Calendar calendar = Calendar.getInstance();
@@ -183,7 +183,7 @@ if (state == "wait_answer"){
                             weekday = weekdays.get(calendar.get(Calendar.DAY_OF_WEEK) - 1);
                             // check if answer is correct day; if yes, +1 to orientiert score
                             if (answer == weekday){
-                                sum_orientiert = sum_orientiert + 1;
+                                sum_orientiert += 1;
                             }
                             // safe answer in user
                             user.answersWeekday = answer;
@@ -195,7 +195,7 @@ if (state == "wait_answer"){
                             date = (calendar.get(Calendar.DAY_OF_MONTH)) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + (calendar.get(Calendar.YEAR));
                             // check if answer is correct day; if yes, +1 to orientiert score
                             if (answer == date){
-                                sum_orientiert = sum_orientiert + 1;
+                                sum_orientiert += 1;
                             }
                             // safe answer in user
                             user.answersDate = answer;
@@ -229,7 +229,7 @@ if(state == "calculate_score"){
     user.gcs_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
     // compute score for orientation questions
     if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
-        user.gcs_phase2 = user.gcs_phase2 + 1;
+        user.gcs_phase2 += 1;
     }
     // ask for pain
     emitDA(#Question(askPain));
