@@ -320,7 +320,7 @@ public abstract class AbstractAgent extends Agent {
       System.err.println("User id " + bodyId + " areEyesOpen: " + eyesOpen );
       newData();
       if (eyesOpen)
-      emitStatus(21);
+        emitStatus(21);
       else
         emitStatus(20);
     }

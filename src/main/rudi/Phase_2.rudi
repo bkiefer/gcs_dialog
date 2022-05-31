@@ -72,12 +72,12 @@ if(state == "gcs_phase2"){
 phase_two_wait_response:
 if(state == "wait_response"){
     System.err.println("LA2: " + lastDA());
-    // Prüfe ob Patient reagiert (2x)
-    if (lastDA() >= #Bottom(Bottom)){       // wenn keine verbale Reaktion
-        if (no_reaction == true){       // Patient hat bereits 1x nicht geantwortet
-            // skippe Phase 3 --> direkt zu Phase 5
+    // Check if patient responds(2x)
+    if (lastDA() >= #Bottom(Bottom)){       // if no verbal reaction
+        if (no_reaction == true){       // patient did not respond 1x
+            // skip Phase 3 --> Phase 5
             state = "gcs_done";
-        } else {        // wiederhole Ansprache
+        } else {        // repeat checkResponse
             no_reaction = true;
             emitDA(#YNQuestion(checkResponseAgain));
             state="wait";
@@ -87,8 +87,8 @@ if(state == "wait_response"){
         }
     } else {
         user.gcs_phase2 += 1;
-        // fülle Fragenliste
-        // speichere Fragen als Quartet: (DA, intent, concept, bool (Orientierungsfrage ja/nein?))
+        // fill question list
+        // save questions as Quartet: (DA, intent, concept, bool (Orientierungsfrage ja/nein?))
         questions = new LinkedList<Quartet<DialogueAct, String, String, Boolean>>();
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askName), "NAME", "Name", false));
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askAge), "AGE", "Age", false));
@@ -98,11 +98,11 @@ if(state == "wait_response"){
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askDay), "Date", "Weekday", true));
         questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askDate), "Date", "nuance_CALENDARX", true));
 
-        sum_phase2 = 0;         // Summe ueber Scores aller Fragen
-        sum_orientiert = 0;     // Anzahl korrekter Orientierungsfragen
-        num_questions = questions.size();   // Anzahl Fragen
+        sum_phase2 = 0;         // sum of scores of all questions
+        sum_orientiert = 0;     // number of correctly answered orientation questions
+        num_questions = questions.size();   // number of questions
         System.err.println("Anzahl Fragen: " + num_questions);
-        num_orientiert = 3; // Anzahl orientierungsfragen
+        num_orientiert = 3; // number of orientation questions
         state = "wait";
         state = "ask_question";     // start asking questions
     }
@@ -111,7 +111,7 @@ if(state == "wait_response"){
 
 phase_two_ask_question:
 if(state == "ask_question"){
-    // prüfe ob Fragenliste leer --> wenn ja: weiter mit score calculation etc.
+    // check if question list empty (= all questions asked) --> if so: continue with score calculation etc.
     if (questions.isEmpty() == true){
         // proceed with score calculation
         System.err.println("No questions left.");
@@ -119,7 +119,7 @@ if(state == "ask_question"){
     } else {            // ask first question in list
         emitDA(questions.get(0).getFirst());
         state = "wait";
-        timeout("wait", 10000){
+        timeout("wait", 20000){
             state = "wait_answer";
         }
     }
@@ -128,15 +128,16 @@ if(state == "ask_question"){
 
 phase_two_wait_answer:
 if (state == "wait_answer"){
-    // Qualität der Antwort prüfen:
+    // Check quality of answer
     if (!(lastDA() >= #Bottom(Bottom))){    // check if patient answered
         if (lastDA() >= #Disagreement(NotParse)){           // check if answer cannot be interpreted
             sum_phase2 += 1;
             System.err.println("Answer could not be parsed");
         } else {
             // check if answer is in scope
+            // get proposition and compare to lastDA
             String tmp = questions.get(0).getSecond();
-            if (lastDA() >= #Answer(tmp)){
+            if (lastDA().getProposition() == tmp){
                 sum_phase2 += 3;
                 // TODO
                 System.err.println("Answer is in scope: " + tmp);
@@ -145,10 +146,15 @@ if (state == "wait_answer"){
                     //TODO
                     System.err.println("Orientierungsfrage: " + tmp);
                     if (tmp == "Location"){
-                        answer = lastDA().Location;
+                        answer = lastDA().nuance_LOCATION;
+                        //TODO
+                        System.err.println("Answer: " + answer);
+                        System.err.println("Loc: " + locations.get(1));
                         // check if answer is in locations list; if yes: +1 to orientation score
                         if (locations.contains(answer)){
                             sum_orientiert += 1;
+                        } else {
+                            System.err.println("Location not in list");
                         }
                     } else {    // andernfalls: Date
                         Calendar calendar = Calendar.getInstance();
@@ -167,6 +173,7 @@ if (state == "wait_answer"){
                         if (questions.get(0).getThird() == "nuance_CALENDARX"){
                             answer = lastDA().getValue("nuance_CALENDARX");
                             // TODO check Date format
+                            // TODO patient could only name day and month?
                             date = (calendar.get(Calendar.DAY_OF_MONTH)) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + (calendar.get(Calendar.YEAR));
                             // check if answer is correct day; if yes, +1 to orientiert score
                             if (answer == date){
@@ -176,24 +183,29 @@ if (state == "wait_answer"){
                             user.answersDate = answer;
                         }
                     }
-                    // TODO
-                    //System.err.println("Answer is: " + answer);
                 }
                 // if birtdate question: save answer in user
                 // TODO find better way to compare / check for question ( tmp == askBirthdate?)
                 if ((questions.get(0).getSecond() == "Date") && (questions.get(0).getThird() == "nuance_CALENDARX") && (questions.get(0).getFourth() == false)){
                     user.answersBirthday = lastDA().getValue("nuance_CALENDARX");
                     // TODO
-                    System.err.println("Birtday saved");
+                    //System.err.println("Birtday saved: " + user.answersBirthday);
                 }
             } else {
+                // TODO
+                System.err.println("Answer not in scope: " + tmp);
                 sum_phase2 += 2;
             }
         }
     }
     // remove question from list
     questions.remove(0);
-    state = "ask_question"; //ask next question
+    //TODO
+    System.err.println("Question removed, continue with next question");
+    state = "wait";
+    timeout("wait", 3000){
+        state = "ask_question"; //ask next question
+    }
 }
 
 
