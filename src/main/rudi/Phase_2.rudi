@@ -1,8 +1,6 @@
-/*@
 import de.dfki.vondabase.utils.Triple;
 import de.dfki.vondabase.utils.Quartet;
 import java.util.Calendar;
-@*/
 
 // TODO emitDA(#Inform(Fixpunkt)) nach checkResponse?
 // TODO: Fragenliste randomisiert erstellen? (mindestanzahl Orientierungsfragen?) --> Anzahl Orientierungsfragen uebernehmen

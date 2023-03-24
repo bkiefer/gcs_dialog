@@ -51,15 +51,11 @@ public abstract class AbstractAgent extends Agent {
     if (ontoFileName == null) {
       throw new IOException("Ontology file is missing.");
     }
+    server = new HfcDbServer(new File(configDir, ontoFileName).getPath());
     if (configs.containsKey(CFG_SERVER_PORT)) {
-      server = new HfcDbServer();
-      server.readConfig(new File(configDir, ontoFileName));
       server.runServer((int) configs.get(CFG_SERVER_PORT));
-      handler = server.getHandler();
-    } else {
-      handler = HandlerFactory.getHandler();
-      handler.readConfig(new File(configDir, ontoFileName));
     }
+    handler = server.getHandler();
     RdfProxy proxy = new RdfProxy(handler);
     handler.registerStreamingClient(proxy);
     return proxy;
@@ -79,6 +75,7 @@ public abstract class AbstractAgent extends Agent {
     }
   }
 
+  @Override
   public void shutdown() {
     handler.shutdown();
     if (server != null) server.shutdown();
@@ -107,7 +104,7 @@ public abstract class AbstractAgent extends Agent {
 
   private Behaviour createExtendedBehaviour(int delay, DialogueAct da) {
     Pair<String, String> toSay = this.asr.generate(da.getDag());
-    return new ExtendedBehaviour(this.generateId(), (String) toSay.second, (String) toSay.first, delay, da);
+    return new ExtendedBehaviour(this.generateId(), toSay.second, toSay.first, delay, da);
   }
 
 

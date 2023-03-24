@@ -1,7 +1,8 @@
 inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
-wrapperClass:       de.dfki.vondabase.BaseAgent
-ontologyFile:       data/ini/example.ini
+agentBase:          de.dfki.vondabase.BaseAgent
+typeDef:            BaseAgent.rudi
+ontologyFile:       data/ini/example.yml
 floor:              1
 checkTypes:         true
 failOnError:        false
@@ -35,6 +36,7 @@ nameToURI:
 defaultCompileCommand: compile
 customCompileCommands:
   Compile without maven: vondac -c config.yml
+  vcompile: vondac -v -c config.yml
 debugPort : 9999
 TTS:
   voice: dfki-pavoque-neutral-hsmm

@@ -1,8 +1,6 @@
-/*@
 import de.dfki.vondabase.utils.Triple;
 import de.dfki.vondabase.utils.Quartet;
 import java.util.Calendar;
-@*/
 
 TRIGGER_CHECK_TIMEOUT = 1000; // time to check trigger approach in milliseconds
 
@@ -19,16 +17,16 @@ int num_orientiert;
 int sum_orientiert;
 boolean no_reaction;
 
-import test;
-import Phase_0;
-import Phase_1;
-import Phase_2;
-import Phase_3;
-import Phase_5;
+include test;
+include Phase_0;
+include Phase_1;
+include Phase_2;
+include Phase_3;
+include Phase_5;
 
 
 
-greet_back: 
+greet_back:
 if (lastDA() >= #InitialGreeting(Greet)) {
   System.err.println("greet back");
   propose("greet back") {

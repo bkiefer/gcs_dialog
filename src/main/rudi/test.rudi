@@ -1,4 +1,4 @@
-test:
+ntest:
     if(state == "test_dia"){
         emitDA(#Inform(WPatStart));
         emitDA(#Inform(WPinHall, dir=left));

@@ -7,12 +7,12 @@ public class HelperMethods {
 
   //TODO move into utils class
   public static String float2xsd(Float f) {
-    return new XsdFloat(getDefault(f)).toString(true);
+    return new XsdFloat(getDefault(f)).toString();
   }
 
   //TODO move into utils class
   public static String double2xsd(Double f) {
-    return new XsdDouble(getDefault(f)).toString(true);
+    return new XsdDouble(getDefault(f)).toString();
   }
 
   // --------------------- Getter ---------------------------------
