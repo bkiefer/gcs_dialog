@@ -1,0 +1,44 @@
+Alle Nachrichten: mit eindeutiger ID & timestamp
+
+* core --> dialogue
+
+topic: core/messages
+
+Signal Start GCS/Initialisierung: (NICHT Begrüßung: Signal Check auf Augen +3)
+  { "cmd": "start_gcs" }
+
+Signal Begrüßung:
+  { "cmd": "initial_greeting", "eyes": "open"/"closed" }
+
+Signal Test Verbal Score:
+  { "cmd": "test_conversation", "eyes": "open"/"closed" }
+
+Signal Test Motorik je nach Lage
+  { "cmd": "motion_request", "motion": "<motion>" }
+
+Signal GCS fertig
+  { "cmd": "finalize" }
+
+* dialogue --> core
+
+topic: dialogue/messages
+
+Signal Startbereit: { "status": "ready" }
+
+{ "status": "initial_greeting", "state": "started" }
+
+{ "status": "test_conversation", "state": "started", "phase": 5/4/3 }
+
+{ "status": "tts_started" }
+
+{ "status": "tts_stopped" }
+
+{ "status": "speech_analysed", "articulate": "yes"/"no" }
+
+{ "status": "motion_requested", "motion": "<motion>" }
+
+{ "status": "finalizing", "state": "started"/"stopped" }
+
+Signal Abfrage Mundbewegung (+2)
+
+{ "cmd": "check_mouth_movement" }

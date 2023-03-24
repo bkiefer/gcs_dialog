@@ -1,0 +1,9 @@
+- Katharina direkt einbeziehen!
+- Was kann man aus dem ReSpeaker rausholen?
+- ReSpeaker connection to ASR
+- Wizard-GUI, um die Kommandos zu schicken
+- Classifier "un-/articulated" speech
+- Allgemeinen und Dialogablauf anpassen an die neue Version, siehe
+  "Schnittstellen Nuitrack DFKI.pdf"
+- Schnittstelle zu Eurocommand / IAIS
+  - POI Service
