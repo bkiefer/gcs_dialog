@@ -3,54 +3,54 @@
 
 phase_one:
 if(state == "gcs_phase1"){
-    if (user.areEyesOpen == false){
-         emitDA(#Inform(OpenEyes));
-         state="wait";
-         timeout("wait", 15000){
-             state = "p1_3";
-         }
-    } else {
-     emitDA(#Inform(Fragen));
-     user.gcs_phase1 = 4;
-     if(isUZLTest == true){
-        state = "gcs_done";
-     } else {
-        state = "gcs_phase2";
-     }
+  if (user.areEyesOpen == false){
+    emitDA(#Inform(OpenEyes));
+    state="wait";
+    timeout("wait", 15000){
+      state = "p1_3";
     }
+  } else {
+    emitDA(#Inform(Fragen));
+    user.gcs_phase1 = 4;
+    if(isUZLTest == true){
+      state = "gcs_done";
+    } else {
+      state = "gcs_phase2";
+    }
+  }
 }
 
 phase_one_wait_3:
 if (state == "p1_3"){
-    if (user.areEyesOpen == false){
-             emitDA(#Inform(HeyOpenEyes));
-             state="wait";
-             timeout("wait", 15000){
-                 state = "p1_1";
-             }
-        } else {
-         emitDA(#Inform(Fragen));
-         user.gcs_phase1 = 3;
-         if(isUZLTest == true){
-             state = "gcs_done";
-          } else {
-             state = "gcs_phase2";
-          }
-        }
+  if (user.areEyesOpen == false){
+    emitDA(#Inform(HeyOpenEyes));
+    state="wait";
+    timeout("wait", 15000){
+      state = "p1_1";
+    }
+  } else {
+    emitDA(#Inform(Fragen));
+    user.gcs_phase1 = 3;
+    if(isUZLTest == true){
+      state = "gcs_done";
+    } else {
+      state = "gcs_phase2";
+    }
+  }
 }
 
 phase_one_wait_1:
 if (state == "p1_1"){
-    if (user.areEyesOpen == false){
-            user.gcs_phase1 = 1;
-            state = "gcs_done"; 
-        } else {
-         emitDA(#Inform(Fragen));
-         user.gcs_phase1 = 2;
-         if(isUZLTest == true){
-            state = "gcs_done";
-         } else {
-            state = "gcs_phase2";
-         }
-        }
+  if (user.areEyesOpen == false){
+    user.gcs_phase1 = 1;
+    state = "gcs_done";
+  } else {
+    emitDA(#Inform(Fragen));
+    user.gcs_phase1 = 2;
+    if(isUZLTest == true){
+      state = "gcs_done";
+    } else {
+      state = "gcs_phase2";
+    }
+  }
 }

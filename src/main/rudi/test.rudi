@@ -9,6 +9,8 @@ ntest:
         state = "initial";
     }
 
+
+/*
 testStatus:
     if(state == "test_dia_state"){
         dialogAgent.emitStatus(0);
@@ -24,7 +26,7 @@ testScore:
         dialogAgent.emitGCS(1,2,3);
         state = "initial";
     }
-
+*/
 testEyesOpen:
     if(state == "test_eyes_open"){
         System.err.println("User:" + user);

@@ -2,27 +2,28 @@ package de.dfki.vondabase;
 
 import static de.dfki.vondabase.Constants.*;
 
-import de.dfki.mlt.rosBridge.utils.std.Header;
-import de.dfki.vondabase.RosInterface.msgs.*;
-import de.dfki.vondabase.RosInterface.services.AbstractService;
-import de.dfki.vondabase.RosInterface.services.GCSService;
-import de.dfki.vondabase.utils.*;
-import de.dfki.lt.hfc.WrongFormatException;
-import de.dfki.lt.hfc.db.rdfProxy.Rdf;
-import de.dfki.lt.hfc.db.rdfProxy.RdfProxy;
-import de.dfki.lt.hfc.db.server.HandlerFactory;
-import de.dfki.lt.hfc.db.server.HfcDbHandler;
-import de.dfki.lt.hfc.db.server.HfcDbServer;
-import de.dfki.mlt.rudimant.agent.Agent;
-import de.dfki.mlt.rudimant.agent.Behaviour;
-import de.dfki.mlt.rudimant.agent.DialogueAct;
-import de.dfki.mlt.rudimant.agent.nlg.Pair;
-
-import java.time.LocalDateTime;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Map;
+
+import org.apache.tools.ant.taskdefs.email.Header;
+
+import com.google.common.util.concurrent.AbstractService;
+
+import de.dfki.lt.hfc.WrongFormatException;
+import de.dfki.lt.hfc.db.HfcDbHandler;
+import de.dfki.lt.hfc.db.rdfProxy.Rdf;
+import de.dfki.lt.hfc.db.rdfProxy.RdfProxy;
+import de.dfki.mlt.rudimant.agent.Agent;
+import de.dfki.mlt.rudimant.agent.Behaviour;
+import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
+import de.dfki.mlt.rudimant.agent.nlp.Pair;
+import de.dfki.vondabase.utils.DayTime;
+import de.dfki.vondabase.utils.ExtendedBehaviour;
+import de.dfki.vondabase.utils.StateDump;
+import de.dfki.vondabase.utils.Triple;
 
 public abstract class AbstractAgent extends Agent {
 
@@ -33,17 +34,16 @@ public abstract class AbstractAgent extends Agent {
   public Rdf robot;
   public Rdf user;
   public boolean isUZLTest;
-  public SkeletonMessage _userSkeleton;
+  //public SkeletonMessage _userSkeleton;
   public DayTime dTime = DayTime.day;
-  protected String DEFNS = "dom";
   protected AbstractService _activeServiceCall;
   private int userID = -1;
   private boolean verbose;
   private StateDump stateDump;
   /* ===== Core Workings =================================================== */
   private HfcDbHandler handler;
-  private HfcDbServer server;
-  private boolean _ignoreRos = false;
+  //private HfcDbServer server;
+  //private boolean _ignoreRos = false;
 
   private RdfProxy startClient(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException {
@@ -51,21 +51,25 @@ public abstract class AbstractAgent extends Agent {
     if (ontoFileName == null) {
       throw new IOException("Ontology file is missing.");
     }
+    /*
     server = new HfcDbServer(new File(configDir, ontoFileName).getPath());
     if (configs.containsKey(CFG_SERVER_PORT)) {
       server.runServer((int) configs.get(CFG_SERVER_PORT));
     }
     handler = server.getHandler();
+    */
+    HfcDbHandler h = new HfcDbHandler(ontoFileName);
+    handler = h;
     RdfProxy proxy = new RdfProxy(handler);
     handler.registerStreamingClient(proxy);
     return proxy;
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
-  public void init(File configDir, String language, Map configs)
+  public void init(File configDir, Map configs, String language)
           throws IOException, WrongFormatException {
     RdfProxy proxy = startClient(configDir, configs);
-    super.init(configDir, language, proxy, configs);
+    super.init(configDir, language, proxy, configs, "dom");
     this.verbose = (boolean) configs.get(IS_VERBOSE);
     //TODO This is again project specific; needs to be adapted
     robot = _proxy.getRdf(ROBOT_URI);
@@ -78,7 +82,7 @@ public abstract class AbstractAgent extends Agent {
   @Override
   public void shutdown() {
     handler.shutdown();
-    if (server != null) server.shutdown();
+    //if (server != null) server.shutdown();
     super.shutdown();
   }
 
@@ -103,7 +107,7 @@ public abstract class AbstractAgent extends Agent {
   }
 
   private Behaviour createExtendedBehaviour(int delay, DialogueAct da) {
-    Pair<String, String> toSay = this.asr.generate(da.getDag());
+    Pair<String, String> toSay = this.langServices.generate(da.getDag());
     return new ExtendedBehaviour(this.generateId(), toSay.second, toSay.first, delay, da);
   }
 
@@ -128,11 +132,12 @@ public abstract class AbstractAgent extends Agent {
     return this.emitDAWB(Behaviour.DEFAULT_DELAY, da, choices);
   }
 
-  public final void emitStatus(int status) {
-    StatusMessage msg = new StatusMessage(new Header(), status);
-    emitStatus(msg);
-  }
+//  public final void emitStatus(int status) {
+//    StatusMessage msg = new StatusMessage(new Header(), status);
+//    emitStatus(msg);
+//  }
 
+  /*
   public final void emitGCS(int eyes, int awareness, int motions) {
     int sum = eyes + awareness + motions;
     GCSMessage message = new GCSMessage(new Header(), eyes, awareness, motions, sum);
@@ -142,6 +147,7 @@ public abstract class AbstractAgent extends Agent {
   public final void emitStatus(StatusMessage msg) {
     ((BaseCommunicationHub) _hub).sendStatus(msg);
   }
+  */
 
   public void storeState() {
     this.stateDump = new StateDump(this);
@@ -230,7 +236,7 @@ public abstract class AbstractAgent extends Agent {
   public void resetUser() {
     this.userID = -1;
     user = null;
-    _userSkeleton = null;
+    //_userSkeleton = null;
   }
 /**
   public void updateUserTrack(BodyTrackerMessage track) {
@@ -250,6 +256,7 @@ public abstract class AbstractAgent extends Agent {
   }
  */
 
+  /*
   public void updatePatientStatus(PatientStatusMessage status){
     if (!_ignoreRos){
       user.setValue("<dom:areEyesOpen>", status.isAre_eyes_open());
@@ -305,11 +312,13 @@ public abstract class AbstractAgent extends Agent {
       user.setValue("<dom:hasMovedRightHand>", hasMovedRightHand);
     }
   }
+  */
 
   public int getUserID() {
     return userID;
   }
 
+  /*
   public void eyesOpen(int bodyId, boolean eyesOpen) {
 
     if (userID == bodyId) {
@@ -333,6 +342,7 @@ public abstract class AbstractAgent extends Agent {
         emitStatus(10);
     }
   }
+  */
 
   public void moveRightArm(int bodyId, int armMoved) {
 
@@ -396,9 +406,5 @@ public abstract class AbstractAgent extends Agent {
       System.err.println("User id " + bodyId + " isHandOpen: " + handOpen );
       newData();
     }
-  }
-
-  public void ignoreRosInput(boolean isDemo) {
-    _ignoreRos = isDemo;
   }
 }

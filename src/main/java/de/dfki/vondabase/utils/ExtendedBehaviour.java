@@ -2,7 +2,7 @@ package de.dfki.vondabase.utils;
 
 
 import de.dfki.mlt.rudimant.agent.Behaviour;
-import de.dfki.mlt.rudimant.agent.DialogueAct;
+import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
 
 public class ExtendedBehaviour extends Behaviour {
 

@@ -1,17 +1,14 @@
 package de.dfki.vondabase.nlu;
 
-import edu.stanford.nlp.pipeline.*;
-
-import java.util.Properties;
-
 import java.io.File;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Properties;
 
-import de.dfki.mlt.rudimant.agent.DialogueAct;
-import de.dfki.mlt.rudimant.agent.nlg.Interpreter;
+import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
+import de.dfki.mlt.rudimant.agent.nlp.Interpreter;
+import edu.stanford.nlp.pipeline.CoreDocument;
+import edu.stanford.nlp.pipeline.CoreEntityMention;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 public class StanfordNER extends Interpreter {
 

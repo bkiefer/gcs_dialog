@@ -1,23 +1,52 @@
+# Docker compose file used to load the broker, ASR, and dialogue_manager
+# TTS still to do
 version: "3"
-# Docker compose file used to load the dialogue_manager
+
+networks:
+  mlt:
+    driver: bridge
+
 services:
+  broker:
+    image: 'eclipse-mosquitto:2.0.15'
+    networks:
+      - mlt
+    restart: always
+    container_name: 'mqtt-broker'
+    hostname: 'mqtt-broker'
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  asr:
+    image: 'alphacep/kaldi-de:latest'
+    container_name: 'kaldi_asr'
+    ports:
+      - '2700:2700'
+
   dialog_manager:
+    depends_on:
+      - broker
+      - asr
     build:
       context: .
     image:  drz/sign_of_life/dialog_manager:latest
+    networks:
+      - mlt
     container_name:  drz_dialog_manager
-    environment:
-      - DISPLAY=${DISPLAY}
-      - ROS_MASTER_URI=${ROS_MASTER_URI}
-      - ROS_IP=${ROS_IP}
-      - DIA_IP=${DIA_IP}
+    # environment:
+    #   - DISPLAY=${DISPLAY}
+    #   - ROS_MASTER_URI=${ROS_MASTER_URI}
+    #   - ROS_IP=${ROS_IP}
+    #   - DIA_IP=${DIA_IP}
     volumes:
       - ./config.yml:/config.yml
       - /dev:/dev
       - $HOME/.Xauthority:/root/.Xauthority:rw
-    privileged: true
-    network_mode: host
+    #privileged: true
+    #network_mode: host
     restart: ${RESTART_POLICY}
     stdin_open: true # docker run -i
     tty: true        # docker run -t
-    

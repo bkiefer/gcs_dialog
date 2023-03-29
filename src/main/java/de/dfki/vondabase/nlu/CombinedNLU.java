@@ -1,11 +1,12 @@
 package de.dfki.vondabase.nlu;
 
 
-import de.dfki.mlt.rudimant.agent.DialogueAct;
-import de.dfki.mlt.rudimant.agent.nlg.Interpreter;
-
 import java.io.File;
 import java.util.Map;
+
+import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
+import de.dfki.mlt.rudimant.agent.nlp.Interpreter;
+import de.dfki.mlt.rudimant.agent.nlp.SrgsParser;
 
 /**
  * This interpreter class combines the gramma based srgs parser and the Cerence NLU parser
@@ -15,19 +16,19 @@ import java.util.Map;
 public class CombinedNLU extends Interpreter {
 
   private SrgsParser _srgsParser;
-  private CerenceNLU _cerenceNLU;
+  //private CerenceNLU _cerenceNLU;
   private StanfordNER _stanfordNER;
 
   @Override
   public boolean init(File file, String s, Map map) {
     _srgsParser = new SrgsParser();
     _stanfordNER = new StanfordNER();
-    _cerenceNLU = new CerenceNLU();
+    //_cerenceNLU = new CerenceNLU();
     boolean srgsIsInit = _srgsParser.init(file, s, map);
-    boolean cerenceIsInit = _cerenceNLU.init(file, s, map);
+    //boolean cerenceIsInit = _cerenceNLU.init(file, s, map);
     boolean stanfordIsInit = _stanfordNER.init(file,s,map);
     //return srgsIsInit && cerenceIsInit;
-    return srgsIsInit && stanfordIsInit && cerenceIsInit;
+    return srgsIsInit && stanfordIsInit;// && cerenceIsInit;
   }
 
   private DialogueAct getNotParseDia() {
@@ -43,10 +44,10 @@ public class CombinedNLU extends Interpreter {
       DialogueAct result = _srgsParser.analyse(s);
       //DialogueAct result = _stanfordNER.analyse(s);
       if (result == null){
-        result = _cerenceNLU.analyse(s);  // cerence before stanfordNER as standford interprets Age, Weekdays,... as Name
-        if (result == null){
+        //result = _cerenceNLU.analyse(s);  // cerence before stanfordNER as standford interprets Age, Weekdays,... as Name
+        //if (result == null)/{
           result = _stanfordNER.analyse(s);
-        }
+        //}
       }
       // if null: return getNotParse
       if (result == null){

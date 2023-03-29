@@ -1,23 +1,27 @@
 package de.dfki.vondabase;
 
-import de.dfki.vondabase.RosInterface.ROSClientGCS;
-import de.dfki.vondabase.RosInterface.ROSClientSound;
-import de.dfki.vondabase.RosInterface.ROSClientStatus;
-import de.dfki.vondabase.RosInterface.msgs.*;
-import de.dfki.vondabase.restapi.caller.RESTCaller;
-import de.dfki.vondabase.utils.ExtendedBehaviour;
-import de.dfki.vondabase.utils.Listener;
-import de.dfki.lt.hfc.WrongFormatException;
-import de.dfki.mlt.rosBridge.utils.arm.CommandMessage;
-import de.dfki.mlt.rudimant.agent.*;
-import de.dfki.vondabase.utils.MessageFactory;
-import org.apache.thrift.TException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import de.dfki.lt.hfc.WrongFormatException;
+import de.dfki.mlt.rudimant.agent.Behaviour;
+import de.dfki.mlt.rudimant.agent.CommunicationHub;
+import de.dfki.mlt.rudimant.agent.Intention;
+import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
+//import de.dfki.vondabase.RosInterface.msgs.*;
+import de.dfki.vondabase.utils.ExtendedBehaviour;
+import de.dfki.vondabase.utils.Listener;
 
 
 public class BaseCommunicationHub implements CommunicationHub {
@@ -35,26 +39,26 @@ public class BaseCommunicationHub implements CommunicationHub {
   private final Deque<Object> pendingEvents = new ArrayDeque<>();
   // Define a set of EventListener -> these are used to trigger audio output, update the avatar and so on
   private final List<Listener<Behaviour>> _listeners = new ArrayList<>();
-  private final List<Listener<TTSMessage>> _ttsListeners = new ArrayList<>();
-  private final List<Listener<StatusMessage>> _statusListeners = new ArrayList<>();
-  private final List<Listener<GCSMessage>> _gcsListeners = new ArrayList<>();
-  private final List<Listener<SoundMessage>> _soundListeners = new ArrayList<>();
-  private RESTCaller _restListener;
+//  private final List<Listener<TTSMessage>> _ttsListeners = new ArrayList<>();
+//  private final List<Listener<StatusMessage>> _statusListeners = new ArrayList<>();
+//  private final List<Listener<GCSMessage>> _gcsListeners = new ArrayList<>();
+//  private final List<Listener<SoundMessage>> _soundListeners = new ArrayList<>();
+//  private RESTCaller _restListener;
 
 
 
   private final Random r = new Random();
   private boolean isRunning = true;
-  private BaseAgent _agent;
+  private AbstractAgent _agent;
 
   // ------------------ init the Communication Hub -----------------------------------------
   public void init(File configDir, Map<String, Object> configs)
-          throws IOException, WrongFormatException, TException {
+          throws IOException, WrongFormatException {
     String robot = (String) configs.get("wrapperClass");
     if (robot.equals("de.dfki.vondabase.BaseAgent")) {
       _agent = new DialogAgent();
-      _agent.init(configDir, "de", configs);
-    //} else if(robot.equals("de.dfki.intuitiv.ArmAgent")) {
+      _agent.init(configDir, configs, "deu");
+      //} else if(robot.equals("de.dfki.intuitiv.ArmAgent")) {
     //  _agent = new Arm();
     //  _agent.init(configDir, "de", configs);
     } else {
@@ -87,23 +91,23 @@ public class BaseCommunicationHub implements CommunicationHub {
     _listeners.add(listener);
   }
 
-  public void registerTTSListener(Listener<TTSMessage> listener) {
-    _ttsListeners.add(listener);
-  }
-
-  public void registerStatusListener(ROSClientStatus rosClientTaskStatus) {
-    _statusListeners.add(rosClientTaskStatus);
-  }
-
-  public void registerGCSListener(ROSClientGCS rosClientGCS) {
-    _gcsListeners.add(rosClientGCS);
-  }
-
-  public void registerRESTListener(RESTCaller restCaller) { _restListener = restCaller;}
-
-  public void registerSoundListener(ROSClientSound rosSoundClient) {
-    _soundListeners.add(rosSoundClient);
-  }
+//  public void registerTTSListener(Listener<TTSMessage> listener) {
+//    _ttsListeners.add(listener);
+//  }
+//
+//  public void registerStatusListener(ROSClientStatus rosClientTaskStatus) {
+//    _statusListeners.add(rosClientTaskStatus);
+//  }
+//
+//  public void registerGCSListener(ROSClientGCS rosClientGCS) {
+//    _gcsListeners.add(rosClientGCS);
+//  }
+//
+//  public void registerRESTListener(RESTCaller restCaller) { _restListener = restCaller;}
+//
+//  public void registerSoundListener(ROSClientSound rosSoundClient) {
+//    _soundListeners.add(rosSoundClient);
+//  }
 
   // ------------ process incoming transcription -------------------------------------
   public DialogueAct analyse(String in) {
@@ -180,31 +184,33 @@ public class BaseCommunicationHub implements CommunicationHub {
     });
     // TODO from old project - kept it as an example
     //_dListeners.parallelStream().forEach((l) ->l.listen(MessageFactory.translateBehavior2DialogueMessage((ExtendedBehaviour) b)) );
-    sendTTS(MessageFactory.translateBehavior2TTSMessage((ExtendedBehaviour) b));
+    // TODO: sendTTS(b);
+    //MessageFactory.translateBehavior2TTSMessage((ExtendedBehaviour) b));
+
   }
 
-  public void sendStatus(StatusMessage message){
-    _statusListeners.parallelStream().forEach((l) -> {
-      l.listen(message);
-    });
-  }
+//  public void sendStatus(StatusMessage message){
+//    _statusListeners.parallelStream().forEach((l) -> {
+//      l.listen(message);
+//    });
+//  }
 
-  public void sendGCS(GCSMessage message){
-    _gcsListeners.parallelStream().forEach((l) -> {l.listen(message);});
-  }
-
-  public void sendStatusUpdate(StatusMessage statusMessage){
-    _statusListeners.parallelStream().forEach((l) -> l.listen(statusMessage));
-  }
-
-  public void sendSound(SoundMessage sound){
-    System.err.println("Playing Sound: " + sound);
-    _soundListeners.parallelStream().forEach((l) -> l.listen(sound));
-  }
-
-  public void sendTTS(TTSMessage msg){
-    _ttsListeners.parallelStream().forEach((l) -> l.listen(msg));
-  }
+//  public void sendGCS(GCSMessage message){
+//    _gcsListeners.parallelStream().forEach((l) -> {l.listen(message);});
+//  }
+//
+//  public void sendStatusUpdate(StatusMessage statusMessage){
+//    _statusListeners.parallelStream().forEach((l) -> l.listen(statusMessage));
+//  }
+//
+//  public void sendSound(SoundMessage sound){
+//    System.err.println("Playing Sound: " + sound);
+//    _soundListeners.parallelStream().forEach((l) -> l.listen(sound));
+//  }
+//
+//  public void sendTTS(TTSMessage msg){
+//    _ttsListeners.parallelStream().forEach((l) -> l.listen(msg));
+//  }
 
   // select one of a set of intentions
   @Override
@@ -244,7 +250,7 @@ public class BaseCommunicationHub implements CommunicationHub {
 
 
   public BaseAgent getAgent() {
-    return _agent;
+    return (BaseAgent) _agent;
   }
 
   private boolean isRunning() {
@@ -269,18 +275,18 @@ public class BaseCommunicationHub implements CommunicationHub {
   }
  */
 
-  public void updateStatus(PatientStatusMessage status){
-    if(_agent.getUserID() != -1){
-      _agent.updatePatientStatus(status);
-    }
-  }
+//  public void updateStatus(PatientStatusMessage status){
+//    if(_agent.getUserID() != -1){
+//      _agent.updatePatientStatus(status);
+//    }
+//  }
 
   /**
    * This method frees the log on the behaviour listener, dialog listener and tts listener, so that new messages can be send.
    * This is important to synchronize the displaying of speech bubbles and tts output.
    *
    * This method is called whenever the @RosHandler class processes a <code>tts_done</code> message.
-   */
+   *
   public void freeSpeechListener() {
     for (Listener<TTSMessage> l : _ttsListeners)
       l.free();
@@ -292,4 +298,5 @@ public class BaseCommunicationHub implements CommunicationHub {
   public boolean hasSoundOutputListener() {
    return !_soundListeners.isEmpty();
   }
+  */
 }

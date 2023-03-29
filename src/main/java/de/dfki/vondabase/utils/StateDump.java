@@ -1,7 +1,7 @@
 package de.dfki.vondabase.utils;
 
-import de.dfki.vondabase.AbstractAgent;
 import de.dfki.lt.hfc.db.rdfProxy.Rdf;
+import de.dfki.vondabase.AbstractAgent;
 
 public class StateDump {
 

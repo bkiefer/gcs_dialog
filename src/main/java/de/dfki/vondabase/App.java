@@ -1,6 +1,7 @@
 package de.dfki.vondabase;
 
-import static de.dfki.vondabase.Constants.*;
+import static de.dfki.vondabase.Constants.CFG_ONTOLOGY_FILE;
+import static de.dfki.vondabase.Constants.CFG_VISUALISE;
 
 import java.io.File;
 import java.io.FileReader;
@@ -8,14 +9,8 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import de.dfki.vondabase.RosInterface.IntuitivBridgeServer;
-import de.dfki.vondabase.restapi.IntuitivRestController;
-import de.dfki.vondabase.restapi.caller.RESTCaller;
-import de.dfki.vondabase.ui.GUI;
-import org.apache.thrift.TException;
 import org.yaml.snakeyaml.Yaml;
 
-import de.dfki.vondabase.ui.Reaction;
 import de.dfki.lt.hfc.WrongFormatException;
 import joptsimple.OptionException;
 import joptsimple.OptionParser;
@@ -59,6 +54,7 @@ public class App {
     }
   }
 
+  /*
   private static void interactive(final BaseCommunicationHub client, boolean userInterface) throws IOException {
     if (userInterface) {
       javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -74,7 +70,7 @@ public class App {
       System.err.println("Add commandline reader here");
     }
   }
-
+  */
 
   @SuppressWarnings("unchecked")
   public static Map<String, Object> readConfig(String confname)
@@ -85,28 +81,13 @@ public class App {
     return (Map<String, Object>) yaml.load(new FileReader(confFile));
   }
 
-  private static void connectToRos(BaseCommunicationHub stub, Map<String, Object> configs) throws IOException {
-    IntuitivBridgeServer bridgeServer = new IntuitivBridgeServer( stub, configs, -1);
-    Thread rosBridge = new Thread(bridgeServer.getNetworkService());
-    rosBridge.setDaemon(true);
-    rosBridge.start();
-  }
-
-  private static void startRestEndpoints(BaseCommunicationHub hub, Map<String, Object> configs) throws  IOException {
-    hub.registerRESTListener(new RESTCaller(configs));
-    IntuitivRestController restService = new IntuitivRestController(hub, configs, -1);
-    // start server and publish endpoints
-    restService.initEndpoints();
-    restService.start();
-  }
-
   private static void usage(String message) {
     System.out.println(message);
     System.out.println("[-c confFile]");
   }
 
   public static void main(String[] args)
-          throws TException, IOException, WrongFormatException, InterruptedException {
+          throws IOException, WrongFormatException, InterruptedException {
     //BasicConfigurator.configure();
 
     OptionParser parser = new OptionParser("c:");
@@ -130,13 +111,13 @@ public class App {
     BaseCommunicationHub stub = new BaseCommunicationHub();
     stub.init(confDir, configs);
     stub.startListening();
-    if((boolean)configs.get("GUI_enabled"))
-      interactive(stub, true);
+    //if((boolean)configs.get("GUI_enabled"))
+    //  interactive(stub, true);
     if((boolean) configs.get("REST_enabled")) {
       Map<String, Object> restConfig = (Map<String, Object>) configs.get("RestAPI");
-      startRestEndpoints(stub, restConfig);
+      //startRestEndpoints(stub, restConfig);
     }
-    connectToRos(stub, configs);
+    //connectToRos(stub, configs);
     /*  connectToRos and start RestEndpoints is deactivated if system not deployed with ROS Core environment
      *     Map<String, Object> restConfig = (Map<String, Object>) configs.get("RestAPI");
      *     startRestEndpoints(stub, restConfig);

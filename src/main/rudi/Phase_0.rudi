@@ -2,10 +2,10 @@
 
 phase_greet:
 if(state == "gcs_greet"){
-    System.err.println("Starting phase greet");
-    emitDA(#Inform(DRZGreet));
-    lastDAprocessed();
-    emitDA(#Inform(DRZGreet_I));
-	lastDAprocessed();
-    state= "gcs_phase1";
+  System.err.println("Starting phase greet");
+  emitDA(#Inform(DRZGreet));
+  lastDAprocessed();
+  emitDA(#Inform(DRZGreet_I));
+  lastDAprocessed();
+  state= "gcs_phase1";
 }
