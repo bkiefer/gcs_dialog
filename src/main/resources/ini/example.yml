@@ -16,13 +16,7 @@ namespaces:
  # namespaces for XSD, RDF, RDFS, and OWL are already defined
  dial: http://www.dfki.de/lt/onto/common/dialogue.owl#
  init: http://www.dfki.de/lt/onto/adrz/sign_of_life/init#
- ind: http://www.dfki.de/lt/onto/intuitiv/indoor#
- nav: http://www.dfki.de/lt/onto/intuitiv/indoor_navigation#
- int: http://www.dfki.de/lt/onto/intuitiv/intuitiv#
  dom: http://www.dfki.de/lt/onto/adrz/signOfLife/domain#
- osm: http://www.dfki.de/lt/onto/intuitiv/osm#
- osmdatadfki: http://www.dfki.de/lt/onto/intuitiv/osmdatadfki#
- osmdata: http://www.dfki.de/lt/onto/intuitiv/osmdata#
 
 tupleFiles:
   # the axiomatic triples for OWL-Horst w/ EQ reduction

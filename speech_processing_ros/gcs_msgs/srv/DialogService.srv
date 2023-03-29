@@ -1,5 +1,0 @@
-int32  body_id
-int8   phase
----
-#response constants
-GCS score

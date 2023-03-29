@@ -2,7 +2,7 @@ inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
 agentBase:          de.dfki.vondabase.BaseAgent
 typeDef:            BaseAgent.rudi
-ontologyFile:       data/ini/example.yml
+ontologyFile:       src/main/resources/ini/example.yml
 floor:              1
 checkTypes:         true
 failOnError:        false
