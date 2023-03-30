@@ -54,7 +54,7 @@ public class BaseCommunicationHub implements CommunicationHub {
   // ------------------ init the Communication Hub -----------------------------------------
   public void init(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException {
-    String robot = (String) configs.get("wrapperClass");
+    String robot = (String) configs.get("agentBase");
     if (robot.equals("de.dfki.vondabase.BaseAgent")) {
       _agent = new DialogAgent();
       _agent.init(configDir, configs, "deu");

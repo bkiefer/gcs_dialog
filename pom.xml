@@ -88,8 +88,8 @@
           </execution>
         </executions>
         <configuration>
-          <finalName>rolli</finalName>
-          <appendAssemblyId>true</appendAssemblyId>
+          <finalName>gcs_dialog</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
           <archive>
             <manifest>
               <mainClass>de.dfki.vondabase.App</mainClass>

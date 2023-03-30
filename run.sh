@@ -1,3 +1,3 @@
-dir=`dirname $(readlink $0)`
+dir=`dirname $(realpath "$0")`
 cd "$dir"
-java -jar target/drz_signs_of_life-1.1-SNAPSHOT.jar
+java -jar target/gcs_dialog.jar

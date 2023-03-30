@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:11-jre-slim
 
 # Set environment
 
@@ -24,9 +24,8 @@ ENV JAVA_HOME /opt/jdk
 
 ENV PATH ${PATH}:${JAVA_HOME}/bin
 
-COPY data data
 COPY src/main/resources src/main/resources
 #COPY config.yml config.yml
-COPY target/drz_signs_of_life-1.1-SNAPSHOT.jar drz_signs_of_life-1.1-SNAPSHOT.jar
+COPY target/gcs_dialog.jar gcs_dialog.jar
 
-ENTRYPOINT ["java", "-jar", "drz_signs_of_life-1.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "gcs_dialog.jar"]
