@@ -1,27 +1,39 @@
 package de.dfki.vondabase;
 
+import static de.dfki.vondabase.Constants.*;
+
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.dfki.lt.hfc.WrongFormatException;
 import de.dfki.mlt.rudimant.agent.Behaviour;
 import de.dfki.mlt.rudimant.agent.CommunicationHub;
 import de.dfki.mlt.rudimant.agent.Intention;
 import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
-//import de.dfki.vondabase.RosInterface.msgs.*;
-import de.dfki.vondabase.utils.ExtendedBehaviour;
 import de.dfki.vondabase.utils.Listener;
+import de.dfki.vondabase.utils.MqttUtil;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 
 public class BaseCommunicationHub implements CommunicationHub {
@@ -50,10 +62,14 @@ public class BaseCommunicationHub implements CommunicationHub {
   private final Random r = new Random();
   private boolean isRunning = true;
   private AbstractAgent _agent;
-
+  
+  private MqttUtil client;
+  //private JsonMarshaller mapper;
+  private ObjectMapper mapper;
+  
   // ------------------ init the Communication Hub -----------------------------------------
   public void init(File configDir, Map<String, Object> configs)
-          throws IOException, WrongFormatException {
+          throws IOException, WrongFormatException, MqttException {
     String robot = (String) configs.get("agentBase");
     if (robot.equals("de.dfki.vondabase.BaseAgent")) {
       _agent = new DialogAgent();
@@ -61,6 +77,16 @@ public class BaseCommunicationHub implements CommunicationHub {
       //} else if(robot.equals("de.dfki.intuitiv.ArmAgent")) {
     //  _agent = new Arm();
     //  _agent.init(configDir, "de", configs);
+      
+      ///////////////////////////////////////
+      //mapper = new JsonMarshaller();
+      mapper = new ObjectMapper();
+      client = new MqttUtil((Map<String, Object>)configs.get("mqtt"));
+      client.register(IN_TOPIC);
+      // TODO do I need to subscribe to publish?
+      //client.register(OUT_TOPIC);
+      ////////////////////////////////////////
+      
     } else {
       throw new IllegalArgumentException("unknown input " + robot);
     }
@@ -108,6 +134,35 @@ public class BaseCommunicationHub implements CommunicationHub {
 //  public void registerSoundListener(ROSClientSound rosSoundClient) {
 //    _soundListeners.add(rosSoundClient);
 //  }
+  
+  /************ Send and receive messages / signals **********/
+  public void sendSignal(HashMap<String, String> signal) {
+    try {
+        String json = mapper.writeValueAsString(signal);
+        client.sendMessage(OUT_TOPIC, json);
+      } catch (JsonProcessingException e) {
+        logger.error("{}", e);
+      }
+  }
+  
+  // TODO Read and decode last received message
+  public Map<String, String> readSignal(){
+	  return this.decodeSignal(client.getLastMessage());
+  }
+
+  
+	private Map<String, String> decodeSignal(byte[] payload) {
+	    try {
+	    	//Map<String, String> map = mapper.readValue(json, Map.class);
+	    	return mapper.readValue(new InputStreamReader(new ByteArrayInputStream(payload),Charset.forName("UTF-8")),new TypeReference<>(){});
+	    	//return mapper.readValue(payload, new TypeReference<>(){});
+	      }
+	      catch (Exception ex) {
+	        logger.error("{}", ex);
+	        return null;
+	      }
+	  }
+
 
   // ------------ process incoming transcription -------------------------------------
   public DialogueAct analyse(String in) {

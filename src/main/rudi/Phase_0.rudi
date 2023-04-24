@@ -1,11 +1,13 @@
+/** GCS start */
+//incoming: { "cmd": "start_gcs" }
+//outgoing: { "status": "ready" }
 
-
-phase_greet:
-if(state == "gcs_greet"){
-  System.err.println("Starting phase greet");
-  emitDA(#Inform(DRZGreet));
-  lastDAprocessed();
-  emitDA(#Inform(DRZGreet_I));
-  lastDAprocessed();
-  state= "gcs_phase1";
+gcs_ready:
+if (in_msg.get("cmd") == "start_gcs"){
+    System.err.println("GCS service started");
+    out_signal.clear();
+    out_signal.put("status", "ready");
+    getHub().sendSignal(out_signal);
+    //state = "gcs_start";
+    newData();
 }

@@ -29,4 +29,16 @@ public interface Constants {
 
   public static final String DOMAIN_NS = "dom:";
 
+  ////////////////////////////////
+
+ String CFG_MQTT_HOST = "brokerhost";
+ String CFG_MQTT_PORT = "brokerport";
+ String CFG_MQTT_PROTOCOL = "brokerprotocol";
+ String CFG_MQTT_MILLIS_RECONNECT = "millis_reconnect";
+
+ // MQTT TOPICS
+
+ String IN_TOPIC = "core/messages";
+ String OUT_TOPIC = "dialogue/messages";
+
 }

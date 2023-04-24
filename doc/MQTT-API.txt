@@ -27,13 +27,15 @@ Signal Startbereit: { "status": "ready" }
 
 { "status": "initial_greeting", "state": "started" }
 
-{ "status": "test_conversation", "state": "started", "phase": 5/4/3 }
+{ "status": "test_conversation", "state": "started"}
 
 { "status": "tts_started" }
 
 { "status": "tts_stopped" }
 
 { "status": "speech_analysed", "articulate": "yes"/"no" }
+
+{ "status": "test_conversation", "state": "stopped", "score": 5/4/3 }
 
 { "status": "motion_requested", "motion": "<motion>" }
 

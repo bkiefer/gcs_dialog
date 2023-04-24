@@ -17,15 +17,25 @@ int num_orientiert;
 int sum_orientiert;
 boolean no_reaction;
 
-include test;
+HashMap<String, String> out_signal = new HashMap<String, String>();
+
+BaseCommunicationHub getHub() {
+  return isa(BaseCommunicationHub, _hub);
+}
+
+// read incoming Signal
+Map<String, String> in_msg = getHub().readSignal();
+
+
+//include test;
 include Phase_0;
 include Phase_1;
 include Phase_2;
 include Phase_3;
-include Phase_5;
+//include Phase_5;
 
 
-
+/*
 greet_back:
 if (lastDA() >= #InitialGreeting(Greet)) {
   System.err.println("greet back");
@@ -37,10 +47,4 @@ if (lastDA() >= #InitialGreeting(Greet)) {
      // do something here
   }
 }
-
-gcs:
-if (state == "gcs_init"){
-    System.err.println("GCS service started");
-    state = "gcs_greet";
-    newData();
-}
+*/

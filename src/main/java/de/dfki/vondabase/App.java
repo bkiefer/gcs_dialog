@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.yaml.snakeyaml.Yaml;
 
 import de.dfki.lt.hfc.WrongFormatException;
@@ -87,7 +88,7 @@ public class App {
   }
 
   public static void main(String[] args)
-          throws IOException, WrongFormatException, InterruptedException {
+          throws IOException, WrongFormatException, InterruptedException, MqttException {
     //BasicConfigurator.configure();
 
     OptionParser parser = new OptionParser("c:");

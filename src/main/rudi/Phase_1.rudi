@@ -1,56 +1,30 @@
-//TODO emitDA(#Inform(Fixpunkt)) nach jedem emitDA(#Inform(Fragen)) oder erst in Phase2?
-//TODO pruefe, ob Patient Roboter ansieht?
+/** Initial Greeting / Ansprache Augen */
+// Incoming:  { "cmd": "initial_greeting", "eyes": "open"/"closed" }
+// outgoing: "open": { "status": "test_conversation", "state": "started", "phase": 5/4/3 } (Signal: verbal check)
+//			 "closed": { "status": "initial_greeting", "state": "started" } (Signal: Ansprache Augen begonnen)
 
 phase_one:
-if(state == "gcs_phase1"){
-  if (user.areEyesOpen == false){
-    emitDA(#Inform(OpenEyes));
-    state="wait";
-    timeout("wait", 15000){
-      state = "p1_3";
-    }
-  } else {
-    emitDA(#Inform(Fragen));
-    user.gcs_phase1 = 4;
-    if(isUZLTest == true){
-      state = "gcs_done";
-    } else {
-      state = "gcs_phase2";
-    }
-  }
-}
-
-phase_one_wait_3:
-if (state == "p1_3"){
-  if (user.areEyesOpen == false){
-    emitDA(#Inform(HeyOpenEyes));
-    state="wait";
-    timeout("wait", 15000){
-      state = "p1_1";
-    }
-  } else {
-    emitDA(#Inform(Fragen));
-    user.gcs_phase1 = 3;
-    if(isUZLTest == true){
-      state = "gcs_done";
-    } else {
-      state = "gcs_phase2";
-    }
-  }
-}
-
-phase_one_wait_1:
-if (state == "p1_1"){
-  if (user.areEyesOpen == false){
-    user.gcs_phase1 = 1;
-    state = "gcs_done";
-  } else {
-    emitDA(#Inform(Fragen));
-    user.gcs_phase1 = 2;
-    if(isUZLTest == true){
-      state = "gcs_done";
-    } else {
-      state = "gcs_phase2";
-    }
-  }
+if (in_msg.get("cmd") == "initial_greeting"){
+	switch(in_msg.get("eyes")){
+	case "open": 
+	  emitDA(#Inform(DRZGreet));
+	  lastDAprocessed();
+	  out_signal.clear();
+      out_signal.put("status", "test_conversation");
+      out_signal.put("state", "started");
+      out_signal.put("phase", "2");
+      getHub().sendSignal(out_signal); 
+	  break;
+	case "closed":
+	  emitDA(#Inform(DRZGreet));
+	  lastDAprocessed();
+	  emitDA(#Inform(OpenEyes));
+	  lastDAprocessed();
+	  out_signal.clear();
+      out_signal.put("status", "initial_greeting");
+      out_signal.put("state", "started");
+      getHub().sendSignal(out_signal); 
+	  break; 
+	default: break;
+	}
 }

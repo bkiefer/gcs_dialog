@@ -7,6 +7,11 @@ raw:Inform ^ DRZGreet
     //die der Behandlung / einer Einschätung ihrer Situation
     //die einer schnelleren Rettung / der Beschleunigung Ihrer Rettung dienen.
 
+raw:Inform ^ DRZGreet_I
+    ->
+    # = :canned ^ <string>"Keine Sorge. Hilfe ist unterwegs.".
+
+
 /******************************************************************************/
 //phase1: ask to open eyes
 raw:Inform ^ eyes
@@ -17,6 +22,10 @@ raw:Inform ^ eyes
 
 /******************************************************************************/
 // Questions Phase 2: verbal Phase
+
+raw:Inform ^ Fragen
+    ->
+    # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
 
 raw:YNQuestion ^ checkResponse
     ->
@@ -39,9 +48,6 @@ raw:Question ^ askAdress
     ->
     # = :canned ^ <string>"Sagen Sie mir bitte, wo Sie wohnen." .
 
-raw:Question ^ askLocation
-    ->
-    # = :canned ^ <string>"Wissen Sie, wo Sie sind?" .
 
 raw:Question ^ askBirthdate
     ->
@@ -52,6 +58,14 @@ raw:Question ^ askAge
     ->
     # = :canned ^ <string>"Wie alt sind Sie?" .
 
+raw:Question ^ askMonth
+    ->
+    # = :canned ^ <string>"Wissen Sie, welcher Monat ist?" .
+    
+raw:Question ^ askYear
+    ->
+    # = :canned ^ <string>"Wissen Sie, welches Jahr wir haben?" .
+    
 raw:Question ^ askDate
     ->
     # = :canned ^ <string>"Wissen Sie, welches Datum heute ist?" .
@@ -64,113 +78,29 @@ raw:Question ^ askPain
 
 /******************************************************************************/
 // Questions Phase 3: motor skills
-// TODO statt Inform Instruct o.ä.?
+// TODO Instruct statt Inform?
 
 // Inform Starting Phase 3
 raw:Inform ^ Phase3
     ->
     # = :canned ^ <string>"Ich werde Sie jetzt bitten einige Bewegungen auszuführen. Das hilft den Rettungskräften, Ihren Zustand schneller einzuschätzen." .
 
-//move hands
-raw:Inform ^ moveRightHand
-    ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihre rechte Hand zu bewegen." .
 
-raw:Inform ^ moveLeftHand
-    ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihre linke Hand zu bewegen." .
+// TODO welche Bewegungen bzw. body parts genau werden abgefragt? Unterscheidung recht/links?
+raw:Inform ^ Motion {
+  ^ <body_part>"hand"
+  ->
+  # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zu bewegen." .
 
-//clench fist
-raw:Inform ^ clenchHand
-    ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zur Faust zu ballen." .
-
-raw:Inform ^ clenchRightHand
-    ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihre rechte Hand zur Faust zu ballen." .
-
-raw:Inform ^ clenchLeftHand
-    ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihre linke Hand zur Faust zu ballen." .
-
-raw:Inform ^ clenchHandAgain
-    ->
-    # = :canned ^ <string>"Sehr gut. Bitte ballen Sie die Hand wieder zur Faust." .
-
-//open fist
-raw:Inform ^ openHand
-    ->
-    # = :canned ^ <string>"Sehr gut. Bitte öffnen Sie die Faust wieder." .
-
-raw:Inform ^ initialOpenHand
-    ->
-    # = :canned ^ <string>"Können Sie Ihre Hand oeffnen und die Finger ausstrecken?" .
-
+  ^ <body_part>"arm"
+  ->
+  # = :canned ^ <string>"Bitte versuchen Sie, Ihren Arm zu bewegen." .
+  
+  ^ <body_part>"leg"
+  ->
+  # = :canned ^ <string>"Bitte versuchen Sie, Ihr Bein zu bewegen." .
+  
 /******************************************************************************/
-//move arm
-//TODO: Bewegung spezifizieren: beugen, heben?, links rechts?
-raw:Inform ^ moveArm
-    ->
-    # = :canned ^ <string>"Versuchen Sie, Ihren Arm zu bewegen." .
-
-raw:Inform ^ moveRightArm
-    ->
-    # = :canned ^ <string>"Versuchen Sie, Ihren rechten Arm zu bewegen." .
-
-
-raw:Inform ^ moveLeftArm
-    ->
-    # = :canned ^ <string>"Versuchen Sie, Ihren linken Arm zu bewegen." .
-
-
-/******************************************************************************/
-//move leg
-raw:Inform ^ moveLeg
-    ->
-    # = :canned ^ <string>"Bitte bewegen Sie ein Bein, wenn das moeglich ist." .
-
-//move leg
-raw:Inform ^ moveRightLeg
-    ->
-    # = :canned ^ <string>"Bitte bewegen Sie Ihr rechtes Bein, wenn das moeglich ist." .
-
-//move leg
-raw:Inform ^ moveLeftLeg
-    ->
-    # = :canned ^ <string>"Bitte bewegen Sie Ihr linkes Bein, wenn das moeglich ist." .
-
-
-/******************************************************************************/
-
-//move head
-//TODO: Bewegung spezifizieren, welche Bewegungen sind sicher (Gefahr einer Wirbelsäulenverletzung?)?
-
-raw:Inform ^ moveHead
-    ->
-    # = :canned ^ <string>"Versuchen Sie, Ihren Kopf zu bewegen." .
-
-/******************************************************************************/
-
-//open mouth
-raw:Inform ^ openMouth
-    ->
-    # = :canned ^ <string>"Bitte versuchen Sie, Ihren Mund zu öffnen." .
-
-//close mouth
-raw:Inform ^ closeMouth
-    ->
-    # = :canned ^ <string>"Bitte schließen Sie Ihren Mund wieder." .
-
-
-raw:Inform ^ DRZGreet
-    ->
-    # = :canned ^ <string>"Hallo Sie. Ich bin ein Rettungsroboter der Feuerwehr." .
-
-
-raw:Inform ^ DRZGreet_I
-    ->
-    # = :canned ^ <string>"Keine Sorge. Hilfe ist unterwegs.".
-
 
 raw:Inform ^ Fragen
     ->
@@ -191,13 +121,6 @@ raw:Inform ^ HeyOpenEyes
     ->
     # = :canned ^ <string>"Hey. Augen auf!".
 
-raw:Inform ^ MoveHandArm
-->
-# = :canned ^ <string>"Bewegen sie bitte einen Arm, wenn das moeglich ist.".
-
-raw:Inform ^ MoveHandArm
-->
-# = :canned ^ <string>"Bewegen sie bitte einen Arm, wenn das moeglich ist.".
 
 raw:Inform ^ Thanks
     ->
@@ -212,14 +135,7 @@ raw:Inform ^ Demo
     ->
     # = :canned ^ <string>"Sehr gut. Bitte schließen Sie Ihren Mund wieder." .
 
-/******************************************************************************/
-//TODO: Gestures
-//"waving", "swipe_left", "swipe_right", "swipe_up", "swipe_down", "push"
 
-
-
-
-/******************************************************************************/
 //memorize Person
 raw:Inform ^ Demo
     ->

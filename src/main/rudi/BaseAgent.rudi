@@ -7,3 +7,5 @@ DayTime getDayTime();
 #DayTime String toString();
 
 #Calendar int get(Object o);
+#BaseCommunicationHub Map<String, String> readSignal();
+#BaseCommunicationHub void sendSignal(HashMap<String, String> map); 
