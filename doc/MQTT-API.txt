@@ -43,4 +43,4 @@ Signal Startbereit: { "status": "ready" }
 
 Signal Abfrage Mundbewegung (+2)
 
-{ "cmd": "check_mouth_movement" }
+{ "cmd": "check_mouth_movement", "movement": "yes"/"no" }

@@ -14,6 +14,7 @@ if (in_msg.get("cmd") == "initial_greeting"){
       out_signal.put("state", "started");
       out_signal.put("phase", "2");
       getHub().sendSignal(out_signal); 
+      state = "gcs_phase2";
 	  break;
 	case "closed":
 	  emitDA(#Inform(DRZGreet));
@@ -24,6 +25,7 @@ if (in_msg.get("cmd") == "initial_greeting"){
       out_signal.put("status", "initial_greeting");
       out_signal.put("state", "started");
       getHub().sendSignal(out_signal); 
+      state = "gcs_phase2";
 	  break; 
 	default: break;
 	}

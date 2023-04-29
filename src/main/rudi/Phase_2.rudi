@@ -2,9 +2,7 @@ import de.dfki.vondabase.utils.Triple;
 import de.dfki.vondabase.utils.Quartet;
 import java.util.Calendar;
 
-
-// TODO: umstrukturieren
-
+// TODO: s. Ende fuer Pseudocode / Ablauf Phase 2
 /** GCS verbale Phase:
     konversationsfähig + orientiert: 5 Punkte
     konversationsfähig + desorientiert: 4 Punkte
@@ -13,34 +11,6 @@ import java.util.Calendar;
     keine verbale Antwort: 1 Punkte
 **/
 
-/** Ablauf Phase 2:
-tmp_score = 1
-sum_orientiert = 0
-num_orientiert = 0
-if (patient nicht ansprechbar):         (max 2x)
-    state == phase 5 (done)
-else:
-    for question in [Name, Alter, Birthdate, Adresse, Wochentag, Datum....]:
-        ask question:
-            if answer is not a word:     (antwortet nur in Lauten)
-                tmp_score += 1
-                continue
-            if answer in scope:            (konversationsfähig,)
-                tmp_score += 3
-                if question in [location, Wochentag, Datum]:
-                	num_orientiert += 1
-                    if answer correct:
-                        sum_orientiert += 1
-            else:                       (antwortet in unzusammenhängenden Wörtern)
-                tmp_score += 2
-    user.gcs_phase2 = tmp_score / #questions
-    if sum_orientiert >= num_orientiert/2:   (wenn Hälfte der Orientierungsfragen korrekt --> orientiert)
-        user.gcs_phase2 += 1
-    ask pain:
-        user.pain = answer
-    state == phase 3
-**/
-/***************************************/
 
 // array of weekdays for orientation question check
 List<String> weekdays = {
@@ -52,54 +22,98 @@ List<String> months = {
   "Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"
 };
 
+void generateQuestionList();
+void checkAnswer(Quartet<DialogueAct, String, String, Boolean> question);
+void checkOrientation (Quartet<DialogueAct, String, String, Boolean> question);
+
+
+/************************ START PHASE 2 ****************************************/
 
 // Incoming:  { "cmd": "test_conversation", "eyes": "open"/"closed" }
 //				{ "cmd": "check_mouth_movement" }
-// Outgoing: { "status": "test_conversation", "state": "started", "phase": 5/4/3 }
-//{ "status": "speech_analysed", "articulate": "yes"/"no" }
+// Outgoing: { "status": "test_conversation", "state": "started", "score": 5/4/3 } --> when moving on to next phase
+//{ "status": "speech_analysed", "articulate": "yes"/"no" } --> after each question check?
 
-// TODO keine Mundbewegung +1?
-//TODO gcs score wo speichern?
-// Todo was tun, wenn bei erstem Mal nicht reagiert? --> nochmal fragen, weiter, abbrechen?
-// TODO was wenn Signal Mundbewegung nicht mehr kommt? --> yes, no in signal
-
-void generateQuestionList();
-void startQuestions();
-void checkAnswer(Quartet<DialogueAct, String, String, Boolean> question);
-void checkOrientation (Quartet<DialogueAct, String, String, Boolean> question);
-void calculateScore();
-
-phase_two:
-if (in_msg.get("cmd") == "check_mouth_movement"){
-	// Check general respone 
+phase_two_start:
+if ((in_msg.get("cmd") == "check_mouth_movement") && (state == "gcs_phase2")){
+	score_phase2 = 1;
+	// Check general response 
     emitDA(#YNQuestion(checkResponse));
-    // TODO wait answer?
-    // TODO test if articulate speech
-    if (lastDA() >= #Disagreement(NotParse)){           // check if answer cannot be interpreted
-        // TODO score +2
-      	out_signal.clear();
-	    out_signal.put("status", "speech_analysed");
-	    out_signal.put("articulate", "no");
-	    getHub().sendSignal(out_signal); 
-	}else{
-	// TODO start verbal check
-	emitDA(#Inform(Fragen));
-	generateQuestionList();
-	startQuestions();
-	
-	
-	// abschlusssignal
-    out_signal.clear();
-    out_signal.put("status", "speech_analysed");
-    out_signal.put("articulate", "yes");	    
-    getHub().sendSignal(out_signal); 
-	}
+    state="wait";
+    timeout("wait", 10000){
+        state = "wait_response";
+    }
+}
 
+/** wait for first reaction / response of patient */
+phase_two_wait_response:
+if(state == "wait_response"){
+	// Check for mouth movements
+	switch(in_msg.get("movement")){
+	case "no": // no reaction: go on to next phase; outgoing: { "status": "test_conversation", "state": "stopped", "score": 1 }
+		out_signal.clear();
+		out_signal.put("status", "test_conversation");
+	    out_signal.put("state", "stopped");
+	    out_signal.put("score", score_phase2);
+	    // TODO
+	    //out_signal.put("status", "speech_analysed");
+	    //out_signal.put("articulate", "no");
+	    getHub().sendSignal(out_signal); 
+	    state = "gcs_phase3";
+	 	break;
+	case "yes":	// mouth movements: start verbal check / questions
+		// TODO nur wenn laute: score_phase2 = 2;
+		emitDA(#Inform(Fragen));
+		generateQuestionList();
+		state = "ask_question";
+		break;
+	default: break;
+	}
 }
 
 
-/*************************/
+phase_two_ask_question:
+if(state == "ask_question"){
+	// check if question list empty (= all questions asked) --> if so: continue with score calculation etc.
+    if (questions.isEmpty() == true){
+        // proceed with score calculation
+        System.err.println("No questions left.");
+        // state = "calculate_score";
+        state = "calculate_score";
+    } else {            // ask first question in list
+        emitDA(questions.get(0).getFirst());
+        Quartet<DialogueAct, String, String, Boolean> one_question = questions.get(0);
+        state = "wait";
+        timeout("wait", 20000){
+            state = "wait_answer";
+            checkAnswer(one_question);
+        }
+    }
+}
+
+/** Calculate final score */
+phase_two_calculate_score:
+if(state == "calculate_score"){
+    System.err.println("Calculate Score.");
+	score_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
+    // compute score for orientation questions
+    if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
+        user.gcs_phase2 += 1;
+    }
+    //send signal Phase 2 done and score
+    out_signal.clear();
+	out_signal.put("status", "test_conversation");
+	out_signal.put("state", "stopped");
+	out_signal.put("score", score_phase2);	    
+    getHub().sendSignal(out_signal); 
+    state = "gcs_phase3";
+}
+
+
+/******************* METHODS **************************************/
+
 // TODO randomisiert erstellen oder durchlaufen?
+/** Generates Question list and sets num variables */
 void generateQuestionList() {
 	// save questions as Quartet: (DA, intent, concept, bool (Orientierungsfrage ja/nein?))
     questions = new LinkedList<Quartet<DialogueAct, String, String, Boolean>>();        
@@ -109,52 +123,56 @@ void generateQuestionList() {
     questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askDay), "Date", "Weekday", true));
     questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askMonth), "Date", "Month", true));
 	questions.add(new Quartet<DialogueAct, String, String, Boolean>(#Question(askYear), "Date", "Year", true));
-}
-
-
-void startQuestions(){
+	
 	sum_phase2 = 0;         // sum of scores of all questions
     sum_orientiert = 0;     // number of correctly answered orientation questions        
     num_questions = questions.size();   // number of questions
-    num_orientiert = 3; // number of orientation questions
-    
-    // Iterate through questions
-    for (Quartet<DialogueAct, String, String, Boolean> one_question : questions){
-    	emitDA(one_question.getFirst());
-    	// TODO warte auf Signal
-        state = "wait";
-        timeout("wait", 20000){
-        // TODO neuer if Block oder methode?
-            state = "wait_answer";
-            checkAnswer(one_question);
-        }
-    }
-    // TODO calculate final score
-    // calculateScore();
+    num_orientiert = 3; // number of orientation question
 }
-
-
+   
 /** check quality of answer to question */
 void checkAnswer(Quartet<DialogueAct, String, String, Boolean> question){
-	// TODO if no mouth movement: exit?
-	// TODO test articulation?
-	// TODO yes no?
-	if (!(getHub().readSignal().get("cmd") == "check_mouth_movement")){
-		// TODO exit; send signal?
-	}else{
-		// check if answer is in scope: get proposition and compare to lastDA        
-		String tmp = question.getSecond();
-	    if (lastDA().getProposition() == tmp){
-	    	sum_phase2 += 3;
-	    	// check if orientation question; if yes: answer correct?
-	        if (question.getFourth() == true){
-	        	checkOrientation(question);
-	        }
-		}else{ // answer not in scope
-			sum_phase2 += 2;
-		}
+	Map<String, String> lastSignal = getHub().readSignal();
+	switch(lastSignal.get("movement")){
+		case "no": 
+		// TODO if no mouth movements: exit if it happens twice
+			out_signal.clear();
+		    out_signal.put("status", "speech_analysed");
+		    out_signal.put("articulate", "no");
+		    getHub().sendSignal(out_signal); 
+			if (no_reaction){ // continue next phase
+				// TODO score 1??
+		    	state = "gcs_phase3";
+			}else{
+				no_reaction =true;
+				state = "ask_question";
+			}
+	 		break;
+		case "yes":
+			// check if answer is in scope: get proposition and compare to lastDA        
+			String tmp = question.getSecond();
+		    if (lastDA().getProposition() == tmp){
+		    	sum_phase2 += 3;
+		    	// check if orientation question; if yes: answer correct?
+		        if (question.getFourth() == true){
+		        	checkOrientation(question);
+		        }
+			}else{ // answer not in scope
+				sum_phase2 += 2;
+			}
+			state = "ask_question";
+			out_signal.clear();
+		    out_signal.put("status", "speech_analysed");
+		    out_signal.put("articulate", "yes");
+		    getHub().sendSignal(out_signal); 
+			break;
+		default: 
+			// TODO wrong incoming signal
+			//state = "ask_question";
+			break;
 	}
 }
+
 
 /** Test quality of answer to orientation question */
 void checkOrientation (Quartet<DialogueAct, String, String, Boolean> question){
@@ -183,13 +201,33 @@ void checkOrientation (Quartet<DialogueAct, String, String, Boolean> question){
     }
 }
 
-/** Calculate final score */
-void calculateScore(){
-	user.gcs_phase2 = sum_phase2 / num_questions; // TODO aufrunden oder ganzzahlig dividieren?
-    // compute score for orientation questions
-    if (sum_orientiert >= (num_orientiert/2)){   // wenn ca. Hälfte der Orientierungsfragen korrekt: +1 für orientiert
-        user.gcs_phase2 += 1;
-    }
-    // TODO send score
-}
 
+/***************************************/
+/** Ablauf Phase 2:
+tmp_score = 1
+sum_orientiert = 0
+num_orientiert = 0
+if (patient nicht ansprechbar):         (max 2x)
+	user.gcs_phase2 = 1
+    state == phase 3 (move on)
+else:
+    for question in [Name, Alter, Birthdate, Adresse, Wochentag, Datum....]:
+        ask question:
+            if answer is not a word:     (antwortet nur in Lauten)
+                tmp_score += 1
+                continue
+            if answer in scope:            (konversationsfähig,)
+                tmp_score += 3
+                if question in [location, Wochentag, Datum]:
+                	num_orientiert += 1
+                    if answer correct:
+                        sum_orientiert += 1
+            else:                       (antwortet in unzusammenhängenden Wörtern)
+                tmp_score += 2
+    user.gcs_phase2 = tmp_score / #questions
+    if sum_orientiert >= num_orientiert/2:   (wenn Hälfte der Orientierungsfragen korrekt --> orientiert)
+        user.gcs_phase2 += 1
+    ask pain:
+        user.pain = answer
+    state == phase 3
+**/

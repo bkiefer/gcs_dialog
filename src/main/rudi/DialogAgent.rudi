@@ -11,6 +11,7 @@ Triple<String, String, Integer> CONFIRM_INFORM = new Triple("Ja. Erzähl mir meh
 Triple<String, String, Integer> DISCONFIRM = new Triple("Nein, danke.", "Disconfirm(Disconfirm)",3);
 
 List<Quartet<DialogueAct, String, String, Boolean>> questions;
+int score_phase2;
 int num_questions;
 int sum_phase2;
 int num_orientiert;
