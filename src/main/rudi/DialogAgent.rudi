@@ -2,50 +2,58 @@ import de.dfki.vondabase.utils.Triple;
 import de.dfki.vondabase.utils.Quartet;
 import java.util.Calendar;
 
-TRIGGER_CHECK_TIMEOUT = 1000; // time to check trigger approach in milliseconds
-
-Triple<String, String, Integer> CONFIRM = new Triple("Ja.", "Confirm(Confirm)",2);
-Triple<String, String, Integer> DONE = new Triple("Fertig.", "Confirm(Confirm)",2);
-Triple<String, String, Integer> NEED_HELP = new Triple("Ich brauche Hilfe.", "Request(Help)",2);
-Triple<String, String, Integer> CONFIRM_INFORM = new Triple("Ja. Erzähl mir mehr.", "Confirm(Need, what=instructions)",2);
-Triple<String, String, Integer> DISCONFIRM = new Triple("Nein, danke.", "Disconfirm(Disconfirm)",3);
-
-List<Quartet<DialogueAct, String, String, Boolean>> questions;
-int score_phase2;
-int num_questions;
-int sum_phase2;
-int num_orientiert;
-int sum_orientiert;
-boolean no_reaction;
-
-HashMap<String, String> out_signal = new HashMap<String, String>();
-
 BaseCommunicationHub getHub() {
   return isa(BaseCommunicationHub, _hub);
 }
 
-// read incoming Signal
-Map<String, String> in_msg = getHub().readSignal();
+// incoming MQTT messages are received using a callback
+Command in_msg = getCommand();
 
+Session session;
 
-//include test;
-include Phase_0;
-include Phase_1;
-include Phase_2;
-include Phase_3;
-//include Phase_5;
+// treat the initial part: either session, or start_gcs required
 
-
-/*
-greet_back:
-if (lastDA() >= #InitialGreeting(Greet)) {
-  System.err.println("greet back");
-  propose("greet back") {
-    emitDA(#ReturnGreeting(Greet, timeOfDay={getDayTime().toString()}));
-  }
-  lastDAprocessed();
-  timeout("clear", 30000){
-     // do something here
+if (! session) {
+  no_session_check_start:
+  if (in_msg) {
+    if (in_msg.cmd != "start_gcs") {
+      removeLastCommand();
+      logger.warn("Invalid message outside session: {}", in_msg.cmd);
+      cancel;
+    } else {
+      session = new Session; // new session
+      session.state = "started";
+      user = getUser(in_msg.user_id);
+      if (! user) {
+        user = new User;
+        user.id = in_msg.user_id;
+      }
+      user.sessions += session;
+    }
+  } else {
+    cancel;
   }
 }
-*/
+
+// from here, we have a running session
+
+if (in_msg && in_msg.user_id != user.id) {
+  logger.warn("User id changed during session from {} to {}!", user.id,
+              in_msg.user_id);
+}
+
+if (in_msg && in_msg.cmd == "initial_greeting") {
+  if (! saidInSession(#Greeting(top))) {
+    emitDA(#Greeting({user.sessions.size() > 1 ? "Initial" : "NotInitial"},
+                     eyes={in_msg.arg0}));
+    session.state = "greeted";
+    removeLastCommand();
+  }
+}
+
+//include test;
+//include Phase_0;
+//include Phase_1;
+//include Phase_2;
+//include Phase_3;
+//include Phase_5;

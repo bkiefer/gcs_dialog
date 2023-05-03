@@ -1,0 +1,28 @@
+* Initialisation:
+1. check if a user with id is already there
+2. if not, create user RDF object
+3. create a session object and add it to the sessions of the user, and set it as the current session
+   - All DAs (in and out) are added to the session
+* Begrüßung: (mit user id)
+1. Greeting DA -> based on No. sessions
+2. depending on eyes open
+   "Could you please try to look at me?"
+   - Wait and possibly retry, after waiting time, we know tha eye status -->
+     next phase: verbal test
+* Verbal Test
+1. Select simple question and pose it
+2. After question has been posed, _analysis phase_ starts
+* Analysis Phase
+- start accumulation of results from "artikulierte Sprache Detektor"
+- start timer to account for no ASR result
+- if we get a result, check it against the question
+  a. answer is correct --> maybe ask second (harder) question
+  b. answer is incorrect --> reiterate with question of same difficulty
+- save the result of questioning and "artikulierte sprache" into session object
+  - if timer ran out, second try with easy question --> Verbal Test, save
+    "artikulierte Sprache" from first try
+  - if timer ran out second time, save "artikulierte Sprache" and record
+    overall result
+- Verbal questioning phase done
+* Motion phase
+-- Hauke: Liste von Körperteilen / Bewegungen

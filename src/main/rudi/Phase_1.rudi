@@ -4,29 +4,27 @@
 //			 "closed": { "status": "initial_greeting", "state": "started" } (Signal: Ansprache Augen begonnen)
 
 phase_one:
-if (in_msg.get("cmd") == "initial_greeting"){
-	switch(in_msg.get("eyes")){
-	case "open": 
-	  emitDA(#Inform(DRZGreet));
-	  lastDAprocessed();
-	  out_signal.clear();
-      out_signal.put("status", "test_conversation");
-      out_signal.put("state", "started");
-      out_signal.put("phase", "2");
-      getHub().sendSignal(out_signal); 
-      state = "gcs_phase2";
-	  break;
-	case "closed":
-	  emitDA(#Inform(DRZGreet));
-	  lastDAprocessed();
-	  emitDA(#Inform(OpenEyes));
-	  lastDAprocessed();
-	  out_signal.clear();
-      out_signal.put("status", "initial_greeting");
-      out_signal.put("state", "started");
-      getHub().sendSignal(out_signal); 
-      state = "gcs_phase2";
-	  break; 
-	default: break;
-	}
+if (in_msg.cmd == "initial_greeting"){
+  switch (in_msg.eyes) {
+  case "open":
+    emitDA(#Inform(DRZGreet));
+    lastDAprocessed();
+    out_signal.clear();
+    out_signal.put("status", "test_conversation");
+    out_signal.put("state", "started");
+    out_signal.put("phase", "2");
+    getHub().sendSignal(out_signal);
+    break;
+  case "closed":
+    emitDA(#Inform(DRZGreet));
+    lastDAprocessed();
+    emitDA(#Inform(OpenEyes));
+    lastDAprocessed();
+    out_signal.clear();
+    out_signal.put("status", "initial_greeting");
+    out_signal.put("state", "started");
+    getHub().sendSignal(out_signal);
+    break;
+  default: break;
+  }
 }

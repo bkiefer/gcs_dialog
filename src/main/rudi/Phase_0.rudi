@@ -3,7 +3,7 @@
 //outgoing: { "status": "ready" }
 
 gcs_ready:
-if (in_msg.get("cmd") == "start_gcs"){
+if (in_msg.cmd == "start_gcs"){
     System.err.println("GCS service started");
     out_signal.clear();
     out_signal.put("status", "ready");

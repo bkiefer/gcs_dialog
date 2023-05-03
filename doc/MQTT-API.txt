@@ -1,11 +1,11 @@
-Alle Nachrichten: mit eindeutiger ID & timestamp
+Alle Nachrichten: mit eindeutiger user-ID & timestamp
 
 * core --> dialogue
 
 topic: core/messages
 
 Signal Start GCS/Initialisierung: (NICHT Begrüßung: Signal Check auf Augen +3)
-  { "cmd": "start_gcs" }
+  { "cmd": "start_gcs", "id": "<user_id>" }
 
 Signal Begrüßung:
   { "cmd": "initial_greeting", "eyes": "open"/"closed" }
@@ -13,8 +13,12 @@ Signal Begrüßung:
 Signal Test Verbal Score:
   { "cmd": "test_conversation", "eyes": "open"/"closed" }
 
-Signal Test Motorik je nach Lage
+Signal Test Motorik je nach Lage: Signal welches Körperteil
   { "cmd": "motion_request", "motion": "<motion>" }
+
+Signal Motorik-Request erfolgreich?
+  - Unser Vorschlag: wir starten einen Time-Out, damit wir einen 2. Versuch starten können, und melden den Ablauf des Time-Outs als Misserfolg zurück. Wenn wir dieses Signal erhalten, werten wir den Versuch als Erfolg.
+  { "cmd": "motion_executed", "value": "<motion>" }
 
 Signal GCS fertig
   { "cmd": "finalize" }

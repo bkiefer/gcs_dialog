@@ -112,14 +112,6 @@ public abstract class AbstractAgent extends Agent {
   }
 
 
-  protected Rdf internalize(String endPOI) {
-    Rdf poi = _proxy.getRdf("<" + DOMAIN_NS + "" + endPOI + ">");
-    if (poi != null)
-      return poi;
-    throw new IllegalArgumentException("Unknown POI");
-  }
-
-
   public final DialogueAct emitDAWB(int delay, DialogueAct da, Triple... choices) {
     logger.debug("Calling emitDAWB with choices: " + Arrays.toString(choices));
     ExtendedBehaviour extendedBehaviour = (ExtendedBehaviour) createExtendedBehaviour(delay, da);
@@ -131,23 +123,6 @@ public abstract class AbstractAgent extends Agent {
   public final DialogueAct emitDAWB(DialogueAct da, Triple... choices) {
     return this.emitDAWB(Behaviour.DEFAULT_DELAY, da, choices);
   }
-
-//  public final void emitStatus(int status) {
-//    StatusMessage msg = new StatusMessage(new Header(), status);
-//    emitStatus(msg);
-//  }
-
-  /*
-  public final void emitGCS(int eyes, int awareness, int motions) {
-    int sum = eyes + awareness + motions;
-    GCSMessage message = new GCSMessage(new Header(), eyes, awareness, motions, sum);
-    ((BaseCommunicationHub) _hub).sendGCS(message);
-  }
-
-  public final void emitStatus(StatusMessage msg) {
-    ((BaseCommunicationHub) _hub).sendStatus(msg);
-  }
-  */
 
   public void storeState() {
     this.stateDump = new StateDump(this);
@@ -256,93 +231,10 @@ public abstract class AbstractAgent extends Agent {
   }
  */
 
-  /*
-  public void updatePatientStatus(PatientStatusMessage status){
-    if (!_ignoreRos){
-      user.setValue("<dom:areEyesOpen>", status.isAre_eyes_open());
-      user.setValue("<dom:isMouthOpen>", status.isIs_mouth_open());
-      // add gesture
-      user.setValue("<dom:hasGender>", status.getHRGender());
-      user.setValue("<dom:hasAge>", status.getAge());
-      user.setValue("<dom:isHandOpen>", false);
-      user.setValue("<dom:performsGesture>", BodyTrackerMessage.idToGesture(status.getGesture()));
-      user.setValue("<dom:hasMoved>", status.isHas_moved());
-      user.setValue("<dom:hasMovedHead>", status.isHas_moved_head());
-      user.setValue("<dom:headConfidence>", status.hasHeadConfidence());
-      user.setValue("<dom:hasMovedLeftHand>", status.isHas_moved_left_hand());
-      user.setValue("<dom:leftHandConfidence>", status.hasLeftHandConfidence());
-      user.setValue("<dom:hasMovedLeftArm>",  status.isHas_moved_left_arm());
-      user.setValue("<dom:leftArmConfidence>", status.hasLeftArmConfidence());
-      user.setValue("<dom:hasMovedLeftLeg>",  status.isHas_moved_left_leg());
-      user.setValue("<dom:leftLegConfidence>", status.hasLeftLegConfidence());
-      user.setValue("<dom:hasMovedRightArm>", status.isHas_moved_right_arm());
-      user.setValue("<dom:rightArmConfidence>", status.hasRightArmConfidence());
-      user.setValue("<dom:hasMovedRightHand>", status.isHas_moved_right_hand());
-      user.setValue("<dom:rightHandConfidence>", status.hasRightHandConfidence());
-      user.setValue("<dom:hasMovedRightLeg>", status.isHas_moved_right_leg());
-      user.setValue("<dom:rightLegConfidence>", status.hasRightLegConfidence());
-    }
-  }
-
-  public void updateUserSkeleton(SkeletonMessage skeletonMessage) {
-    if (!_ignoreRos) {
-      var hasMovedHead = false;
-      var hasMovedLeftHand = false;
-      var hasMovedRightHand = false;
-      var hasMovedLeftArm = false;
-      var hasMovedRightArm = false;
-      if (_userSkeleton == null) {
-        _userSkeleton = skeletonMessage;
-      } else {
-        if (skeletonMessage != _userSkeleton) {
-          hasMovedHead = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
-          hasMovedLeftHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_hand(), _userSkeleton.getJoint_position_left_hand()) >= 1;
-          hasMovedRightHand = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_hand(), _userSkeleton.getJoint_position_right_hand()) >= 1;
-          hasMovedLeftArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_left_elbow(), _userSkeleton.getJoint_position_left_elbow()) >= 1;
-          hasMovedRightArm = SkeletonMessage.delta(skeletonMessage.getJoint_position_right_elbow(), _userSkeleton.getJoint_position_right_elbow()) >= 1;
-          // var hasMovedLeftLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position, _userSkeleton.getJoint_position_head()) >= 1;
-          // var hasMovedRightLeg = SkeletonMessage.delta(skeletonMessage.getJoint_position_head(), _userSkeleton.getJoint_position_head()) >= 1;
-        }
-      }
-      user.setValue("<dom:hasMoved>", (hasMovedHead || hasMovedLeftHand || hasMovedRightHand || hasMovedLeftArm || hasMovedRightArm));
-      user.setValue("<dom:hasMovedHead>", hasMovedHead);
-      user.setValue("<dom:hasMovedLeftHand>", hasMovedLeftHand);
-      user.setValue("<dom:hasMovedLeftArm>", hasMovedLeftArm);
-      user.setValue("<dom:hasMovedRightArm>", hasMovedRightArm);
-      user.setValue("<dom:hasMovedRightHand>", hasMovedRightHand);
-    }
-  }
-  */
 
   public int getUserID() {
     return userID;
   }
-
-  /*
-  public void eyesOpen(int bodyId, boolean eyesOpen) {
-
-    if (userID == bodyId) {
-      user.setValue("<dom:areEyesOpen>", eyesOpen);
-      System.err.println("User id " + bodyId + " areEyesOpen: " + eyesOpen );
-      newData();
-      if (eyesOpen)
-        emitStatus(21);
-      else
-        emitStatus(20);
-    }
-  }
-
-  public void hasMoved(int bodyId, boolean hasMoved) {
-    if (userID == bodyId) {
-      user.setValue("<dom:hasMoved>", hasMoved);
-      newData();
-      if (hasMoved)
-        emitStatus(11);
-      else
-        emitStatus(10);
-    }
-  }
-  */
 
   public void moveRightArm(int bodyId, int armMoved) {
 

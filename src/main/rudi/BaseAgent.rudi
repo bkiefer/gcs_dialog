@@ -1,11 +1,20 @@
-Animate user;
+User user;
 Robot robot;
 String state;
 Boolean isUZLTest;
+
+Command getCommand();
+Command removeLastCommand();
+
+User getUser(String id);
+
+#Command String cmd;
+#Command String user_id;
+#Command String arg0;
 
 DayTime getDayTime();
 #DayTime String toString();
 
 #Calendar int get(Object o);
-#BaseCommunicationHub Map<String, String> readSignal();
-#BaseCommunicationHub void sendSignal(HashMap<String, String> map); 
+
+#BaseCommunicationHub void sendSignal(HashMap<String, String> map);

@@ -1,12 +1,14 @@
 package de.dfki.vondabase;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 import de.dfki.lt.hfc.db.rdfProxy.Rdf;
 
 public abstract class BaseAgent extends AbstractAgent implements Constants {
 
-
+  private final Deque<Command> cmdQueue = new ArrayDeque<>();
 
   /** This tells us if we gave the first or second nav instruction already (for
    *  the activeTrigger)
@@ -27,7 +29,28 @@ public abstract class BaseAgent extends AbstractAgent implements Constants {
         "select ?sess where {} <dom:hasSession> ?sess ?_", user.getURI());
   }
 
+  /** Add incoming command to the command queue */
+  void addCommand(Command c) {
+    cmdQueue.offer(c);
+  }
 
+  /** return and remove the last command */
+  Command removeLastCommand() {
+    return cmdQueue.poll();
+  }
+
+  /** return received command message, if any, without removing it from queue */
+  public Command getCommand(){
+    return cmdQueue.peek();
+  }
+
+  public Rdf getUser(String id) {
+    // query db for user with id and return, or return null
+    List<Object> result =
+        query("select ?u where ?u <rdf:type> <dom:User> ?_ & ?u <dom:id> \"{}\" ?_");
+
+    return result.isEmpty() ? null : (Rdf)result.get(0);
+  }
 
   //////////////////////////////////// Method connected to TestSuite -
 

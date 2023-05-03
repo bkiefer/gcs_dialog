@@ -3,32 +3,32 @@
 // Outgoing: { "status": "motion_requested", "motion": "<motion>" }
 
 phase_three:
-if (in_msg.get("cmd") == "motion_request"){
-	// Intro Dialog Phase 3
-	emitDA(#Inform(Phase3));
-	lastDAprocessed();
-	// ask motion
-	String motion = in_msg.get("motion");
-	emitDA(#Inform(Motion, body_part={motion}));
-	// send signal motion_requested
-	out_signal.clear();
-    out_signal.put("status", "motion_requested");
-    out_signal.put("motion", motion);
-    getHub().sendSignal(out_signal);
+if (in_msg && in_msg.cmd == "motion_request"){
+  // Intro Dialog Phase 3
+  emitDA(#Inform(Phase3));
+  lastDAprocessed();
+  // ask motion
+  String motion = in_msg.motion;
+  emitDA(#Inform(Motion, body_part={motion}));
+  // send signal motion_requested
+  out_signal.clear();
+  out_signal.put("status", "motion_requested");
+  out_signal.put("motion", motion);
+  getHub().sendSignal(out_signal);
 }
 
 
 /** finalizing */
 // Incoming: { "cmd": "finalize" }
-// Outgoing: { "status": "finalizing", "state": "started"/"stopped" 
+// Outgoing: { "status": "finalizing", "state": "started"/"stopped"
 
 gcs_end:
-if (in_msg.get("cmd") == "finalize"){
-	emitDA(#Inform(Thanks));
-	// send signal
-	out_signal.clear();
-    out_signal.put("status", "finalizing");
-    out_signal.put("state", "stopped");
-    getHub().sendSignal(out_signal);
-    lastDAprocessed();
+if (in_msg.cmd == "finalize"){
+  emitDA(#Inform(Thanks));
+  // send signal
+  out_signal.clear();
+  out_signal.put("status", "finalizing");
+  out_signal.put("state", "stopped");
+  getHub().sendSignal(out_signal);
+  lastDAprocessed();
 }
