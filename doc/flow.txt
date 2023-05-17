@@ -17,7 +17,7 @@
    <-- { "status": "initial_greeting", "arg0": "eyes_open" }
 
 * Verbal Test
---> { "cmd": "test_conversation", "arg0": "eyes_open"/"eyes_closed" }
+--> { "cmd": "test_conversation" }
 <-- { "status": "test_conversation", "arg0": "started" }
 1. Select simple question and pose it
 2. After question has been posed, _Analysis Phase_ starts
@@ -27,6 +27,7 @@
 - start timer to account for no ASR result
 - if we get a result, or after timeout, depending on detector values
   <-- { "status": "speech_articulate", "arg0": "yes"/"no" }
+  <-- { "status": "no_speech" }
 - if we get a result, check it against the question
   a. answer is correct --> maybe ask second (harder) question
   b. answer is incorrect --> reiterate with question of same difficulty
@@ -51,4 +52,6 @@ R: "You did that well, thanks!"
 --> { "cmd": "finalize" }
 <-- { "status": "finalizing", "state": "started" }
 R: "Thank you for being so cooperative. I have to now go to the next patient, but someone will get to you soon and get you away from here."
-<-- { "status": "finalizing", "state": ~"stopped" }
+<-- { "status": "finalizing", "state": "stopped" }
+--> { "cmd": "end_gcs", "id": "<user_id>" }
+1. Close session, current_session = null, user = null

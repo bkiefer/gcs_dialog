@@ -11,7 +11,7 @@ Signal Begrüßung:
   { "cmd": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
 
 Signal Test Verbal Score:
-  { "cmd": "test_conversation", "arg0": "eyes_open"/"eyes_closed" }
+  { "cmd": "test_conversation" }
 
 Signal Test Motorik je nach Lage: Signal welches Körperteil
   { "cmd": "motion_request", "arg0": "<motion>" }
@@ -23,28 +23,40 @@ Signal Motorik-Request erfolgreich?
 Signal GCS fertig
   { "cmd": "finalize" }
 
+Signal GCS Ende
+  { "cmd": "end_gcs" }
+
+Signal Abfrage Mundbewegung: Falls das mehr Rechenzeit braucht, sonst einfach
+permanent all n Sekunden.
+
+{ "cmd": "check_mouth_movement", "arg0": "yes"/"no" }
+
 * dialogue --> core
 
 topic: dialogue/messages
 
-Signal Startbereit: { "status": "ready" }
+Signal Startbereit
+{ "status": "ready" }
 
 { "status": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
 
 { "status": "test_conversation", "arg0": "started" }
 
+Für UzL wahrscheinlich nicht von Belang
 { "status": "tts_started" }
-
 { "status": "tts_stopped" }
 
+(Un)artikulierte Sprache entdeckt
 { "status": "speech_articulate", "arg0": "yes"/"no" }
 
+Keine Sprache, obwohl erwartet
+{ "status": "no_speech" }
+
+Score aus Sicht des verbalen Tests
 { "status": "test_conversation", "arg0": "score_5/4/3/2/1" }
 
+Meldung: die Bewegung wurde per Sprache angefordert
 { "status": "motion_requested", "arg0": "<motion>" }
 
+Meldung: die Verabschiedung wurde initiiert/beendet
 { "status": "finalizing", "arg0": "started"/"stopped" }
-
-Signal Abfrage Mundbewegung (+2)
-
-{ "cmd": "check_mouth_movement", "arg0": "yes"/"no" }
