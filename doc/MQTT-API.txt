@@ -1,4 +1,4 @@
-Alle Nachrichten: mit eindeutiger user-ID & timestamp
+Alle Nachrichten: mit eindeutiger user-ID & timestamp (long, unix timestamp)
 
 * core --> dialogue
 
@@ -8,17 +8,17 @@ Signal Start GCS/Initialisierung: (NICHT Begrüßung: Signal Check auf Augen +3)
   { "cmd": "start_gcs", "id": "<user_id>" }
 
 Signal Begrüßung:
-  { "cmd": "initial_greeting", "eyes": "open"/"closed" }
+  { "cmd": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
 
 Signal Test Verbal Score:
-  { "cmd": "test_conversation", "eyes": "open"/"closed" }
+  { "cmd": "test_conversation", "arg0": "eyes_open"/"eyes_closed" }
 
 Signal Test Motorik je nach Lage: Signal welches Körperteil
-  { "cmd": "motion_request", "motion": "<motion>" }
+  { "cmd": "motion_request", "arg0": "<motion>" }
 
 Signal Motorik-Request erfolgreich?
   - Unser Vorschlag: wir starten einen Time-Out, damit wir einen 2. Versuch starten können, und melden den Ablauf des Time-Outs als Misserfolg zurück. Wenn wir dieses Signal erhalten, werten wir den Versuch als Erfolg.
-  { "cmd": "motion_executed", "value": "<motion>" }
+  { "cmd": "motion_executed", "arg0": "<motion>" }
 
 Signal GCS fertig
   { "cmd": "finalize" }
@@ -29,22 +29,22 @@ topic: dialogue/messages
 
 Signal Startbereit: { "status": "ready" }
 
-{ "status": "initial_greeting", "state": "started" }
+{ "status": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
 
-{ "status": "test_conversation", "state": "started"}
+{ "status": "test_conversation", "arg0": "started" }
 
 { "status": "tts_started" }
 
 { "status": "tts_stopped" }
 
-{ "status": "speech_analysed", "articulate": "yes"/"no" }
+{ "status": "speech_articulate", "arg0": "yes"/"no" }
 
-{ "status": "test_conversation", "state": "stopped", "score": 5/4/3 }
+{ "status": "test_conversation", "arg0": "score_5/4/3/2/1" }
 
-{ "status": "motion_requested", "motion": "<motion>" }
+{ "status": "motion_requested", "arg0": "<motion>" }
 
-{ "status": "finalizing", "state": "started"/"stopped" }
+{ "status": "finalizing", "arg0": "started"/"stopped" }
 
 Signal Abfrage Mundbewegung (+2)
 
-{ "cmd": "check_mouth_movement", "movement": "yes"/"no" }
+{ "cmd": "check_mouth_movement", "arg0": "yes"/"no" }

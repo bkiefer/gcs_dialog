@@ -1,20 +1,32 @@
 * Initialisation:
+--> { "cmd": "start_gcs", "id": "<user_id>", time: "<timestamp_long>" }
 1. check if a user with id is already there
 2. if not, create user RDF object
 3. create a session object and add it to the sessions of the user, and set it as the current session
    - All DAs (in and out) are added to the session
-* Begrüßung: (mit user id)
-1. Greeting DA -> based on No. sessions
-2. depending on eyes open
+<-- { "status": "ready" }
+* Begrüßung: (with user id and timestamp, from now omitting for convenience)
+--> { "cmd": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
+2a. eyes_closed:
+   Greeting
    "Could you please try to look at me?"
-   - Wait and possibly retry, after waiting time, we know tha eye status -->
-     next phase: verbal test
+   <-- { "status": "initial_greeting", "arg0": "eyes_closed" }
+       (UzL deals with timeout)
+2b. eyes_open: (what if no open eyes after timeout?)
+   Greeting, depending on first or not-first encounter
+   <-- { "status": "initial_greeting", "arg0": "eyes_open" }
+
 * Verbal Test
+--> { "cmd": "test_conversation", "arg0": "eyes_open"/"eyes_closed" }
+<-- { "status": "test_conversation", "arg0": "started" }
 1. Select simple question and pose it
-2. After question has been posed, _analysis phase_ starts
+2. After question has been posed, _Analysis Phase_ starts
 * Analysis Phase
 - start accumulation of results from "artikulierte Sprache Detektor"
+- start accumulation of "mouth_movement" detector
 - start timer to account for no ASR result
+- if we get a result, or after timeout, depending on detector values
+  <-- { "status": "speech_articulate", "arg0": "yes"/"no" }
 - if we get a result, check it against the question
   a. answer is correct --> maybe ask second (harder) question
   b. answer is incorrect --> reiterate with question of same difficulty
@@ -23,6 +35,20 @@
     "artikulierte Sprache" from first try
   - if timer ran out second time, save "artikulierte Sprache" and record
     overall result
-- Verbal questioning phase done
+- Verbal questioning phase done --> send "dialogue done" signal (w. score?)
+  <-- { "status": "test_conversation", "arg0": "score_5/4/3/2/1" }
 * Motion phase
 -- Hauke: Liste von Körperteilen / Bewegungen
+1. Do a request for motion
+--> { "cmd": "motion_request", "arg0": "<motion>" }
+2. R: "Would you please/Could you try to do <motion>"
+<-- { "status": "motion_requested", "arg0": "<motion>" }
+3. UzL sets timeout and eventually reiterates 1. (needs different NLG!)
+If motion executed:
+--> { "cmd": "motion_executed", "arg0": "<motion>" }
+R: "You did that well, thanks!"
+* Finalization
+--> { "cmd": "finalize" }
+<-- { "status": "finalizing", "state": "started" }
+R: "Thank you for being so cooperative. I have to now go to the next patient, but someone will get to you soon and get you away from here."
+<-- { "status": "finalizing", "state": ~"stopped" }
