@@ -115,12 +115,12 @@ public class BaseCommunicationHub implements CommunicationHub {
     _listeners.add(listener);
   }
 
-  /************ Send and receive messages / signals **********/
-  public void sendSignal(HashMap<String, String> signal) {
-    mapper.marshal(signal).ifPresent(json -> {
-      System.out.println(json);
-      client.sendMessage(OUT_TOPIC, json);
-    });
+  /************ Send messages / signals **********/
+  public void sendSignal(Signal signal) {
+	  mapper.marshal(signal).ifPresent(json -> {
+	  System.out.println(json);
+	  client.sendMessage(OUT_TOPIC, json);
+	  });
   }
 
   // ------------ publish new Events (Behavior, Dia, RosMessage -----------------------

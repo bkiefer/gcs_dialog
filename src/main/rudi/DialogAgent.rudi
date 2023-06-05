@@ -9,6 +9,9 @@ BaseCommunicationHub getHub() {
 // incoming MQTT messages are received using a callback
 Command in_msg = getCommand();
 
+Signal out_msg;
+out_msg = new Signal();
+
 Session session;
 
 // treat the initial part: either session, or start_gcs required
@@ -29,6 +32,11 @@ if (! session) {
         user.id = in_msg.user_id;
       }
       user.sessions += session;
+      //<-- { "status": "ready" }
+      out_msg.user_id = user.id;
+      out_msg.state = "ready";
+      out_msg.timestamp = now();
+      getHub().sendSignal(out_msg);
     }
   } else {
     cancel;
@@ -42,18 +50,10 @@ if (in_msg && in_msg.user_id != user.id) {
               in_msg.user_id);
 }
 
-if (in_msg && in_msg.cmd == "initial_greeting") {
-  if (! saidInSession(#Greeting(top))) {
-    emitDA(#Greeting({user.sessions.size() > 1 ? "Initial" : "NotInitial"},
-                     eyes={in_msg.arg0}));
-    session.state = "greeted";
-    removeLastCommand();
-  }
-}
 
 //include test;
 //include Phase_0;
-//include Phase_1;
+include Phase_1;
 //include Phase_2;
 //include Phase_3;
 //include Phase_5;

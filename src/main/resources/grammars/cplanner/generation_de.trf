@@ -1,24 +1,56 @@
 //Greet, introduce
-raw:Inform ^ DRZGreet
+raw:Inform ^ DRZGreet {
+  ^ <theme>"NotInitial"
+  ->
+  # = :canned ^ <string>"Hallo nochmal. Wir haben Ihren Zustand bereits überprüft und die Rettungskräfte informiert." .
+  //TODO
+
+  ^ <theme>"Initial" {
+  
+    ^ <eyes>"eyes_open"    
+  	->
+  	# = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. 
+  							Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+ 
+    ^ <eyes>"eyes_closed"    
+  	# = :canned ^ <string>random("Können Sie Ihre Augen öffnen?",
+                                 "Öffnen Sie bitte Ihre Augen.",
+                                 "Wenn Sie mich hören können, öffnen Sie bitte Ihre Augen.") .
+    }
+}
+  
+   
+raw:Inform ^ Fragen
     ->
-    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. 
-    Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
-    //TODO: Formulierungen:
-    //die der Behandlung / einer Einschätung ihrer Situation
-    //die einer schnelleren Rettung / der Beschleunigung Ihrer Rettung dienen.
+    # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen.".
+      //TODO: Formulierungen:
+  //die der Behandlung / einer Einschätung ihrer Situation
+  //die einer schnelleren Rettung / der Beschleunigung Ihrer Rettung dienen.
 
 raw:Inform ^ DRZGreet_I
     ->
     # = :canned ^ <string>"Keine Sorge. Hilfe ist unterwegs.".
 
 
+// TODO genaue Angabe, wo sich Box befindet bzw. was fixiert werden soll
+raw:Inform ^ Fixpunkt
+    ->
+    # = :canned ^ <string>random("Fixieren Sie bitte die grüne Box.",
+                                    "Schauen Sie bitte auf die grüne Box.") .
+
 /******************************************************************************/
 //phase1: ask to open eyes
-raw:Inform ^ eyes
+raw:Inform ^ OpenEyes
     ->
-    # = :canned ^ <string>random("Können Sie Ihre Augen öffnen?",
-                                    "Öffnen Sie bitte Ihre Augen.",
-                                    "Wenn Sie mich hören können, öffnen Sie bitte Ihre Augen.") .
+    # = :canned ^ <string>"Oeffnen Sie bitte die Augen, wenn Sie mich hoeren koennen.".
+
+
+raw:Inform ^ Thanks
+    ->
+    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden
+    in Kürze hier eintreffen.".
+//TODO: Formulierung: 
+
 
 /******************************************************************************/
 // Questions Phase 2: verbal Phase
@@ -100,34 +132,6 @@ raw:Inform ^ Motion {
   ->
   # = :canned ^ <string>"Bitte versuchen Sie, Ihr Bein zu bewegen." .
   
-/******************************************************************************/
-
-raw:Inform ^ Fragen
-    ->
-    # = :canned ^ <string>"Ich werde Ihnen gleich ein paar Fragen stellen, um zu erfahren was Ihnen fehlt.".
-
-// TODO genaue Angabe, wo sich Box befindet bzw. was fixiert werden soll
-raw:Inform ^ Fixpunkt
-    ->
-    # = :canned ^ <string>random("Fixieren Sie bitte die grüne Box.",
-                                    "Schauen Sie bitte auf die grüne Box.") .
-
-raw:Inform ^ OpenEyes
-    ->
-    # = :canned ^ <string>"Oeffnen Sie bitte die Augen, wenn Sie mich hoeren koennen.".
-
-
-raw:Inform ^ HeyOpenEyes
-    ->
-    # = :canned ^ <string>"Hey. Augen auf!".
-
-
-raw:Inform ^ Thanks
-    ->
-    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden
-    in Kürze hier eintreffen.".
-//TODO: Formulierung: 
-
 
 /******************************************************************************/
 //memorize Person

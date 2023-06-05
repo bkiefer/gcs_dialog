@@ -1,6 +1,6 @@
 User user;
 Robot robot;
-String state;
+//String state;
 Boolean isUZLTest;
 
 Command getCommand();
@@ -12,9 +12,14 @@ User getUser(String id);
 #Command String user_id;
 #Command String arg0;
 
+#Signal String state;
+#Signal String user_id;
+#Signal String arg0;
+#Signal long timestamp;
+
 DayTime getDayTime();
 #DayTime String toString();
 
 #Calendar int get(Object o);
 
-#BaseCommunicationHub void sendSignal(HashMap<String, String> map);
+#BaseCommunicationHub void sendSignal(Signal signal);

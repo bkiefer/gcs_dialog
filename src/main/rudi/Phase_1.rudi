@@ -1,30 +1,20 @@
 /** Initial Greeting / Ansprache Augen */
-// Incoming:  { "cmd": "initial_greeting", "eyes": "open"/"closed" }
-// outgoing: "open": { "status": "test_conversation", "state": "started", "phase": 5/4/3 } (Signal: verbal check)
-//			 "closed": { "status": "initial_greeting", "state": "started" } (Signal: Ansprache Augen begonnen)
+// Incoming:  --> { "cmd": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
+// outgoing:   <-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
 
 phase_one:
-if (in_msg.cmd == "initial_greeting"){
-  switch (in_msg.eyes) {
-  case "open":
-    emitDA(#Inform(DRZGreet));
-    lastDAprocessed();
-    out_signal.clear();
-    out_signal.put("status", "test_conversation");
-    out_signal.put("state", "started");
-    out_signal.put("phase", "2");
-    getHub().sendSignal(out_signal);
-    break;
-  case "closed":
-    emitDA(#Inform(DRZGreet));
-    lastDAprocessed();
-    emitDA(#Inform(OpenEyes));
-    lastDAprocessed();
-    out_signal.clear();
-    out_signal.put("status", "initial_greeting");
-    out_signal.put("state", "started");
-    getHub().sendSignal(out_signal);
-    break;
-  default: break;
-  }
+if (in_msg && in_msg.cmd == "initial_greeting") {
+  //if (! saidInSession(#Greeting(top))) {
+    emitDA(#Inform(DRZGreet, theme={user.sessions.size() > 1 ? "NotInitial" : "Initial"},
+                     eyes={in_msg.arg0}));
+    session.state = "greeted";
+    //<-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
+    out_msg.user_id = user.id;
+    out_msg.state = "initial_greeting";
+    out_msg.arg0 = in_msg.arg0;
+    out_msg.timestamp = now();
+    getHub().sendSignal(out_msg);
+    
+    removeLastCommand();
+  //}
 }
