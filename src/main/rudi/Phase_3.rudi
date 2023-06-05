@@ -1,34 +1,67 @@
-/** motor skills */
-// Incoming: { "cmd": "motion_request", "motion": "<motion>" }
-// Outgoing: { "status": "motion_requested", "motion": "<motion>" }
+/** Motion Phase */
+// Incoming: --> { "cmd": "motion_request", "arg0": "<motion>" }
+// Outgoing: <-- { "status": "motion_requested", "arg0": "<motion>" }
+
+// boolean to check if introduction to motion phase was already given or not
+Boolean intro_motion = false;
 
 phase_three:
 if (in_msg && in_msg.cmd == "motion_request"){
-  // Intro Dialog Phase 3
-  emitDA(#Inform(Phase3));
-  lastDAprocessed();
+  if (! intro_motion){
+  	// Intro Dialog Phase 3
+  	emitDA(#Inform(Phase3));
+  	lastDAprocessed();
+  	intro_motion = true;
+  }
   // ask motion
-  String motion = in_msg.motion;
-  emitDA(#Inform(Motion, body_part={motion}));
+  emitDA(#Inform(Motion, body_part={in_msg.arg0}));
+  // TODO
+  // session.state = "motion_requested";
   // send signal motion_requested
-  out_signal.clear();
-  out_signal.put("status", "motion_requested");
-  out_signal.put("motion", motion);
-  getHub().sendSignal(out_signal);
+  // out_msg.clear();
+  out_msg.user_id = user.id;
+  out_msg.state = "motion_requested";
+  out_msg.arg0 = in_msg.arg0;
+  out_msg.timestamp = now();
+  getHub().sendSignal(out_msg);
+  
+  removeLastCommand();
 }
+
+// motion executed:
+// --> { "cmd": "motion_executed", "arg0": "<motion>" }
+if (in_msg && in_msg.cmd == "motion_executed"){
+  emitDA(#Inform(MotionExecuted));
+  
+  removeLastCommand();
+}
+
 
 
 /** finalizing */
 // Incoming: { "cmd": "finalize" }
 // Outgoing: { "status": "finalizing", "state": "started"/"stopped"
 
-gcs_end:
-if (in_msg.cmd == "finalize"){
+finalizing:
+if (in_msg && in_msg.cmd == "finalize"){
+  out_msg.user_id = user.id;
+  out_msg.state = "finalizing";
+  out_msg.arg0 = "started";
+  out_msg.timestamp = now();
+  getHub().sendSignal(out_msg);
+  
   emitDA(#Inform(Thanks));
-  // send signal
-  out_signal.clear();
-  out_signal.put("status", "finalizing");
-  out_signal.put("state", "stopped");
-  getHub().sendSignal(out_signal);
-  lastDAprocessed();
+  
+  out_msg.arg0 = "stopped";
+  out_msg.timestamp = now();
+  getHub().sendSignal(out_msg);
+  
+  removeLastCommand();
+}
+
+
+//--> { "cmd": "end_gcs", "id": "<user_id>" }
+gcs_end:
+if (in_msg && in_msg.cmd == "end_gcs"){
+	//Close session, current_session = null, user = null
 }

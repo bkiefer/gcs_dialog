@@ -109,13 +109,13 @@ raw:Question ^ askPain
 
 
 /******************************************************************************/
-// Questions Phase 3: motor skills
-// TODO Instruct statt Inform?
+// Questions Phase 3: motion Phase
 
 // Inform Starting Phase 3
 raw:Inform ^ Phase3
     ->
-    # = :canned ^ <string>"Ich werde Sie jetzt bitten einige Bewegungen auszuführen. Das hilft den Rettungskräften, Ihren Zustand schneller einzuschätzen." .
+    # = :canned ^ <string>"Ich werde Sie jetzt bitten einige Bewegungen auszuführen. Das hilft den Rettungskräften, 
+    						Ihren Zustand schneller einzuschätzen." .
 
 
 // TODO welche Bewegungen bzw. body parts genau werden abgefragt? Unterscheidung recht/links?
@@ -132,6 +132,10 @@ raw:Inform ^ Motion {
   ->
   # = :canned ^ <string>"Bitte versuchen Sie, Ihr Bein zu bewegen." .
   
+  
+ raw:Inform ^ MotionExecuted
+    ->
+    # = :canned ^ <string>"Das haben Sie sehr gut gemacht, vielen Dank." .
 
 /******************************************************************************/
 //memorize Person
