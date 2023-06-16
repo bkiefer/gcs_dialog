@@ -14,8 +14,8 @@
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
      xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#">
     <owl:Ontology rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">author(s): Christian Willms, Katharina Christian</rdfs:comment>
-        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">v0.9.7</owl:versionInfo>
+        <rdfs:comment>author(s): Christian Willms, Katharina Christian</rdfs:comment>
+        <owl:versionInfo>v0.9.7</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -133,6 +133,16 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
     
 
 
@@ -386,6 +396,16 @@
     
 
 
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isRightHandOpen -->
 
     <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isRightHandOpen">
@@ -431,6 +451,16 @@
     <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#performsGesture">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -547,10 +577,24 @@
     
 
 
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
+    
+
+
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Inanimate -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Inanimate">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
     </owl:Class>
     
 
@@ -569,11 +613,19 @@
     
 
 
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion -->
+
+    <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion">
+        <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       note: the properties defined on class dom:Child can in principle be
       relocated to the superclass dom:Actor, but I think it is not interesting
       to know, say, who the father or brother of a treating physician is here
@@ -593,6 +645,28 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion"/>
+        <NERLabel>AGE</NERLabel>
+        <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrientation>
+        <questionLabel>askAge</questionLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion"/>
+        <NERLabel>Date</NERLabel>
+        <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrientation>
+        <questionLabel>askBirthday</questionLabel>
+    </owl:NamedIndividual>
     
 
 
@@ -647,7 +721,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyDevice -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyDevice">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       Used for the relation &apos;reqDevice&apos;. If the entity does not require a
       device, this instance is being used.
     &lt;/p&gt;</rdfs:comment>
@@ -658,7 +732,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyLanguage -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyLanguage">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       Used for the relation &apos;reqLanguage&apos;. If the entity does not require a
       language, this instance is being used.
     &lt;/p&gt;</rdfs:comment>
@@ -672,9 +746,31 @@
     
 
 
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion"/>
+        <NERLabel>Date</NERLabel>
+        <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrientation>
+        <questionLabel>askMonth</questionLabel>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NL -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NL"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion"/>
+        <NERLabel>NAME</NERLabel>
+        <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrientation>
+        <questionLabel>askName</questionLabel>
+    </owl:NamedIndividual>
     
 
 
@@ -753,6 +849,28 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckVI_koffi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckVI_koffi"/>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion"/>
+        <NERLabel>Date</NERLabel>
+        <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrientation>
+        <questionLabel>askWeekday</questionLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year -->
+
+    <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year">
+        <rdf:type rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion"/>
+        <NERLabel>Date</NERLabel>
+        <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrientation>
+        <questionLabel>askYear</questionLabel>
+    </owl:NamedIndividual>
     
 
 
@@ -861,7 +979,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bmi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bmi">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       body mass index
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
@@ -895,7 +1013,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bsl -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bsl">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       blood sugar level, measured either in mmol/L or mg/dL
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
@@ -917,7 +1035,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cho -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cho">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       carbohydrate intake
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
@@ -945,7 +1063,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">diastolic blood pressure</rdfs:comment>
+        <rdfs:comment>diastolic blood pressure</rdfs:comment>
     </owl:NamedIndividual>
     
 
@@ -959,7 +1077,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dosage -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dosage">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       assign the right XSD datatype to dosage for subtypes of dom:Medication;
     &lt;/p&gt;
     &lt;p style=&quot;margin-top: 0&quot;&gt;
@@ -978,7 +1096,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">always use this singleton instance</rdfs:comment>
+        <rdfs:comment>always use this singleton instance</rdfs:comment>
     </owl:NamedIndividual>
     
 
@@ -1130,7 +1248,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasParticipant -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasParticipant">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       other participants involved in the activity
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
@@ -1218,7 +1336,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hr -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hr">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;p style=&quot;margin-top: 0&quot;&gt;
+        <rdfs:comment>&lt;p style=&quot;margin-top: 0&quot;&gt;
       heart rate
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
@@ -1282,7 +1400,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">always use this singleton instance</rdfs:comment>
+        <rdfs:comment>always use this singleton instance</rdfs:comment>
     </owl:NamedIndividual>
     
 
@@ -1410,7 +1528,7 @@
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">systolic blood pressure</rdfs:comment>
+        <rdfs:comment>systolic blood pressure</rdfs:comment>
     </owl:NamedIndividual>
     
 
@@ -1538,11 +1656,11 @@
      -->
 
     <rdf:Description rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age">
-        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">needs to be associated with the transaction time stamp</rdfs:comment>
+        <rdfs:comment>needs to be associated with the transaction time stamp</rdfs:comment>
     </rdf:Description>
 </rdf:RDF>
 
 
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
 

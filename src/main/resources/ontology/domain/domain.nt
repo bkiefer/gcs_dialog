@@ -6,10 +6,15 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#affected> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#affected> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#affected> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> "AGE" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> "askAge" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/2000/01/rdf-schema#comment> "needs to be associated with the transaction time stamp"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/2000/01/rdf-schema#comment> "needs to be associated with the transaction time stamp" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#int> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#aggressive> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -45,17 +50,22 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#baseball> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#basket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bike> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> "Date" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> "askBirthday" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#birthdate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#black> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#blue> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bmi> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bmi> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      body mass index\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bmi> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      body mass index\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bocce> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bowl> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#box> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#brown> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bsl> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bsl> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      blood sugar level, measured either in mmol/L or mg/dL\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bsl> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      blood sugar level, measured either in mmol/L or mg/dL\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cancelWorkflow> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cancelWorkflow> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cancelWorkflow> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor> .
@@ -63,19 +73,19 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#chess> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#chill> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cho> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cho> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      carbohydrate intake\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cho> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      carbohydrate intake\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#client_lost> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cyan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp> <http://www.w3.org/2000/01/rdf-schema#comment> "diastolic blood pressure"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp> <http://www.w3.org/2000/01/rdf-schema#comment> "diastolic blood pressure" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#depressive> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#description> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#DoctorAppointment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dosage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dosage> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      assign the right XSD datatype to dosage for subtypes of dom:Medication;\n    </p>\n    <p style=\"margin-top: 0\">\n      e.g., xsd:iu (international unit) for dom:InsulinTaking\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dosage> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      assign the right XSD datatype to dosage for subtypes of dom:Medication;\n    </p>\n    <p style=\"margin-top: 0\">\n      e.g., xsd:iu (international unit) for dom:InsulinTaking\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter_failure> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter_success> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -83,9 +93,9 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit_success> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyDevice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyDevice> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      Used for the relation 'reqDevice'. If the entity does not require a\n      device, this instance is being used.\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyDevice> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      Used for the relation 'reqDevice'. If the entity does not require a\n      device, this instance is being used.\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyLanguage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyLanguage> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      Used for the relation 'reqLanguage'. If the entity does not require a\n      language, this instance is being used.\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyLanguage> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      Used for the relation 'reqLanguage'. If the entity does not require a\n      language, this instance is being used.\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Encounter> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Encounter> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EN> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -93,7 +103,7 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ExternalProcess> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female> <http://www.w3.org/2000/01/rdf-schema#comment> "always use this singleton instance"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female> <http://www.w3.org/2000/01/rdf-schema#comment> "always use this singleton instance" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#football> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#forename> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#game> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -109,6 +119,7 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#int> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#golf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#green> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#grey> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -180,7 +191,7 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPain> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPain> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#boolean> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasParticipant> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasParticipant> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      other participants involved in the activity\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasParticipant> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      other participants involved in the activity\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPhysicalState> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPreference> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSentiment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -199,10 +210,10 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#height> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hockey> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hr> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hr> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      heart rate\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hr> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      heart rate\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain> <http://www.w3.org/2000/01/rdf-schema#comment> "author(s): Christian Willms, Katharina Christian"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain> <http://www.w3.org/2002/07/owl#versionInfo> "v0.9.7"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain> <http://www.w3.org/2000/01/rdf-schema#comment> "author(s): Christian Willms, Katharina Christian" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain> <http://www.w3.org/2002/07/owl#versionInfo> "v0.9.7" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#iceskate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#id> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#id> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
@@ -221,6 +232,10 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#boolean> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isRightHandOpen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isRightHandOpen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isRightHandOpen> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor> .
@@ -245,17 +260,33 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#magenta> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#makemusic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male> <http://www.w3.org/2000/01/rdf-schema#comment> "always use this singleton instance"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male> <http://www.w3.org/2000/01/rdf-schema#comment> "always use this singleton instance" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#memorize_person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#minecraft> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> "Date" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> "askMonth" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#music> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> "NAME" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> "askName" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Navigating> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#navy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#negative> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#neutral> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NL> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#numberOfSeriousIssues> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#other> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#performsGesture> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#performsGesture> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
@@ -267,6 +298,10 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ping> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#positive> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#purple> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#read> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#red> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#remark> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -290,7 +325,7 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Room> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#rugby> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp> <http://www.w3.org/2000/01/rdf-schema#comment> "systolic blood pressure"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp> <http://www.w3.org/2000/01/rdf-schema#comment> "systolic blood pressure" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessions> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessions> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> .
@@ -299,6 +334,8 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessionUser> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessionUser> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessionUser> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sing> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#skate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ski> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -325,16 +362,26 @@
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#turquoise> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#useDevice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      note: the properties defined on class dom:Child can in principle be\n      relocated to the superclass dom:Actor, but I think it is not interesting\n      to know, say, who the father or brother of a treating physician is here\n      in PAL :*); and of course to make a distinction between animated and\n      inanimated actors, as the properties probably only make sense for\n      animated actors\n    </p>"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> <http://www.w3.org/2000/01/rdf-schema#comment> "<p style=\"margin-top: 0\">\n      note: the properties defined on class dom:Child can in principle be\n      relocated to the superclass dom:Actor, but I think it is not interesting\n      to know, say, who the father or brother of a treating physician is here\n      in PAL :*); and of course to make a distinction between animated and\n      inanimated actors, as the properties probably only make sense for\n      animated actors\n    </p>" .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#violet> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#volly> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> "Date" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> "askWeekday" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#white> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#withPatient> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#withPatient> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#withPatient> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Robot> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#withPatient> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#boolean> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#write> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel> "Date" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel> "askYear" .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#yellow> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#yoga> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#youtube> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
