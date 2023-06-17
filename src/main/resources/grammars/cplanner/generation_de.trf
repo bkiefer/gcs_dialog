@@ -67,43 +67,54 @@ raw:YNQuestion ^ checkResponseAgain
     ->
     # = :canned ^ <string>"Wenn Sie mich hören können, sagen Sie bitte etwas." .
 
-raw:Question ^ askName
+raw:Question ^ Name
+    ->
+    # = :canned ^ <string>random("Wie heißen Sie?",
+                                    "Sagen Sie mir bitte, wie Sie heißen.") .
+                                    
+raw:Question ^ NAME
     ->
     # = :canned ^ <string>random("Wie heißen Sie?",
                                     "Sagen Sie mir bitte, wie Sie heißen.") .
 
-raw:Question ^ askDay
+raw:Question ^ Day
     ->
     # = :canned ^ <string>"Sagen Sie mir bitte, welcher Wochentag heute ist." .
 
-raw:Question ^ askAdress
+raw:Question ^ Adress
     ->
     # = :canned ^ <string>"Sagen Sie mir bitte, wo Sie wohnen." .
 
 
-raw:Question ^ askBirthdate
+raw:Question ^ Birthdate
     ->
     # = :canned ^ <string>random("Wann sind Sie geboren?",
                                     "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
-raw:Question ^ askAge
+raw:Question ^ Date
+    ->
+    # = :canned ^ <string>random("Wann sind Sie geboren?",
+                                    "Nennen Sie mir bitte Ihr Geburtsdatum.") .
+
+raw:Question ^ Age
+    ->
+    # = :canned ^ <string>"Wie alt sind Sie?" .
+    
+raw:Question ^ AGE
     ->
     # = :canned ^ <string>"Wie alt sind Sie?" .
 
-raw:Question ^ askMonth
+raw:Question ^ Month
     ->
     # = :canned ^ <string>"Wissen Sie, welcher Monat ist?" .
     
-raw:Question ^ askYear
+raw:Question ^ Year
     ->
     # = :canned ^ <string>"Wissen Sie, welches Jahr wir haben?" .
     
-raw:Question ^ askDate
-    ->
-    # = :canned ^ <string>"Wissen Sie, welches Datum heute ist?" .
 
 // TODO
-raw:Question ^ askPain
+raw:Question ^ Pain
     ->
     # = :canned ^ <string>"Haben Sie aktuell Schmerzen?" .
 

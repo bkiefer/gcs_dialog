@@ -3,6 +3,7 @@ package de.dfki.vondabase;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+import java.util.Random;
 
 import de.dfki.lt.hfc.db.rdfProxy.Rdf;
 
@@ -50,6 +51,15 @@ public abstract class BaseAgent extends AbstractAgent implements Constants {
         query("select ?u where ?u <rdf:type> <dom:User> ?_ & ?u <dom:id> \"{}\" ?_");
 
     return result.isEmpty() ? null : (Rdf)result.get(0);
+  }
+ 
+  
+  public Rdf getRandomItem (String type_uri) {
+	String query = String.format(
+        "select ?a where ?a <rdf:type> %s ?_", type_uri);
+	List<Object> items = _proxy.query(query);
+	Random rand = new Random(); 
+	return items.isEmpty() ? null : (Rdf)items.get(rand.nextInt(items.size()));
   }
 
   //////////////////////////////////// Method connected to TestSuite -

@@ -8,6 +8,8 @@ Command removeLastCommand();
 
 User getUser(String id);
 
+Rdf getRandomItem (String type_uri);
+
 #Command String cmd;
 #Command String user_id;
 #Command String arg0;
@@ -16,6 +18,9 @@ User getUser(String id);
 #Signal String user_id;
 #Signal String arg0;
 #Signal long timestamp;
+
+#GcsQuestion String topic;
+#GcsQuestion Boolean orientation;
 
 DayTime getDayTime();
 #DayTime String toString();

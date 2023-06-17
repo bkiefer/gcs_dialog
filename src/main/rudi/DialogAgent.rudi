@@ -12,6 +12,9 @@ Command in_msg = getCommand();
 Signal out_msg;
 out_msg = new Signal();
 
+//GcsQuestion curr_question;
+
+GcsQuestion currQuestion;
 Session session;
 
 // treat the initial part: either session, or start_gcs required
@@ -54,6 +57,6 @@ if (in_msg && in_msg.user_id != user.id) {
 //include test;
 //include Phase_0;
 include Phase_1;
-//include Phase_2;
+include Phase_2;
 include Phase_3;
 //include Phase_5;
