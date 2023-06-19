@@ -6,7 +6,6 @@ import java.util.Random;
 TODOs
 - evtl mit Yes/no Frage starten? ("Können Sie mich hören?")
 - accumulation part, timer
-- Score bei no_speech, no_art mit ausgeben (zweites Signal)?
 - save the result of questioning and "artikulierte sprache" into session object
 **/
 
@@ -125,31 +124,11 @@ void askSimple(){
 	emitDA(#Question({currQuestion.questionLabel}));
 }
 
-/** 
-void askSimple(){
-	curr_question = new GcsQuestion();
-	Random rand = new Random(); 
-  	curr_question.topic = simple_questions.get(rand.nextInt(simple_questions.size()));
-  	curr_question.orientation = false; 
-  	emitDA(#Question({curr_question.topic}));
-}
-*/
-
+/** ask orientation question */
 void askOrientation(){
 	currQuestion = getRandomItem("dom:OrientationQuestion");
 	emitDA(#Question({currQuestion.questionLabel}));
 }
-
-/** ask orientation question */
-/**
-void askOrientation(){
-	curr_question = new GcsQuestion();
-	Random rand = new Random(); 
-  	curr_question.topic = orientation_questions.get(rand.nextInt(orientation_questions.size()));
-  	curr_question.orientation = true; 
-  	emitDA(#Question({curr_question.topic}));
-}
-*/
 
 /** Analyze result after question */
 void analyzeResult(GcsQuestion question){
@@ -251,7 +230,7 @@ Boolean checkOrientation (GcsQuestion question){
     correct = months.get(calendar.get(Calendar.MONTH));
     break;
   case "Year":
-    correct = String.valueOf(months.get(calendar.get(Calendar.YEAR)));
+    correct = String.valueOf(calendar.get(Calendar.YEAR));
     break;
   default:
     // TODO
