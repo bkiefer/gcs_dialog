@@ -1,0 +1,16 @@
+if (in_msg && in_msg.cmd == "mouth_movement") {
+  if (time_passed >=0 && in_msg.arg0 == "yes") {
+    ++ total_mouth_moves;
+  }
+  removeLastCommand();
+}
+
+if (in_msg && in_msg.cmd == "articulate_speech") {
+  if (time_passed >= 0) {
+    ++ total_articulate;
+    if (in_msg.arg0 == "yes") {
+      ++ positive_articulate;
+    }
+  }
+  removeLastCommand();
+}

@@ -17,6 +17,31 @@ out_msg = new Signal();
 GcsQuestion currQuestion;
 Session session;
 
+// accumulate signals for articulate speech and mouth movements
+// amount of speech that should at least be articulate
+ARTICULATE_THRESHOLD = 0.7;
+// how many mouth movents should have been detected to acknowledge activity?
+// this is depending on the rate of the incoming signal and total time
+NO_MOUTH_THRESHOLD = 0.3;
+long time_passed; // if < 0, signals we're not waiting for speech signals
+int total_articulate;
+int positive_articulate;
+int total_mouth_moves;
+
+void start_speech_check() {
+  time_passed = now();
+  total_articulate = positive_articulate = total_mouth_moves = 0;
+}
+
+int end_speech_check() {
+  passed = 1.0 * (now() - time_passed);
+  time_passed = -1;
+  if ((passed / total_mouth_moves) < NO_MOUTH_THRESHOLD)
+    return -1; // no activity
+  return (1.0 * positive_articulate / total_articulate
+          > ARTICULATE_THRESHOLD) ? 1 : 0;
+}
+
 // treat the initial part: either session, or start_gcs required
 
 if (! session) {
@@ -56,6 +81,7 @@ if (in_msg && in_msg.user_id != user.id) {
 
 //include test;
 //include Phase_0;
+include accumulator;
 include Phase_1;
 include Phase_2;
 include Phase_3;
