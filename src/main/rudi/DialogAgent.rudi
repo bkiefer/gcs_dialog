@@ -12,15 +12,13 @@ Command in_msg = getCommand();
 Signal out_msg;
 out_msg = new Signal();
 
-//GcsQuestion curr_question;
-
 GcsQuestion currQuestion;
 Session session;
 
 // accumulate signals for articulate speech and mouth movements
 // amount of speech that should at least be articulate
 ARTICULATE_THRESHOLD = 0.7;
-// how many mouth movents should have been detected to acknowledge activity?
+// how many mouth movements should have been detected to acknowledge activity?
 // this is depending on the rate of the incoming signal and total time
 NO_MOUTH_THRESHOLD = 0.3;
 long time_passed; // if < 0, signals we're not waiting for speech signals

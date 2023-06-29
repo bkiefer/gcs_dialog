@@ -4,8 +4,6 @@ import java.util.Random;
 
 /**
 TODOs
-- evtl mit Yes/no Frage starten? ("Können Sie mich hören?")
-- accumulation part, timer
 - save the result of questioning and "artikulierte sprache" into session object
 **/
 
@@ -27,18 +25,6 @@ List<String> months = {
   "Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"
 };
 
-/** array of non-orientation questions topics
-List<String> simple_questions = {
-  "NAME", "AGE", "Date"
-};
-*/
-
-/** array of orientation questions topics
-List<String> orientation_questions = {
-  "Weekday", "Month", "Year"
-};
-*/
-
 void askSimple();
 void askOrientation();
 void analyzeResult(GcsQuestion question);
@@ -48,6 +34,7 @@ Boolean checkAnswer(GcsQuestion question);
 Boolean checkOrientation(GcsQuestion question);
 
 Boolean second_try;
+Boolean no_reaction;
 String state;
 
 
@@ -60,25 +47,59 @@ phase_two_start:
 if (in_msg && in_msg.cmd == "test_conversation") {
   score_phase2 = 1;
   second_try = false;
-  //TODO: Check general response?
-  //emitDA(#YNQuestion(checkResponse));
-  // Intro Phase 2
-  emitDA(#Inform(Fragen));
-  state = "ask_question";
   
-  //Select simple question and pose it
-  askSimple();
-  out_msg.user_id = user.id;
-  out_msg.state = "test_conversation";
-  out_msg.arg0 = "started";
-  out_msg.timestamp = now();
-  getHub().sendSignal(out_msg);  
-  removeLastCommand();
-  
+  //Check general response?
+  emitDA(#YNQuestion(checkResponse));
   state="wait";
+  // wait for reaction
+  start_speech_check();
   timeout("wait", 10000){
-    state = "wait_response";
+    state = "wait_reaction";
   }
+}
+ 
+/** Check for verbal reaction to initial Y/N question*/
+phase_two_wait_reaction:
+if (state == "wait_reaction"){
+	// check reaction
+	if (end_speech_check()==-1){ // no speech detected
+		if (no_reaction){	// already second try --> send no_speech signal
+			state = "no_speech";
+			out_msg.user_id = user.id;
+			out_msg.state = "no_speech";
+			out_msg.timestamp = now();
+			getHub().sendSignal(out_msg); 
+			removeLastCommand();	
+		}else{	// try again
+			no_reaction = true;
+			emitDA(#YNQuestion(checkResponse));
+  			state="wait";
+  			start_speech_check();
+  			timeout("wait", 10000){
+    			state = "wait_reaction";
+  			}
+		}
+	}else{   // if reaction: start questioning
+		// Intro Phase 2
+	  	emitDA(#Inform(Fragen));
+	  	state = "ask_question";
+	  
+	 	//Select simple question and pose it, send conversation message
+	  	askSimple();
+	  	out_msg.user_id = user.id;
+		out_msg.state = "test_conversation";
+	  	out_msg.arg0 = "started";
+	  	out_msg.timestamp = now();
+	  	getHub().sendSignal(out_msg);  
+	  	removeLastCommand();
+	  
+	  	// check for answer
+	  	start_speech_check();
+	  	state="wait";
+	  	timeout("wait", 10000){
+	    	state = "wait_response";
+	  	}
+  	}
 }
 
 
@@ -87,31 +108,25 @@ if (in_msg && in_msg.cmd == "test_conversation") {
 
 phase_two_wait_response:
 if (state == "wait_response") {
-	// state =
-	// TODO accumulate and get result
-	String result = null; // tmp
-	Boolean articulated = false;
-	// - start accumulation of results from "artikulierte Sprache Detektor"
-	// - start accumulation of "mouth_movement" detector
-	// - start timer to account for no ASR result
-
-	// No speech / timeout:  <-- { "status": "no_speech" }
 	out_msg.user_id = user.id;
-	if (!result){
+	
+	// check articulation
+	int result = end_speech_check();
+	if (result==-1){ 	// <-- { "status": "no_speech" }
 		out_msg.state = "no_speech";
 		out_msg.timestamp = now();
-		// state = "no_speech";
+		state = "no_speech";
 	}else{	// <-- { "status": "speech_articulate", "arg0": "yes"/"no" }      
 	  	out_msg.state = "speech_articulate";
 		out_msg.timestamp = now();
-		out_msg.arg0 = articulated ? "yes" : "no";
-		// state = "articulation_check";
+		out_msg.arg0 = (result==1) ? "yes" : "no";
+		state = "articulation_check";
 	}
 	getHub().sendSignal(out_msg); 
 	removeLastCommand();
 	
 	// if articulated: check answer
-	if (result && articulated){
+	if (result==1){
 		analyzeResult(currQuestion);
 	}
 }
@@ -132,7 +147,6 @@ void askOrientation(){
 
 /** Analyze result after question */
 void analyzeResult(GcsQuestion question){
-	// TODO user_id schon gesetzt?
 	out_msg.user_id = user.id;
   	out_msg.state = "test_conversation";
   	if (!question.isOrientation){
