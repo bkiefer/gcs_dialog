@@ -28,18 +28,19 @@ services:
     ports:
       - '2700:2700'
 
-  asr_micro:
-    image: 'drz_vosk_asr'
-    container_name: 'gcs_asr_micro'
-    networks:
-      - mlt
-    volumes:
-      - ./respeaker_config.yaml:/app/user_config.yaml:ro
+  # Currently, this is using gstreamer and must be run on the machine itself
+  # asr_micro:
+  #   image: 'vosk_asr'
+  #   container_name: 'gcs_asr_micro'
+  #   networks:
+  #     - mlt
+  #   volumes:
+  #     - ./respeaker_config.yaml:/app/user_config.yaml:ro
 
   dialog_manager:
     depends_on:
       - broker
-      - asr
+#      - asr
     build:
       context: .
     image:  drz/gcs_dialog_manager:latest
