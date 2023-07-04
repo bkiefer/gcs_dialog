@@ -1,4 +1,3 @@
-import de.dfki.vondabase.utils.Triple;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -33,9 +32,14 @@ void evalOrientation(GcsQuestion question);
 Boolean checkAnswer(GcsQuestion question);
 Boolean checkOrientation(GcsQuestion question);
 
+// TODO: this should be session.state, if too complicated to be used alone,
+// get another (complex) field in session that contains the phase 2 variables
+String state;
+// TODO: these should then go into the phase2 object in session, otherwise they
+// will disappear between rule evaluations
+
 Boolean second_try;
 Boolean no_reaction;
-String state;
 
 
 /************************ START PHASE 2 ****************************************/
@@ -47,7 +51,7 @@ phase_two_start:
 if (in_msg && in_msg.cmd == "test_conversation") {
   score_phase2 = 1;
   second_try = false;
-  
+
   //Check general response?
   emitDA(#YNQuestion(checkResponse));
   state="wait";
@@ -57,49 +61,44 @@ if (in_msg && in_msg.cmd == "test_conversation") {
     state = "wait_reaction";
   }
 }
- 
+
+if (!state) cancel;
+
 /** Check for verbal reaction to initial Y/N question*/
 phase_two_wait_reaction:
 if (state == "wait_reaction"){
-	// check reaction
-	if (end_speech_check()==-1){ // no speech detected
-		if (no_reaction){	// already second try --> send no_speech signal
-			state = "no_speech";
-			out_msg.user_id = user.id;
-			out_msg.state = "no_speech";
-			out_msg.timestamp = now();
-			getHub().sendSignal(out_msg); 
-			removeLastCommand();	
-		}else{	// try again
-			no_reaction = true;
-			emitDA(#YNQuestion(checkResponse));
-  			state="wait";
-  			start_speech_check();
-  			timeout("wait", 10000){
-    			state = "wait_reaction";
-  			}
-		}
-	}else{   // if reaction: start questioning
-		// Intro Phase 2
-	  	emitDA(#Inform(Fragen));
-	  	state = "ask_question";
-	  
-	 	//Select simple question and pose it, send conversation message
-	  	askSimple();
-	  	out_msg.user_id = user.id;
-		out_msg.state = "test_conversation";
-	  	out_msg.arg0 = "started";
-	  	out_msg.timestamp = now();
-	  	getHub().sendSignal(out_msg);  
-	  	removeLastCommand();
-	  
-	  	// check for answer
-	  	start_speech_check();
-	  	state="wait";
-	  	timeout("wait", 10000){
-	    	state = "wait_response";
-	  	}
-  	}
+  // check reaction
+  if (end_speech_check()==-1){ // no speech detected
+    if (no_reaction){	// already second try --> send no_speech signal
+      state = "no_speech";
+      sendSignal("no_speech");
+      removeLastCommand();
+    } else {	// try again
+      no_reaction = true;
+      emitDA(#YNQuestion(checkResponse));
+      state="wait";
+      start_speech_check();
+      timeout("wait", 10000){
+        state = "wait_reaction";
+      }
+    }
+  } else {  // if reaction: start questioning
+    // Intro Phase 2
+    emitDA(#Inform(Fragen));
+    state = "ask_question";
+
+    //Select simple question and pose it, send conversation message
+    askSimple();
+    sendSignal("test_conversation", "started");
+    removeLastCommand();
+
+    // check for answer
+    start_speech_check();
+    state="wait";
+    timeout("wait", 10000){
+      state = "wait_response";
+    }
+  }
 }
 
 
@@ -108,118 +107,105 @@ if (state == "wait_reaction"){
 
 phase_two_wait_response:
 if (state == "wait_response") {
-	out_msg.user_id = user.id;
-	
-	// check articulation
-	int result = end_speech_check();
-	if (result==-1){ 	// <-- { "status": "no_speech" }
-		out_msg.state = "no_speech";
-		out_msg.timestamp = now();
-		state = "no_speech";
-	}else{	// <-- { "status": "speech_articulate", "arg0": "yes"/"no" }      
-	  	out_msg.state = "speech_articulate";
-		out_msg.timestamp = now();
-		out_msg.arg0 = (result==1) ? "yes" : "no";
-		state = "articulation_check";
-	}
-	getHub().sendSignal(out_msg); 
-	removeLastCommand();
-	
-	// if articulated: check answer
-	if (result==1){
-		analyzeResult(currQuestion);
-	}
+  // check articulation
+  int result = end_speech_check();
+  if (result == -1) { // <-- { "status": "no_speech" }
+    sendSignal("no_speech");
+    state = "no_speech";
+  } else { // <-- { "status": "speech_articulate", "arg0": "yes"/"no" }
+    sendSignal("speech_articulate", (result == 1) ? "yes" : "no");
+    state = "articulation_check";
+  }
+  removeLastCommand();
+
+  // if articulated: check answer
+  if (result == 1) {
+    analyzeResult(currQuestion);
+  }
 }
 
 /******************* METHODS **************************************/
 
 /** ask simple question */
 void askSimple(){
-	currQuestion = getRandomItem("dom:SimpleQuestion");
-	emitDA(#Question({currQuestion.questionLabel}));
+  currQuestion = getRandomItem("dom:SimpleQuestion");
+  emitDA(#Question({currQuestion.questionLabel}));
 }
 
 /** ask orientation question */
 void askOrientation(){
-	currQuestion = getRandomItem("dom:OrientationQuestion");
-	emitDA(#Question({currQuestion.questionLabel}));
+  currQuestion = getRandomItem("dom:OrientationQuestion");
+  emitDA(#Question({currQuestion.questionLabel}));
 }
 
 /** Analyze result after question */
 void analyzeResult(GcsQuestion question){
-	out_msg.user_id = user.id;
-  	out_msg.state = "test_conversation";
-  	if (!question.isOrientation){
-  		// evaluate simple question	
-  		evalSimple(question);
-  	}else{
-  		// evaluate orientation question
-  		evalOrientation(question);
-  	}
+  if (!question.isOrientation){
+    // evaluate simple question
+    evalSimple(question);
+  } else {
+    // evaluate orientation question
+    evalOrientation(question);
+  }
 }
 
 /** Analyze answer to simple Question */
 void evalSimple(GcsQuestion question){
-	if (checkAnswer(question)){
-		/** simple question answered correctly --> try orientation question **/
-		second_try = false; // TODO
-		askOrientation();
-		state="wait";
-  		timeout("wait", 10000){
-    		state = "wait_response";
-		}
-	}else{ 
-		/** incorrect answer simple question **/
-		// check if already second try
-		if(second_try){ // already second try --> patient not able to answer questions
-			//<-- { "status": "test_conversation", "arg0": "score_3" }
- 	 		out_msg.arg0 = "score_3";
-  			out_msg.timestamp = now();
-  			getHub().sendSignal(out_msg); 
-			removeLastCommand();
-			state = "gcs_phase3";
-		}else{
-			// first try: ask again
-			second_try = true;
-			askSimple();
-			state="wait";
-  			timeout("wait", 10000){
-    			state = "wait_response";
-			}
-		}
-	}
+  if (checkAnswer(question)) {
+    /** simple question answered correctly --> try orientation question **/
+    second_try = false; // TODO
+    askOrientation();
+    state="wait";
+    timeout("wait", 10000){
+      state = "wait_response";
+    }
+  } else {
+    /** incorrect answer simple question **/
+    // check if already second try
+    if (second_try) {
+      // already second try --> patient not able to answer questions
+      //<-- { "status": "test_conversation", "arg0": "score_3" }
+      sendSignal("test_conversation", "score_3");
+      removeLastCommand();
+      state = "gcs_phase3";
+    } else {
+      // first try: ask again
+      second_try = true;
+      askSimple();
+      state="wait";
+      timeout("wait", 10000){
+        state = "wait_response";
+      }
+    }
+  }
 }
 
 
 /** Analyze answer to orientation question */
 void evalOrientation(GcsQuestion question){
-	if (checkOrientation(question)){
-		/** both questions answered correctly, max Score **/
-		// <-- { "status": "test_conversation", "arg0": "score_5" }
- 	 	out_msg.arg0 = "score_5";
-  		out_msg.timestamp = now();
-  		getHub().sendSignal(out_msg); 
-		removeLastCommand();
-		state = "gcs_phase3";
-	}else{ 
-		/** incorrect answer to orientation question **/
-		if(second_try){ // already second try --> patient not oriented
-			//<-- { "status": "test_conversation", "arg0": "score_4" }
- 	 		out_msg.arg0 = "score_4";
-  			out_msg.timestamp = now();
-  			getHub().sendSignal(out_msg); 
-			removeLastCommand();
-			state = "gcs_phase3";
-		}else{
-			// first try: ask again same difficulty
-			second_try = true;
-			askOrientation();
-			state="wait";
-  			timeout("wait", 10000){
-    			state = "wait_response";
-			}
-		}
-	}
+  if (checkOrientation(question)) {
+    /** both questions answered correctly, max Score **/
+    // <-- { "status": "test_conversation", "arg0": "score_5" }
+    sendSignal("test_conversation", "score_5");
+    removeLastCommand();
+    state = "gcs_phase3";
+  } else {
+    /** incorrect answer to orientation question **/
+    if (second_try) { // already second try --> patient not oriented
+      //<-- { "status": "test_conversation", "arg0": "score_4" }
+      sendSignal("test_conversation", "score_4");
+      removeLastCommand();
+      state = "gcs_phase3";
+    } else {
+      // first try: ask again same difficulty
+      second_try = true;
+      askOrientation();
+      state="wait";
+      timeout("wait", 10000){
+        state = "wait_response";
+      }
+    }
+  }
 }
 
 

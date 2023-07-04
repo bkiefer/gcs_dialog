@@ -1,5 +1,3 @@
-import de.dfki.vondabase.utils.Triple;
-import de.dfki.vondabase.utils.Quartet;
 import java.util.Calendar;
 
 BaseCommunicationHub getHub() {
@@ -9,11 +7,19 @@ BaseCommunicationHub getHub() {
 // incoming MQTT messages are received using a callback
 Command in_msg = getCommand();
 
-Signal out_msg;
-out_msg = new Signal();
-
 GcsQuestion currQuestion;
 Session session;
+
+void sendSignal(String state, String arg) {
+  if (user) {
+    getHub().sendSignal(new Signal(user.id, state, arg));
+  }
+}
+
+void sendSignal(String state) {
+  sendSignal(state, null);
+}
+
 
 // accumulate signals for articulate speech and mouth movements
 // amount of speech that should at least be articulate
@@ -45,11 +51,9 @@ int end_speech_check() {
 if (! session) {
   no_session_check_start:
   if (in_msg) {
-    if (in_msg.cmd != "start_gcs") {
-      removeLastCommand();
-      logger.warn("Invalid message outside session: {}", in_msg.cmd);
-      cancel;
-    } else {
+  session_starts:
+    if (in_msg.cmd == "start_gcs") {
+      logger.info("GCS service started");
       session = new Session; // new session
       session.state = "started";
       user = getUser(in_msg.user_id);
@@ -59,10 +63,11 @@ if (! session) {
       }
       user.sessions += session;
       //<-- { "status": "ready" }
-      out_msg.user_id = user.id;
-      out_msg.state = "ready";
-      out_msg.timestamp = now();
-      getHub().sendSignal(out_msg);
+      sendSignal("ready");
+    } else {
+      removeLastCommand();
+      logger.warn("Invalid message outside session: {}", in_msg.cmd);
+      cancel;
     }
   } else {
     cancel;
@@ -78,9 +83,27 @@ if (in_msg && in_msg.user_id != user.id) {
 
 
 //include test;
-//include Phase_0;
 include accumulator;
 include Phase_1;
 include Phase_2;
 include Phase_3;
-//include Phase_5;
+
+/** finalizing */
+// --> { "cmd": "finalize" }
+// <-- { "status": "finalizing", "state": "started"/"stopped" }
+
+finalizing:
+if (in_msg && in_msg.cmd == "finalize"){
+  sendSignal("finalizing", "started");
+  emitDA(#Inform(Thanks));
+  sendSignal("finalizing", "stopped");
+  removeLastCommand();
+}
+
+// --> { "cmd": "end_gcs", "id": "<user_id>" }
+gcs_end:
+if (in_msg && in_msg.cmd == "end_gcs"){
+  // Close session, current_session = null, user = null
+  session = null;
+  user = null;
+}

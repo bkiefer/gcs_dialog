@@ -10,9 +10,17 @@ public class Signal {
   @Nullable
   public String arg0;
 
-  /**
-  public Signal() {
-	  this.timestamp = System.currentTimeMillis();
+
+  public Signal() { }
+
+  public Signal(String uid, String state) {
+    this.user_id = uid;
+    this.state = state;
+    this.timestamp = System.currentTimeMillis();
   }
-  */
+
+  public Signal(String uid, String state, String arg) {
+    this(uid, state);
+    this.arg0 = arg;
+  }
 }

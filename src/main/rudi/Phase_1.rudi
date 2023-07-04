@@ -5,16 +5,14 @@
 phase_one:
 if (in_msg && in_msg.cmd == "initial_greeting") {
   //if (! saidInSession(#Greeting(top))) {
-    emitDA(#Inform(DRZGreet, theme={user.sessions.size() > 1 ? "NotInitial" : "Initial"},
-                     eyes={in_msg.arg0}));
-    session.state = "greeted";
-    //<-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
-    out_msg.user_id = user.id;
-    out_msg.state = "initial_greeting";
-    out_msg.arg0 = in_msg.arg0;
-    out_msg.timestamp = now();
-    getHub().sendSignal(out_msg);
-    
-    removeLastCommand();
+  // TODO: Why inventing your own dialogue act?
+  emitDA(#Inform(DRZGreet,
+                 theme={user.sessions.size() > 1 ? "NotInitial" : "Initial"},
+                 eyes={in_msg.arg0}));
+  session.state = "greeted";
+  //<-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
+  sendSignal("initial_greeting", in_msg.arg0);
+
+  removeLastCommand();
   //}
 }

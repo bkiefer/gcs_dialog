@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -52,13 +51,30 @@ public class BaseCommunicationHub implements CommunicationHub {
   private MqttHandler client;
   private JsonMarshaller mapper;
 
-  private boolean receiveMqtt(byte[] b) {
-    Optional<Command> cmd;
-    (cmd = mapper.unmarshal(b, Command.class)).ifPresent(this::sendEvent);
+  private boolean receiveAsr(byte[] b) {
+    Optional<AsrResult> cmd;
+    (cmd = mapper.unmarshal(b, AsrResult.class)).ifPresent(this::sendEvent);
     if (! cmd.isEmpty()) {
-      _agent.addCommand(cmd.get());
+      sendEvent(cmd.get().getText());
     }
     return ! cmd.isEmpty();
+  }
+
+  private boolean receiveMqtt(byte[] b) {
+    Optional<Command> cmd;
+    (cmd = mapper.unmarshal(b, Command.class)).ifPresent(_agent::addCommand);
+    return ! cmd.isEmpty();
+  }
+
+  private void initMqtt(Map<String, Object> configs) throws MqttException {
+    ///////////////////////////////////////
+    mapper = new JsonMarshaller();
+    client = new MqttHandler(configs);
+    client.register(IN_TOPIC, this::receiveMqtt);
+    client.register(ASR_TOPIC, this::receiveAsr);
+    // do I need to subscribe to publish? NO!
+    //client.register(OUT_TOPIC);
+    ////////////////////////////////////////
   }
 
   // ------------------ init the Communication Hub -----------------------------------------
@@ -73,14 +89,7 @@ public class BaseCommunicationHub implements CommunicationHub {
       //  _agent = new Arm();
       //  _agent.init(configDir, "de", configs);
 
-      ///////////////////////////////////////
-      mapper = new JsonMarshaller();
-      client = new MqttHandler((Map<String, Object>)configs.get("mqtt"));
-      client.register(IN_TOPIC, this::receiveMqtt);
-      // do I need to subscribe to publish? NO!
-      //client.register(OUT_TOPIC);
-      ////////////////////////////////////////
-
+      initMqtt((Map<String, Object>)configs.get("mqtt"));
     } else {
       throw new IllegalArgumentException("unknown input " + robot);
     }

@@ -9,7 +9,6 @@ public class ExtendedBehaviour extends Behaviour {
 
     private final DialogueAct _intent;
     private final String _dialogueAct;
-    private Triple<String, String, Integer>[] choices = new Triple[]{};
 
     public ExtendedBehaviour(final String id, final String text, final String motion, final int delay,
             final DialogueAct intent) {
@@ -48,28 +47,5 @@ public class ExtendedBehaviour extends Behaviour {
         return _dialogueAct;
     }
 
-    public String getIntent(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(_intent.getDialogueActType());
-        stringBuilder.append("(");
-        stringBuilder.append(_intent.getProposition());
-        for(String slot : _intent.getAllSlots()){
-            if(!slot.startsWith("__")) {
-                stringBuilder.append(" , ");
-                stringBuilder.append(slot);
-                stringBuilder.append(":");
-                stringBuilder.append(_intent.getValue(slot));
-            }
-        }
-        stringBuilder.append(")");
-        return stringBuilder.toString();
-    }
 
-    public void setButtonChoices(Triple<String, String, Integer>[] choices){
-        this.choices = choices;
-    }
-
-    public Triple<String, String, Integer>[] getButtonChoices(){
-       return choices;
-    }
 }
