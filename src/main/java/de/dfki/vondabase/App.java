@@ -114,15 +114,6 @@ public class App {
     stub.startListening();
     //if((boolean)configs.get("GUI_enabled"))
     //  interactive(stub, true);
-    if((boolean) configs.get("REST_enabled")) {
-      Map<String, Object> restConfig = (Map<String, Object>) configs.get("RestAPI");
-      //startRestEndpoints(stub, restConfig);
-    }
-    //connectToRos(stub, configs);
-    /*  connectToRos and start RestEndpoints is deactivated if system not deployed with ROS Core environment
-     *     Map<String, Object> restConfig = (Map<String, Object>) configs.get("RestAPI");
-     *     startRestEndpoints(stub, restConfig);
-     */
   }
 
 }

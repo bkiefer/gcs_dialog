@@ -10,6 +10,8 @@ User getUser(String id);
 
 Rdf getRandomItem (String type_uri);
 
+String[] splitLimb(String limbspec);
+
 #Command String cmd;
 #Command String user_id;
 #Command String arg0;

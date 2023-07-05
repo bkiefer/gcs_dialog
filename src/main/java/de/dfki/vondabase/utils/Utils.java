@@ -3,14 +3,12 @@ package de.dfki.vondabase.utils;
 import de.dfki.lt.hfc.types.XsdDouble;
 import de.dfki.lt.hfc.types.XsdFloat;
 
-public class HelperMethods {
+public class Utils {
 
-  //TODO move into utils class
   public static String float2xsd(Float f) {
     return new XsdFloat(getDefault(f)).toString();
   }
 
-  //TODO move into utils class
   public static String double2xsd(Double f) {
     return new XsdDouble(getDefault(f)).toString();
   }

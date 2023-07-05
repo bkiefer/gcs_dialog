@@ -4,28 +4,31 @@
 
 // boolean to check if introduction to motion phase was already given or not
 phase_three:
-if (in_msg && in_msg.cmd == "motion_request"){
+if (checkCmd("motion_request")){
   if (! saidInSession(#Inform(Phase3))) {
     // Intro Dialog Phase 3
     emitDA(#Inform(Phase3));
     lastDAprocessed();
     intro_motion = true;
   }
+  String[] limb_side = splitLimb(in_msg.arg0);
   // ask motion
-  emitDA(#Inform(Motion, body_part={in_msg.arg0}));
+  da = #Instruct(Motion, body_part={limb_side[0]});
+  if (limb_side.length > 1) {
+    da.setValue("side", limb_side[1]);
+  }
+  emitDA(da);
+
   // TODO
   // session.state = "motion_requested";
   // send signal motion_requested
   // out_msg.clear();
   sendSignal("motion_requested", in_msg.arg0);
-
-  removeLastCommand();
 }
 
 // motion executed:
 // --> { "cmd": "motion_executed", "arg0": "<motion>" }
 motion_executed:
-if (in_msg && in_msg.cmd == "motion_executed"){
+if (checkCmd("motion_executed")){
   emitDA(#Inform(MotionExecuted));
-  removeLastCommand();
 }

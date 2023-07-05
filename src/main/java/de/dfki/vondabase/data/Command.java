@@ -1,8 +1,8 @@
-package de.dfki.vondabase;
+package de.dfki.vondabase.data;
 
 import javax.annotation.Nullable;
 
-class Command {
+public class Command {
   public long timestamp;
 
   public String user_id;

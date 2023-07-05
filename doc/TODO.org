@@ -1,9 +1,14 @@
-- Katharina direkt einbeziehen!
 - Was kann man aus dem ReSpeaker rausholen?
-- ReSpeaker connection to ASR
-- Wizard-GUI, um die Kommandos zu schicken
 - Classifier "un-/articulated" speech
-- Allgemeinen und Dialogablauf anpassen an die neue Version, siehe
+* DONE
++ Allgemeinen und Dialogablauf anpassen an die neue Version, siehe
   "Schnittstellen Nuitrack DFKI.pdf"
-- Schnittstelle zu Eurocommand / IAIS
-  - POI Service
+  --> flow.txt
++ Schnittstelle zu Eurocommand / IAIS
+  +- POI Service, um Personen anzuzeigen, das muss UzL machen
++ GCS Modul-Intern:
+  + Sound --> ASR, wie sieht die Hardware-Schnittstelle aus?
+    Unser Soundmodul läuft direkt auf dem Rechner, wir sind für ASR & TTS
+    verantwortlich
+  + Intern: MQTT, wie schon besprochen, siehe API-Datei
++ Katharina direkt einbeziehen!

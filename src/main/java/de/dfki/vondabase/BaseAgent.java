@@ -18,6 +18,7 @@ import de.dfki.mlt.rudimant.agent.nlp.Pair;
 import de.dfki.mlt.rudimant.agent.Agent;
 import de.dfki.mlt.rudimant.agent.Behaviour;
 import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
+import de.dfki.vondabase.data.Command;
 import de.dfki.vondabase.utils.ExtendedBehaviour;
 
 public abstract class BaseAgent extends Agent {
@@ -74,8 +75,11 @@ public abstract class BaseAgent extends Agent {
   }
 
   private Behaviour createExtendedBehaviour(int delay, DialogueAct da) {
-    Pair<String, String> toSay = this.langServices.generate(da.getDag());
-    return new ExtendedBehaviour(this.generateId(), toSay.second, toSay.first, delay, da);
+    Pair<String, String> toSay = langServices.generate(da.getDag());
+    if (toSay == null) {
+      return new ExtendedBehaviour(generateId(), "error", "error", 0, da);
+    }
+    return new ExtendedBehaviour(generateId(), toSay.second, toSay.first, delay, da);
   }
 
   /* ===== Support Functions =============================================== */
@@ -115,13 +119,16 @@ public abstract class BaseAgent extends Agent {
     return result.isEmpty() ? null : (Rdf)result.get(0);
   }
 
-
   public Rdf getRandomItem (String type_uri) {
 	String query = String.format(
         "select ?a where ?a <rdf:type> %s ?_", type_uri);
 	List<Object> items = _proxy.query(query);
 	Random rand = new Random();
 	return items.isEmpty() ? null : (Rdf)items.get(rand.nextInt(items.size()));
+  }
+
+  public String[] splitLimb(String limbspec) {
+    return limbspec.split("_");
   }
 
 }

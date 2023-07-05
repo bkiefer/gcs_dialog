@@ -1,4 +1,4 @@
-package de.dfki.vondabase;
+package de.dfki.vondabase.data;
 import javax.annotation.Nullable;
 
 public class Signal {

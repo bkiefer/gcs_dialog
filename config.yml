@@ -3,31 +3,10 @@ outputDirectory:    src/main/gen-java
 agentBase:          de.dfki.vondabase.BaseAgent
 typeDef:            BaseAgent.rudi
 ontologyFile:       src/main/resources/ini/example.yml
-floor:              1
 checkTypes:         true
 failOnError:        false
 verbose:            false
-GUI_enabled:        true
-REST_enabled:       true
-tts_blocking:       true  # set to false if you don't want that the tts output and speech bubbles on the avatar are synchronized
 rootPackage:        de.dfki.vondabase
-serversocket:       11666
-RestAPI:
-  Port:          8086
-  DataLoc:       "src/main/resources/static" #tested
-  #KoffiURI:      "http://192.168.182.5:8888" #gestalt
-  KoffiURI:      "http://172.16.100.124:8089" #dfki
-  R3:            "/workflow/cancel" #teste
-  R4:            "/workflow/goto" #tested
-  R5:            "/workflow/memorize_person" #tested
-  R10:            "/workflow/follow_memorized_person" #tested
-  R11:            "/workflow/go_home" #tested
-ROSBridge:
-  TTSPort:       11113
-  GSCPort:       11114
-  StatusPort:    11115
-  SoundPort:     11116
-
 
 nameToURI:
   Agent : <dom:Actor>

@@ -25,6 +25,9 @@ import de.dfki.mlt.rudimant.agent.Behaviour;
 import de.dfki.mlt.rudimant.agent.CommunicationHub;
 import de.dfki.mlt.rudimant.agent.Intention;
 import de.dfki.mlt.rudimant.agent.nlp.DialogueAct;
+import de.dfki.vondabase.data.AsrResult;
+import de.dfki.vondabase.data.Command;
+import de.dfki.vondabase.data.Signal;
 import de.dfki.vondabase.utils.Listener;
 
 
@@ -81,17 +84,14 @@ public class BaseCommunicationHub implements CommunicationHub {
   @SuppressWarnings("unchecked")
   public void init(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException, MqttException {
-    String robot = (String) configs.get("agentBase");
-    if (robot.equals("de.dfki.vondabase.BaseAgent")) {
+    // check that we got the right config
+    String checkConfig = (String) configs.get("agentBase");
+    if (checkConfig.equals("de.dfki.vondabase.BaseAgent")) {
       _agent = new DialogAgent();
       _agent.init(configDir, configs, "deu");
-      //} else if(robot.equals("de.dfki.intuitiv.ArmAgent")) {
-      //  _agent = new Arm();
-      //  _agent.init(configDir, "de", configs);
-
       initMqtt((Map<String, Object>)configs.get("mqtt"));
     } else {
-      throw new IllegalArgumentException("unknown input " + robot);
+      throw new IllegalArgumentException("unknown config " + checkConfig);
     }
     _agent.setCommunicationHub(this);
   }
@@ -126,10 +126,10 @@ public class BaseCommunicationHub implements CommunicationHub {
 
   /************ Send messages / signals **********/
   public void sendSignal(Signal signal) {
-	  mapper.marshal(signal).ifPresent(json -> {
-	  System.out.println(json);
-	  client.sendMessage(OUT_TOPIC, json);
-	  });
+    mapper.marshal(signal).ifPresent(json -> {
+      System.out.println(json);
+      client.sendMessage(OUT_TOPIC, json);
+    });
   }
 
   // ------------ publish new Events (Behavior, Dia, RosMessage -----------------------

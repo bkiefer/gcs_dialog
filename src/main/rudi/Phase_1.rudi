@@ -3,16 +3,12 @@
 // outgoing:   <-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
 
 phase_one:
-if (in_msg && in_msg.cmd == "initial_greeting") {
-  //if (! saidInSession(#Greeting(top))) {
-  // TODO: Why inventing your own dialogue act?
-  emitDA(#Inform(DRZGreet,
-                 theme={user.sessions.size() > 1 ? "NotInitial" : "Initial"},
-                 eyes={in_msg.arg0}));
-  session.state = "greeted";
-  //<-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
-  sendSignal("initial_greeting", in_msg.arg0);
-
-  removeLastCommand();
-  //}
+if (checkCmd("initial_greeting")) {
+  init = user.sessions.size() > 1 ? "NotInitial" : "Initial";
+  if (! saidInSession(#Greeting({init}, eyes={in_msg.arg0}))) {
+    emitDA(#Greeting({init}, eyes={in_msg.arg0}));
+    session.state = (in_msg.arg0 = "eyes_open") ? "greeted" : "greet_wait_open";
+    //<-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
+    sendSignal("initial_greeting", in_msg.arg0);
+  }
 }

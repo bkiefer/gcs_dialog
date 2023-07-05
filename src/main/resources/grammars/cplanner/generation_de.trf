@@ -1,25 +1,24 @@
 //Greet, introduce
-raw:Inform ^ DRZGreet {
-  ^ <theme>"NotInitial"
+raw:Greeting {
+  ^ NotInitial
   ->
   # = :canned ^ <string>"Hallo nochmal. Wir haben Ihren Zustand bereits überprüft und die Rettungskräfte informiert." .
   //TODO
 
-  ^ <theme>"Initial" {
-  
-    ^ <eyes>"eyes_open"    
-  	->
-  	# = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. 
-  							Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
- 
-    ^ <eyes>"eyes_closed"    
-  	# = :canned ^ <string>random("Können Sie Ihre Augen öffnen?",
+  ^ Initial {
+    ^ (!<eyes> | <eyes>"eyes_open")
+    ->
+    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+
+    ^ <eyes>"eyes_closed"
+    ->
+    # = :canned ^ <string>random("Können Sie Ihre Augen öffnen?",
                                  "Öffnen Sie bitte Ihre Augen.",
-                                 "Wenn Sie mich hören können, öffnen Sie bitte Ihre Augen.") .
+                                 "Wenn Sie mich hören können, öffnen Sie bitte Ihre Augen.").
     }
 }
-  
-   
+
+
 raw:Inform ^ Fragen
     ->
     # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen.".
@@ -49,74 +48,70 @@ raw:Inform ^ Thanks
     ->
     # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden
     in Kürze hier eintreffen.".
-//TODO: Formulierung: 
+//TODO: Formulierung:
 
 
 /******************************************************************************/
 // Questions Phase 2: verbal Phase
 
 raw:Inform ^ Fragen
-    ->
-    # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+->
+# = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
 
 raw:YNQuestion ^ checkResponse
-    ->
-    # = :canned ^ <string>"Können Sie mich hören?" .
+->
+# = :canned ^ <string>"Können Sie mich hören?" .
 
 raw:YNQuestion ^ checkResponseAgain
-    ->
-    # = :canned ^ <string>"Wenn Sie mich hören können, sagen Sie bitte etwas." .
+->
+# = :canned ^ <string>"Wenn Sie mich hören können, sagen Sie bitte etwas." .
 
 raw:Question ^ Name
-    ->
-    # = :canned ^ <string>random("Wie heißen Sie?",
+->
+# = :canned ^ <string>random("Wie heißen Sie?",
                                     "Sagen Sie mir bitte, wie Sie heißen.") .
-                                    
+
 raw:Question ^ NAME
-    ->
-    # = :canned ^ <string>random("Wie heißen Sie?",
-                                    "Sagen Sie mir bitte, wie Sie heißen.") .
+->
+# = :canned ^ <string>random("Wie heißen Sie?",
+                             "Sagen Sie mir bitte, wie Sie heißen.") .
 
 raw:Question ^ Day
-    ->
-    # = :canned ^ <string>"Sagen Sie mir bitte, welcher Wochentag heute ist." .
+->
+# = :canned ^ <string>"Sagen Sie mir bitte, welcher Wochentag heute ist." .
 
 raw:Question ^ Adress
-    ->
-    # = :canned ^ <string>"Sagen Sie mir bitte, wo Sie wohnen." .
+->
+# = :canned ^ <string>"Sagen Sie mir bitte, wo Sie wohnen." .
 
 
 raw:Question ^ Birthdate
-    ->
-    # = :canned ^ <string>random("Wann sind Sie geboren?",
-                                    "Nennen Sie mir bitte Ihr Geburtsdatum.") .
+->
+# = :canned ^ <string>random("Wann sind Sie geboren?",
+                             "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
 raw:Question ^ Date
-    ->
-    # = :canned ^ <string>random("Wann sind Sie geboren?",
-                                    "Nennen Sie mir bitte Ihr Geburtsdatum.") .
+->
+# = :canned ^ <string>random("Wann sind Sie geboren?",
+                             "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
-raw:Question ^ Age
-    ->
-    # = :canned ^ <string>"Wie alt sind Sie?" .
-    
-raw:Question ^ AGE
-    ->
-    # = :canned ^ <string>"Wie alt sind Sie?" .
+raw:Question ^ (Age|AGE)
+->
+# = :canned ^ <string>"Wie alt sind Sie?" .
 
 raw:Question ^ Month
-    ->
-    # = :canned ^ <string>"Wissen Sie, welcher Monat ist?" .
-    
+->
+# = :canned ^ <string>"Wissen Sie, welcher Monat ist?" .
+
 raw:Question ^ Year
-    ->
-    # = :canned ^ <string>"Wissen Sie, welches Jahr wir haben?" .
-    
+->
+# = :canned ^ <string>"Wissen Sie, welches Jahr wir haben?" .
+
 
 // TODO
 raw:Question ^ Pain
-    ->
-    # = :canned ^ <string>"Haben Sie aktuell Schmerzen?" .
+->
+# = :canned ^ <string>"Haben Sie aktuell Schmerzen?" .
 
 
 /******************************************************************************/
@@ -124,29 +119,40 @@ raw:Question ^ Pain
 
 // Inform Starting Phase 3
 raw:Inform ^ Phase3
-    ->
-    # = :canned ^ <string>"Ich werde Sie jetzt bitten einige Bewegungen auszuführen. Das hilft den Rettungskräften, 
-    						Ihren Zustand schneller einzuschätzen." .
+->
+# = :canned ^ <string>"Ich werde Sie jetzt bitten einige Bewegungen auszuführen. Das hilft den Rettungskräften, ihren Zustand schneller einzuschätzen." .
 
 
-// TODO welche Bewegungen bzw. body parts genau werden abgefragt? Unterscheidung recht/links?
-raw:Inform ^ Motion {
+// TODO welche Bewegungen bzw. body parts genau werden abgefragt?
+// Unterscheidung recht/links?
+raw:Instruct ^ Motion {
+^ !<whichside> {
+  ^ !<side> -> # ^ <whichside>"".
+  ^ <side>left -> # ^ <whichside>"linke".
+  ^ <side>right -> # ^ <whichside>"rechte".
+  }
+
+^ <whichside>#w {
   ^ <body_part>"hand"
   ->
-  # = :canned ^ <string>"Bitte versuchen Sie, Ihre Hand zu bewegen." .
+  # = :canned ^ <string>concatenate("Bitte versuchen Sie, Ihre ",
+      #w, " Hand zu bewegen.") .
 
   ^ <body_part>"arm"
   ->
-  # = :canned ^ <string>"Bitte versuchen Sie, Ihren Arm zu bewegen." .
-  
+  # = :canned ^ <string>concatenate("Bitte versuchen Sie, Ihren ",
+      #w, "n Arm zu bewegen.") .
+
   ^ <body_part>"leg"
   ->
-  # = :canned ^ <string>"Bitte versuchen Sie, Ihr Bein zu bewegen." .
-  
-  
- raw:Inform ^ MotionExecuted
-    ->
-    # = :canned ^ <string>"Das haben Sie sehr gut gemacht, vielen Dank." .
+  # = :canned ^ <string>concatenate("Bitte versuchen Sie, Ihr ",
+      #w, "s Bein zu bewegen.") .
+  }
+}
+
+raw:Inform ^ MotionExecuted
+->
+# = :canned ^ <string>"Das haben Sie sehr gut gemacht, vielen Dank." .
 
 /******************************************************************************/
 //memorize Person

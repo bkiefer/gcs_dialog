@@ -16,6 +16,9 @@ Signal Test Verbal Score:
 Signal Test Motorik je nach Lage: Signal welches Körperteil
   { "cmd": "motion_request", "arg0": "<motion>" }
 
+  <motion> can be one of:
+  arm_left, arm_right, hand_left, hand_right, leg_left, leg_right
+
 Signal Motorik-Request erfolgreich?
   - Unser Vorschlag: wir starten einen Time-Out, damit wir einen 2. Versuch starten können, und melden den Ablauf des Time-Outs als Misserfolg zurück. Wenn wir dieses Signal erhalten, werten wir den Versuch als Erfolg.
   { "cmd": "motion_executed", "arg0": "<motion>" }
