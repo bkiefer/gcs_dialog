@@ -17,10 +17,10 @@
         <rdfs:comment>author(s): Christian Willms, Katharina Christian</rdfs:comment>
         <owl:versionInfo>v0.9.7</owl:versionInfo>
     </owl:Ontology>
-    
 
 
-    <!-- 
+
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Datatypes
@@ -28,40 +28,40 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
+
 
 
     <!-- http://www.w3.org/2001/XMLSchema#cal -->
 
     <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#cal"/>
-    
+
 
 
     <!-- http://www.w3.org/2001/XMLSchema#cm -->
 
     <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#cm"/>
-    
+
 
 
     <!-- http://www.w3.org/2001/XMLSchema#date -->
 
     <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
-    
+
 
 
     <!-- http://www.w3.org/2001/XMLSchema#gm -->
 
     <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#gm"/>
-    
+
 
 
     <!-- http://www.w3.org/2001/XMLSchema#kg -->
 
     <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#kg"/>
-    
 
 
-    <!-- 
+
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Object Properties
@@ -69,7 +69,7 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#affected -->
@@ -78,7 +78,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event"/>
         <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
     </owl:ObjectProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#atLocation -->
@@ -86,7 +86,7 @@
     <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#atLocation">
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event"/>
     </owl:ObjectProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasEmotionalState -->
@@ -95,7 +95,7 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User"/>
     </owl:ObjectProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasLanguage -->
@@ -103,7 +103,7 @@
     <owl:ObjectProperty rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasLanguage">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
     </owl:ObjectProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessionUser -->
@@ -113,7 +113,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
         <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User"/>
     </owl:ObjectProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sessions -->
@@ -122,10 +122,10 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User"/>
         <rdfs:range rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
     </owl:ObjectProperty>
-    
 
 
-    <!-- 
+
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Data properties
@@ -133,7 +133,54 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
+        <!-- http://www.dfki.de/lt/onto/pal/pal.owl#articulate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/pal/pal.owl#articulate">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://www.dfki.de/lt/onto/pal/pal.owl#question -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/pal/pal.owl#question">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <!-- http://www.dfki.de/lt/onto/pal/pal.owl#score -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/pal/pal.owl#score_phase2">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://www.dfki.de/lt/onto/pal/pal.owl#score -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/pal/pal.owl#score">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://www.dfki.de/lt/onto/pal/pal.owl#try_no -->
+
+    <owl:DatatypeProperty rdf:about="http://www.dfki.de/lt/onto/pal/pal.owl#try_no">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NERLabel -->
@@ -143,7 +190,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age -->
@@ -153,7 +200,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#answersBirthday -->
@@ -163,7 +210,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#answersDate -->
@@ -173,7 +220,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#answersWeekday -->
@@ -183,7 +230,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#areEyesOpen -->
@@ -193,7 +240,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cancelWorkflow -->
@@ -203,7 +250,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#description -->
@@ -212,7 +259,7 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase1 -->
@@ -222,7 +269,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase2 -->
@@ -232,7 +279,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gcs_phase3 -->
@@ -242,7 +289,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGender -->
@@ -252,7 +299,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasInternalState -->
@@ -262,7 +309,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Robot"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMoved -->
@@ -272,7 +319,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedHead -->
@@ -282,7 +329,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftArm -->
@@ -292,7 +339,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftHand -->
@@ -302,7 +349,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedLeftLeg -->
@@ -312,7 +359,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightArm -->
@@ -322,7 +369,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightHand -->
@@ -332,7 +379,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMovedRightLeg -->
@@ -342,7 +389,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPain -->
@@ -352,7 +399,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#headConfidence -->
@@ -362,7 +409,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#id -->
@@ -373,7 +420,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isLeftHandOpen -->
@@ -383,7 +430,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isMouthOpen -->
@@ -393,7 +440,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isOrientation -->
@@ -403,7 +450,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isRightHandOpen -->
@@ -413,7 +460,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#leftArmConfidence -->
@@ -423,7 +470,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#leftHandConfidence -->
@@ -433,7 +480,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#leftLegConfidence -->
@@ -443,7 +490,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#performsGesture -->
@@ -453,7 +500,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#questionLabel -->
@@ -463,7 +510,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#rightArmConfidence -->
@@ -473,7 +520,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#rightHandConfidence -->
@@ -483,7 +530,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#rightLegConfidence -->
@@ -493,7 +540,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#state -->
@@ -503,7 +550,7 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#withPatient -->
@@ -513,10 +560,10 @@
         <rdfs:domain rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Robot"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
-    
 
 
-    <!-- 
+
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Classes
@@ -524,13 +571,13 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Activity -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Activity"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor -->
@@ -538,7 +585,7 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor">
         <rdfs:comment xml:lang="en">(prefferd) language of an actor, used for e.g. interface</rdfs:comment>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate -->
@@ -546,7 +593,7 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Animate">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Avatar -->
@@ -554,7 +601,7 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Avatar">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Inanimate"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Encounter -->
@@ -562,25 +609,25 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Encounter">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Event"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ExternalProcess -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ExternalProcess"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Inanimate -->
@@ -588,7 +635,7 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Inanimate">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion -->
@@ -596,7 +643,7 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#OrientationQuestion">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Robot -->
@@ -604,13 +651,13 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Robot">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Inanimate"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session -->
 
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Session"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion -->
@@ -618,7 +665,7 @@
     <owl:Class rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#SimpleQuestion">
         <rdfs:subClassOf rdf:resource="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#GcsQuestion"/>
     </owl:Class>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#User -->
@@ -634,10 +681,10 @@
       animated actors
     &lt;/p&gt;</rdfs:comment>
     </owl:Class>
-    
 
 
-    <!-- 
+
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Individuals
@@ -645,7 +692,7 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Age -->
@@ -656,7 +703,7 @@
         <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrientation>
         <questionLabel>askAge</questionLabel>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Birthdate -->
@@ -667,55 +714,55 @@
         <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrientation>
         <questionLabel>askBirthday</questionLabel>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#DoctorAppointment -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#DoctorAppointment"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EN -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EN"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter_failure -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter_failure"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter_success -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Enter_success"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit_failure -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit_failure"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit_success -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Elevator_Exit_success"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyDevice -->
@@ -726,7 +773,7 @@
       device, this instance is being used.
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#EmptyLanguage -->
@@ -737,13 +784,13 @@
       language, this instance is being used.
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#IT -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#IT"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Month -->
@@ -754,13 +801,13 @@
         <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrientation>
         <questionLabel>askMonth</questionLabel>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NL -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#NL"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Name -->
@@ -771,85 +818,85 @@
         <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrientation>
         <questionLabel>askName</questionLabel>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Navigating -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Navigating"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#PickUp -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#PickUp"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Rezeption -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Rezeption"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Room -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Room"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Stuck0_koffi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Stuck0_koffi"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckIII_ewalker -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckIII_ewalker"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckIII_koffi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckIII_koffi"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckII_ewalker -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckII_ewalker"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckII_koffi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckII_koffi"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckIV_ewalker -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckIV_ewalker"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckI_ewalker -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckI_ewalker"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckI_koffi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckI_koffi"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckVI_koffi -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#StuckVI_koffi"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Weekday -->
@@ -860,7 +907,7 @@
         <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrientation>
         <questionLabel>askWeekday</questionLabel>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Year -->
@@ -871,109 +918,109 @@
         <isOrientation rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrientation>
         <questionLabel>askYear</questionLabel>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#act -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#act"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#address -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#address"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#age"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#aggressive -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#aggressive"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#angry -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#angry"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#anxious -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#anxious"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#apathetic -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#apathetic"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#aquamarine -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#aquamarine"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#artgym -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#artgym"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#arts -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#arts"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#baking -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#baking"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#baseball -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#baseball"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#basket -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#basket"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bike -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bike"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#birthdate -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#birthdate"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#black -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#black"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#blue -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#blue"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bmi -->
@@ -983,31 +1030,31 @@
       body mass index
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bocce -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bocce"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bowl -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bowl"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#box -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#box"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#brown -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#brown"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#bsl -->
@@ -1017,19 +1064,19 @@
       blood sugar level, measured either in mmol/L or mg/dL
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#chess -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#chess"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#chill -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#chill"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cho -->
@@ -1039,25 +1086,25 @@
       carbohydrate intake
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#client_lost -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#client_lost"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cyan -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#cyan"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dance -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dance"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp -->
@@ -1065,13 +1112,13 @@
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dbp">
         <rdfs:comment>diastolic blood pressure</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#depressive -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#depressive"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#dosage -->
@@ -1084,13 +1131,13 @@
       e.g., xsd:iu (international unit) for dom:InsulinTaking
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#euphoric -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#euphoric"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female -->
@@ -1098,151 +1145,151 @@
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#female">
         <rdfs:comment>always use this singleton instance</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#football -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#football"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#forename -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#forename"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#game -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#game"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#golf -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#golf"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#green -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#green"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#grey -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#grey"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gymnastics -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#gymnastics"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#handball -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#handball"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#happy -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#happy"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasBrother -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasBrother"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasColor -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasColor"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasDoctor -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasDoctor"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasEducation -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasEducation"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasEmotionalState -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasEmotionalState"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasFather -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasFather"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasFriend -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasFriend"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGender -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGender"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGoal -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasGoal"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasHobby -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasHobby"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasIngested -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasIngested"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasIssue -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasIssue"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMood -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMood"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMother -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasMother"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasOutput -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasOutput"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasParticipant -->
@@ -1252,85 +1299,85 @@
       other participants involved in the activity
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPhysicalState -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPhysicalState"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPreference -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasPreference"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSentiment -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSentiment"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSession -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSession"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSister -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSister"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSport -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasSport"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepBrother -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepBrother"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepFather -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepFather"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepMother -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepMother"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepSister -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasStepSister"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasTreatment -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hasTreatment"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#height -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#height"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hockey -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hockey"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#hr -->
@@ -1340,61 +1387,61 @@
       heart rate
     &lt;/p&gt;</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#iceskate -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#iceskate"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#image -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#image"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isLocatedAt -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isLocatedAt"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isTreatedBy -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#isTreatedBy"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#karate -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#karate"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#link -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#link"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#luggage_lost -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#luggage_lost"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#magenta -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#magenta"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#makemusic -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#makemusic"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male -->
@@ -1402,127 +1449,127 @@
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#male">
         <rdfs:comment>always use this singleton instance</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#memorize_person -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#memorize_person"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#minecraft -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#minecraft"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#music -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#music"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#name -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#name"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#navy -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#navy"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#negative -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#negative"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#neutral -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#neutral"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#numberOfSeriousIssues -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#numberOfSeriousIssues"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#other -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#other"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#pets -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#pets"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#photography -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#photography"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ping -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ping"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#positive -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#positive"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#purple -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#purple"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#read -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#read"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#red -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#red"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#remark -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#remark"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#riding -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#riding"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#roller -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#roller"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#rugby -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#rugby"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp -->
@@ -1530,124 +1577,124 @@
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sbp">
         <rdfs:comment>systolic blood pressure</rdfs:comment>
     </owl:NamedIndividual>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sing -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#sing"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#skate -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#skate"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ski -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#ski"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#source -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#source"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#stickfight -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#stickfight"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#surname -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#surname"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#swim -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#swim"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#tennis -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#tennis"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#traumatic -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#traumatic"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#trekking -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#trekking"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#turquoise -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#turquoise"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#useDevice -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#useDevice"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#violet -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#violet"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#volly -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#volly"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#white -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#white"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#write -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#write"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#yellow -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#yellow"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#yoga -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#yoga"/>
-    
+
 
 
     <!-- http://www.dfki.de/lt/onto/adrz/signOfLife/domain#youtube -->
 
     <owl:NamedIndividual rdf:about="http://www.dfki.de/lt/onto/adrz/signOfLife/domain#youtube"/>
-    
 
 
-    <!-- 
+
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Annotations
@@ -1663,4 +1710,3 @@
 
 
 <!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
-

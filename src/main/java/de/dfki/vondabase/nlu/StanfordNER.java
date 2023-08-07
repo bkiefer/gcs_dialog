@@ -12,19 +12,22 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 public class StanfordNER extends Interpreter {
 
-    private Properties props;
+  private Properties props;
 
-    private StanfordCoreNLP pipeline;
-  
-    @Override
-    public boolean init(final File file, final String s, final Map map) {
-        props = new Properties();
-        // set up pipeline properties
-        props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner");
-        // set up pipeline
-        pipeline = new StanfordCoreNLP(props);
-        return true;
+  private StanfordCoreNLP pipeline;
+
+  @SuppressWarnings("rawtypes")
+  @Override
+  public boolean init(final File configDir, final String language, final Map configs) {
+    props = new Properties();
+    for (Map.Entry e : configs.entrySet()) {
+      // set up pipeline properties
+      props.setProperty((String)e.getKey(), (String)e.getValue());
     }
+    // set up pipeline
+    pipeline = new StanfordCoreNLP(props);
+    return true;
+  }
 
   @Override
   public DialogueAct analyse(String text) {

@@ -62,6 +62,10 @@ raw:YNQuestion ^ checkResponse
 ->
 # = :canned ^ <string>"Können Sie mich hören?" .
 
+raw:YNQuestion ^ poseQuestion
+->
+# = :canned ^ <string>"Kann ich Ihnen eine Frage stellen?" .
+
 raw:YNQuestion ^ checkResponseAgain
 ->
 # = :canned ^ <string>"Wenn Sie mich hören können, sagen Sie bitte etwas." .

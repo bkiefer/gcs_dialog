@@ -25,12 +25,15 @@ NLG:
     mapperProject: src/main/resources/grammars/cplanner/allrules-mapper
     generationProject: src/main/resources/grammars/cplanner/allrules
 NLU:
-  de:
-    class: de.dfki.vondabase.nlu.CombinedNLU
-    grammar: src/main/resources/grammars/srgs/rolli.gram
-    languageCode: "deu-DEU"
-    codec: "audio/L16;rate=16000"
-    context_tag: "A553_C5205"
-    appKey: "548871ADCA4610ECFCF29EDC6E098516975E7D6DB4BBB0368E943CCA6E8DFA3E20962C6129D34944E1817AE04791B6D15A520D6A6AF9320ACCE92EA15206489B"
-    nmaid: "NMDPTRIAL_chwi02_dfki_de20180108105402"
-    hostname: "wss://autotesting-azure-use2-cvt1-voice-ws.nuancemobility.net/v2"
+  de_DE:
+    class: de.dfki.mlt.rudimant.agent.nlp.CombinedInterpreter
+    instances:
+    - class: de.dfki.mlt.rudimant.agent.nlp.SrgsParser
+      grammar: src/main/resources/grammars/srgs/rolli.gram
+      converter: src/main/resources/grammars/cplanner/srgsconv
+      tokenizer:
+        class: de.dfki.mlt.rudimant.agent.nlp.TrivialTokenizer
+        toLower: false
+        removePunctuation: true
+    - class: de.dfki.vondabase.nlu.StanfordNER
+      annotators: "tokenize,ssplit,pos,lemma,ner"

@@ -1,5 +1,4 @@
-<http://www.dfki.de/lt/onto/common/dialogue.owl#Agent> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor> .
-<http://www.dfki.de/lt/onto/common/upper.owl#name> <http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.dfki.de/lt/onto/pal/domain.owl#name> .
+<http://www.dfki.de/lt/onto/adrz/signOfLife/domain#Actor> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.dfki.de/lt/onto/common/dialogue.owl#Agent> .
 <http://www.dfki.de/lt/onto/pal/pal.owl> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
 <http://www.dfki.de/lt/onto/pal/pal.owl> <http://www.w3.org/2002/07/owl#imports> <http://www.dfki.de/lt/onto/adrz/signOfLife/domain> .
 <http://www.dfki.de/lt/onto/pal/pal.owl> <http://www.w3.org/2002/07/owl#imports> <http://www.dfki.de/lt/onto/common/dialogue.owl> .

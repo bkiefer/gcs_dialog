@@ -6,7 +6,7 @@ public class Signal {
 
   public String user_id;
 
-  public String state;
+  public String status;
   @Nullable
   public String arg0;
 
@@ -15,7 +15,7 @@ public class Signal {
 
   public Signal(String uid, String state) {
     this.user_id = uid;
-    this.state = state;
+    this.status = state;
     this.timestamp = System.currentTimeMillis();
   }
 

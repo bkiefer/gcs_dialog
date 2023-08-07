@@ -48,6 +48,8 @@ void start_speech_check() {
   total_articulate = positive_articulate = total_mouth_moves = 0;
 }
 
+// Returns -1 if no activity at all, 0 if unarticulated speech, 1 articulated,
+// but obviously not picked up by ASR
 int end_speech_check() {
   passed = 1.0 * (now() - time_passed);
   time_passed = -1;
