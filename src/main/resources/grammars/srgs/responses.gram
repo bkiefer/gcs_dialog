@@ -1,0 +1,30 @@
+#ABNF 1.0 UTF-8;
+
+language de_DE;
+root $root;
+mode voice;
+tag-format "semantics/1.0";
+
+/* $day = "$$[0-9]" *; */
+
+$junk = $GARBAGE<0-2>;
+
+$ordinal = $<nummer-de.gram#ordinal> { out = $%1; };
+
+$day_of_week = montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag;
+$month = januar|februar|märz|april|mai|juni|juli|august|
+         september|oktober|november|dezember;
+
+$ithink = ([ich] (denke|glaube|meine)) | (denke|glaube|meine) ich;
+
+$dow_response = $junk [heute ist] [$ithink] $day_of_week
+              { out.da="Inform" ; out.prop="DayOfWeek"; out.what="$$1"; } $junk;
+
+$month_opt_day = [[der] $ordinal {out.day="$$1";}] $month {out.what = "$$1";}|
+               $month {out.what = "$$1";} [der] $ordinal {out.day="$$1";};
+$month_response = $junk ([$ithink] $month_opt_day { out = $%1 }
+                | $month_opt_day { out = $%1 } $ithink) $junk
+                { out.da = "Inform"; out.prop = "Month"; };
+
+public $root = ($dow_response | $month_response | $<general.gram>)
+             { out = $%1; };

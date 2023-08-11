@@ -2,7 +2,7 @@ inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
 agentBase:          de.dfki.vondabase.BaseAgent
 typeDef:            BaseAgent.rudi
-ontologyFile:       src/main/resources/ini/example.yml
+ontologyFile:       src/main/resources/ontology/ini/gcs.yml
 checkTypes:         true
 failOnError:        false
 verbose:            false
@@ -22,18 +22,17 @@ TTS:
   backup: false
 NLG:
   de:
-    mapperProject: src/main/resources/grammars/cplanner/allrules-mapper
-    generationProject: src/main/resources/grammars/cplanner/allrules
+    mapperProject: src/main/resources/cplanner/allrules-mapper
+    generationProject: src/main/resources/cplanner/allrules
 NLU:
   de_DE:
     class: de.dfki.mlt.rudimant.agent.nlp.CombinedInterpreter
     instances:
     - class: de.dfki.mlt.rudimant.agent.nlp.SrgsParser
-      grammar: src/main/resources/grammars/srgs/rolli.gram
-      converter: src/main/resources/grammars/cplanner/srgsconv
+      grammar: src/main/resources/grammars/srgs/responses.gram
+      converter: src/main/resources/cplanner/srgsconv
       tokenizer:
         class: de.dfki.mlt.rudimant.agent.nlp.TrivialTokenizer
         toLower: false
         removePunctuation: true
-    - class: de.dfki.vondabase.nlu.StanfordNER
-      annotators: "tokenize,ssplit,pos,lemma,ner"
+    - class:

@@ -1,0 +1,8 @@
+grammar: src/main/resources/grammars/srgs/responses.gram
+converter: src/main/resources/cplanner/srgsconv
+tokenizer:
+   class: de.dfki.mlt.rudimant.agent.nlp.TrivialTokenizer
+   toLower: true
+   removePunctuation: true
+language: de_DE
+corpus: src/main/resources/grammars/srgs/testcorpus.yml

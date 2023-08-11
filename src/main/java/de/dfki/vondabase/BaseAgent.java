@@ -131,4 +131,7 @@ public abstract class BaseAgent extends Agent {
     return limbspec.split("_");
   }
 
+  public boolean checkAnswer(DialogueAct da, String s) {
+    return false;
+  }
 }

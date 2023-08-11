@@ -30,3 +30,5 @@ DayTime getDayTime();
 #Calendar int get(Object o);
 
 #BaseCommunicationHub void sendSignal(Signal signal);
+
+boolean checkAnswer(DialogueAct response, String question);

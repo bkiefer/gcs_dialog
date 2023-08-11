@@ -20,9 +20,9 @@ public class StanfordNER extends Interpreter {
   @Override
   public boolean init(final File configDir, final String language, final Map configs) {
     props = new Properties();
-    for (Map.Entry e : configs.entrySet()) {
+    for (Map.Entry<String, String> e : ((Map<String,String>) configs).entrySet()) {
       // set up pipeline properties
-      props.setProperty((String)e.getKey(), (String)e.getValue());
+      props.setProperty(e.getKey(), e.getValue());
     }
     // set up pipeline
     pipeline = new StanfordCoreNLP(props);

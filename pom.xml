@@ -18,12 +18,18 @@
     <dependency>
       <groupId>de.dfki.mlt</groupId>
       <artifactId>vonda</artifactId>
-      <version>3.0</version>
+      <version>3.0.2</version>
     </dependency>
 
     <dependency>
       <groupId>de.dfki.mlt</groupId>
       <artifactId>mqtthandler</artifactId>
+      <version>0.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>de.dfki.mlt</groupId>
+      <artifactId>vonda-nlp</artifactId>
       <version>0.1-SNAPSHOT</version>
     </dependency>
 
