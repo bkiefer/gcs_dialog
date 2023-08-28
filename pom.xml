@@ -24,7 +24,7 @@
     <dependency>
       <groupId>de.dfki.mlt</groupId>
       <artifactId>vonda-nlp</artifactId>
-      <version>1.0</version>
+      <version>1.0.1</version>
     </dependency>
 
     <dependency>
@@ -34,7 +34,7 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>edu.stanford.nlp</groupId>
       <artifactId>stanford-corenlp</artifactId>
       <version>4.4.0</version>
@@ -52,7 +52,7 @@
       <artifactId>stanford-corenlp</artifactId>
       <version>4.4.0</version>
       <classifier>models-german</classifier>
-    </dependency>
+    </dependency>-->
   </dependencies>
 
   <build>

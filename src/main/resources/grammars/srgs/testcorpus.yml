@@ -1,16 +1,16 @@
 nlu:
 - intent: 'Inform_DayOfWeek'
   examples: |
-    - heute ist dienstag
-    - freitag
-    - ich glaube montag
-    - heute ist glaube ich samstag
-    - samstag glaube ich
-    - ich denke montag
+    - heute ist [dienstag](DayOfWeek)
+    - [freitag](DayOfWeek)
+    - ich glaube [montag](DayOfWeek)
+    - heute ist glaube ich [samstag](DayOfWeek)
+    - [samstag](DayOfWeek) glaube ich
+    - ich denke [montag](DayOfWeek)
 - intent: 'Inform_Month'
   examples: |
-    - der dreizehnte januar
-    - es ist februar
-    - märz
-    - elfter oktober
-    - januar der dreizehnte
+    - der [dreizehnte](DayOfMonth) [januar](month)
+    - es ist [februar](month)
+    - [märz](month)
+    - [elfter](DayOfMonth) [oktober](month)
+    - [januar](month) der [dreizehnte](DayOfMonth)

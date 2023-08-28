@@ -7,7 +7,7 @@ tag-format "semantics/1.0";
 
 /* $day = "$$[0-9]" *; */
 
-$junk = ("$$.*")<0-2>;
+$junk = $GARBAGE<0-2>;
 
 $greet = (Hallo|Hi|Guten (Morgen | Tag | Abend)|Moin|Mahlzeit|Tach) $junk
          { out.da="InitialGreeting" ; out.prop="Greet"; };

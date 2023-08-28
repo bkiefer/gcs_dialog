@@ -5,4 +5,6 @@ tokenizer:
    toLower: true
    removePunctuation: true
 language: de_DE
-corpus: src/main/resources/grammars/srgs/testcorpus.yml
+corpora:
+#  - test.yml
+  - src/main/resources/grammars/srgs/testcorpus.yml

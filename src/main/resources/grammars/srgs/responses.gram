@@ -9,22 +9,21 @@ tag-format "semantics/1.0";
 
 $junk = $GARBAGE<0-2>;
 
-$ordinal = $<nummer-de.gram#ordinal> { out = $%1; };
-
-$day_of_week = montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag;
-$month = januar|februar|märz|april|mai|juni|juli|august|
-         september|oktober|november|dezember;
+$day_of_week = $<date.gram#day_of_week>;
+$day_of_month = $<date.gram#day_of_month>;
+$month = $<date.gram#month>;
 
 $ithink = ([ich] (denke|glaube|meine)) | (denke|glaube|meine) ich;
 
 $dow_response = $junk [heute ist] [$ithink] $day_of_week
-              { out.da="Inform" ; out.prop="DayOfWeek"; out.what="$$1"; } $junk;
+         { out.da="Inform" ; out.prop="DayOfWeek"; out.what="$$1"; } $junk;
 
-$month_opt_day = [[der] $ordinal {out.day="$$1";}] $month {out.what = "$$1";}|
-               $month {out.what = "$$1";} [der] $ordinal {out.day="$$1";};
+$month_opt_day = [[der] $day_of_month {out.day="$$1";}] $month {out.what = "$$1";}|
+            $month {out.what = "$$1";} [der] $day_of_month {out.day="$$1";};
+
 $month_response = $junk ([$ithink] $month_opt_day { out = $%1 }
-                | $month_opt_day { out = $%1 } $ithink) $junk
-                { out.da = "Inform"; out.prop = "Month"; };
+                | $month_opt_day { out = $%1 } $ithink
+                ) { out.da = "Inform"; out.prop = "Month"; } $junk;
 
 public $root = ($dow_response | $month_response | $<general.gram>)
-             { out = $%1; };
+       { out = $%1; };
