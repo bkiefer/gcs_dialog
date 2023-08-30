@@ -15,7 +15,9 @@ public interface Constants {
   // MQTT TOPICS
 
   String IN_TOPIC = "core/messages";
-  String ASR_TOPIC = "voskasr/asr";
+  String ASR_TOPIC = "voskasr/asrresult";
+
   String OUT_TOPIC = "dialogue/messages";
+  String TTS_TOPIC = "tts/behaviour";
 
 }

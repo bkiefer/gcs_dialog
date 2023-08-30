@@ -1,6 +1,7 @@
 import java.util.Calendar;
 import java.util.Random;
 
+if (!session.state) cancel;
 /**
 TODOs
 - save the result of questioning and "artikulierte sprache" into session object
@@ -14,15 +15,7 @@ TODOs
     keine verbale Antwort: 1 Punkte
 **/
 
-// array of weekdays for orientation question check
-List<String> weekdays = {
-  "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
-};
 
-// array of months for orientation question check
-List<String> months = {
-  "Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"
-};
 
 void askSimple();
 void askOrientation();
@@ -43,7 +36,7 @@ Boolean checkOrientation(GcsQuestion question);
 // Outgoing { "status": "test_conversation", "arg0": "started" }
 
 phase_two_start:
-if (in_msg && in_msg.cmd == "test_conversation") {
+if (in_msg && in_msg.cmd == "test_conversation" && session.state == "greeted") {
   session.score_phase2 = 1;
   session.try_no = 1;
   sendSignal("test_conversation", "started");
@@ -59,7 +52,15 @@ if (session.state == "phase2_started") {
   start_speech_check();
   timeout("wait_init_reaction", 10000) {
     session.state = "phase2_no_reaction";
+    removeTimeout("wait_init_reaction");
   }
+}
+
+wait_init_reaction:
+if (myLastDA() <= #YNQuestion(poseQuestion) && lastDA() <= #Confirm(top)) {
+  // Check
+  session.state = "phase2_first_question";
+  cancelTimeout("wait_init_reaction");
 }
 
 no_reaction:
@@ -81,8 +82,7 @@ if (session.state == "phase2_no_reaction") { // timout hit for init reaction
 first_question:
 if (session.state == "phase2_first_question") { // pose a question
   if (!waitingForResponse()) {
-    session.try_no = 1;
-    session.question = "day_of_week"; // maybe generalise later
+    session.question = "DayOfWeek"; // maybe generalise later
     emitDA(#Question({session.question}));
     start_speech_check();
     timeout("wait_for_answer", 20000) {
@@ -90,19 +90,20 @@ if (session.state == "phase2_first_question") { // pose a question
       if (session.try_no < 2) {
         session.articulate = end_speech_check();
         ++session.try_no;
-        session.state = "phase2_first_question";
+        //session.state = "phase2_first_question";
         emitDA(#Inform(Repeat, what=Question));
       } else {
         // give up
         session.articulate = end_speech_check();
         // No answer
         session.score_phase2 = 1;
+        session.state = "phase2_finished";
       }
     }
   } else {
   answer_given:
-    if (lastDA() <= #Answer(top)) {
-      if (checkAnswer(lastDA(), session.question)) {
+    if (lastDA() <= #Answer(top) || lastDA() <= #Inform({session.question})) {
+      if (checkAnswer(lastDA().what, session.question)) {
         session.articulate = 1;
         // Answer correct
         session.score_phase2 = (session.try_no == 1 ? 5 : 4);
@@ -141,9 +142,10 @@ session.state = "no_reaction";
 }
 */
 
+/*
 if (!session.state) cancel;
 
-/** Check for verbal reaction to initial Y/N question*/
+/** Check for verbal reaction to initial Y/N question*
 phase_two_wait_reaction:
 if (session.state == "no_reaction"){
   // check reaction
@@ -186,7 +188,7 @@ void askOrientation(){
   emitDA(#Question({currQuestion.questionLabel}));
 }
 
-/** Analyze result after question */
+/** Analyze result after question *
 void analyzeResult(GcsQuestion question){
   if (!question.isOrientation){
     // evaluate simple question
@@ -195,7 +197,7 @@ void analyzeResult(GcsQuestion question){
     // evaluate orientation question
     evalOrientation(question);
   }
-}
+  }*/
 
 /** check quality of answer to simple question */
 Boolean checkAnswer(GcsQuestion question){
@@ -238,16 +240,16 @@ void evalSimple(GcsQuestion question){
 }
 
 
-/** Analyze answer to orientation question */
+/** Analyze answer to orientation question *
 void evalOrientation(GcsQuestion question){
   if (checkOrientation(question)) {
-    /** both questions answered correctly, max Score **/
+    /** both questions answered correctly, max Score **
     // <-- { "status": "test_conversation", "arg0": "score_5" }
     sendSignal("test_conversation", "score_5");
     removeLastCommand();
     session.state = "gcs_phase3";
   } else {
-    /** incorrect answer to orientation question **/
+    /** incorrect answer to orientation question **
     if (second_try) { // already second try --> patient not oriented
       //<-- { "status": "test_conversation", "arg0": "score_4" }
       sendSignal("test_conversation", "score_4");
@@ -268,7 +270,7 @@ void evalOrientation(GcsQuestion question){
 
 
 
-/** Test quality of answer to orientation question */
+/** Test quality of answer to orientation question *
 Boolean checkOrientation (GcsQuestion question){
   Calendar calendar = Calendar.getInstance();
   String answer = lastDA().what;
@@ -291,4 +293,4 @@ Boolean checkOrientation (GcsQuestion question){
   }
   // check if answer is correct
   return (answer == correct);
-}
+  }*/

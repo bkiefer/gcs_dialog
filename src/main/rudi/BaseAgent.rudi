@@ -31,4 +31,4 @@ DayTime getDayTime();
 
 #BaseCommunicationHub void sendSignal(Signal signal);
 
-boolean checkAnswer(DialogueAct response, String question);
+boolean checkAnswer(String response, String question);

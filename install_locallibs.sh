@@ -1,8 +1,19 @@
 #!/bin/sh
+#set -x
 here=`pwd`
 scriptdir=`dirname $0`
 cd "$scriptdir"
 . ./dependencies.sh
+
+getversions() {
+    mvn dependency:list | grep '[]]    ' | sed 's/.*\]    //' |
+        sort | uniq |
+        gawk -v names="$1" -F ':' \
+             -e '{ version[$2]=$4; }' \
+             -e 'END { split(names, n, " ");
+                       for (i in n) print n[i] ":" version[n[i]]; }'
+}
+
 for cmd in $prereqs; do
     if test -z "`type -all $cmd 2>/dev/null`" ; then
         toinstall="$toinstall $cmd"
@@ -12,16 +23,15 @@ if test -n "$toinstall"; then
     echo "Install ${toinstall} first"
     exit 1
 fi
-# Install the modules in the repo/ directory into your local .m2/repository
-#./update-repo.sh -u
+versions=$(getversions "$githubdeps")
+
 mkdir locallibs
 cd locallibs
 here=`pwd`
 # Clone the given modules into the locallibs directory and put them into your
 # local .m2/repository
-for d in $githubdeps; do
-    name=${d%%~*}
-    ver=${d##*~}
+for name in $githubdeps; do
+    version=$(echo "$versions" | gawk -v name="$name" -F ':' '{ if (name == $1) print $2; }')
     if test -d $name; then
         cd $name
         git pull
@@ -29,13 +39,13 @@ for d in $githubdeps; do
         git clone https://github.com/bkiefer/$name.git
         cd $name
     fi
-    if test \! "$name" = "$ver"; then
-        git checkout "$ver"
-    fi
+    #if test \! "$name" = "$ver"; then
+    git checkout "$version"
+    #fi
     if test -f install_locallibs.sh; then
         ./install_locallibs.sh
     fi
-    mvn install
+    mvn -q install
     cd "$here"
 done
 cd ..

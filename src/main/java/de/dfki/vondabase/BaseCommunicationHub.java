@@ -58,7 +58,7 @@ public class BaseCommunicationHub implements CommunicationHub {
     Optional<AsrResult> cmd;
     (cmd = mapper.unmarshal(b, AsrResult.class)).ifPresent(this::sendEvent);
     if (! cmd.isEmpty()) {
-      sendEvent(cmd.get().getText());
+      sendEvent(cmd.get());
     }
     return ! cmd.isEmpty();
   }
@@ -88,11 +88,27 @@ public class BaseCommunicationHub implements CommunicationHub {
     String checkConfig = (String) configs.get("agentBase");
     if (checkConfig.equals("de.dfki.vondabase.BaseAgent")) {
       _agent = new DialogAgent();
-      _agent.init(configDir, configs, "deu");
+      _agent.init(configDir, configs, "de_DE");
       initMqtt((Map<String, Object>)configs.get("mqtt"));
     } else {
       throw new IllegalArgumentException("unknown config " + checkConfig);
     }
+    registerBehaviourListener(new Listener<Behaviour>() {
+
+      @Override
+      public void listen(Behaviour q) {
+        Optional<String> out = mapper.marshal(q);
+        if (out.isPresent()) {
+          client.sendMessage(TTS_TOPIC, out.get());
+        } else {
+          logger.error("Could not serialize Behaviour: {}", q);
+        }
+      }
+
+      @Override
+      public void free() { }
+
+    });
     _agent.setCommunicationHub(this);
   }
 
@@ -139,16 +155,21 @@ public class BaseCommunicationHub implements CommunicationHub {
 
   // depends on the concrete Event class
   private void onEvent(Object evt) {
-    System.err.println("on event ...");
+    logger.debug("on event ...");
     if (evt instanceof Intention) {
       _agent.executeProposal((Intention) evt);
     } else if (evt instanceof DialogueAct) {
-      System.err.println("Dia " + evt);
+      logger.debug("Dia {}", evt);
       _agent.addLastDA((DialogueAct) evt);
       _agent.newData();
     } else if (evt instanceof String) {
-      System.err.println("String " + evt);
+      logger.debug("String {}", evt);
       DialogueAct da = _agent.analyse((String) evt);
+      sendEvent(da);
+    } if (evt instanceof AsrResult) {
+      String text = ((AsrResult)evt).getText();
+      logger.debug("AsrResult {}" + text);
+      DialogueAct da = _agent.analyse(text);
       sendEvent(da);
     } else {
       logger.warn("Unknown incoming object: {}", evt);

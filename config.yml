@@ -21,7 +21,8 @@ TTS:
   voice: dfki-pavoque-neutral-hsmm
   backup: false
 NLG:
-  de:
+  de_DE:
+    class: de.dfki.mlt.rudimant.agent.nlp.LanguageGenerator
     mapperProject: src/main/resources/cplanner/allrules-mapper
     generationProject: src/main/resources/cplanner/allrules
 NLU:
@@ -35,4 +36,3 @@ NLU:
         class: de.dfki.mlt.rudimant.agent.nlp.TrivialTokenizer
         toLower: false
         removePunctuation: true
-    - class:

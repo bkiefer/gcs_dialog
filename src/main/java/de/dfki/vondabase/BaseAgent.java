@@ -5,10 +5,17 @@ import static de.dfki.vondabase.Constants.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+
+import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.ULocale;
 
 import de.dfki.lt.hfc.WrongFormatException;
 import de.dfki.lt.hfc.db.HfcDbHandler;
@@ -131,7 +138,50 @@ public abstract class BaseAgent extends Agent {
     return limbspec.split("_");
   }
 
-  public boolean checkAnswer(DialogueAct da, String s) {
-    return false;
+  //array of weekdays for orientation question check
+  @SuppressWarnings("serial")
+  static Map<String, Integer> weekdays = new HashMap<String, Integer>() {{
+    put("Sonntag", Calendar.SUNDAY);
+    put("Montag", Calendar.MONDAY);
+    put("Dienstag", Calendar.TUESDAY);
+    put("Mittwoch", Calendar.WEDNESDAY);
+    put("Donnerstag", Calendar.THURSDAY);
+    put("Freitag", Calendar.FRIDAY);
+    put("Samstag", Calendar.SATURDAY);
+  }};
+
+  //array of months for orientation question check
+  @SuppressWarnings("serial")
+  static Map<String, Integer> months = new HashMap<String, Integer>() {{
+    put("Januar", Calendar.JANUARY);
+    put("Februar", Calendar.FEBRUARY);
+    put("Maerz", Calendar.MARCH);
+    put("April", Calendar.APRIL);
+    put("Mai", Calendar.MAY);
+    put("Juni", Calendar.JUNE);
+    put("Juli", Calendar.JULY);
+    put("August", Calendar.AUGUST);
+    put("September", Calendar.SEPTEMBER);
+    put("Oktober", Calendar.OCTOBER);
+    put("November", Calendar.NOVEMBER);
+    put("Dezember", Calendar.DECEMBER);
+  }};
+
+  public boolean checkAnswer(String answer, String question_type) {
+    boolean result = false;
+    int index, dow;
+    switch(question_type) {
+    case "DayOfWeek":
+      index = weekdays.get(answer);
+      dow = Calendar.getInstance(new ULocale(getLanguage())).get(Calendar.DAY_OF_WEEK);
+      result = index == dow;
+      break;
+    case "Month":
+      index = months.get(answer);
+      dow = Calendar.getInstance(new ULocale(getLanguage())).get(Calendar.MONTH);
+      result = index == dow;
+      break;
+    }
+    return result;
   }
 }

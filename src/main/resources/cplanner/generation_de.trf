@@ -19,12 +19,15 @@ raw:Greeting {
 }
 
 
+// TODO: Formulierungen
 raw:Inform ^ Fragen
-    ->
-    # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen.".
-      //TODO: Formulierungen:
-  //die der Behandlung / einer Einschätung ihrer Situation
-  //die einer schnelleren Rettung / der Beschleunigung Ihrer Rettung dienen.
+->
+# = :canned ^ <string>concatenate(
+"Ich werde Ihnen einige Fragen stellen, die ",
+random("den Einsatzkräften bei Ihrer Rettung helfen.",
+  "der Einschätzung ihrer Situation dienen.",
+  "einer schnelleren Rettung dienen.",
+  "auch der Beschleunigung Ihrer Rettung dienen.")).
 
 raw:Inform ^ DRZGreet_I
     ->
@@ -54,9 +57,13 @@ raw:Inform ^ Thanks
 /******************************************************************************/
 // Questions Phase 2: verbal Phase
 
-raw:Inform ^ Fragen
+// raw:Inform ^ Fragen
+// ->
+// # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+
+raw:Inform ^ Repeat ^ <what>Question
 ->
-# = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+# = :canned ^ <string>"Ich wiederhole die Frage nochmal." .
 
 raw:YNQuestion ^ checkResponse
 ->
@@ -80,7 +87,7 @@ raw:Question ^ NAME
 # = :canned ^ <string>random("Wie heißen Sie?",
                              "Sagen Sie mir bitte, wie Sie heißen.") .
 
-raw:Question ^ Day
+raw:Question ^ DayOfWeek
 ->
 # = :canned ^ <string>"Sagen Sie mir bitte, welcher Wochentag heute ist." .
 
@@ -105,7 +112,9 @@ raw:Question ^ (Age|AGE)
 
 raw:Question ^ Month
 ->
-# = :canned ^ <string>"Wissen Sie, welcher Monat ist?" .
+# = :canned ^ <string>random("Wissen Sie, welcher Monat ist?",
+            "In welchem Monat sind wir gerade?",
+            "Sagen Sie mir bitte, welcher Monat gerade ist.").
 
 raw:Question ^ Year
 ->

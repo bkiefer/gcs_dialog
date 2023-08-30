@@ -1,5 +1,7 @@
++ TTS auf WOZ-GUI anzeigen
 - Was kann man aus dem ReSpeaker rausholen?
 - Classifier "un-/articulated" speech
+
 * DONE
 + Allgemeinen und Dialogablauf anpassen an die neue Version, siehe
   "Schnittstellen Nuitrack DFKI.pdf"

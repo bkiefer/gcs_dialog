@@ -119,3 +119,11 @@ if (checkCmd("end_gcs")){
   session = null;
   user = null;
 }
+
+exit:
+if (checkCmd("exit")){
+  // Close session, current_session = null, user = null
+  session = null;
+  user = null;
+  getHub().shutdown();
+}

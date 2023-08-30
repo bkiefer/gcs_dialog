@@ -12,14 +12,14 @@ import java.util.List;
 // }
 public class AsrResult {
 
-  public class Word {
-    double conf;
-    double start;
-    double end;
-    String word;
+  public static class Word {
+    public double conf;
+    public double start;
+    public double end;
+    public String word;
   }
 
-  public List<Word> words;
+  public List<Word> result;
   public String text;
   public long id;
 

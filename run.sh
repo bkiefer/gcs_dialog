@@ -1,3 +1,3 @@
 dir=`dirname $(realpath "$0")`
 cd "$dir"
-java -jar target/gcs_dialog.jar
+java -jar -Dlogback.configurationFile=logback-debug.xml target/gcs_dialog.jar
