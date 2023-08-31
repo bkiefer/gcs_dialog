@@ -166,10 +166,11 @@ public class BaseCommunicationHub implements CommunicationHub {
       logger.debug("String {}", evt);
       DialogueAct da = _agent.analyse((String) evt);
       sendEvent(da);
-    } if (evt instanceof AsrResult) {
+    } else if (evt instanceof AsrResult) {
       String text = ((AsrResult)evt).getText();
       logger.debug("AsrResult {}" + text);
       DialogueAct da = _agent.analyse(text);
+      da.setValue("sender", _agent.user.toString());
       sendEvent(da);
     } else {
       logger.warn("Unknown incoming object: {}", evt);

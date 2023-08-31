@@ -55,24 +55,6 @@ public class App {
     }
   }
 
-  /*
-  private static void interactive(final BaseCommunicationHub client, boolean userInterface) throws IOException {
-    if (userInterface) {
-      javax.swing.SwingUtilities.invokeLater(new Runnable() {
-        public void run() {
-          final GUI qw = new GUI("Intuitiv Test");
-          qw.initializeComponents();
-          // connect to client
-          qw._react = new Reaction(client, qw._chat, qw._statusbar);
-          qw._react.execute();
-        }
-      });
-    } else {
-      System.err.println("Add commandline reader here");
-    }
-  }
-  */
-
   @SuppressWarnings("unchecked")
   public static Map<String, Object> readConfig(String confname)
           throws IOException {
@@ -89,8 +71,6 @@ public class App {
 
   public static void main(String[] args)
           throws IOException, WrongFormatException, InterruptedException, MqttException {
-    //BasicConfigurator.configure();
-
     OptionParser parser = new OptionParser("c:");
     // parser.accepts("help");
     OptionSet options = null;
@@ -109,9 +89,9 @@ public class App {
     } catch (OptionException ex) {
       usage("Error parsing options: " + ex.getMessage());
     }
-    BaseCommunicationHub stub = new BaseCommunicationHub();
-    stub.init(confDir, configs);
-    stub.startListening();
+    BaseCommunicationHub comm = new BaseCommunicationHub();
+    comm.init(confDir, configs);
+    comm.startListening();
     //if((boolean)configs.get("GUI_enabled"))
     //  interactive(stub, true);
   }

@@ -2,6 +2,7 @@ import java.util.Calendar;
 import de.dfki.vondabase.data.Command;
 import de.dfki.vondabase.data.Signal;
 
+include NLU;
 
 BaseCommunicationHub getHub() {
   return isa(BaseCommunicationHub, _hub);
@@ -64,7 +65,7 @@ int end_speech_check() {
 if (! session) {
   no_session_check_start:
   if (in_msg) {
-    removeLastCommand(); // in any case
+    removeLastCommand(); // in any of the following cases
   session_starts:
     if (in_msg.cmd == "start_gcs") {
       logger.info("GCS service started");
@@ -104,6 +105,7 @@ include Phase_3;
 /** finalizing */
 // --> { "cmd": "finalize" }
 // <-- { "status": "finalizing", "state": "started"/"stopped" }
+logger.error("cmd: {}", in_msg);
 
 finalizing:
 if (checkCmd("finalize")){
@@ -118,6 +120,7 @@ if (checkCmd("end_gcs")){
   // Close session, current_session = null, user = null
   session = null;
   user = null;
+  reset();
 }
 
 exit:

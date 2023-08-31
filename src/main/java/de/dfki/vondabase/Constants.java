@@ -8,9 +8,9 @@ public interface Constants {
 
   //public static final String USER_CLASS = "<dom:Animate>";
 
-  public static final String ROBOT_CLASS = "<dom:Inanimate>";
+  public static final String ROBOT_CLASS = "<dom:Robot>";
 
-  public static final String ROBOT_URI = "<dom:Rolli01>";
+  public static final String ROBOT_URI = "<dom:TakeCare01>";
 
   // MQTT TOPICS
 

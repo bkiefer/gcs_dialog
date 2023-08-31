@@ -1,7 +1,5 @@
 User user;
 Robot robot;
-//String state;
-Boolean isUZLTest;
 
 Command getCommand();
 Command removeLastCommand();
@@ -21,14 +19,7 @@ String[] splitLimb(String limbspec);
 #Signal String arg0;
 #Signal long timestamp;
 
-#GcsQuestion String topic;
-#GcsQuestion Boolean orientation;
-
-DayTime getDayTime();
-#DayTime String toString();
-
-#Calendar int get(Object o);
-
 #BaseCommunicationHub void sendSignal(Signal signal);
 
 boolean checkAnswer(String response, String question);
+void reset();

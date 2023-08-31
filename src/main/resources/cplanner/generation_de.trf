@@ -69,9 +69,26 @@ raw:YNQuestion ^ checkResponse
 ->
 # = :canned ^ <string>"Können Sie mich hören?" .
 
-raw:YNQuestion ^ poseQuestion
+raw:YNQuestion ^ poseQuestion ^ (!<try> | <try>1)
 ->
 # = :canned ^ <string>"Kann ich Ihnen eine Frage stellen?" .
+
+raw:YNQuestion ^ poseQuestion ^ <try>2
+->
+# = :canned
+    ^ <string>"Hallo, hören Sie mich? Ich würde Ihnen gerne eine Frage stellen." .
+
+raw:Confirm ^ Answer
+->
+# = :canned
+    ^ <string> random("Das stimmt.", "Das ist richtig.", "Genau, richtig.").
+
+raw:Disconfirm ^ Answer
+->
+# = :canned
+    ^ <string> random("Sind sie sicher?",
+                      "Das stimmt nicht, versuchen Sie's nochmal.",
+                      "Nicht ganz, wollen Sie nochmal nachdenken?").
 
 raw:YNQuestion ^ checkResponseAgain
 ->

@@ -12,11 +12,6 @@ nameToURI:
   Agent : <dom:Actor>
   Robot : <dom:Robot>
 
-defaultCompileCommand: compile
-customCompileCommands:
-  Compile without maven: vondac -c config.yml
-  vcompile: vondac -v -c config.yml
-debugPort : 9999
 TTS:
   voice: dfki-pavoque-neutral-hsmm
   backup: false
@@ -36,3 +31,12 @@ NLU:
         class: de.dfki.mlt.rudimant.agent.nlp.TrivialTokenizer
         toLower: false
         removePunctuation: true
+
+# rudibugger settings
+defaultCompileCommand: compile
+customCompileCommands:
+  Compile without maven: vondac -c config.yml
+  vcompile: vondac -v -c config.yml
+  mvn: mvn install
+debugPort : 9999
+filterRules : false
