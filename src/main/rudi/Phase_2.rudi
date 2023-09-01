@@ -22,9 +22,6 @@ TODOs
 
 // Incoming: { "cmd": "test_conversation" }
 // Outgoing { "status": "test_conversation", "arg0": "started" }
-leck_mich:
-if (true == false)
-  logger.info("everything is possible");
 
 phase_two_start:
 if (checkCmd("test_conversation") && session.state == "greeted") {
@@ -91,14 +88,13 @@ if (session.question && lastDA() >= #Answer({session.question})) {
     session.state = "phase2_finished";
   } else {
     emitDA(#Disconfirm(Answer, what={session.question}));
-    ++session.try_no;
     session.state = "phase2_question";
   }
   lastDAprocessed();
 }
 
 pose_question:
-if ((session.state == "phase2_question" && ! session.question)
+if ((session.state == "phase2_question" && ! waitingForResponse())
     || session.state == "no_answer") {
  past_last_try:
   if (session.try_no == 2) {
