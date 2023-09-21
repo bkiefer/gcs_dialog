@@ -49,7 +49,7 @@ raw:Inform ^ OpenEyes
 
 raw:Inform ^ Thanks
     ->
-    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden
+    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden 
     in Kürze hier eintreffen.".
 //TODO: Formulierung:
 

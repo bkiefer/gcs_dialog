@@ -79,6 +79,7 @@ if (session.state == "phase2_no_reaction") { // timeout hit for init reaction
 
 answer_given:
 if (session.question && lastDA() >= #Answer({session.question})) {
+	cancelTimeout("wait_for_answer");
  check_answer:
   if (lastDA().what && checkAnswer(lastDA().what, session.question)) {
     session.articulate = 1;
@@ -110,6 +111,9 @@ if ((session.state == "phase2_question" && ! waitingForResponse())
   question_retry:
   if (session.try_no < 1) {
     ++session.try_no;
+    // get new random question
+    Random random = new Random();
+  	session.question = Arrays.asList("DayOfWeek", "Month").get(random.nextInt(2)); // maybe generalise later + add Year
   } else {
     session.articulate = end_speech_check();
     ++session.try_no;
@@ -117,10 +121,18 @@ if ((session.state == "phase2_question" && ! waitingForResponse())
   }
 
   // pose a question
-  session.question = "DayOfWeek"; // maybe generalise later
   emitDA(#Question({session.question}));
   start_speech_check();
   timeout("wait_for_answer", 20000) {
     session.state = "no_answer";
   }
+}
+
+phase_two_finish:
+//<-- { "status": "test_conversation", "arg0": "score" }
+if (session.state == "phase2_finished") {
+	String score = session.score_phase2;
+	sendSignal("test_conversation", score);
+	// To avoid sending signal more than once?
+	session.state = "phase2_end";
 }
