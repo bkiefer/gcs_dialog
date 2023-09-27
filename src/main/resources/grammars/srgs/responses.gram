@@ -15,7 +15,7 @@ $month = $<date.gram#month>;
 
 $ithink = ([ich] (denke|glaube|meine)) | (denke|glaube|meine) ich;
 
-$dow_response = $junk [heute ist | es ist] ([$ithink] $day_of_week {out.what="$$1"; } 
+$dow_response = $junk [$ithink] [heute ist | es ist] ([$ithink] $day_of_week {out.what="$$1"; } 
 			| $day_of_week {out.what="$$1"; } $ithink) 
          { out.da="Inform" ; out.prop="DayOfWeek";} $junk;    
 
