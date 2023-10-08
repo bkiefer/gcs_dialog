@@ -61,9 +61,15 @@ raw:Inform ^ Thanks
 // ->
 // # = :canned ^ <string>"Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
 
+raw:Inform ^ Retry
+->
+# = :canned ^ <string>random("Versuchen Sie es nochmal.", "Wollen Sie nochmal nachdenken?", "Denken Sie nochmal nach.").
+
+
 raw:Inform ^ Repeat ^ <what>Question
 ->
 # = :canned ^ <string>"Ich wiederhole die Frage nochmal." .
+
 
 raw:YNQuestion ^ checkResponse
 ->
@@ -86,9 +92,7 @@ raw:Confirm ^ Answer
 raw:Disconfirm ^ Answer
 ->
 # = :canned
-    ^ <string> random("Sind sie sicher?",
-                      "Das stimmt nicht, versuchen Sie's nochmal.",
-                      "Nicht ganz, wollen Sie nochmal nachdenken?").
+    ^ <string> random("Das stimmt leider nicht.", "Das ist leider falsch.", "Nicht ganz.", "Das ist nicht ganz richtig.").
 
 raw:YNQuestion ^ checkResponseAgain
 ->

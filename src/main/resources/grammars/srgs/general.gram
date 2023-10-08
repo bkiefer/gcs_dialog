@@ -14,8 +14,8 @@ $greet = (Hallo|Hi|Guten (Morgen | Tag | Abend)|Moin|Mahlzeit|Tach) $junk
 $confirm = (Ja|Jap|[Das ist]richtig|Ok|[Das]stimmt|Jo) $junk
            { out.da="Confirm" ; out.prop="top" ;};
 $disconfirm = (Nein|Nope|[Das (ist|is)] falsch|
-            [Das (ist|is)] [so] nicht richtig|noe|nö|[das] stimmt nicht|
-            Kein Interesse| [das] brauche ich nicht | nicht nötig ) $junk
+            [Das (ist|is)] [so] nicht richtig|noe|nö|nee|[das] stimmt nicht|
+            Kein Interesse| [das] brauche ich nicht | nicht nötig | nicht wirklich ) $junk
             { out.da="Disconfirm" ; out.prop="top" ;};
 
 public $root = ($confirm | $disconfirm | $greet) { out = $%1; };

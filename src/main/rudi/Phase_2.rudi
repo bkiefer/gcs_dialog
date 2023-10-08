@@ -97,6 +97,7 @@ if (session.question && lastDA() >= #Answer({session.question})) {
 pose_question:
 if ((session.state == "phase2_question" && ! waitingForResponse())
     || session.state == "no_answer") {
+  session.state = "pose_question";
  past_last_try:
   if (session.try_no == 2) {
     // give up
@@ -104,7 +105,7 @@ if ((session.state == "phase2_question" && ! waitingForResponse())
     // No answer
     session.score_phase2 = 1;
     session.state = "phase2_finished";
-    cancel;
+    break pose_question;
   }
 
   // check if this is already try #2
@@ -117,6 +118,7 @@ if ((session.state == "phase2_question" && ! waitingForResponse())
   } else {
     session.articulate = end_speech_check();
     ++session.try_no;
+    emitDA(#Inform(Retry));
     emitDA(#Inform(Repeat, what=Question));
   }
 
