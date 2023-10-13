@@ -1,5 +1,6 @@
 + TTS auf WOZ-GUI anzeigen
 - Was kann man aus dem ReSpeaker rausholen?
+  - Vergleich ReSpeaker performance und Rohdaten/externe Verarbeitung
 - Classifier "un-/articulated" speech
 
 * DONE
@@ -14,3 +15,4 @@
     verantwortlich
   + Intern: MQTT, wie schon besprochen, siehe API-Datei
 + Katharina direkt einbeziehen!
++ Phase 2 / vonda code fertig machen: delegiert an Katharina

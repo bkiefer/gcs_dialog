@@ -105,7 +105,7 @@ include Phase_3;
 /** finalizing */
 // --> { "cmd": "finalize" }
 // <-- { "status": "finalizing", "state": "started"/"stopped" }
-logger.error("cmd: {}", in_msg);
+logger.info("cmd: {}", in_msg);
 
 finalizing:
 if (checkCmd("finalize")){
