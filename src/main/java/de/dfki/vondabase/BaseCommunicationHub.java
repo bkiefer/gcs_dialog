@@ -74,7 +74,7 @@ public class BaseCommunicationHub implements CommunicationHub {
     mapper = new JsonMarshaller();
     client = new MqttHandler(configs);
     client.register(IN_TOPIC, this::receiveMqtt);
-    client.register(ASR_TOPIC, this::receiveAsr);
+    client.register(ASR_TOPIC + "/de", this::receiveAsr);
     // do I need to subscribe to publish? NO!
     //client.register(OUT_TOPIC);
     ////////////////////////////////////////
