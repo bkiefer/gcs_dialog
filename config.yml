@@ -40,3 +40,6 @@ customCompileCommands:
   mvn: mvn install
 debugPort : 9999
 filterRules : false
+
+mqtt:
+  brokerhost: localhost
