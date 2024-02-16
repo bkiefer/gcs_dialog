@@ -1,11 +1,11 @@
-Alle Nachrichten: mit eindeutiger user-ID & timestamp (long, unix timestamp)
+Alle Nachrichten: mit eindeutiger user_id & timestamp (long, unix timestamp)
 
 * core --> dialogue
 
 topic: core/messages
 
 Signal Start GCS/Initialisierung: (NICHT Begrüßung: Signal Check auf Augen +3)
-  { "cmd": "start_gcs", "id": "<user_id>" }
+  { "cmd": "start_gcs", "user_id": "<user_id>" }
 
 Signal Begrüßung:
   { "cmd": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
@@ -45,9 +45,9 @@ Signal Startbereit
 
 { "status": "test_conversation", "arg0": "started" }
 
-Für UzL wahrscheinlich nicht von Belang
-{ "status": "tts_started" }
-{ "status": "tts_stopped" }
+Für UzL wahrscheinlich nicht von Belang (kein timestamp und user_id)
+{ "status": "tts_started", "id": "tts_unique_id" }
+{ "status": "tts_stopped", "id": "tts_unique_id" }
 
 (Un)artikulierte Sprache entdeckt
 { "status": "speech_articulate", "arg0": "yes"/"no" }

@@ -1,5 +1,5 @@
 package de.dfki.vondabase.data;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 public class Signal {
   public long timestamp;

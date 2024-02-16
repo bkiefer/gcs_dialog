@@ -1,8 +1,7 @@
-+ TTS auf WOZ-GUI anzeigen
 - Was kann man aus dem ReSpeaker rausholen?
   - Vergleich ReSpeaker performance und Rohdaten/externe Verarbeitung
 - Classifier "un-/articulated" speech
-
+- Bessere VAD/ASR
 * DONE
 + Allgemeinen und Dialogablauf anpassen an die neue Version, siehe
   "Schnittstellen Nuitrack DFKI.pdf"
@@ -16,3 +15,4 @@
   + Intern: MQTT, wie schon besprochen, siehe API-Datei
 + Katharina direkt einbeziehen!
 + Phase 2 / vonda code fertig machen: delegiert an Katharina
++ TTS auf WOZ-GUI anzeigen

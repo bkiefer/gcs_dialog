@@ -1,11 +1,11 @@
 * Initialisation:
---> { "cmd": "start_gcs", "id": "<user_id>", time: "<timestamp_long>" }
+--> { "cmd": "start_gcs", "user_id": "<user_id>", timestamp: "<timestamp_long>" }
 1. check if a user with id is already there
 2. if not, create user RDF object
 3. create a session object and add it to the sessions of the user, and set it as the current session
    - All DAs (in and out) are added to the session
 <-- { "status": "ready" }
-* Begrüßung: (with user id and timestamp, from now omitting for convenience)
+* Begrüßung: (with user_id and timestamp, from now omitting for convenience)
 --> { "cmd": "initial_greeting", "arg0": "eyes_open"/"eyes_closed" }
 2a. eyes_closed:
    Greeting
@@ -53,5 +53,6 @@ R: "You did that well, thanks!"
 <-- { "status": "finalizing", "state": "started" }
 R: "Thank you for being so cooperative. I have to now go to the next patient, but someone will get to you soon and get you away from here."
 <-- { "status": "finalizing", "state": "stopped" }
---> { "cmd": "end_gcs", "id": "<user_id>" }
+comment: user_id is not duplicated, just the one that's in all messages
+--> { "cmd": "end_gcs", "user_id": "<user_id>" }
 1. Close session, current_session = null, user = null

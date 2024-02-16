@@ -16,7 +16,7 @@ This module handles the natural language interaction part of the Glasgow Coma Sc
 
 ## compile and build the docker image `drz/gcs_dialog_manager`
 
-
-    ./install_locallibs.sh
-    mvn -U clean install
+    mvn -U clean
+    ./compile
+    mvn install
     ./build_docker.sh
