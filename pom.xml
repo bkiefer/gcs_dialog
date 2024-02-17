@@ -43,13 +43,6 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-      <type>jar</type>
-    </dependency>
-
     <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -119,9 +112,9 @@
               <mainClass>de.dfki.vondabase.App</mainClass>
             </manifest>
           </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
+          <descriptors>
+            <descriptor>src/assembly/fatjar.xml</descriptor>
+          </descriptors>
         </configuration>
       </plugin>
 

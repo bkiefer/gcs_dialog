@@ -20,3 +20,8 @@ This module handles the natural language interaction part of the Glasgow Coma Sc
     ./compile
     mvn install
     ./build_docker.sh
+
+## create a logs/ folder (for detailed logs) and start the docker image
+
+    mkdir logs/ 2>/dev/null
+    ./start_docker.sh
