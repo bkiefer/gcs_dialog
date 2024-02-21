@@ -1,4 +1,3 @@
-log/
 data/Ontology/**/*.nt
 !data/Ontology/default/**
 target/
@@ -29,3 +28,4 @@ data/Ontology/catalog-v001.xml
 deploy/
 common_lib/
 docker_config.yml
+logs/**

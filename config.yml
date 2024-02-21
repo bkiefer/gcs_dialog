@@ -12,9 +12,6 @@ nameToURI:
   Agent : <dom:Actor>
   Robot : <dom:Robot>
 
-TTS:
-  voice: dfki-pavoque-neutral-hsmm
-  backup: false
 NLG:
   de_DE:
     class: de.dfki.mlt.rudimant.agent.nlp.LanguageGenerator

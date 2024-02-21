@@ -11,9 +11,12 @@ BaseCommunicationHub getHub() {
 // incoming MQTT messages are received using a callback
 Command in_msg = getCommand();
 if (in_msg) {
+  when = in_msg.timestamp;
   timeout("stale_signal", 1500) {
-    logger.warn("Signal not processed in time: {}", in_msg);
-    removeLastCommand();
+    if (in_msg && in_msg.timestamp == when) {
+      logger.warn("Signal not processed in time: {}", in_msg);
+      removeLastCommand();
+    }
   }
 }
 

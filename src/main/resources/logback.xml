@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="warn">
+<configuration>
   <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>logs/logFile.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -22,9 +22,10 @@
     </encoder>
   </appender>
 
-  <logger name="de.dfki.mlt" level="debug"/>
+  <logger name="de.dfki.mlt.rudimant" level="debug"/>
+  <logger name="de.dfki.vondabase" level="debug"/>
 
-  <root level="debug">
+  <root level="warn">
     <appender-ref ref="console"/>
     <appender-ref ref="logfile"/>
   </root>

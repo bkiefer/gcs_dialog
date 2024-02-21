@@ -13,6 +13,7 @@ String[] splitLimb(String limbspec);
 #Command String cmd;
 #Command String user_id;
 #Command String arg0;
+#Command long timestamp;
 
 #Signal String state;
 #Signal String user_id;
