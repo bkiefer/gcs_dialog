@@ -4,6 +4,10 @@
 
 phase_one:
 if (checkCmd("initial_greeting")) {
+  if (session.state != "phase2_running") {
+    session.state = "start_phase2";
+  }
+  /*
   init = user.sessions.size() > 1 ? "NotInitial" : "Initial";
   if (! saidInSession(#Greeting({init}, eyes={in_msg.arg0}))) {
     emitDA(#Greeting({init}, eyes={in_msg.arg0}));
@@ -11,4 +15,5 @@ if (checkCmd("initial_greeting")) {
     //<-- { "status": "initial_greeting", "arg0": "eyes_closed"/"eyes_open" }
     sendSignal("initial_greeting", in_msg.arg0);
   }
+  */
 }

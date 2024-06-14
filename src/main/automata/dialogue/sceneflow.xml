@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SceneFlow modifDate="" package="" start="N1" hideLocalVar="false" hideGlobalVar="false" id="" name="GCS_dialog" comment="">
+    <Commands></Commands>
+    <Position xPos="0" yPos="0"/>
+    <Node id="N1" name="N1" comment="">
+        <Commands></Commands>
+        <CEdge target="N2" source="N1" targetdock="3" sourcedock="2">
+            <SourceCtrl xPos="80" yPos="0"/>
+            <TargetCtrl xPos="-80" yPos="0"/>
+            <Condition>in_msg.cmd == "initial_greeting"</Condition>
+        </CEdge>
+        <Position xPos="65" yPos="115"/>
+        <TEdge timeout="100000000" target="N1" source="N1" targetdock="10" sourcedock="14">
+            <SourceCtrl xPos="27" yPos="-72"/>
+            <TargetCtrl xPos="97" yPos="-26"/>
+            <Commands></Commands>
+            <Commands/>
+        </TEdge>
+    </Node>
+    <Node id="N2" name="StartSession" comment="">
+        <Commands>init = user.sessions.size() &gt; 1 
+	? "NotInitial" : "Initial";
+emitDA(#Greeting({init}));
+sendSignal("initial_greeting");</Commands>
+        <CEdge target="N4" source="N2" targetdock="29" sourcedock="28">
+            <SourceCtrl xPos="83" yPos="-25"/>
+            <TargetCtrl xPos="-63" yPos="-35"/>
+            <Condition>in_msg.arg0 == "eyes_open"</Condition>
+        </CEdge>
+        <Position xPos="335" yPos="236"/>
+        <EEdge target="N3" source="N2" targetdock="27" sourcedock="26">
+            <SourceCtrl xPos="63" yPos="-42"/>
+            <TargetCtrl xPos="-63" yPos="42"/>
+        </EEdge>
+    </Node>
+    <Node id="N3" name="OpenEyesTry1" comment="">
+        <Commands>emitDA(#Instruct(OpenEyes));</Commands>
+        <CEdge target="N9" source="N3" targetdock="21" sourcedock="20">
+            <SourceCtrl xPos="96" yPos="64"/>
+            <TargetCtrl xPos="-122" yPos="38"/>
+            <Condition>checkSpeechSignal() != 0</Condition>
+        </CEdge>
+        <CEdge target="N4" source="N3" targetdock="17" sourcedock="16">
+            <SourceCtrl xPos="11" yPos="59"/>
+            <TargetCtrl xPos="-11" yPos="-59"/>
+            <Condition>checkCmd("eyes_opened")</Condition>
+        </CEdge>
+        <Position xPos="648" yPos="15"/>
+        <TEdge timeout="8000" target="N5" source="N3" targetdock="3" sourcedock="2">
+            <SourceCtrl xPos="100" yPos="0"/>
+            <TargetCtrl xPos="-100" yPos="0"/>
+            <Commands></Commands>
+            <Commands/>
+        </TEdge>
+    </Node>
+    <Node id="N4" name="N4" comment="">
+        <Commands>emitDA(#Inform(AskQuestion));</Commands>
+        <Position xPos="698" yPos="313"/>
+        <EEdge target="S1" source="N4" targetdock="13" sourcedock="12">
+            <SourceCtrl xPos="61" yPos="25"/>
+            <TargetCtrl xPos="-61" yPos="-25"/>
+        </EEdge>
+    </Node>
+    <Node id="N5" name="OpenEyesTry2" comment="">
+        <Commands>emitDA(#Instruct(OpenEyes, tryNo="2"));</Commands>
+        <CEdge target="N9" source="N5" targetdock="1" sourcedock="0">
+            <SourceCtrl xPos="0" yPos="60"/>
+            <TargetCtrl xPos="0" yPos="-60"/>
+            <Condition>checkSpeechSignal() != 0</Condition>
+        </CEdge>
+        <CEdge target="N4" source="N5" targetdock="6" sourcedock="7">
+            <SourceCtrl xPos="-110" yPos="12"/>
+            <TargetCtrl xPos="105" yPos="-144"/>
+            <Condition>checkCmd("eyes_opened")</Condition>
+        </CEdge>
+        <Position xPos="1148" yPos="15"/>
+        <TEdge timeout="4000" target="N6" source="N5" targetdock="3" sourcedock="2">
+            <SourceCtrl xPos="60" yPos="0"/>
+            <TargetCtrl xPos="-60" yPos="0"/>
+            <Commands></Commands>
+            <Commands/>
+        </TEdge>
+    </Node>
+    <Node id="N6" name="N6" comment="">
+        <Commands>score = 0;</Commands>
+        <Position xPos="1480" yPos="20"/>
+        <EEdge target="N18" source="N6" targetdock="1" sourcedock="0">
+            <SourceCtrl xPos="0" yPos="50"/>
+            <TargetCtrl xPos="0" yPos="-50"/>
+        </EEdge>
+    </Node>
+    <SuperNode start="N8" hideLocalVar="false" hideGlobalVar="false" id="S1" name="Phase_2" comment="">
+        <Commands></Commands>
+        <Position xPos="998" yPos="463"/>
+        <EEdge target="N18" source="S1" targetdock="3" sourcedock="2">
+            <SourceCtrl xPos="150" yPos="0"/>
+            <TargetCtrl xPos="-150" yPos="0"/>
+        </EEdge>
+        <Node id="N8" name="N8" comment="">
+            <Commands>sendSignal("test_conversation", "started");
+// fix question for this session
+session.question = getRandomQuestion();</Commands>
+            <Position xPos="155" yPos="108"/>
+            <EEdge target="N10" source="N8" targetdock="3" sourcedock="2">
+                <SourceCtrl xPos="89" yPos="0"/>
+                <TargetCtrl xPos="-89" yPos="0"/>
+            </EEdge>
+        </Node>
+        <Node id="N10" name="N10" comment="">
+            <Commands>emitDA(#WHQuestion({session.question}));</Commands>
+            <CEdge target="N17" source="N10" targetdock="29" sourcedock="28">
+                <SourceCtrl xPos="121" yPos="24"/>
+                <TargetCtrl xPos="-121" yPos="-24"/>
+                <Condition>checkSpeechSignal() == 2</Condition>
+            </CEdge>
+            <CEdge target="N19" source="N10" targetdock="21" sourcedock="16">
+                <SourceCtrl xPos="12" yPos="47"/>
+                <TargetCtrl xPos="-65" yPos="2"/>
+                <Condition>lastDA() &gt;= #Answer(top)</Condition>
+            </CEdge>
+            <Position xPos="600" yPos="150"/>
+            <TEdge timeout="40000" target="N11" source="N10" targetdock="11" sourcedock="6">
+                <SourceCtrl xPos="44" yPos="-44"/>
+                <TargetCtrl xPos="-57" yPos="23"/>
+                <Commands></Commands>
+                <Commands/>
+            </TEdge>
+        </Node>
+        <Node id="N11" name="N11" comment="">
+            <Commands>++wtry;</Commands>
+            <CEdge target="N10" source="N11" targetdock="26" sourcedock="27">
+                <SourceCtrl xPos="-52" yPos="34"/>
+                <TargetCtrl xPos="52" yPos="-34"/>
+                <Condition>wtry == 1</Condition>
+            </CEdge>
+            <Position xPos="875" yPos="0"/>
+            <EEdge target="N16" source="N11" targetdock="3" sourcedock="2">
+                <SourceCtrl xPos="50" yPos="0"/>
+                <TargetCtrl xPos="-50" yPos="0"/>
+            </EEdge>
+        </Node>
+        <Node id="N12" name="N12" comment="">
+            <Commands></Commands>
+            <CEdge target="N13" source="N12" targetdock="29" sourcedock="28">
+                <SourceCtrl xPos="114" yPos="22"/>
+                <TargetCtrl xPos="-114" yPos="-22"/>
+                <Condition>lastDA().what 
+&amp;&amp; checkAnswer(lastDA().what, session.question)</Condition>
+            </CEdge>
+            <Position xPos="620" yPos="481"/>
+            <EEdge target="N14" source="N12" targetdock="18" sourcedock="19">
+                <SourceCtrl xPos="-94" yPos="18"/>
+                <TargetCtrl xPos="94" yPos="-18"/>
+            </EEdge>
+        </Node>
+        <Node id="N13" name="N13" comment="">
+            <Commands>emitDA(#Confirm(Answer, what={session.question}));
+lastDAprocessed();
+score = 5;</Commands>
+            <Position xPos="1193" yPos="591"/>
+        </Node>
+        <Node id="N14" name="N14" comment="">
+            <Commands>emitDA(#Disconfirm(Answer, what={session.question}));
+lastDAprocessed();
+++qtry;</Commands>
+            <CEdge target="N15" source="N14" targetdock="3" sourcedock="2">
+                <SourceCtrl xPos="85" yPos="0"/>
+                <TargetCtrl xPos="-85" yPos="0"/>
+                <Condition>qtry == 2</Condition>
+            </CEdge>
+            <Position xPos="158" yPos="616"/>
+            <EEdge target="N10" source="N14" targetdock="7" sourcedock="6">
+                <SourceCtrl xPos="90" yPos="-90"/>
+                <TargetCtrl xPos="-90" yPos="90"/>
+            </EEdge>
+        </Node>
+        <Node id="N15" name="N15" comment="">
+            <Commands>score = 3;</Commands>
+            <Position xPos="585" yPos="608"/>
+        </Node>
+        <Node id="N16" name="N16" comment="">
+            <Commands>score = 1;</Commands>
+            <Position xPos="1125" yPos="0"/>
+        </Node>
+        <Node id="N17" name="N17" comment="">
+            <Commands>score = 2;</Commands>
+            <Position xPos="1200" yPos="300"/>
+        </Node>
+        <Node id="N19" name="N19" comment="">
+            <Commands></Commands>
+            <CEdge target="N12" source="N19" targetdock="26" sourcedock="27">
+                <SourceCtrl xPos="-42" yPos="28"/>
+                <TargetCtrl xPos="42" yPos="-28"/>
+                <Condition>session.question 
+&amp;&amp; lastDA() &gt;= #Answer({session.question})</Condition>
+            </CEdge>
+            <Position xPos="810" yPos="321"/>
+            <EEdge target="N14" source="N19" targetdock="10" sourcedock="11">
+                <SourceCtrl xPos="-132" yPos="54"/>
+                <TargetCtrl xPos="132" yPos="-54"/>
+            </EEdge>
+        </Node>
+        <Definitions>wtry = 0;
+qtry = 0;
+
+String getRandomQuestion() {
+  return Arrays.asList("DayOfWeek", "Month").get(random(2));
+}</Definitions>
+    </SuperNode>
+    <Node id="N9" name="N9" comment="">
+        <Commands>lastDAprocessed();
+eyes_closed_penalty = 1;</Commands>
+        <Position xPos="1155" yPos="311"/>
+        <EEdge target="N4" source="N9" targetdock="2" sourcedock="3">
+            <SourceCtrl xPos="-120" yPos="0"/>
+            <TargetCtrl xPos="120" yPos="0"/>
+        </EEdge>
+    </Node>
+    <Node id="N18" name="N18" comment="">
+        <Commands>// TODO: TAKE INTO ACCOUNT eyes_closed_penalty
+sendSignal("test_conversation", toStr(score));
+session.state = "phase2_finished";
+newData();</Commands>
+        <Position xPos="1480" yPos="463"/>
+    </Node>
+    <Definitions>import de.dfki.vondabase.data.Command;
+import de.dfki.vondabase.data.Signal;
+
+//Command cmd;
+int eyes_closed_penalty;
+int score;
+
+void start();
+if (session.state == "start_phase2") {
+  session.state = "phase2_running";
+  start();
+}</Definitions>
+    <ClassPath/>
+</SceneFlow>

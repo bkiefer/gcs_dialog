@@ -20,7 +20,7 @@ raw:Greeting {
 
 
 // TODO: Formulierungen
-raw:Inform ^ Fragen
+raw:Inform ^ AskQuestion
 ->
 # = :canned ^ <string>concatenate(
 "Ich werde Ihnen einige Fragen stellen, die ",
@@ -42,14 +42,18 @@ raw:Inform ^ Fixpunkt
 
 /******************************************************************************/
 //phase1: ask to open eyes
-raw:Inform ^ OpenEyes
+raw:Instruct ^ OpenEyes ^ (! <tryNo> | <tryNo> 1)
     ->
-    # = :canned ^ <string>"Oeffnen Sie bitte die Augen, wenn Sie mich hoeren koennen.".
+    # = :canned ^ <string>"Öffnen Sie bitte die Augen, wenn Sie mich hören können.".
+
+raw:Instruct ^ OpenEyes ^ <tryNo> 2
+    ->
+    # = :canned ^ <string>"Können Sie bitte ihre Augen öffnen?".
 
 
 raw:Inform ^ Thanks
     ->
-    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden 
+    # = :canned ^ <string>"Vielen Dank. Die Rettungskräfte wurden über Ihren Zustand informiert und werden
     in Kürze hier eintreffen.".
 //TODO: Formulierung:
 
@@ -98,52 +102,47 @@ raw:YNQuestion ^ checkResponseAgain
 ->
 # = :canned ^ <string>"Wenn Sie mich hören können, sagen Sie bitte etwas." .
 
-raw:Question ^ Name
-->
-# = :canned ^ <string>random("Wie heißen Sie?",
-                                    "Sagen Sie mir bitte, wie Sie heißen.") .
-
-raw:Question ^ NAME
+raw:WHQuestion ^ (Name|NAME)
 ->
 # = :canned ^ <string>random("Wie heißen Sie?",
                              "Sagen Sie mir bitte, wie Sie heißen.") .
 
-raw:Question ^ DayOfWeek
+raw:WHQuestion ^ DayOfWeek
 ->
 # = :canned ^ <string>"Sagen Sie mir bitte, welcher Wochentag heute ist." .
 
-raw:Question ^ Adress
+raw:WHQuestion ^ Adress
 ->
 # = :canned ^ <string>"Sagen Sie mir bitte, wo Sie wohnen." .
 
 
-raw:Question ^ Birthdate
+raw:WHQuestion ^ Birthdate
 ->
 # = :canned ^ <string>random("Wann sind Sie geboren?",
                              "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
-raw:Question ^ Date
+raw:WHQuestion ^ Date
 ->
 # = :canned ^ <string>random("Wann sind Sie geboren?",
                              "Nennen Sie mir bitte Ihr Geburtsdatum.") .
 
-raw:Question ^ (Age|AGE)
+raw:WHQuestion ^ (Age|AGE)
 ->
 # = :canned ^ <string>"Wie alt sind Sie?" .
 
-raw:Question ^ Month
+raw:WHQuestion ^ Month
 ->
 # = :canned ^ <string>random("Wissen Sie, welcher Monat ist?",
             "In welchem Monat sind wir gerade?",
             "Sagen Sie mir bitte, welcher Monat gerade ist.").
 
-raw:Question ^ Year
+raw:WHQuestion ^ Year
 ->
 # = :canned ^ <string>"Wissen Sie, welches Jahr wir haben?" .
 
 
 // TODO
-raw:Question ^ Pain
+raw:YNQuestion ^ Pain
 ->
 # = :canned ^ <string>"Haben Sie aktuell Schmerzen?" .
 

@@ -1,5 +1,8 @@
+was_question:
 if (myLastDA() >= #Question(top) && lastDA()) {
+ inform_matches_question:
   if (lastDA() >= #Inform(top) && ! (lastDA() >= #Answer(top))) {
     lastDA().setDialogueActType("<dial:Answer>");
+    logger.info("{}", lastDA());
   }
 }

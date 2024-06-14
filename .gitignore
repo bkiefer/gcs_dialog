@@ -3,8 +3,10 @@ data/Ontology/**/*.nt
 target/
 deploy/
 src/main/gen-java/
+src/main/rudi/dialogue
 src/main/resources/generated/
 src/main/resources/grammars/srgs/testfile.out
+src/main/resources/ontology/automata/GCS_dialog.nt
 *~
 **/.idea
 **/*.iml

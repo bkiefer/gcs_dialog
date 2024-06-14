@@ -7,6 +7,7 @@ checkTypes:         true
 failOnError:        false
 verbose:            false
 rootPackage:        de.dfki.vondabase
+persistentVars:     true
 
 nameToURI:
   Agent : <dom:Actor>
@@ -30,9 +31,9 @@ NLU:
         removePunctuation: true
 
 # rudibugger settings
-defaultCompileCommand: compile
+defaultCompileCommand: vondac
 customCompileCommands:
-  Compile without maven: vondac -c config.yml
+  Compile without maven: g2v -c config.yml
   vcompile: vondac -v -c config.yml
   mvn: mvn install
 debugPort : 9999
@@ -40,3 +41,10 @@ filterRules : false
 
 mqtt:
   brokerhost: localhost
+
+automata:
+  dialogue:
+    sceneflow: src/main/automata/dialogue/sceneflow.xml
+    # this is always relative to inputFile!
+    output: dialogue
+    ontology: src/main/resources/ontology/automata

@@ -17,6 +17,7 @@ namespaces:
  dial: http://www.dfki.de/lt/onto/common/dialogue.owl#
  init: http://www.dfki.de/lt/onto/adrz/sign_of_life/init#
  dom: http://www.dfki.de/lt/onto/adrz/signOfLife/domain#
+ autm: http://www.dfki.de/beki/ontologies/2023/7/automaton#
 
 tupleFiles:
   # the axiomatic triples for OWL-Horst w/ EQ reduction
@@ -28,6 +29,10 @@ tupleFiles:
   # Intuitiv sub-ontologies
   - ../domain/domain.nt
   - ../init/init.nt
+
+  # Phase 2 automaton
+  - ../automata/automaton.nt
+  - ../automata/GCS_dialog.nt
 
 ruleFiles:
   # we need special rules for transaction time (mixture of triples/quadruples)

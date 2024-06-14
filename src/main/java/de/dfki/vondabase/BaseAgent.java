@@ -39,6 +39,7 @@ public abstract class BaseAgent extends Agent {
   private final Deque<Command> cmdQueue = new ArrayDeque<>();
 
   private HfcDbHandler handler = null;
+  public boolean speechInput;
 
   private RdfProxy startClient(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException {
@@ -100,8 +101,7 @@ public abstract class BaseAgent extends Agent {
    */
   public List<Object> getAllSessions(Rdf user) {
     // TODO: have a special Rdf.getAll(prop) method??
-    return _proxy.query(
-        "select ?sess where {} <dom:hasSession> ?sess ?_", user.getURI());
+    return query("select ?sess where {} <dom:hasSession> ?sess ?_", user.getURI());
   }
 
   /** Add incoming command to the command queue */

@@ -57,10 +57,7 @@ public class BaseCommunicationHub implements CommunicationHub {
   private boolean receiveAsr(byte[] b) {
     Optional<AsrResult> cmd;
     (cmd = mapper.unmarshal(b, AsrResult.class)).ifPresent(this::sendEvent);
-    if (! cmd.isEmpty()) {
-      sendEvent(cmd.get());
-    }
-    return ! cmd.isEmpty();
+    return cmd.isPresent();
   }
 
   private boolean receiveMqtt(byte[] b) {
@@ -167,6 +164,7 @@ public class BaseCommunicationHub implements CommunicationHub {
       DialogueAct da = _agent.analyse((String) evt);
       sendEvent(da);
     } else if (evt instanceof AsrResult) {
+      _agent.speechInput = true;
       String text = ((AsrResult)evt).getText();
       logger.debug("AsrResult {}" + text);
       DialogueAct da = _agent.analyse(text);

@@ -1,1 +1,3 @@
-vondac "$@" -c config.yml
+mvn clean
+g2v -c config.yml "$@"
+mvn install

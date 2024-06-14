@@ -12,8 +12,9 @@ BaseCommunicationHub getHub() {
 Command in_msg = getCommand();
 if (in_msg) {
   when = in_msg.timestamp;
+  cancelTimeout("stale_signal");
   timeout("stale_signal", 1500) {
-    if (in_msg && in_msg.timestamp == when) {
+    if (getCommand() && getCommand() == in_msg) {
       logger.warn("Signal not processed in time: {}", in_msg);
       removeLastCommand();
     }
@@ -41,6 +42,11 @@ boolean checkCmd(String cmd) {
   return false;
 }
 
+int checkSpeechSignal() {
+  result = speechInput ? 1 : 0;
+  speechInput = false;
+  return result;
+}
 
 // accumulate signals for articulate speech and mouth movements
 // amount of speech that should at least be articulate
@@ -76,7 +82,7 @@ if (! session) {
   if (in_msg) {
     removeLastCommand(); // in any of the following cases
   session_starts:
-    if (in_msg.cmd == "start_gcs") {
+    if (checkCmd("start_gcs")) {
       logger.info("GCS service started");
       session = new Session; // new session
       session.state = "started";
@@ -114,7 +120,7 @@ include Phase_3;
 /** finalizing */
 // --> { "cmd": "finalize" }
 // <-- { "status": "finalizing", "state": "started"/"stopped" }
-logger.info("cmd: {}", in_msg);
+logger.info("cmd: {} state: {}", in_msg, session ? session.state : "None");
 
 finalizing:
 if (checkCmd("finalize")){

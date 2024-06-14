@@ -50,26 +50,6 @@
       <version>${logback.version}</version>
       <scope>runtime</scope>
     </dependency>
-
-    <!--<dependency>
-      <groupId>edu.stanford.nlp</groupId>
-      <artifactId>stanford-corenlp</artifactId>
-      <version>4.4.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>edu.stanford.nlp</groupId>
-      <artifactId>stanford-corenlp</artifactId>
-      <version>4.4.0</version>
-      <classifier>models</classifier>
-    </dependency>
-
-    <dependency>
-      <groupId>edu.stanford.nlp</groupId>
-      <artifactId>stanford-corenlp</artifactId>
-      <version>4.4.0</version>
-      <classifier>models-german</classifier>
-    </dependency>-->
   </dependencies>
 
   <build>
@@ -118,7 +98,7 @@
         </configuration>
       </plugin>
 
-      <plugin>
+      <!--<plugin>  Sometimes does not kick in, move to compile script
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.3.2</version>
@@ -134,7 +114,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
