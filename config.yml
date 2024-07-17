@@ -1,8 +1,11 @@
+# Points to the HFC config file
+ontologyFile:       src/main/resources/ontology/ini/gcs.yml
+
+# ########## COMPILE CONFIGURATION SETTINGS ##########
 inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java
 agentBase:          de.dfki.vondabase.BaseAgent
 typeDef:            BaseAgent.rudi
-ontologyFile:       src/main/resources/ontology/ini/gcs.yml
 checkTypes:         true
 failOnError:        false
 verbose:            false
