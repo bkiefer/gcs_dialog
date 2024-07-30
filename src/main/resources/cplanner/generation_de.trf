@@ -8,7 +8,7 @@ raw:Greeting {
   ^ Initial {
     ^ (!<eyes> | <eyes>"eyes_open")
     ->
-    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Keine Sorge, Hilfe ist bereits unterwegs. Ich werde Ihnen einige Fragen stellen, die den Einsatzkräften bei Ihrer Rettung helfen." .
+    # = :canned ^ <string>"Hallo. Ich bin ein Rettungsroboter der Feuerwehr. Hilfe ist bereits unterwegs. Ich möchte herausfinden, wie es Ihnen geht, um die Einsatzkräfte bestmöglich zu unterstützen." .
 
     ^ <eyes>"eyes_closed"
     ->

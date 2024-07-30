@@ -6,19 +6,24 @@ This module handles the natural language interaction part of the Glasgow Coma Sc
 
 ## Prerequisites
 
-`git`, Java 11 and maven
+`git`, Java 11 and maven, and the GraVE and VOnDA compilers
+
+## Installation of GraVE and VOnDA compilers
+
+    git clone git@github.com:bkiefer/GraVE
+    cd GraVE
+    mvn install
+
+then add GraVE/bin/g2v to your executable path.
 
 ## clone from repository
 
-
-    git clone git@mlt-gitlab.sb.dfki.de:willms/drz_sign_of_life_module.git
-
+    git clone git@github.com:bkiefer/gcs_dialog.git
 
 ## compile and build the docker image `drz/gcs_dialog_manager`
 
     mvn -U clean
     ./compile
-    mvn install
     ./build_docker.sh
 
 ## create a logs/ folder (for detailed logs) and start the docker image

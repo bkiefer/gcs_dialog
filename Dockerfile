@@ -20,9 +20,9 @@ FROM openjdk:11-jre-slim
 #   	xz-utils \
 #   	--no-install-recommends
 
-ENV JAVA_HOME /opt/jdk
+ENV JAVA_HOME=/opt/jdk
 
-ENV PATH ${PATH}:${JAVA_HOME}/bin
+ENV PATH=${PATH}:${JAVA_HOME}/bin
 
 COPY src/main/resources src/main/resources
 #COPY config.yml config.yml

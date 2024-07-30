@@ -1,0 +1,456 @@
+!!de.dfki.mlt.g2v.CompileInfo
+codeInfos:
+  dialogue:
+    nodeBlocks:
+      GCS_dialog:
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 180
+        node: N1_N1
+        start: 179
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 193
+        node: N2_StartSession
+        start: 189
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 197
+        node: N2_StartSession
+        start: 196
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 208
+        node: N3_OpenEyesTry1
+        start: 207
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 214
+        node: N3_OpenEyesTry1
+        start: 213
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 218
+        node: N3_OpenEyesTry1
+        start: 217
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 228
+        node: N4_N4
+        start: 227
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 239
+        node: N5_OpenEyesTry2
+        start: 238
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 245
+        node: N5_OpenEyesTry2
+        start: 244
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 249
+        node: N5_OpenEyesTry2
+        start: 248
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 259
+        node: N6_N6
+        start: 258
+      S1_Phase_2:
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 4
+        node: S1_Phase_2
+        start: 1
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 28
+        node: N8_N8
+        start: 27
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 39
+        node: N10_N10
+        start: 38
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 45
+        node: N10_N10
+        start: 44
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 49
+        node: N10_N10
+        start: 48
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 59
+        node: N11_N11
+        start: 58
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 63
+        node: N11_N11
+        start: 62
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 74
+        node: N12_N12
+        start: 72
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 85
+        node: N13_N13
+        start: 84
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 97
+        node: N14_N14
+        start: 95
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 101
+        node: N14_N14
+        start: 100
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 112
+        node: N15_N15
+        start: 111
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 123
+        node: N16_N16
+        start: 122
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 134
+        node: N17_N17
+        start: 133
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 270
+        node: N9_N9
+        start: 269
+      - !!de.dfki.mlt.g2v.CodeBlock
+        end: 283
+        node: N18_N18
+        start: 280
+info: &id001
+  children:
+  - !!de.dfki.mlt.rudimant.common.IncludeInfo
+    children: []
+    errors: []
+    label: NLU
+    line: 5
+    parent: *id001
+    relativePath: []
+  - &id002 !!de.dfki.mlt.rudimant.common.RuleInfo
+    baseterms:
+    - in_msg
+    children:
+    - !!de.dfki.mlt.rudimant.common.RuleInfo
+      baseterms:
+      - checkCmd("start_gcs")
+      children: []
+      expression:
+      - 0
+      id: 1
+      label: session_starts
+      line: 81
+      parent: *id002
+    expression:
+    - 0
+    id: 0
+    label: no_session_check_start
+    line: 78
+    parent: *id001
+  - !!de.dfki.mlt.rudimant.common.IncludeInfo
+    children: []
+    errors: []
+    label: accumulator
+    line: 112
+    parent: *id001
+    relativePath: []
+  - &id003 !!de.dfki.mlt.rudimant.common.IncludeInfo
+    children:
+    - !!de.dfki.mlt.rudimant.common.RuleInfo
+      baseterms:
+      - checkCmd("initial_greeting")
+      children: []
+      expression:
+      - 0
+      id: 2
+      label: phase_one
+      line: 5
+      parent: *id003
+    errors: []
+    label: Phase_1
+    line: 113
+    parent: *id001
+    relativePath: []
+  - &id007 !!de.dfki.mlt.rudimant.common.IncludeInfo
+    children:
+    - &id004 !!de.dfki.mlt.rudimant.common.IncludeInfo
+      children:
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[1])
+        children: []
+        expression:
+        - 0
+        id: 3
+        label: N1_N1
+        line: 174
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[2])
+        children: []
+        expression:
+        - 0
+        id: 4
+        label: N2_StartSession
+        line: 185
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[3])
+        children: []
+        expression:
+        - 0
+        id: 5
+        label: N3_OpenEyesTry1
+        line: 203
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[4])
+        children: []
+        expression:
+        - 0
+        id: 6
+        label: N4_N4
+        line: 223
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[5])
+        children: []
+        expression:
+        - 0
+        id: 7
+        label: N5_OpenEyesTry2
+        line: 234
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[6])
+        children: []
+        expression:
+        - 0
+        id: 8
+        label: N6_N6
+        line: 254
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[17])
+        children: []
+        expression:
+        - 0
+        id: 9
+        label: N9_N9
+        line: 265
+        parent: *id004
+      - !!de.dfki.mlt.rudimant.common.RuleInfo
+        baseterms:
+        - isActive(nodes[18])
+        children: []
+        expression:
+        - 0
+        id: 10
+        label: N18_N18
+        line: 276
+        parent: *id004
+      - &id006 !!de.dfki.mlt.rudimant.common.IncludeInfo
+        children:
+        - &id005 !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[7])
+          children:
+          - !!de.dfki.mlt.rudimant.common.RuleInfo
+            baseterms:
+            - canBeLeft(nodes[7])
+            children: []
+            expression:
+            - 0
+            id: 12
+            label: S1_Phase_2_out
+            line: 12
+            parent: *id005
+          expression:
+          - 0
+          id: 11
+          label: setup_S1_Phase_2
+          line: 5
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[8])
+          children: []
+          expression:
+          - 0
+          id: 13
+          label: N8_N8
+          line: 23
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[9])
+          children: []
+          expression:
+          - 0
+          id: 14
+          label: N10_N10
+          line: 34
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[10])
+          children: []
+          expression:
+          - 0
+          id: 15
+          label: N11_N11
+          line: 54
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[11])
+          children: []
+          expression:
+          - 0
+          id: 16
+          label: N12_N12
+          line: 69
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[12])
+          children: []
+          expression:
+          - 0
+          id: 17
+          label: N13_N13
+          line: 80
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[13])
+          children: []
+          expression:
+          - 0
+          id: 18
+          label: N14_N14
+          line: 91
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[14])
+          children: []
+          expression:
+          - 0
+          id: 19
+          label: N15_N15
+          line: 107
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[15])
+          children: []
+          expression:
+          - 0
+          id: 20
+          label: N16_N16
+          line: 118
+          parent: *id006
+        - !!de.dfki.mlt.rudimant.common.RuleInfo
+          baseterms:
+          - isActive(nodes[16])
+          children: []
+          expression:
+          - 0
+          id: 21
+          label: N17_N17
+          line: 129
+          parent: *id006
+        errors: []
+        label: S1_Phase_2
+        line: 289
+        parent: *id004
+        relativePath:
+        - dialogue
+      errors:
+      - location:
+          begin:
+            charpos: 5705
+            column: 4
+            line: 280
+            origin: GCS_dialog
+          end:
+            charpos: 5743
+            column: 42
+            line: 280
+            origin: GCS_dialog
+        message: The function call to sendSignal refers to a function that wasn't
+          declared
+        type: ERROR
+      label: GCS_dialog
+      line: 23
+      parent: *id007
+      relativePath:
+      - dialogue
+    errors: []
+    label: Phase_2
+    line: 114
+    parent: *id001
+    relativePath: []
+  - &id008 !!de.dfki.mlt.rudimant.common.IncludeInfo
+    children:
+    - !!de.dfki.mlt.rudimant.common.RuleInfo
+      baseterms:
+      - checkCmd("motion_request")
+      children: []
+      expression:
+      - 0
+      id: 22
+      label: phase_three
+      line: 6
+      parent: *id008
+    - !!de.dfki.mlt.rudimant.common.RuleInfo
+      baseterms:
+      - checkCmd("motion_executed")
+      children: []
+      expression:
+      - 0
+      id: 23
+      label: motion_executed
+      line: 31
+      parent: *id008
+    errors: []
+    label: Phase_3
+    line: 115
+    parent: *id001
+    relativePath: []
+  - !!de.dfki.mlt.rudimant.common.RuleInfo
+    baseterms:
+    - checkCmd("finalize")
+    children: []
+    expression:
+    - 0
+    id: 24
+    label: finalizing
+    line: 122
+    parent: *id001
+  - !!de.dfki.mlt.rudimant.common.RuleInfo
+    baseterms:
+    - checkCmd("end_gcs")
+    children: []
+    expression:
+    - 0
+    id: 25
+    label: gcs_end
+    line: 130
+    parent: *id001
+  - !!de.dfki.mlt.rudimant.common.RuleInfo
+    baseterms:
+    - checkCmd("exit")
+    children: []
+    expression:
+    - 0
+    id: 26
+    label: exit
+    line: 138
+    parent: *id001
+  errors: []
+  label: DialogAgent
+  line: -1
+  parent: null
+  relativePath: []
