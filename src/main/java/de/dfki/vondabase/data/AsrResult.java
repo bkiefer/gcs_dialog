@@ -22,6 +22,9 @@ public class AsrResult {
   public List<Word> result;
   public String text;
   public long id;
+  public long start;
+  public long end;
+  public double confidence;
 
   public String getText() {
     return text;
