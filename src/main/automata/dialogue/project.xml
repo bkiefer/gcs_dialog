@@ -3,7 +3,7 @@
     <editorConfig>
         <sNODEWIDTH>100</sNODEWIDTH>
         <sNODEHEIGHT>100</sNODEHEIGHT>
-        <sZOOM_FACTOR>0.6999999</sZOOM_FACTOR>
+        <sZOOM_FACTOR>1.0</sZOOM_FACTOR>
         <sZOOM_INCREMENT>1.2</sZOOM_INCREMENT>
         <sGRID_SCALE>1.0</sGRID_SCALE>
         <sSHOWGRID>true</sSHOWGRID>

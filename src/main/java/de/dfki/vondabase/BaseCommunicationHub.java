@@ -164,7 +164,7 @@ public class BaseCommunicationHub implements CommunicationHub {
       DialogueAct da = _agent.analyse((String) evt);
       sendEvent(da);
     } else if (evt instanceof AsrResult) {
-      _agent.speechInput = true;
+      _agent.speechInput = 2;
       String text = ((AsrResult)evt).getText();
       logger.debug("AsrResult {}" + text);
       DialogueAct da = _agent.analyse(text);

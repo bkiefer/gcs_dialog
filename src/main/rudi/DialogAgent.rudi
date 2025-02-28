@@ -42,9 +42,11 @@ boolean checkCmd(String cmd) {
   return false;
 }
 
+// This returns an integer from 0 to 2: 0: no sound, 1: unintelligible
+// 2: speech
 int checkSpeechSignal() {
-  result = speechInput ? 1 : 0;
-  speechInput = false;
+  result = speechInput;
+  speechInput = -1;
   return result;
 }
 

@@ -22,7 +22,7 @@ String[] splitLimb(String limbspec);
 
 #BaseCommunicationHub void sendSignal(Signal signal);
 
-boolean speechInput;
+int speechInput;
 
 boolean checkAnswer(String response, String question);
 void reset();

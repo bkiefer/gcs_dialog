@@ -113,10 +113,10 @@ session.question = getRandomQuestion();</Commands>
                 <TargetCtrl xPos="-38" yPos="-38"/>
                 <Condition>lastDA() &gt;= #Answer(top)</Condition>
             </CEdge>
-            <CEdge target="N17" source="N10" targetdock="3" sourcedock="2">
-                <SourceCtrl xPos="119" yPos="0"/>
-                <TargetCtrl xPos="-119" yPos="0"/>
-                <Condition>checkSpeechSignal() == 2</Condition>
+            <CEdge target="N23" source="N10" targetdock="29" sourcedock="28">
+                <SourceCtrl xPos="59" yPos="11"/>
+                <TargetCtrl xPos="-59" yPos="-11"/>
+                <Condition>(signal = checkSpeechSignal()) &gt; 0</Condition>
             </CEdge>
             <Position xPos="600" yPos="150"/>
             <TEdge timeout="40000" target="N11" source="N10" targetdock="11" sourcedock="6">
@@ -157,7 +157,7 @@ session.question = getRandomQuestion();</Commands>
             <Commands>emitDA(#Confirm(Answer, what={session.question}));
 lastDAprocessed();
 score = 5;</Commands>
-            <Position xPos="1267" yPos="641"/>
+            <Position xPos="1200" yPos="600"/>
         </Node>
         <Node id="N14" name="N14" comment="">
             <Commands>emitDA(#Disconfirm(Answer, what={session.question}));
@@ -174,7 +174,7 @@ lastDAprocessed();</Commands>
             </EEdge>
         </Node>
         <Node id="N15" name="N15" comment="">
-            <Commands>score = 3;</Commands>
+            <Commands>score = 4;</Commands>
             <Position xPos="585" yPos="608"/>
         </Node>
         <Node id="N16" name="N16" comment="">
@@ -182,7 +182,7 @@ lastDAprocessed();</Commands>
             <Position xPos="1125" yPos="0"/>
         </Node>
         <Node id="N17" name="N17" comment="">
-            <Commands>score = 2;</Commands>
+            <Commands>score = 3;</Commands>
             <Position xPos="1197" yPos="158"/>
         </Node>
         <Node id="N19" name="N19" comment="">
@@ -199,9 +199,28 @@ lastDAprocessed();</Commands>
                 <TargetCtrl xPos="119" yPos="-49"/>
             </EEdge>
         </Node>
+        <Node id="N22" name="N22" comment="">
+            <Commands>score = 2;</Commands>
+            <Position xPos="1200" yPos="300"/>
+        </Node>
+        <Node id="N23" name="N23" comment="">
+            <Commands></Commands>
+            <CEdge target="N22" source="N23" targetdock="21" sourcedock="20">
+                <SourceCtrl xPos="59" yPos="40"/>
+                <TargetCtrl xPos="-59" yPos="-40"/>
+                <Condition>signal == 1</Condition>
+            </CEdge>
+            <CEdge target="N17" source="N23" targetdock="19" sourcedock="18">
+                <SourceCtrl xPos="58" yPos="-11"/>
+                <TargetCtrl xPos="-58" yPos="11"/>
+                <Condition>signal == 2</Condition>
+            </CEdge>
+            <Position xPos="1000" yPos="200"/>
+        </Node>
         <Definitions>String getRandomQuestion() {
   return Arrays.asList("DayOfWeek", "Month").get(random(2));
-}</Definitions>
+}
+int signal = -1;</Definitions>
     </SuperNode>
     <Node id="N9" name="N9" comment="">
         <Commands>lastDAprocessed();

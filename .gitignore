@@ -31,3 +31,5 @@ deploy/
 common_lib/
 docker_config.yml
 logs/**
+wech/**
+**/.$*.bkp
