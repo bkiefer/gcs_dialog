@@ -49,6 +49,9 @@ public class BaseCommunicationHub implements CommunicationHub {
 
   private boolean isRunning = true;
 
+  private File _configDir;
+  private Map<String, Object> _configs;
+
   private BaseAgent _agent;
 
   private final Deque<Object> inQueue = new ArrayDeque<>();
@@ -80,10 +83,10 @@ public class BaseCommunicationHub implements CommunicationHub {
    * @throws IOException
    * @throws WrongFormatException
    */
-  private void initAgent(File configDir, Map<String, Object> configs)
+  private void initAgent()
       throws WrongFormatException, IOException {
     _agent = new DialogAgent();
-    _agent.init(configDir, configs, "de_DE");
+    _agent.init(_configDir, _configs, "de_DE");
   }
 
   private void initMqtt(Map<String, Object> configs) throws MqttException {
@@ -101,8 +104,10 @@ public class BaseCommunicationHub implements CommunicationHub {
   @SuppressWarnings("unchecked")
   public void init(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException, MqttException {
-    initAgent(configDir, configs);
-    initMqtt((Map<String, Object>)configs.get("mqtt"));
+    _configDir = configDir;
+    _configs = configs;
+    initAgent();
+    initMqtt((Map<String, Object>)_configs.get("mqtt"));
 
     registerBehaviourListener(new Listener<Behaviour>() {
       @Override
@@ -202,7 +207,18 @@ public class BaseCommunicationHub implements CommunicationHub {
         while (!pendingEvents.isEmpty()) {
           onEvent(pendingEvents.removeLast());
         }
-        _agent.processRules();
+        try {
+          _agent.processRules();
+        } catch (Exception ex) {
+          logger.error("During rule processing: {ex.getMessage()}");
+          try {
+            initAgent();
+          }
+          catch (Exception ex_inner) {
+            logger.error("During reinitialization: {ex.getMessage()}");
+            shutdown();
+          }
+        }
       }
       synchronized (itemsToSend) {
         Object c = itemsToSend.peekFirst();

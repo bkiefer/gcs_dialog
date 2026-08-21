@@ -72,6 +72,14 @@ public abstract class BaseAgent extends Agent {
     logAllRules();
   }
 
+
+  @Override
+  public void reset() {
+    super.reset();
+    speechInput = 0;
+    cmdQueue.clear();
+  }
+
   @Override
   public void shutdown() {
     handler.shutdown();

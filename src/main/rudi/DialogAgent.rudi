@@ -85,6 +85,7 @@ if (! session) {
     removeLastCommand(); // in any of the following cases
   session_starts:
     if (checkCmd("start_gcs")) {
+      reset();
       logger.info("GCS service started");
       session = new Session; // new session
       session.state = "started";
