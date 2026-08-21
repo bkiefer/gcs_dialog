@@ -29,7 +29,6 @@ data/Ontology/catalog-v001.xml
 /docker_dev/tarballs/
 deploy/
 common_lib/
-docker_config.yml
 logs/**
 wech/**
 **/.$*.bkp

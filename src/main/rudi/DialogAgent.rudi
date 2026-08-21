@@ -46,7 +46,7 @@ boolean checkCmd(String cmd) {
 // 2: speech
 int checkSpeechSignal() {
   result = speechInput;
-  speechInput = -1;
+  speechInput = 0;
   return result;
 }
 

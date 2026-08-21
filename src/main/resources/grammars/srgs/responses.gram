@@ -15,9 +15,9 @@ $month = $<date.gram#month>;
 
 $ithink = ([ich] (denke|glaube|meine)) | (denke|glaube|meine) ich;
 
-$dow_response = $junk [$ithink] [heute ist | es ist] ([$ithink] $day_of_week {out.what="$$1"; } 
-			| $day_of_week {out.what="$$1"; } $ithink) 
-         { out.da="Inform" ; out.prop="DayOfWeek";} $junk;    
+$dow_response = $junk [$ithink] [heute ist | es ist] ([$ithink] $day_of_week {out.what="$$1"; }
+			| $day_of_week {out.what="$$1"; } $ithink)
+         { out.da="Inform" ; out.prop="DayOfWeek";} $junk;
 
 $month_opt_day = [[der] $day_of_month {out.day="$$1";}] $month {out.what = "$$1";}|
             $month {out.what = "$$1";} [der] $day_of_month {out.day="$$1";};
@@ -26,9 +26,8 @@ $month_response = $junk [heute ist | es ist | momentan ist]([$ithink] $month_opt
                 | $month_opt_day { out = $%1 } $ithink
                 ) { out.da = "Inform"; out.prop = "Month"; } $junk;
 
-$ambig = $junk [ja] $dow_response { out.da="Inform"; out.prop="DayOfWeek"; out = $%1; } |
-		 $junk [ja] $month_response { out.da="Inform"; out.prop="Month"; out = $%1; } |
-		 [$junk] ja $junk () { out.da="Confirm" ; out.prop="top" ;}; 
+$ambig = $junk $<general.gram#confirm> $dow_response { out.da="Inform"; out.prop="DayOfWeek"; out = $%1; } |
+		 $junk $<general.gram#confirm> $month_response { out.da="Inform"; out.prop="Month"; out = $%1; };
 
-public $root = ($dow_response | $month_response | $<general.gram> | $ambig)
+public $root = ($dow_response | $month_response | $<general.gram> | $ambig | $<general.gram#confirm>)
        { out = $%1; };

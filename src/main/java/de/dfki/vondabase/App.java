@@ -27,7 +27,7 @@ public class App {
 
   final static Object [][] defaults = {
       { CFG_VISUALISE, false , "v" },
-      { CFG_ONTOLOGY_FILE, "src/main/resources/ontology/Intuitiv/data/Ontology/chatcat.ini", "o" },
+      { CFG_ONTOLOGY_FILE, "src/main/resources/ontology/ini/gcs.yml", "o" },
   };
 
   public static Map<String, Object> defaultConfig() {

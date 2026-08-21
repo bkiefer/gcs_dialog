@@ -1,7 +1,13 @@
+* TODO
 - Was kann man aus dem ReSpeaker rausholen?
   - Vergleich ReSpeaker performance und Rohdaten/externe Verarbeitung
-- Classifier "un-/articulated" speech
++- Classifier "un-/articulated" speech
+  - braucht für sinnvolle Anwendung eigentliche Erkenner f. Mundbewegungen
+- Speaker diarization um die "eigene (TTS)" Stimme rauszufiltern
 - Bessere VAD/ASR
+** IS 7 / Planung
+- Checken, wie ein "strukturierter Funk" statt Datenübertragung aussehen
+  müsste, damit NLU was damit anfangen kann.
 * DONE
 + Allgemeinen und Dialogablauf anpassen an die neue Version, siehe
   "Schnittstellen Nuitrack DFKI.pdf"

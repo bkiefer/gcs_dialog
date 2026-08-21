@@ -39,7 +39,7 @@ public abstract class BaseAgent extends Agent {
   private final Deque<Command> cmdQueue = new ArrayDeque<>();
 
   private HfcDbHandler handler = null;
-  public int speechInput;
+  public int speechInput = 0;
 
   private RdfProxy startClient(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException {

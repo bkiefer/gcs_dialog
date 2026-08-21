@@ -6,15 +6,7 @@ This module handles the natural language interaction part of the Glasgow Coma Sc
 
 ## Prerequisites
 
-`git`, Java 11 and maven, and the GraVE and VOnDA compilers
-
-## Installation of GraVE and VOnDA compilers
-
-    git clone git@github.com:bkiefer/GraVE
-    cd GraVE
-    mvn install
-
-then add GraVE/bin/g2v to your executable path.
+`git`, Java 11 and maven
 
 ## clone from repository
 
@@ -23,8 +15,10 @@ then add GraVE/bin/g2v to your executable path.
 ## compile and build the docker image `drz/gcs_dialog_manager`
 
     mvn -U clean
-    ./compile
+    ./install.sh
     ./build_docker.sh
+
+This will also pull in the GraVE project as a submodule, the automata editor can also be started from there.
 
 ## create a logs/ folder (for detailed logs) and start the docker image
 

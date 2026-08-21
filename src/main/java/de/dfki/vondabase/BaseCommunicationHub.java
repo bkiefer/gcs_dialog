@@ -33,26 +33,32 @@ import de.dfki.vondabase.utils.Listener;
 
 public class BaseCommunicationHub implements CommunicationHub {
 
-  private final static Logger logger = LoggerFactory.getLogger(BaseCommunicationHub.class);
+  private final static Logger logger =
+      LoggerFactory.getLogger(BaseCommunicationHub.class);
 
   /**
    * How much time in milliseconds must pass between two behaviours, if
    * no message came back that the previous behaviour was finished.
    */
   public static long MIN_TIME_BETWEEN_BEHAVIOURS = 10000;
+
+  private MqttHandler client;
+  private JsonMarshaller mapper;
+
+  private final Random r = new Random();
+
+  private boolean isRunning = true;
+
+  private BaseAgent _agent;
+
   private final Deque<Object> inQueue = new ArrayDeque<>();
   private final Deque<Object> itemsToSend = new ArrayDeque<>();
 
   private final Deque<Object> pendingEvents = new ArrayDeque<>();
-  // Define a set of EventListener -> these are used to trigger audio output, update the avatar and so on
+
+  // Define a set of EventListener -> these are used to trigger audio output,
+  // update the avatar and so on
   private final List<Listener<Behaviour>> _listeners = new ArrayList<>();
-
-  private final Random r = new Random();
-  private boolean isRunning = true;
-  private BaseAgent _agent;
-
-  private MqttHandler client;
-  private JsonMarshaller mapper;
 
   private boolean receiveAsr(byte[] b) {
     Optional<AsrResult> cmd;
@@ -64,6 +70,20 @@ public class BaseCommunicationHub implements CommunicationHub {
     Optional<Command> cmd;
     (cmd = mapper.unmarshal(b, Command.class)).ifPresent(_agent::addCommand);
     return ! cmd.isEmpty();
+  }
+
+  /** While this method is executed, no MQTT messages should be processed. This
+   * could be done using synchronized, but it would be better and more efficient
+   * to temporarily disconnect from the broker.
+   *
+   * @param userId the user id for which a new agent shall be created
+   * @throws IOException
+   * @throws WrongFormatException
+   */
+  private void initAgent(File configDir, Map<String, Object> configs)
+      throws WrongFormatException, IOException {
+    _agent = new DialogAgent();
+    _agent.init(configDir, configs, "de_DE");
   }
 
   private void initMqtt(Map<String, Object> configs) throws MqttException {
@@ -81,17 +101,10 @@ public class BaseCommunicationHub implements CommunicationHub {
   @SuppressWarnings("unchecked")
   public void init(File configDir, Map<String, Object> configs)
           throws IOException, WrongFormatException, MqttException {
-    // check that we got the right config
-    String checkConfig = (String) configs.get("agentBase");
-    if (checkConfig.equals("de.dfki.vondabase.BaseAgent")) {
-      _agent = new DialogAgent();
-      _agent.init(configDir, configs, "de_DE");
-      initMqtt((Map<String, Object>)configs.get("mqtt"));
-    } else {
-      throw new IllegalArgumentException("unknown config " + checkConfig);
-    }
-    registerBehaviourListener(new Listener<Behaviour>() {
+    initAgent(configDir, configs);
+    initMqtt((Map<String, Object>)configs.get("mqtt"));
 
+    registerBehaviourListener(new Listener<Behaviour>() {
       @Override
       public void listen(Behaviour q) {
         Optional<String> out = mapper.marshal(q);
@@ -104,7 +117,6 @@ public class BaseCommunicationHub implements CommunicationHub {
 
       @Override
       public void free() { }
-
     });
     _agent.setCommunicationHub(this);
   }

@@ -1,22 +1,8 @@
 #!/bin/bash
 #set -x
-scrdir=`dirname $0`
-
-silentmvn="-q -ntp"
-
-echo "First run may take a while, be patient ... "
-status=0
-echo -n "Preparing, "
-mvn $silentmvn dependency:get -Dartifact=de.dfki.mlt:grave2vonda-compiler:1.1
-mvn $silentmvn clean
-
-echo -n "Compiling, "
-"$scrdir"/g2v -c config.yml "$@" || status=1
-mvn $silentmvn install
-
-if [ $status = 1 ]; then
-    echo "VOnDA/GraVE compilation failed!"
-else
-    echo "Success!"
+if test -n "$script_dir"; then
+    . $(dirname $0)/utils.sh
 fi
-exit $status
+cd "$script_dir"
+GraVE/bin/g2v -c config.yml "$@" || status=1
+mvn $silentmvn install

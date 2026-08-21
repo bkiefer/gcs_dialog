@@ -1,16 +1,6 @@
 # Points to the HFC config file
 ontologyFile:       src/main/resources/ontology/ini/gcs.yml
-
-# ########## COMPILE CONFIGURATION SETTINGS ##########
-inputFile:          src/main/rudi/DialogAgent.rudi
-outputDirectory:    src/main/gen-java
 agentBase:          de.dfki.vondabase.BaseAgent
-typeDef:            BaseAgent.rudi
-checkTypes:         true
-failOnError:        false
-verbose:            false
-rootPackage:        de.dfki.vondabase
-persistentVars:     true
 
 nameToURI:
   Agent : <dom:Actor>
@@ -33,20 +23,5 @@ NLU:
         toLower: false
         removePunctuation: true
 
-# rudibugger settings
-defaultCompileCommand: ./compile
-customCompileCommands:
-  Compile without maven: GraVE/bin/g2v -c config.yml
-  mvn: ./compile
-debugPort : 9999
-filterRules : false
-
 mqtt:
-  brokerhost: localhost
-
-automata:
-  dialogue:
-    sceneflow: src/main/automata/dialogue/sceneflow.xml
-    # this is always relative to inputFile!
-    output: dialogue
-    ontology: src/main/resources/ontology/automata
+  host: host.docker.internal
