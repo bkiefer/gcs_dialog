@@ -1,0 +1,27 @@
+# Points to the HFC config file
+ontologyFile:       src/main/resources/ontology/ini/gcs.yml
+agentBase:          de.dfki.vondabase.BaseAgent
+
+nameToURI:
+  Agent : <dom:Actor>
+  Robot : <dom:Robot>
+
+NLG:
+  de_DE:
+    class: de.dfki.mlt.rudimant.agent.nlp.LanguageGenerator
+    mapperProject: src/main/resources/cplanner/allrules-mapper
+    generationProject: src/main/resources/cplanner/allrules
+NLU:
+  de_DE:
+    class: de.dfki.mlt.rudimant.agent.nlp.CombinedInterpreter
+    instances:
+    - class: de.dfki.mlt.rudimant.agent.nlp.SrgsParser
+      grammar: src/main/resources/grammars/srgs/responses.gram
+      converter: src/main/resources/cplanner/srgsconv
+      tokenizer:
+        class: de.dfki.mlt.rudimant.agent.nlp.TrivialTokenizer
+        toLower: false
+        removePunctuation: true
+
+mqtt:
+  host: mqtt-broker

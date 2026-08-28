@@ -30,5 +30,10 @@ data/Ontology/catalog-v001.xml
 deploy/
 common_lib/
 logs/**
+!logs/.gitkeep
 wech/**
 **/.$*.bkp
+models/**
+!models/.gitkeep
+.env*
+BUILD*

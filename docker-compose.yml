@@ -1,7 +1,4 @@
-# Docker compose file used to load the broker, ASR, and dialogue_manager
-# TTS still to do
-version: "3"
-
+# Docker compose file used to load the broker, ASR, TTS, and dialogue_manager
 networks:
   mlt:
     driver: bridge
@@ -20,42 +17,81 @@ services:
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
 
-  asr:
-    image: 'alphacep/kaldi-de:latest'
-    container_name: 'gcs_kaldi_asr'
+  asr_micro:
+    depends_on:
+      - broker
+    image: 'whisper-gstreamer:${ASR_VERSION}'
+    environment:
+      PULSE_SERVER: "unix:${XDG_RUNTIME_DIR}/pulse/native"
+    command: ["/bin/sh", "-c",
+              "./run_vosk.sh -c config.yml 2>&1 | tee logs/asr.log"]
     networks:
       - mlt
-    ports:
-      - '2700:2700'
+    container_name: 'asr_micro'
+    restart: always
+    hostname: 'asr_micro'
+    devices:
+      - /dev/snd
+    group_add:
+      - audio
+    volumes:
+      - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
+      - ${HOME}/.config/pulse-cookie:/root/.config/pulse-cookie
+      - ./configs/respeaker_asr_config.yml:/app/config.yml:ro
+      - ./whisper-gstreamer/models:/app/models
+      - ./logs/${LOGDIR}/audio:/app/audio
+      - ./logs/${LOGDIR}/outputs:/app/outputs
+      - ./logs/${LOGDIR}:/app/logs
+      - ./inputs:/app/inputs
 
-  # Currently, this is using gstreamer and must be run on the machine itself
-  # asr_micro:
-  #   image: 'vosk_asr'
-  #   container_name: 'gcs_asr_micro'
-  #   networks:
-  #     - mlt
-  #   volumes:
-  #     - ./respeaker_config.yaml:/app/user_config.yaml:ro
+  tts:
+    depends_on:
+      - broker
+    image: 'tts-mqtt-server:${TTS_VERSION}'
+    environment:
+      PULSE_SERVER: "unix:${XDG_RUNTIME_DIR}/pulse/native"
+    command: ["/bin/sh", "-c", "./run.sh config.yml 2>&1 | tee logs/asr.log"]
+    networks:
+      - mlt
+    container_name: 'tts'
+    restart: always
+    hostname: 'tts'
+    devices:
+      - /dev/snd
+    group_add:
+      - audio
+    volumes:
+      - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
+      - ${HOME}/.config/pulse-cookie:/root/.config/pulse-cookie
+      - ./configs/respeaker_tts_config.yml:/app/config.yml:ro
+      - ./mqtt-tts/models:/app/models
+      - ./logs/${LOGDIR}/audio:/app/audio
+      - ./logs/${LOGDIR}/outputs:/app/outputs
+      - ./logs/${LOGDIR}:/app/logs
+      - ./inputs:/app/inputs
 
   dialog_manager:
     depends_on:
       - broker
-#      - asr
+      - asr_micro
+      - tts
     build:
       context: .
-    image:  drz/gcs_dialog_manager:latest
+    image:  drz/gcs_dialog_manager:$GCS_VERSION
     networks:
       - mlt
     container_name:  gcs_dialog_manager
+    #command: ["/bin/sh", "-c", "java -jar gcs_dialog.jar 2>&1 | tee logs/gcs_dialog.log"]
+    hostname: "gcs_dialog_manager"
     # environment:
     #   - DISPLAY=${DISPLAY}
     #   - ROS_MASTER_URI=${ROS_MASTER_URI}
     #   - ROS_IP=${ROS_IP}
     #   - DIA_IP=${DIA_IP}
     volumes:
-      - ./config.yml:/config.yml
+      - ./configs/gcs_config.yml:/app/config.yml
     #privileged: true
     #network_mode: host
-    restart: ${RESTART_POLICY}
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    restart: always
+    #stdin_open: true # docker run -i
+    #tty: true        # docker run -t

@@ -1,3 +1,9 @@
 [submodule "GraVE"]
 	path = GraVE
 	url = https://github.com/bkiefer/GraVE.git
+[submodule "whisper-gstreamer"]
+	path = whisper-gstreamer
+	url = https://github.com/bkiefer/whisper-gstreamer.git
+[submodule "mqtt-tts"]
+	path = mqtt-tts
+	url = https://github.com/bkiefer/mqtt-tts.git
