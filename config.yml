@@ -1,6 +1,10 @@
 # Points to the HFC config file
 ontologyFile:       src/main/resources/ontology/ini/gcs.yml
 
+# If TTS is active, ASR is suppressed
+ttsStopsAsr:        true
+
+
 # ########## COMPILE CONFIGURATION SETTINGS ##########
 inputFile:          src/main/rudi/DialogAgent.rudi
 outputDirectory:    src/main/gen-java

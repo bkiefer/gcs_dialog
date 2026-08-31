@@ -12,21 +12,9 @@ This module handles the natural language interaction part of the Glasgow Coma Sc
 
     git clone git@github.com:bkiefer/gcs_dialog.git
 
-## build the supporting modules (ASR and TTS) and download their models
+## build all modules (asr, tts and dialog) and download necessary models
 
     ./build_modules.sh -a
-
-## compile and build the docker image `drz/gcs_dialog_manager`
-
-    mvn -U clean
-    ./install.sh
-    ./build_docker.sh
-
-This will also pull in the GraVE project as a submodule, the automata editor can also be started from there.
-
-# Start the docker image in isolation
-
-    ./start_docker.sh
 
 # Start the whole pipeline using docker compose
 
@@ -37,3 +25,19 @@ The pipeline can be shut down completely by executing
     docker compose down
 
 in this directory.
+
+# Build and start the dialogue manager in isolation
+
+## To compile and build the docker image `drz/gcs_dialog_manager`
+
+This is included in the build step above, it's only necessary for troubleshooting or development.
+
+    mvn -U clean
+    ./install.sh
+    ./build_docker.sh
+
+It will also pull in the GraVE project as a submodule, the automata editor can also be started from there to make modifications.
+
+# Start the docker image in isolation
+
+    ./start_docker.sh

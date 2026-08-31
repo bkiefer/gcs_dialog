@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 . $(dirname $0)/utils.sh
 
 GREEN='\e[42m\e[1;30m'
@@ -52,6 +52,11 @@ build_tts() {
     _reportSuccess "tts"
 }
 
+build_dialog() {
+    mvn -U clean
+    ./install.sh -n
+    ./build_docker.sh
+}
 
 while getopts anb: c
 do
@@ -77,6 +82,7 @@ create_env_file
 if test "$all" = "true"; then
     build_asr
     build_tts
+    build_dialog
 else
     for mod; do
         build_$mod

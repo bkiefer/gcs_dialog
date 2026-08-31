@@ -1,6 +1,8 @@
 # Points to the HFC config file
 ontologyFile:       src/main/resources/ontology/ini/gcs.yml
 agentBase:          de.dfki.vondabase.BaseAgent
+# If TTS is active, ASR is suppressed
+ttsStopsAsr:        true
 
 nameToURI:
   Agent : <dom:Actor>

@@ -1,9 +1,17 @@
 package de.dfki.vondabase;
 
-import static de.dfki.vondabase.Constants.*;
+import static de.dfki.vondabase.Constants.ASR_CTRL_TOPIC;
+import static de.dfki.vondabase.Constants.ASR_TOPIC;
+import static de.dfki.vondabase.Constants.IN_TOPIC;
+import static de.dfki.vondabase.Constants.OUT_TOPIC;
+import static de.dfki.vondabase.Constants.TTS_STOPS_ASR;
+import static de.dfki.vondabase.Constants.TTS_TOPIC;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -75,6 +83,36 @@ public class BaseCommunicationHub implements CommunicationHub {
     return ! cmd.isEmpty();
   }
 
+
+  private String toString(byte[] payload) {
+    try (InputStreamReader is = new InputStreamReader(
+        new ByteArrayInputStream(payload),
+        Charset.forName("UTF-8"))) {
+      String s = is.readAllAsString();
+      return s;
+    } catch (Exception ex) {
+    }
+    return null;
+  }
+
+  /** In case it's specified in the config file, suppress ASR while TTS is
+   *  active. To do this, pick up the TTS status messages and send ASR control
+   *  messages as reaction.
+   */
+  private boolean reactToTTS(byte[] b) {
+    if (_configs.containsKey(TTS_STOPS_ASR)
+        && (Boolean)_configs.get(TTS_STOPS_ASR)) {
+      String s = toString(b);
+      if (s == null) return false;
+      if (s.contains("tts_started")) {
+        client.sendMessage(ASR_CTRL_TOPIC, "pause_mic");
+      } else if (s.contains("tts_stopped")) {
+        client.sendMessage(ASR_CTRL_TOPIC, "unpause_mic");
+      }
+    }
+    return true;
+  }
+
   /** While this method is executed, no MQTT messages should be processed. This
    * could be done using synchronized, but it would be better and more efficient
    * to temporarily disconnect from the broker.
@@ -95,8 +133,7 @@ public class BaseCommunicationHub implements CommunicationHub {
     client = new MqttHandler(configs);
     client.register(IN_TOPIC, this::receiveMqtt);
     client.register(ASR_TOPIC + "/de", this::receiveAsr);
-    // do I need to subscribe to publish? NO!
-    //client.register(OUT_TOPIC);
+    client.register(OUT_TOPIC, this::reactToTTS);
     ////////////////////////////////////////
   }
 

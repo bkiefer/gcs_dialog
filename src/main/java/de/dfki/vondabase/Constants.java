@@ -14,10 +14,14 @@ public interface Constants {
 
   // MQTT TOPICS
 
-  String IN_TOPIC = "core/messages";
-  String ASR_TOPIC = "voskasr/asrresult";
+  public static final String IN_TOPIC = "core/messages";
+  public static final String ASR_TOPIC = "voskasr/asrresult";
+  public static final String ASR_CTRL_TOPIC = "voskasr/control";
 
-  String OUT_TOPIC = "dialogue/messages";
-  String TTS_TOPIC = "tts/behaviour";
+  public static final String OUT_TOPIC = "dialogue/messages";
+  public static final String TTS_TOPIC = "tts/behaviour";
+
+  // ASR is suppressed when TTS is active?
+  public static final String TTS_STOPS_ASR = "ttsStopsAsr";
 
 }
