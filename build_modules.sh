@@ -34,20 +34,22 @@ create_env_file() {
 
 build_asr() {
     # ASR and speaker identification
-    cd "$script_dir"/whisper-gstreamer || _exitOnError "asr"
-    (./build_docker.sh &&
-         # download silero and vosk model
-         ./download-models-vosk.sh) 2>&1 | tee "$logfile" || _exitOnError "asr"
+    ((set pipefail -o
+      cd "$script_dir"/whisper-gstreamer
+      ./build_docker.sh &&
+          # download silero and vosk model
+          ./download-models-vosk.sh 2>&1) | tee "$logfile") || _exitOnError "asr"
     cd "$script_dir"
     _reportSuccess "asr"
 }
 
 build_tts() {
     # Build docker for TTS
-    cd "$script_dir"/mqtt-tts || _exitOnError "tts"
-    # model_download.sh needs the docker image built before
-    (./build_docker.sh &&
-         ./coqui_dld_model.sh) 2>&1 | tee -a "$logfile" || _exitOnError "tts"
+    ((set pipefail -o
+      cd "$script_dir"/mqtt-tts
+      # model_download.sh needs the docker image built before
+      ./build_docker.sh &&
+          ./coqui_dld_model.sh tts_models/de/thorsten/tacotron2-DDC) 2>&1 | tee -a "$logfile") || _exitOnError "tts"
     cd "$script_dir"
     _reportSuccess "tts"
 }
