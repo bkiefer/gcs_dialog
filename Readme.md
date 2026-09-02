@@ -14,7 +14,7 @@ This module handles the natural language interaction part of the Glasgow Coma Sc
 
 ## build all modules (asr, tts and dialog) and download necessary models
 
-    ./build_modules.sh -a
+    ./build_modules.sh -u -a
 
 # Start the whole pipeline using docker compose
 

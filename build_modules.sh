@@ -7,6 +7,8 @@ YELLOW='\e[93m'
 RED='\e[31m'
 NC='\033[0m' # No Color
 
+export UPDATE=""
+
 function _exitOnError {
     printf "${RED}ERROR during build or model download $1 ${NC}\n";
     exit -1;
@@ -48,7 +50,7 @@ build_tts() {
     ((set pipefail -o
       cd "$script_dir"/mqtt-tts
       # model_download.sh needs the docker image built before
-      ./build_docker.sh &&
+      ./build_docker.sh $UPDATE &&
           ./coqui_dld_model.sh tts_models/de/thorsten/tacotron2-DDC) 2>&1 | tee -a "$logfile") || _exitOnError "tts"
     cd "$script_dir"
     _reportSuccess "tts"
@@ -60,22 +62,22 @@ build_dialog() {
     ./build_docker.sh
 }
 
-while getopts anb: c
+while getopts aub: c
 do
     case $c in
         a)  all="true";;
-        n)  no_update="true" ;;
+        u)  UPDATE="-u" ;;
         b)  build="$OPTARG" ;;
-        *)  echo "Usage: $0 [-<a>ll] [-<n>oupdate] [module1, module2 ...]
+        *)  echo "Usage: $0 [-<a>ll] [-<u>pdate_repo] [module1, module2 ...]
 
-no update will skip updating the git submodules.
-module must be one of 'asr', 'intentslot', 'vonda' or 'mkm'
+update will pull the git repository and all subrepositories recursively
+module must be one of 'asr', 'tts', or 'dialog'
 "
     esac
 done
 shift `expr $OPTIND - 1`
 
-if test -z "$no_update" ; then # check out and update all modules
+if test -n "$UPDATE" ; then # check out and update all modules
    ./update_repo.sh
 fi
 
