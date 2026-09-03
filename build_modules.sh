@@ -1,5 +1,8 @@
 #!/bin/bash
 #set -x
+logfile="`pwd`/BUILD`date -Iseconds|sed 's/[: ]/_/g'`.log"
+exec &> >(tee "$logfile")
+
 . $(dirname $0)/utils.sh
 
 GREEN='\e[42m\e[1;30m'
@@ -11,14 +14,12 @@ export UPDATE=""
 
 function _exitOnError {
     printf "${RED}ERROR during build or model download $1 ${NC}\n";
-    exit -1;
+    exit 1;
 }
 
 function _reportSuccess {
     printf "${GREEN}$1 successfully built${NC}\n";
 }
-
-logfile="`pwd`/BUILD`date -Iseconds|sed 's/[: ]/_/g'`.log"
 
 toml_version() {
     path="."
@@ -36,22 +37,21 @@ create_env_file() {
 
 build_asr() {
     # ASR and speaker identification
-    ((set pipefail -o
-      cd "$script_dir"/whisper-gstreamer
-      ./build_docker.sh &&
-          # download silero and vosk model
-          ./download-models-vosk.sh 2>&1) | tee "$logfile") || _exitOnError "asr"
+    cd "$script_dir"/whisper-gstreamer
+    ./build_docker.sh || _exitOnError "asr"
+    # download silero and vosk model
+    ./download-models-vosk.sh || _exitOnError "asr"
     cd "$script_dir"
     _reportSuccess "asr"
 }
 
 build_tts() {
     # Build docker for TTS
-    ((set pipefail -o
-      cd "$script_dir"/mqtt-tts
-      # model_download.sh needs the docker image built before
-      ./build_docker.sh $UPDATE &&
-          ./coqui_dld_model.sh tts_models/de/thorsten/tacotron2-DDC) 2>&1 | tee -a "$logfile") || _exitOnError "tts"
+    cd "$script_dir"/mqtt-tts
+    tts_model="tts_models/de/thorsten/tacotron2-DDC"
+    ./build_docker.sh $UPDATE || _exitOnError "tts"
+    # model_download.sh needs the docker image built before
+    ./coqui_dld_model.sh "$tts_model" || _exitOnError "tts"
     cd "$script_dir"
     _reportSuccess "tts"
 }
@@ -84,11 +84,9 @@ fi
 create_env_file
 
 if test "$all" = "true"; then
-    build_asr
-    build_tts
-    build_dialog
+    build_asr && build_tts && build_dialog
 else
     for mod; do
-        build_$mod
+        build_$mod || exit
     done
 fi

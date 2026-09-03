@@ -36,12 +36,12 @@ services:
       - audio
     volumes:
       - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
-      - ${HOME}/.config/pulse-cookie:/root/.config/pulse-cookie
+      - ${HOME}/.config/pulse/cookie:/root/.config/pulse/cookie
       - ./configs/respeaker_asr_config.yml:/app/config.yml:ro
       - ./whisper-gstreamer/models:/app/models
-      - ./logs/${LOGDIR}/audio:/app/audio
-      - ./logs/${LOGDIR}/outputs:/app/outputs
-      - ./logs/${LOGDIR}:/app/logs
+      - ${LOGDIR}/audio:/app/audio
+      - ${LOGDIR}/outputs:/app/outputs
+      - ${LOGDIR}:/app/logs
       - ./inputs:/app/inputs
 
   tts:
@@ -62,12 +62,12 @@ services:
       - audio
     volumes:
       - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
-      - ${HOME}/.config/pulse-cookie:/root/.config/pulse-cookie
+      - ${HOME}/.config/pulse/cookie:/root/.config/pulse/cookie
       - ./configs/respeaker_tts_config.yml:/app/config.yml:ro
       - ./mqtt-tts/models:/app/models
-      - ./logs/${LOGDIR}/audio:/app/audio
-      - ./logs/${LOGDIR}/outputs:/app/outputs
-      - ./logs/${LOGDIR}:/app/logs
+      - ${LOGDIR}/audio:/app/audio
+      - ${LOGDIR}/outputs:/app/outputs
+      - ${LOGDIR}:/app/logs
       - ./inputs:/app/inputs
 
   dialog_manager:
@@ -90,6 +90,7 @@ services:
     #   - DIA_IP=${DIA_IP}
     volumes:
       - ./configs/gcs_config.yml:/app/config.yml
+      - ${LOGDIR}:/app/logs
     #privileged: true
     #network_mode: host
     restart: always
